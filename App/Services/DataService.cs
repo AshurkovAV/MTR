@@ -9081,6 +9081,7 @@ namespace Medical.AppLayer.Services
                         List<Tuple<ZFactMedicalEvent,
                             List<ZFactDirection>,
                             List<ZFactConsultations>,
+                            List<ZFactDs>,
                             Tuple<ZFactMedicalEventOnk,
                                 List<ZFactDiagBlok>,
                                 List<ZFactContraindications>,
@@ -9139,6 +9140,7 @@ namespace Medical.AppLayer.Services
                         List<Tuple<ZFactMedicalEvent,
                             List<ZFactDirection>,
                             List<ZFactConsultations>,
+                            List<ZFactDs>,
                             Tuple<ZFactMedicalEventOnk,
                                 List<ZFactDiagBlok>,
                                 List<ZFactContraindications>,
@@ -9207,7 +9209,8 @@ namespace Medical.AppLayer.Services
                             //тег случай
                             var mevents = new List<Tuple<ZFactMedicalEvent,
                             List<ZFactDirection>,
-                            List<ZFactConsultations>,
+                            List<ZFactConsultations>, 
+                            List<ZFactDs>,
                             Tuple<ZFactMedicalEventOnk,
                                 List<ZFactDiagBlok>,
                                 List<ZFactContraindications>,
@@ -9250,6 +9253,17 @@ namespace Medical.AppLayer.Services
                                     {
                                         if (cons == null) continue;
                                         сonsultations.Add(Map.ObjectToObject<ZFactConsultations>(cons));
+                                    }
+                                }
+
+                                var dsResult = _repository.GetZDsBySlMeventId(eventId);
+                                var ds2 = new List<ZFactDs>();
+                                if (dsResult.Success && dsResult.Data.IsNotNull())
+                                {
+                                    foreach (var ds in dsResult.Data)
+                                    {
+                                        if (ds == null) continue;
+                                        ds2.Add(Map.ObjectToObject<ZFactDs>(ds));
                                     }
                                 }
 
@@ -9352,7 +9366,7 @@ namespace Medical.AppLayer.Services
                                         services.Add(service);
                                     }
                                 }
-                                mevents.Add(Tuple.Create(mevent, directions, сonsultations, medicalEventOnk, Tuple.Create(ksgKpg, critList, slKoefs), services));
+                                mevents.Add(Tuple.Create(mevent, directions, сonsultations, ds2, medicalEventOnk, Tuple.Create(ksgKpg, critList, slKoefs), services));
                             }
                             var refusals = new List<ZFactExternalRefuse>();
 
@@ -9499,6 +9513,7 @@ namespace Medical.AppLayer.Services
                         List<Tuple<ZFactMedicalEvent,
                             List<ZFactDirection>,
                             List<ZFactConsultations>,
+                            List<ZFactDs>,
                             Tuple<ZFactMedicalEventOnk,
                                 List<ZFactDiagBlok>,
                                 List<ZFactContraindications>,
@@ -9542,7 +9557,6 @@ namespace Medical.AppLayer.Services
                         }
                         else
                         {
-
                             continue;
                         }
                     }
@@ -9557,6 +9571,7 @@ namespace Medical.AppLayer.Services
                         List<Tuple<ZFactMedicalEvent,
                             List<ZFactDirection>,
                             List<ZFactConsultations>,
+                            List<ZFactDs>,
                             Tuple<ZFactMedicalEventOnk,
                                 List<ZFactDiagBlok>,
                                 List<ZFactContraindications>,
@@ -9626,6 +9641,7 @@ namespace Medical.AppLayer.Services
                             var mevents = new List<Tuple<ZFactMedicalEvent,
                             List<ZFactDirection>,
                             List<ZFactConsultations>,
+                            List<ZFactDs>,
                             Tuple<ZFactMedicalEventOnk,
                                 List<ZFactDiagBlok>,
                                 List<ZFactContraindications>,
@@ -9668,6 +9684,17 @@ namespace Medical.AppLayer.Services
                                     {
                                         if (cons == null) continue;
                                         сonsultations.Add(Map.ObjectToObject<ZFactConsultations>(cons));
+                                    }
+                                }
+
+                                var dsResult = _repository.GetZDsBySlMeventId(eventId);
+                                var ds2 = new List<ZFactDs>();
+                                if (dsResult.Success && dsResult.Data.IsNotNull())
+                                {
+                                    foreach (var ds in dsResult.Data)
+                                    {
+                                        if (ds == null) continue;
+                                        ds2.Add(Map.ObjectToObject<ZFactDs>(ds));
                                     }
                                 }
 
@@ -9770,7 +9797,7 @@ namespace Medical.AppLayer.Services
                                         services.Add(service);
                                     }
                                 }
-                                mevents.Add(Tuple.Create(mevent, directions, сonsultations, medicalEventOnk, Tuple.Create(ksgKpg, critList, slKoefs), services));
+                                mevents.Add(Tuple.Create(mevent, directions, сonsultations, ds2, medicalEventOnk, Tuple.Create(ksgKpg, critList, slKoefs), services));
                             }
                             var refusals = new List<ZFactExternalRefuse>();
 

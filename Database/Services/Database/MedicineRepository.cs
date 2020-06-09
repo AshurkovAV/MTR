@@ -10389,7 +10389,7 @@ namespace Medical.DatabaseCore.Services.Database
                                     {
                                         ds2.ForEach(s =>
                                         {
-                                            s.ZmedicalEventId = meventId;
+                                            s.ZmedicalEventId = zFactmedicalEventInsertResultId;
                                         });
                                         var insertds2Result = db.InsertBatch(ds2);
                                         if (Convert.ToInt32(insertds2Result) == 0)
@@ -13835,6 +13835,7 @@ namespace Medical.DatabaseCore.Services.Database
                         List<Tuple<ZFactMedicalEvent,
                             List<ZFactDirection>,
                             List<ZFactConsultations>,
+                            List<ZFactDs>,
                             Tuple<ZFactMedicalEventOnk,
                                 List<ZFactDiagBlok>,
                                 List<ZFactContraindications>,
@@ -13937,7 +13938,22 @@ namespace Medical.DatabaseCore.Services.Database
                                     }
                                 }
 
-                                var medicalEventOnk = zmevent.Item4.Item1;
+                                var ds2 = zmevent.Item4;
+                                if (ds2.Any())
+                                {
+                                    ds2.ForEach(s =>
+                                    {
+                                        s.ZmedicalEventId = meventId;
+                                    });
+                                    var insertds2Result = db.InsertBatch(ds2);
+                                    if (Convert.ToInt32(insertds2Result) == 0)
+                                    {
+                                        result.AddError(string.Format("Ошибка при записи сопутствующего диагноза в базу данных"));
+                                        db.RollbackTransaction();
+                                        return result;
+                                    }
+                                }
+                                var medicalEventOnk = zmevent.Item5.Item1;
                                 if (medicalEventOnk != null)
                                 {
                                     ControlResourcesLoger.LogDedug(zmevent.Item1.SlIdGuid + " - " + zmevent.Item1.ExternalId);
@@ -13951,7 +13967,7 @@ namespace Medical.DatabaseCore.Services.Database
                                         return result;
                                     }
 
-                                    var diagBloks = zmevent.Item4.Item2;
+                                    var diagBloks = zmevent.Item5.Item2;
                                     if (diagBloks.Any())
                                     {
                                         diagBloks.ForEach(s => s.ZMedicalEventOnkId = zmedicalEventOnkId);
@@ -13963,7 +13979,7 @@ namespace Medical.DatabaseCore.Services.Database
                                             return result;
                                         }
                                     }
-                                    var сontraindications = zmevent.Item4.Item3;
+                                    var сontraindications = zmevent.Item5.Item3;
                                     if (сontraindications.Any())
                                     {
                                         сontraindications.ForEach(s => s.ZMedicalEventOnkId = zmedicalEventOnkId);
@@ -13975,7 +13991,7 @@ namespace Medical.DatabaseCore.Services.Database
                                             return result;
                                         }
                                     }
-                                    var zFactMedicalServiceOnk = zmevent.Item4.Item4;
+                                    var zFactMedicalServiceOnk = zmevent.Item5.Item4;
                                     if (zFactMedicalServiceOnk.Any())
                                     {
                                         foreach (var usl in zFactMedicalServiceOnk)
@@ -14007,7 +14023,7 @@ namespace Medical.DatabaseCore.Services.Database
                                     }
                                 }
 
-                                var ksgKpg = zmevent.Item5.Item1;
+                                var ksgKpg = zmevent.Item6.Item1;
                                 if (ksgKpg != null)
                                 {
                                     ksgKpg.ZmedicalEventId = meventId;
@@ -14020,7 +14036,7 @@ namespace Medical.DatabaseCore.Services.Database
                                         return result;
                                     }
 
-                                    var slcrit = zmevent.Item5.Item2;
+                                    var slcrit = zmevent.Item6.Item2;
                                     if (slcrit.Any())
                                     {
                                         slcrit.ForEach(s => s.ZksgKpgId = zksgKpgId);
@@ -14033,7 +14049,7 @@ namespace Medical.DatabaseCore.Services.Database
                                         }
                                     }
 
-                                    var slKoefs = zmevent.Item5.Item3;
+                                    var slKoefs = zmevent.Item6.Item3;
                                     if (slKoefs.Any())
                                     {
                                         slKoefs.ForEach(s => s.ZksgKpgId = zksgKpgId);
@@ -14047,7 +14063,7 @@ namespace Medical.DatabaseCore.Services.Database
                                     }
                                 }
 
-                                var services = zmevent.Item6;
+                                var services = zmevent.Item7;
                                 if (services.Any())
                                 {
                                     services.ForEach(s => s.ZmedicalEventId = meventId);

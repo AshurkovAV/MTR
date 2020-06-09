@@ -559,6 +559,7 @@ namespace Medical.DatabaseCore.Services.Database
                 List<Tuple<ZFactMedicalEvent,
                     List<ZFactDirection>,
                     List<ZFactConsultations>,
+                    List<ZFactDs>,
                     Tuple<ZFactMedicalEventOnk,
                         List<ZFactDiagBlok>,
                         List<ZFactContraindications>,
