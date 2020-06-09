@@ -1,0 +1,99 @@
+﻿<UserControl x:Class="Medical.AppLayer.Operator.Views.SrzResultView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Height="Auto" 
+        xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid" 
+        xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol"
+        xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
+        xmlns:converters1="clr-namespace:Medical.AppLayer.Converters"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        mc:Ignorable="d" 
+        d:DesignHeight="600" 
+        d:DesignWidth="800">
+    
+    <UserControl.Resources>
+        <converters1:TerritoryConverter x:Key="TerritoryConverter"/>
+        <converters1:DateTimeConverter x:Key="DateTimeConverter"/>
+    </UserControl.Resources>
+
+    <Grid>
+        <dxlc:LayoutControl ItemSpace="0" Orientation="Vertical">
+            <dxlc:LayoutGroup>
+                <dxlc:LayoutItem VerticalAlignment="Stretch" Width="170">
+                    <dxe:ListBoxEdit ItemsSource="{Binding SrzQueryList}" SelectedItem="{Binding SelectedSrzQuery}" DisplayMember="Details" ValueMember="SrzQueryId">
+                        
+                    </dxe:ListBoxEdit>
+                </dxlc:LayoutItem>
+                <dxlc:LayoutItem VerticalAlignment="Stretch">
+                    <dxg:GridControl AutoPopulateColumns="False" 
+                                     HorizontalAlignment="Stretch" 
+                                     VerticalAlignment="Stretch" 
+                                     ItemsSource="{Binding Answers}"
+                                     ShowBorder="False"
+                                     UseLayoutRounding="True" FontSize="12">
+                        <dxg:GridControl.Resources>
+                            <Style x:Key="optimizedRowStyle" TargetType="{x:Type dxg:RowControl}">
+                                <Style.Triggers>
+                                    <MultiDataTrigger>
+                                        <MultiDataTrigger.Conditions>
+                                            <Condition Binding="{Binding Path=SelectionState}" Value="None"/>
+                                        </MultiDataTrigger.Conditions>
+                                        <Setter Property="Background" Value="{Binding Path=Row.Status, Converter={converters1:IntoToColorConverter2}}"/>
+                                    </MultiDataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </dxg:GridControl.Resources>
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="ItemsSourceChanged">
+                                <ei:CallMethodAction TargetObject="{Binding ElementName=tableView}" MethodName="BestFitColumns"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                        
+                        <dxg:GridControl.Columns>
+                            <dxg:GridColumn FieldName="enp" Header="ЕНП"/>
+                            <dxg:GridColumn FieldName="main_enp" Header="Гл. ЕНП"/>
+                            <dxg:GridColumn FieldName="inssernum" Header="№ полиса"/>
+                            <dxg:GridColumn FieldName="date_beg" Header="Дата начала" SortIndex="0">
+                                <dxg:GridColumn.EditSettings>
+                                    <dxe:TextEditSettings DisplayTextConverter="{StaticResource DateTimeConverter}" TextWrapping="WrapWithOverflow" />
+                                </dxg:GridColumn.EditSettings>
+                            </dxg:GridColumn>
+                            <dxg:GridColumn FieldName="date_end" Header="Дата окончания">
+                                <dxg:GridColumn.EditSettings>
+                                    <dxe:TextEditSettings TextWrapping="WrapWithOverflow" DisplayTextConverter="{StaticResource DateTimeConverter}"/>
+                                </dxg:GridColumn.EditSettings>
+                            </dxg:GridColumn>
+                            <dxg:GridColumn FieldName="terr_code" Header="Территория">
+                                <dxg:GridColumn.EditSettings>
+                                    <dxe:TextEditSettings DisplayTextConverter="{StaticResource TerritoryConverter}"/>
+                                </dxg:GridColumn.EditSettings>
+                            </dxg:GridColumn>
+
+
+                        </dxg:GridControl.Columns>
+                        <dxg:GridControl.View>
+                            <dxg:TableView Name="tableView" 
+                                           ShowTotalSummary="True" 
+                                           AllowEditing="False" 
+                                            ShowIndicator="True"
+                                            AllowCascadeUpdate="True"        
+                                            ShowGroupPanel="False" 
+                                            ShowAutoFilterRow="False" 
+                                            NavigationStyle="None"
+                                            WaitIndicatorType="Panel"
+                                            RowAnimationKind="None"
+                                           HeaderPanelMinHeight="35"
+                                           RowStyle="{StaticResource optimizedRowStyle}"/>
+                        </dxg:GridControl.View>
+                    </dxg:GridControl>
+                </dxlc:LayoutItem>
+            </dxlc:LayoutGroup>
+            <dxlc:LayoutItem Height="84">
+                <dxe:ListBoxEdit Foreground="#FFDE0000" ItemsSource="{Binding Errors}" DisplayMember="error_full"/>
+            </dxlc:LayoutItem>
+        </dxlc:LayoutControl>
+    </Grid>
+</UserControl>

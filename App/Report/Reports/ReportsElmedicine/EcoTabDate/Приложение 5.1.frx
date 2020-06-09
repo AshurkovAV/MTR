@@ -1,0 +1,271 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report ScriptLanguage="CSharp" ReportInfo.Created="04/10/2013 23:47:48" ReportInfo.Modified="11/10/2013 22:24:27" ReportInfo.CreatorVersion="2013.2.5.0">
+  <Dictionary>
+    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlq8t93nSWexhhpWnz+Fua3mP7ELisVZXsCcWxxngsb9dDZZwe3B6OcZYP8PN+QVsCQ5Wepf+piBoDQJUYfPwkUSXbPZe62mWyaZOdStCL67u35h2Uxj/iC1KEkhfYa3KFmPwjwoTIa4xuuqugRYlNcGavrLYU/tQilcD5wahnf0kzEmTGjMua4Ab8oL3R0sTXZ">
+      <TableDataSource Name="Table" DataType="System.Int32" Enabled="true" SelectCommand="select lpu.nam_mok, &#13;&#10;kol_ped_p_m, kol_diab_p_m,&#13;&#10;kol_ped_v_m, kol_diab_v_m,&#13;&#10;kol_ped_p_y, kol_diab_p_y,&#13;&#10;kol_ped_v_y, kol_diab_v_y&#13;&#10;from(&#13;&#10;select isnull(t5.LPU, t6.LPU) as lpu, &#13;&#10;isnull(kol_ped_p_m, 0) kol_ped_p_m, isnull(kol_diab_p_m, 0)kol_diab_p_m,&#13;&#10;isnull(kol_ped_v_m, 0) kol_ped_v_m, isnull(kol_diab_v_m, 0)kol_diab_v_m,&#13;&#10;isnull(kol_ped_p_y, 0) kol_ped_p_y, isnull(kol_diab_p_y, 0)kol_diab_p_y,&#13;&#10;isnull(kol_ped_v_y, 0) kol_ped_v_y, isnull(kol_diab_v_y, 0)kol_diab_v_y&#13;&#10;from(&#13;&#10;--текущий месяц&#13;&#10;select isnull(t3.LPU, t4.LPU) as lpu,kol_ped_p as kol_ped_p_m, kol_diab_p as kol_diab_p_m,&#13;&#10;kol_ped_v as kol_ped_v_m, kol_diab_v as kol_diab_v_m&#13;&#10;from(&#13;&#10;--Предъявлено счетов&#13;&#10;select isnull(t1.LPU, t2.LPU) as lpu,kol_ped as kol_ped_p, kol_diab as kol_diab_p &#13;&#10;from (&#13;&#10;--педиатрия&#13;&#10;select LPU, count(LPU) kol_ped&#13;&#10;from sluch sl&#13;&#10;inner join SCHET sc on sl.SCHET_ID = sc.ID &#13;&#10;WHERE (sc.[MONTH] &gt;= @M1 and sc.[YEAR] &gt;= @Y1) and (sc.[MONTH] &lt;= @M2 and sc.[YEAR] &lt;= @Y2)&#13;&#10;	and LPU in (460078, 460021)&#13;&#10;	and profil in (68)&#13;&#10;group by LPU) t1&#13;&#10;full join&#13;&#10;--сахарный диабет&#13;&#10;(select LPU, count(LPU) kol_diab&#13;&#10;from sluch sl&#13;&#10;inner join SCHET sc on sl.SCHET_ID = sc.ID &#13;&#10;WHERE (sc.[MONTH] &gt;= @M1 and sc.[YEAR] &gt;= @Y1) and (sc.[MONTH] &lt;= @M2 and sc.[YEAR] &lt;= @Y2)&#13;&#10;	and LPU in (460078, 460021)&#13;&#10;	and profil in (22)&#13;&#10;group by LPU) t2 on t1.LPU = t2.LPU) t3&#13;&#10;&#13;&#10;full join&#13;&#10;&#13;&#10;--принято счетов&#13;&#10;(select isnull(t1.LPU, t2.LPU) as lpu,kol_ped as kol_ped_v, kol_diab as kol_diab_v &#13;&#10;from (&#13;&#10;--педиатрия&#13;&#10;select LPU, count(LPU) kol_ped&#13;&#10;from sluch sl&#13;&#10;inner join SCHET sc on sl.SCHET_ID = sc.ID &#13;&#10;WHERE (sc.[MONTH] &gt;= @M1 and sc.[YEAR] &gt;= @Y1) and (sc.[MONTH] &lt;= @M2 and sc.[YEAR] &lt;= @Y2)&#13;&#10;	and LPU in (460078, 460021)&#13;&#10;	and profil in (68)&#13;&#10;	and sank_it = 0&#13;&#10;group by LPU) t1&#13;&#10;full join&#13;&#10;--сахарный диабет&#13;&#10;(select LPU, count(LPU) kol_diab&#13;&#10;from sluch sl&#13;&#10;inner join SCHET sc on sl.SCHET_ID = sc.ID &#13;&#10;WHERE (sc.[MONTH] &gt;= @M1 and sc.[YEAR] &gt;= @Y1) and (sc.[MONTH] &lt;= @M2 and sc.[YEAR] &lt;= @Y2)&#13;&#10;	and LPU in (460078, 460021)&#13;&#10;	and profil in (22)&#13;&#10;	and sank_it = 0&#13;&#10;group by LPU) t2 on t1.LPU = t2.LPU) t4 on t3.LPU = t4.LPU) t5&#13;&#10;&#13;&#10;full join&#13;&#10;--Год&#13;&#10;(select isnull(t3.LPU, t4.LPU) as lpu,&#13;&#10;kol_ped_p as kol_ped_p_y, kol_diab_p as kol_diab_p_y,&#13;&#10;kol_ped_v as kol_ped_v_y, kol_diab_v as kol_diab_v_y&#13;&#10;from(&#13;&#10;--Предъявлено счетов&#13;&#10;select isnull(t1.LPU, t2.LPU) as lpu,kol_ped as kol_ped_p, kol_diab as kol_diab_p &#13;&#10;from (&#13;&#10;--педиатрия&#13;&#10;select LPU, count(LPU) kol_ped&#13;&#10;from sluch sl&#13;&#10;inner join SCHET sc on sl.SCHET_ID = sc.ID &#13;&#10;WHERE (sc.[YEAR] &gt;= @Y1 and sc.[YEAR] &lt;= @Y2)&#13;&#10;	and LPU in (460078, 460021)&#13;&#10;	and profil in (68)&#13;&#10;group by LPU) t1&#13;&#10;full join&#13;&#10;--сахарный диабет&#13;&#10;(select LPU, count(LPU) kol_diab&#13;&#10;from sluch sl&#13;&#10;inner join SCHET sc on sl.SCHET_ID = sc.ID &#13;&#10;WHERE (sc.[YEAR] &gt;= @Y1 and sc.[YEAR] &lt;= @Y2)&#13;&#10;	and LPU in (460078, 460021)&#13;&#10;	and profil in (22)&#13;&#10;group by LPU) t2 on t1.LPU = t2.LPU) t3&#13;&#10;&#13;&#10;full join&#13;&#10;&#13;&#10;--принято счетов&#13;&#10;(select isnull(t1.LPU, t2.LPU) as lpu,kol_ped as kol_ped_v, kol_diab as kol_diab_v &#13;&#10;from (&#13;&#10;--педиатрия&#13;&#10;select LPU, count(LPU) kol_ped&#13;&#10;from sluch sl&#13;&#10;inner join SCHET sc on sl.SCHET_ID = sc.ID &#13;&#10;WHERE (sc.[YEAR] &gt;= @Y1 and sc.[YEAR] &lt;= @Y2)&#13;&#10;	and LPU in (460078, 460021)&#13;&#10;	and profil in (68)&#13;&#10;	and sank_it = 0&#13;&#10;group by LPU) t1&#13;&#10;full join&#13;&#10;--сахарный диабет&#13;&#10;(select LPU, count(LPU) kol_diab&#13;&#10;from sluch sl&#13;&#10;inner join SCHET sc on sl.SCHET_ID = sc.ID &#13;&#10;WHERE (sc.[YEAR] &gt;= @Y1 and sc.[YEAR] &lt;= @Y2)&#13;&#10;	and LPU in (460078, 460021)&#13;&#10;	and profil in (22)&#13;&#10;	and sank_it = 0&#13;&#10;group by LPU) t2 on t1.LPU = t2.LPU) t4 on t3.LPU = t4.LPU) t6 on t5.LPU = t6.LPU) t7&#13;&#10;join f003 lpu on t7.lpu = lpu.mcod">
+        <Column Name="nam_mok" DataType="System.String"/>
+        <Column Name="kol_ped_p_m" DataType="System.Int32"/>
+        <Column Name="kol_diab_p_m" DataType="System.Int32"/>
+        <Column Name="kol_ped_v_m" DataType="System.Int32"/>
+        <Column Name="kol_diab_v_m" DataType="System.Int32"/>
+        <Column Name="kol_ped_p_y" DataType="System.Int32"/>
+        <Column Name="kol_diab_p_y" DataType="System.Int32"/>
+        <Column Name="kol_ped_v_y" DataType="System.Int32"/>
+        <Column Name="kol_diab_v_y" DataType="System.Int32"/>
+        <CommandParameter Name="@M1" DataType="8" DefaultValue="8"/>
+        <CommandParameter Name="@M2" DataType="8" DefaultValue="8"/>
+        <CommandParameter Name="@Y1" DataType="8" DefaultValue="2013"/>
+        <CommandParameter Name="@Y2" DataType="8" DefaultValue="2013"/>
+      </TableDataSource>
+    </MsSqlDataConnection>
+    <Parameter Name="@M1" DataType="System.Int32"/>
+    <Parameter Name="@M2" DataType="System.Int32"/>
+    <Parameter Name="@Y1" DataType="System.Int32"/>
+    <Parameter Name="@Y2" DataType="System.Int32"/>
+    <Total Name="Total" Expression="[Table.kol_ped_p_m]" Evaluator="Data1"/>
+    <Total Name="Total1" Expression="[Table.kol_diab_p_m]" Evaluator="Data1"/>
+    <Total Name="Total2" Expression="[Table.kol_ped_v_m]" Evaluator="Data1"/>
+    <Total Name="Total3" Expression="[Table.kol_diab_v_m]" Evaluator="Data1"/>
+    <Total Name="Total4" Expression="[Table.kol_ped_p_y]" Evaluator="Data1"/>
+    <Total Name="Total5" Expression="[Table.kol_diab_p_y]" Evaluator="Data1"/>
+    <Total Name="Total6" Expression="[Table.kol_ped_v_y]" Evaluator="Data1"/>
+    <Total Name="Total7" Expression="[Table.kol_diab_v_y]" Evaluator="Data1"/>
+  </Dictionary>
+  <ReportPage Name="Page1" Landscape="true" PaperWidth="297" PaperHeight="210" RawPaperSize="9" FirstPageSource="15" OtherPagesSource="15">
+    <ReportTitleBand Name="ReportTitle1" Width="1047.06" Height="245.7">
+      <TextObject Name="Text1" Left="226.8" Top="37.8" Width="557.55" Height="28.35" Text="Сведения о финансовом обеспечении медицинской помощи, оказываемой в санаториях, работающих в системе ОМС застрахованным ООО &quot;Росмедстрах - К&quot; "/>
+      <TextObject Name="Text5" Left="888.3" Top="9.45" Width="274.05" Height="37.8" Text="Приложение №5"/>
+      <TextObject Name="Text26" Left="406.35" Top="75.6" Width="151.2" Height="18.9" Text="за  __________ 2013г."/>
+      <TextObject Name="Text27" Left="444.15" Top="94.5" Width="47.25" Height="18.9" Text="(месяц)" Font="Arial, 7pt"/>
+      <TableObject Name="Table1" Top="122.85" Width="1039.5" Height="122.85">
+        <TableColumn Name="Column207" Width="94.5"/>
+        <TableColumn Name="Column208" Width="28.35"/>
+        <TableColumn Name="Column209" Width="47.25"/>
+        <TableColumn Name="Column210" Width="28.35"/>
+        <TableColumn Name="Column211" Width="47.25"/>
+        <TableColumn Name="Column212" Width="28.35"/>
+        <TableColumn Name="Column213" Width="47.25"/>
+        <TableColumn Name="Column214" Width="28.35"/>
+        <TableColumn Name="Column215" Width="47.25"/>
+        <TableColumn Name="Column216" Width="28.35"/>
+        <TableColumn Name="Column217" Width="47.25"/>
+        <TableColumn Name="Column218" Width="28.35"/>
+        <TableColumn Name="Column219" Width="47.25"/>
+        <TableColumn Name="Column220" Width="28.35"/>
+        <TableColumn Name="Column221" Width="47.25"/>
+        <TableColumn Name="Column222" Width="28.35"/>
+        <TableColumn Name="Column223" Width="47.25"/>
+        <TableColumn Name="Column224" Width="37.8"/>
+        <TableColumn Name="Column225" Width="47.25"/>
+        <TableColumn Name="Column226" Width="37.8"/>
+        <TableColumn Name="Column227" Width="47.25"/>
+        <TableColumn Name="Column228" Width="37.8"/>
+        <TableColumn Name="Column229" Width="47.25"/>
+        <TableColumn Name="Column230" Width="37.8"/>
+        <TableColumn Name="Column231" Width="47.25"/>
+        <TableRow Name="Row78" Height="28.35">
+          <TableCell Name="Cell1277" Border.Lines="All" Text="Наименование ЛПУ" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt" RowSpan="3"/>
+          <TableCell Name="Cell1278" Border.Lines="All" Text="Предъявлено счетов (реестров) по санаториям в системе ОМС" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt" ColSpan="8"/>
+          <TableCell Name="Cell1279" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt"/>
+          <TableCell Name="Cell1280" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt"/>
+          <TableCell Name="Cell1281" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt"/>
+          <TableCell Name="Cell1292" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt"/>
+          <TableCell Name="Cell1293" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt"/>
+          <TableCell Name="Cell1294" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt"/>
+          <TableCell Name="Cell1295" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt"/>
+          <TableCell Name="Cell1296" Border.Lines="All" Text="Принято счетов (реестров) по санаториям" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt" ColSpan="8"/>
+          <TableCell Name="Cell1297" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt"/>
+          <TableCell Name="Cell1298" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt"/>
+          <TableCell Name="Cell1299" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt"/>
+          <TableCell Name="Cell1300" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt"/>
+          <TableCell Name="Cell1301" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt"/>
+          <TableCell Name="Cell1302" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt"/>
+          <TableCell Name="Cell1303" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt"/>
+          <TableCell Name="Cell1304" Border.Lines="All" Text="Количество койко-дней (по принятым к оплате счетам)" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt" ColSpan="8"/>
+          <TableCell Name="Cell1305" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt"/>
+          <TableCell Name="Cell1306" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt"/>
+          <TableCell Name="Cell1307" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt"/>
+          <TableCell Name="Cell1308" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt"/>
+          <TableCell Name="Cell1309" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt"/>
+          <TableCell Name="Cell1310" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt"/>
+          <TableCell Name="Cell1311" Border.Lines="All"/>
+        </TableRow>
+        <TableRow Name="Row79" Height="28.35">
+          <TableCell Name="Cell1282" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt"/>
+          <TableCell Name="Cell1283" Border.Lines="All" Text="педиатрия" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt" ColSpan="2"/>
+          <TableCell Name="Cell1284" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt"/>
+          <TableCell Name="Cell1285" Border.Lines="All" Text="сахарный диабет" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt" ColSpan="2"/>
+          <TableCell Name="Cell1286" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt"/>
+          <TableCell Name="Cell1312" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt" ColSpan="2"/>
+          <TableCell Name="Cell1313" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt"/>
+          <TableCell Name="Cell1314" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt" ColSpan="2"/>
+          <TableCell Name="Cell1315" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt"/>
+          <TableCell Name="Cell1316" Border.Lines="All" Text="педиатрия" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt" ColSpan="2"/>
+          <TableCell Name="Cell1317" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt"/>
+          <TableCell Name="Cell1318" Border.Lines="All" Text="сахарный диабет" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt" ColSpan="2"/>
+          <TableCell Name="Cell1319" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt"/>
+          <TableCell Name="Cell1320" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt" ColSpan="2"/>
+          <TableCell Name="Cell1321" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt"/>
+          <TableCell Name="Cell1322" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt" ColSpan="2"/>
+          <TableCell Name="Cell1323" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt"/>
+          <TableCell Name="Cell1324" Border.Lines="All" Text="педиатрия" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt" ColSpan="2"/>
+          <TableCell Name="Cell1325" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt"/>
+          <TableCell Name="Cell1326" Border.Lines="All" Text="сахарный диабет" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt" ColSpan="2"/>
+          <TableCell Name="Cell1327" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt"/>
+          <TableCell Name="Cell1328" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt" ColSpan="2"/>
+          <TableCell Name="Cell1329" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt"/>
+          <TableCell Name="Cell1330" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt" ColSpan="2"/>
+          <TableCell Name="Cell1331" Border.Lines="All"/>
+        </TableRow>
+        <TableRow Name="Row80" Height="66.15">
+          <TableCell Name="Cell1287" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt"/>
+          <TableCell Name="Cell1288" Border.Lines="All" Text="за месяц" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt"/>
+          <TableCell Name="Cell1289" Border.Lines="All" Text="нарастающим итогом с начала года" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt"/>
+          <TableCell Name="Cell1290" Border.Lines="All" Text="за месяц" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt"/>
+          <TableCell Name="Cell1291" Border.Lines="All" Text="нарастающим итогом с начала года" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt"/>
+          <TableCell Name="Cell1332" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt"/>
+          <TableCell Name="Cell1333" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt"/>
+          <TableCell Name="Cell1334" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt"/>
+          <TableCell Name="Cell1335" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt"/>
+          <TableCell Name="Cell1336" Border.Lines="All" Text="за месяц" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt"/>
+          <TableCell Name="Cell1337" Border.Lines="All" Text="нарастающим итогом с начала года" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt"/>
+          <TableCell Name="Cell1338" Border.Lines="All" Text="за месяц" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt"/>
+          <TableCell Name="Cell1339" Border.Lines="All" Text="нарастающим итогом с начала года" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt"/>
+          <TableCell Name="Cell1340" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt"/>
+          <TableCell Name="Cell1341" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt"/>
+          <TableCell Name="Cell1342" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt"/>
+          <TableCell Name="Cell1343" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt"/>
+          <TableCell Name="Cell1344" Border.Lines="All" Text="за месяц" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt"/>
+          <TableCell Name="Cell1345" Border.Lines="All" Text="нарастающим итогом с начала года" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt"/>
+          <TableCell Name="Cell1346" Border.Lines="All" Text="за месяц" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt"/>
+          <TableCell Name="Cell1347" Border.Lines="All" Text="нарастающим итогом с начала года" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt"/>
+          <TableCell Name="Cell1348" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt"/>
+          <TableCell Name="Cell1349" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt"/>
+          <TableCell Name="Cell1350" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt"/>
+          <TableCell Name="Cell1351" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt"/>
+        </TableRow>
+      </TableObject>
+    </ReportTitleBand>
+    <DataBand Name="Data1" Top="249.7" Width="1047.06" Height="47.25">
+      <TableObject Name="Table2" Width="1039.5" Height="47.25" Border.Lines="All">
+        <TableColumn Name="Column232" Width="94.5"/>
+        <TableColumn Name="Column233" Width="28.35"/>
+        <TableColumn Name="Column234" Width="47.25"/>
+        <TableColumn Name="Column235" Width="28.35"/>
+        <TableColumn Name="Column236" Width="47.25"/>
+        <TableColumn Name="Column237" Width="28.35"/>
+        <TableColumn Name="Column238" Width="47.25"/>
+        <TableColumn Name="Column239" Width="28.35"/>
+        <TableColumn Name="Column240" Width="47.25"/>
+        <TableColumn Name="Column241" Width="28.35"/>
+        <TableColumn Name="Column242" Width="47.25"/>
+        <TableColumn Name="Column243" Width="28.35"/>
+        <TableColumn Name="Column244" Width="47.25"/>
+        <TableColumn Name="Column245" Width="28.35"/>
+        <TableColumn Name="Column246" Width="47.25"/>
+        <TableColumn Name="Column247" Width="28.35"/>
+        <TableColumn Name="Column248" Width="47.25"/>
+        <TableColumn Name="Column249" Width="37.8"/>
+        <TableColumn Name="Column250" Width="47.25"/>
+        <TableColumn Name="Column251" Width="37.8"/>
+        <TableColumn Name="Column252" Width="47.25"/>
+        <TableColumn Name="Column253" Width="37.8"/>
+        <TableColumn Name="Column254" Width="47.25"/>
+        <TableColumn Name="Column255" Width="37.8"/>
+        <TableColumn Name="Column256" Width="47.25"/>
+        <TableRow Name="Row81" Height="47.25">
+          <TableCell Name="Cell1352" Border.Lines="All" Text="[Table.nam_mok]" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt"/>
+          <TableCell Name="Cell1353" Border.Lines="All" Text="[Table.kol_ped_p_m]" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt"/>
+          <TableCell Name="Cell1354" Border.Lines="All" Text="[Table.kol_ped_p_y]" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt"/>
+          <TableCell Name="Cell1355" Border.Lines="All" Text="[Table.kol_diab_p_m]" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt"/>
+          <TableCell Name="Cell1356" Border.Lines="All" Text="[Table.kol_diab_p_y]" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt"/>
+          <TableCell Name="Cell1372" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt"/>
+          <TableCell Name="Cell1373" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt"/>
+          <TableCell Name="Cell1374" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt"/>
+          <TableCell Name="Cell1375" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt"/>
+          <TableCell Name="Cell1376" Border.Lines="All" Text="[Table.kol_ped_v_m]" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt"/>
+          <TableCell Name="Cell1377" Border.Lines="All" Text="[Table.kol_ped_v_y]" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt"/>
+          <TableCell Name="Cell1378" Border.Lines="All" Text="[Table.kol_diab_v_m]" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt"/>
+          <TableCell Name="Cell1379" Border.Lines="All" Text="[Table.kol_diab_v_y]" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt"/>
+          <TableCell Name="Cell1380" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt"/>
+          <TableCell Name="Cell1381" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt"/>
+          <TableCell Name="Cell1382" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt"/>
+          <TableCell Name="Cell1383" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt"/>
+          <TableCell Name="Cell1384" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt"/>
+          <TableCell Name="Cell1385" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt"/>
+          <TableCell Name="Cell1386" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt"/>
+          <TableCell Name="Cell1387" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt"/>
+          <TableCell Name="Cell1388" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt"/>
+          <TableCell Name="Cell1389" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt"/>
+          <TableCell Name="Cell1390" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt"/>
+          <TableCell Name="Cell1391" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt"/>
+        </TableRow>
+      </TableObject>
+    </DataBand>
+    <ReportSummaryBand Name="ReportSummary1" Top="300.95" Width="1047.06" Height="207.9">
+      <TextObject Name="Text12" Left="264.6" Top="94.5" Width="189" Height="18.9" Text="text8" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+      <TextObject Name="Text13" Left="217.35" Top="94.5" Width="548.1" Height="18.9" Text="____________________________________________________________________________" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+      <TextObject Name="Text19" Left="264.6" Top="113.4" Width="189" Height="18.9" Text="(Ф.И.О.)" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+      <TextObject Name="Text20" Left="510.3" Top="113.4" Width="189" Height="18.9" Text="(подпись)" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+      <TextObject Name="Text18" Left="9.45" Top="132.3" Width="189" Height="47.25" Text="Должностное лицо, ответственное за составление формы" VertAlign="Center" Font="Arial, 8pt"/>
+      <TextObject Name="Text21" Left="264.6" Top="141.75" Width="189" Height="18.9" Text="text8" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+      <TextObject Name="Text22" Left="217.35" Top="141.75" Width="548.1" Height="18.9" Text="____________________________________________________________________________" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+      <TextObject Name="Text23" Left="264.6" Top="160.65" Width="189" Height="18.9" Text="(Ф.И.О.)" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+      <TextObject Name="Text24" Left="510.3" Top="160.65" Width="189" Height="18.9" Text="(подпись)" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+      <TableObject Name="Table1" Width="1039.5" Height="28.35" Border.Lines="All">
+        <TableColumn Name="Column257" Width="94.5"/>
+        <TableColumn Name="Column258" Width="28.35"/>
+        <TableColumn Name="Column259" Width="47.25"/>
+        <TableColumn Name="Column260" Width="28.35"/>
+        <TableColumn Name="Column261" Width="47.25"/>
+        <TableColumn Name="Column262" Width="28.35"/>
+        <TableColumn Name="Column263" Width="47.25"/>
+        <TableColumn Name="Column264" Width="28.35"/>
+        <TableColumn Name="Column265" Width="47.25"/>
+        <TableColumn Name="Column266" Width="28.35"/>
+        <TableColumn Name="Column267" Width="47.25"/>
+        <TableColumn Name="Column268" Width="28.35"/>
+        <TableColumn Name="Column269" Width="47.25"/>
+        <TableColumn Name="Column270" Width="28.35"/>
+        <TableColumn Name="Column271" Width="47.25"/>
+        <TableColumn Name="Column272" Width="28.35"/>
+        <TableColumn Name="Column273" Width="47.25"/>
+        <TableColumn Name="Column274" Width="37.8"/>
+        <TableColumn Name="Column275" Width="47.25"/>
+        <TableColumn Name="Column276" Width="37.8"/>
+        <TableColumn Name="Column277" Width="47.25"/>
+        <TableColumn Name="Column278" Width="37.8"/>
+        <TableColumn Name="Column279" Width="47.25"/>
+        <TableColumn Name="Column280" Width="37.8"/>
+        <TableColumn Name="Column281" Width="47.25"/>
+        <TableRow Name="Row82" Height="28.35">
+          <TableCell Name="Cell1392" Border.Lines="All" Text="Итого" HorzAlign="Center" VertAlign="Center" Font="Arial, 9pt, style=Bold"/>
+          <TableCell Name="Cell1393" Border.Lines="All" Text="[Total]" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt"/>
+          <TableCell Name="Cell1394" Border.Lines="All" Text="[Total4]" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt"/>
+          <TableCell Name="Cell1395" Border.Lines="All" Text="[Total1]" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt"/>
+          <TableCell Name="Cell1396" Border.Lines="All" Text="[Total5]" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt"/>
+          <TableCell Name="Cell1397" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt"/>
+          <TableCell Name="Cell1398" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt"/>
+          <TableCell Name="Cell1399" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt"/>
+          <TableCell Name="Cell1400" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt"/>
+          <TableCell Name="Cell1401" Border.Lines="All" Text="[Total2]" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt"/>
+          <TableCell Name="Cell1402" Border.Lines="All" Text="[Total6]" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt"/>
+          <TableCell Name="Cell1403" Border.Lines="All" Text="[Total3]" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt"/>
+          <TableCell Name="Cell1404" Border.Lines="All" Text="[Total7]" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt"/>
+          <TableCell Name="Cell1405" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt"/>
+          <TableCell Name="Cell1406" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt"/>
+          <TableCell Name="Cell1407" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt"/>
+          <TableCell Name="Cell1408" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt"/>
+          <TableCell Name="Cell1409" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt"/>
+          <TableCell Name="Cell1410" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt"/>
+          <TableCell Name="Cell1411" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt"/>
+          <TableCell Name="Cell1412" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt"/>
+          <TableCell Name="Cell1413" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt"/>
+          <TableCell Name="Cell1414" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt"/>
+          <TableCell Name="Cell1415" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt"/>
+          <TableCell Name="Cell1416" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt"/>
+        </TableRow>
+      </TableObject>
+    </ReportSummaryBand>
+  </ReportPage>
+</Report>

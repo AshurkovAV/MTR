@@ -1,0 +1,236 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report ScriptLanguage="CSharp" ReportInfo.Created="06/20/2009 22:40:42" ReportInfo.Modified="04/09/2012 04:15:30" ReportInfo.CreatorVersion="1.8.1.0">
+  <Dictionary>
+    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqM3/HbiZANEYP3Y6oNtE7mhb00LswZpLPL1nHlNPE8Ttd/PYtJWZHa+Bi6VxY2kO/86yqC3dEAfSOFuAtVHPo27ltpeit54RmWfyB1HPJuDUSBNOELtEhifv9pd5xb8NjHezfLLxa7C+tQPiWNZSeiselMeQC1tpK3OQlXsbm+Sk=">
+      <TableDataSource Name="localPayment" DataType="System.Int32" Enabled="true" TableName="localPayment" SelectCommand="SELECT L.PaymentId, L.Code, L.Type, L.Name, L.Inn, L.Ogrn, L.KPP, L.Account, L.CorrespondentAccount, L.BIK, L.BankName, L.AgreementNumber,  L.OKATO ,L.AgreementDate, L.Director, L.Accounter, L.Address, L.DateBegin, L.DateEnd, OKONH, Phone&#13;&#10;FROM &quot;localPayment&quot; L&#13;&#10;WHERE L.Type=1&#13;&#10;">
+        <Column Name="PaymentId" DataType="System.Int32"/>
+        <Column Name="Code" DataType="System.Int32"/>
+        <Column Name="Type" DataType="System.Int32"/>
+        <Column Name="Name" DataType="System.String"/>
+        <Column Name="Inn" DataType="System.String"/>
+        <Column Name="Ogrn" DataType="System.String"/>
+        <Column Name="KPP" DataType="System.String"/>
+        <Column Name="Account" DataType="System.String"/>
+        <Column Name="CorrespondentAccount" DataType="System.String"/>
+        <Column Name="BIK" DataType="System.String"/>
+        <Column Name="BankName" DataType="System.String"/>
+        <Column Name="AgreementNumber" DataType="System.String"/>
+        <Column Name="AgreementDate" DataType="System.DateTime"/>
+        <Column Name="Director" DataType="System.String"/>
+        <Column Name="Accounter" DataType="System.String"/>
+        <Column Name="Address" DataType="System.String"/>
+        <Column Name="DateBegin" DataType="System.DateTime"/>
+        <Column Name="DateEnd" DataType="System.DateTime"/>
+        <Column Name="OKATO" DataType="System.String"/>
+        <Column Name="OKONH" DataType="System.String"/>
+        <Column Name="Phone" DataType="System.String"/>
+      </TableDataSource>
+      <TableDataSource Name="FactTerritoryAccount" DataType="System.Int32" Enabled="true" TableName="FactTerritoryAccount" SelectCommand="SELECT F.Date, F.AccountNumber, F.AccountDate, F.Price, F.AcceptPrice, F.MECPenalties, F.MEEPenalties, F.EQMAPenalties, F.Comments, F.Source, F.Destination, F.Status, F.TerritoryAccountId, F.ExternalId, F.PacketNumber, F.Type,F.Parent,F.Generation&#13;&#10;FROM &quot;FactTerritoryAccount&quot; F WHERE F.TerritoryAccountId=@AccountIdParam&#13;&#10;">
+        <Column Name="Date" DataType="System.DateTime"/>
+        <Column Name="AccountNumber" DataType="System.String"/>
+        <Column Name="AccountDate" DataType="System.DateTime"/>
+        <Column Name="Price" DataType="System.Decimal"/>
+        <Column Name="AcceptPrice" DataType="System.Decimal"/>
+        <Column Name="MECPenalties" DataType="System.Decimal"/>
+        <Column Name="MEEPenalties" DataType="System.Decimal"/>
+        <Column Name="EQMAPenalties" DataType="System.Decimal"/>
+        <Column Name="Comments" DataType="System.String"/>
+        <Column Name="Source" DataType="System.String"/>
+        <Column Name="Destination" DataType="System.String"/>
+        <Column Name="Status" DataType="System.Int32"/>
+        <Column Name="TerritoryAccountId" DataType="System.Int32"/>
+        <Column Name="ExternalId" DataType="System.Int32"/>
+        <Column Name="PacketNumber" DataType="System.Int32"/>
+        <Column Name="Type" DataType="System.Int32"/>
+        <Column Name="Parent" DataType="System.Int32"/>
+        <Column Name="Generation" DataType="System.Int32"/>
+        <CommandParameter Name="AccountIdParam" DataType="8" Expression="[AccountId]" DefaultValue="1"/>
+      </TableDataSource>
+      <TableDataSource Name="localF001" Alias="localF001Payer" DataType="System.Int32" Enabled="true" TableName="localF001" SelectCommand="SELECT L.LocalF001Id, L.ShortName, L.PositionName, L.Name, L.Surname, L.Patronymic, L.OKATO, L.Code, L.RegionName, L.FullAddress&#13;&#10;FROM &quot;localF001&quot; L WHERE L.OKATO=@OkatoPayer&#13;&#10;">
+        <Column Name="LocalF001Id" DataType="System.Int32"/>
+        <Column Name="ShortName" DataType="System.String"/>
+        <Column Name="PositionName" DataType="System.String"/>
+        <Column Name="Name" DataType="System.String"/>
+        <Column Name="Surname" DataType="System.String"/>
+        <Column Name="Patronymic" DataType="System.String"/>
+        <Column Name="OKATO" DataType="System.String"/>
+        <Column Name="Code" DataType="System.String"/>
+        <Column Name="RegionName" DataType="System.String"/>
+        <Column Name="FullAddress" DataType="System.String"/>
+        <CommandParameter Name="OkatoPayer" DataType="22" Expression="[FactTerritoryAccount.Destination]"/>
+      </TableDataSource>
+      <TableDataSource Name="Table" Alias="localF001Source" DataType="System.Int32" Enabled="true" SelectCommand="SELECT L.LocalF001Id, L.ShortName, L.PositionName, L.Name, L.Surname, L.Patronymic, L.OKATO, L.Code, L.RegionName, L.FullAddress&#13;&#10;FROM &quot;localF001&quot; L WHERE L.OKATO=@OkatoSource&#13;&#10;">
+        <Column Name="LocalF001Id" DataType="System.Int32"/>
+        <Column Name="ShortName" DataType="System.String"/>
+        <Column Name="PositionName" DataType="System.String"/>
+        <Column Name="Name" DataType="System.String"/>
+        <Column Name="Surname" DataType="System.String"/>
+        <Column Name="Patronymic" DataType="System.String"/>
+        <Column Name="OKATO" DataType="System.String"/>
+        <Column Name="Code" DataType="System.String"/>
+        <Column Name="RegionName" DataType="System.String"/>
+        <Column Name="FullAddress" DataType="System.String"/>
+        <CommandParameter Name="OkatoSource" DataType="22" Expression="[FactTerritoryAccount.Source]"/>
+      </TableDataSource>
+      <TableDataSource Name="Table3" Alias="SummaryHospital" DataType="System.Int32" Enabled="true" SelectCommand="SELECT  Sum(E.Price) AS HospitalPrice, Sum(E.AcceptPrice) AS HospitalAcceptPrice&#13;&#10;FROM &quot;EventShortView&quot; E&#13;&#10;WHERE E.AccountId=@AccountIdParam AND E.AssistanceConditions =1&#13;&#10;">
+        <Column Name="HospitalPrice" DataType="System.Decimal"/>
+        <Column Name="HospitalAcceptPrice" DataType="System.Decimal"/>
+        <CommandParameter Name="AccountIdParam" DataType="8" Expression="[FactTerritoryAccount.TerritoryAccountId]" DefaultValue="1"/>
+      </TableDataSource>
+      <TableDataSource Name="Table1" Alias="SummaryDayHospital" DataType="System.Int32" Enabled="true" SelectCommand="SELECT  Sum(E.Price) AS DayHospitalPrice, Sum(E.AcceptPrice) AS DayHospitalAcceptPrice&#13;&#10;FROM &quot;EventShortView&quot; E&#13;&#10;WHERE E.AccountId=@AccountIdParam AND E.AssistanceConditions =2&#13;&#10;&#13;&#10;">
+        <Column Name="DayHospitalPrice" DataType="System.Decimal"/>
+        <Column Name="DayHospitalAcceptPrice" DataType="System.Decimal"/>
+        <CommandParameter Name="AccountIdParam" DataType="8" Expression="[AccountId]" DefaultValue="1"/>
+      </TableDataSource>
+      <TableDataSource Name="Table4" Alias="SummaryClinic" DataType="System.Int32" Enabled="true" SelectCommand="SELECT  Sum(E.Price) AS ClinicPrice, Sum(E.AcceptPrice) AS  ClinicAcceptPrice&#13;&#10;FROM &quot;EventShortView&quot; E &#13;&#10;WHERE E.AccountId=@AccountIdParam AND E.AssistanceConditions =3">
+        <Column Name="ClinicPrice" DataType="System.Decimal"/>
+        <Column Name="ClinicAcceptPrice" DataType="System.Decimal"/>
+        <CommandParameter Name="AccountIdParam" DataType="8" Expression="[AccountId]" DefaultValue="1"/>
+      </TableDataSource>
+      <TableDataSource Name="Table5" Alias="ParentAccount" DataType="System.Int32" Enabled="true" SelectCommand="SELECT F.Date, F.AccountNumber, F.AccountDate, F.Price, F.AcceptPrice, F.MECPenalties, F.MEEPenalties, F.EQMAPenalties, F.Comments, F.Source, F.Destination, F.Status, F.TerritoryAccountId, F.ExternalId, F.PacketNumber, F.Type, F.Direction, F.Generation, F.Parent&#13;&#10;FROM &quot;FactTerritoryAccount&quot; F&#13;&#10;WHERE F.TerritoryAccountId=@AccountParentIdParam&#13;&#10;">
+        <Column Name="Date" DataType="System.DateTime"/>
+        <Column Name="AccountNumber" DataType="System.String"/>
+        <Column Name="AccountDate" DataType="System.DateTime"/>
+        <Column Name="Price" DataType="System.Decimal"/>
+        <Column Name="AcceptPrice" DataType="System.Decimal"/>
+        <Column Name="MECPenalties" DataType="System.Decimal"/>
+        <Column Name="MEEPenalties" DataType="System.Decimal"/>
+        <Column Name="EQMAPenalties" DataType="System.Decimal"/>
+        <Column Name="Comments" DataType="System.String"/>
+        <Column Name="Source" DataType="System.String"/>
+        <Column Name="Destination" DataType="System.String"/>
+        <Column Name="Status" DataType="System.Int32"/>
+        <Column Name="TerritoryAccountId" DataType="System.Int32"/>
+        <Column Name="ExternalId" DataType="System.Int32"/>
+        <Column Name="PacketNumber" DataType="System.Int32"/>
+        <Column Name="Type" DataType="System.Int32"/>
+        <Column Name="Direction" DataType="System.Int32"/>
+        <Column Name="Generation" DataType="System.Int32"/>
+        <Column Name="Parent" DataType="System.Int32"/>
+        <CommandParameter Name="AccountParentIdParam" DataType="8" Expression="[FactTerritoryAccount.Parent]" DefaultValue="0"/>
+      </TableDataSource>
+    </MsSqlDataConnection>
+    <Parameter Name="AccountId" DataType="System.Int32"/>
+  </Dictionary>
+  <ReportPage Name="Page1" RawPaperSize="9">
+    <ReportTitleBand Name="ReportTitle1" Width="718.2" Height="317.52">
+      <TextObject Name="Text4" Top="20.79" Width="718.2" Height="153.09" Text="                          [localPayment.Name]&#13;&#10;ИНН: [localPayment.Inn] КПП: [localPayment.KPP]&#13;&#10;Адрес: [localPayment.Address] / ОКАТО [localPayment.OKATO] / ОКОНХ [localPayment.OKONH]&#13;&#10;Телефон: [localPayment.Phone]&#13;&#10;Расчетный счет: [localPayment.Account] Банк: [localPayment.BankName]&#13;&#10;БИК: [localPayment.BIK]" Font="Times New Roman, 12pt">
+        <Formats>
+          <GeneralFormat/>
+          <DateFormat/>
+          <GeneralFormat/>
+          <GeneralFormat/>
+        </Formats>
+      </TextObject>
+      <TextObject Name="Text9" Left="107.73" Top="251.37" Width="718.2" Height="37.8" Text="[UpperCase([localF001Payer.ShortName])]" Font="Times New Roman, 12pt">
+        <Formats>
+          <GeneralFormat/>
+          <DateFormat/>
+          <GeneralFormat/>
+          <GeneralFormat/>
+        </Formats>
+      </TextObject>
+      <TextObject Name="Text3" Top="213.57" Width="720.09" Height="37.8" Text="Счет №[IIf([FactTerritoryAccount.Type]==2,[ParentAccount.AccountNumber],[FactTerritoryAccount.AccountNumber])]  от [IIf([FactTerritoryAccount.Type]==2,[ParentAccount.AccountDate],[FactTerritoryAccount.AccountDate])]г. [IIf([FactTerritoryAccount.Type]==2,&quot;(исправленная часть&quot;,&quot;&quot;)] [IIf([FactTerritoryAccount.Type]==2,[FactTerritoryAccount.AccountNumber],&quot;&quot;)][IIf([FactTerritoryAccount.Type]==2,&quot;/&quot;,&quot;&quot;)][IIf([FactTerritoryAccount.Type]==2,[FactTerritoryAccount.Generation],&quot;&quot;)] [IIf([FactTerritoryAccount.Type]==2,&quot; от &quot;,&quot;&quot;)][IIf([FactTerritoryAccount.Type]==2,[FactTerritoryAccount.AccountDate],&quot;&quot;)] [IIf([FactTerritoryAccount.Type]==2,&quot;г.)&quot;,&quot;&quot;)]&#13;&#10;" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 12pt, style=Bold">
+        <Formats>
+          <GeneralFormat/>
+          <DateFormat/>
+          <GeneralFormat/>
+          <GeneralFormat/>
+          <GeneralFormat/>
+          <DateFormat/>
+          <GeneralFormat/>
+          <DateFormat/>
+          <GeneralFormat/>
+        </Formats>
+      </TextObject>
+      <TableObject Name="Table2" Left="9.45" Top="298.62" Width="699.3" Height="18.9" Border.Lines="Left">
+        <TableColumn Name="Column60" Width="47.25"/>
+        <TableColumn Name="Column61" Width="472.5"/>
+        <TableColumn Name="Column62" Width="179.55"/>
+        <TableRow Name="Row13">
+          <TableCell Name="Cell140" Border.Lines="Top, Bottom" Text="Наименование товара,услуг" Font="Times New Roman, 12pt" ColSpan="2"/>
+          <TableCell Name="Cell141" Border.Lines="All" Font="Times New Roman, 12pt"/>
+          <TableCell Name="Cell142" Border.Lines="All" Text="Сумма к оплате (руб.коп.)" Font="Times New Roman, 12pt"/>
+        </TableRow>
+      </TableObject>
+      <TextObject Name="Text2" Top="251.37" Width="107.73" Height="18.9" Text="Покупатель: " Font="Times New Roman, 12pt, style=Bold"/>
+      <TextObject Name="Text6" Top="20.79" Width="103.95" Height="18.9" Text="Поставщик: " Font="Times New Roman, 12pt, style=Bold"/>
+      <TextObject Name="Text7" Top="1.89" Width="718.2" Height="18.9" Text="[IIf([FactTerritoryAccount.Type]==2,&quot;Основной счет № &quot;,&quot;&quot;)][IIf([FactTerritoryAccount.Type]==2,[ParentAccount.AccountNumber],&quot;&quot;)][IIf([FactTerritoryAccount.Type]==2,&quot; от &quot;,&quot;&quot;)][IIf([FactTerritoryAccount.Type]==2,[ParentAccount.AccountDate],&quot;&quot;)]" Font="Times New Roman, 10pt, style=Bold">
+        <Formats>
+          <GeneralFormat/>
+          <GeneralFormat/>
+          <DateFormat/>
+          <DateFormat/>
+        </Formats>
+      </TextObject>
+    </ReportTitleBand>
+    <DataBand Name="Data1" Top="321.52" Width="718.2" Height="56.7" CanGrow="true">
+      <TableObject Name="Table6" Left="9.45" Width="699.3" Height="56.7" Border.Lines="Left">
+        <TableColumn Name="Column66" Width="47.25"/>
+        <TableColumn Name="Column67" Width="472.5"/>
+        <TableColumn Name="Column68" Width="179.55"/>
+        <TableRow Name="Row15" AutoSize="true">
+          <TableCell Name="Cell146" Border.Lines="Top, Bottom" Text="Стационарная помощь, оказанная в ЛПУ [localF001Source.RegionName] жителям [localF001Payer.RegionName]" Font="Times New Roman, 12pt" ColSpan="2"/>
+          <TableCell Name="Cell147" Border.Lines="All" Font="Times New Roman, 12pt">
+            <Formats>
+              <DateFormat Format="MMMM yyyy"/>
+              <GeneralFormat/>
+            </Formats>
+          </TableCell>
+          <TableCell Name="Cell148" Border.Lines="All" Text="[SummaryHospital.HospitalAcceptPrice]" Format="Number" Format.UseLocale="true" HorzAlign="Right" Font="Times New Roman, 12pt"/>
+        </TableRow>
+        <TableRow Name="Row17" AutoSize="true">
+          <TableCell Name="Cell152" Border.Lines="All" Text="Стационарозамещающая помощь, оказанная в ЛПУ [localF001Source.RegionName] жителям [localF001Payer.RegionName]" Font="Times New Roman, 12pt" ColSpan="2"/>
+          <TableCell Name="Cell153"/>
+          <TableCell Name="Cell154" Border.Lines="All" Text="[SummaryDayHospital.DayHospitalAcceptPrice]" Format="Number" Format.UseLocale="true" HorzAlign="Right" Font="Times New Roman, 12pt"/>
+        </TableRow>
+        <TableRow Name="Row18" AutoSize="true">
+          <TableCell Name="Cell155" Border.Lines="All" Text="Амбулаторная помощь, оказанная в ЛПУ [localF001Source.RegionName] жителям [localF001Payer.RegionName]" Font="Times New Roman, 12pt" ColSpan="2"/>
+          <TableCell Name="Cell156"/>
+          <TableCell Name="Cell157" Border.Lines="All" Text="[SummaryClinic.ClinicAcceptPrice]" Format="Number" Format.UseLocale="true" HorzAlign="Right" Font="Times New Roman, 12pt"/>
+        </TableRow>
+      </TableObject>
+    </DataBand>
+    <ReportSummaryBand Name="ReportSummary1" Top="382.22" Width="718.2" Height="232.47">
+      <TableObject Name="Table7" Left="18.9" Top="132.3" Width="676.4" Height="56.7">
+        <TableColumn Name="Column31" Width="248.85"/>
+        <TableColumn Name="Column32" Width="295.25"/>
+        <TableColumn Name="Column33" Width="132.3"/>
+        <TableRow Name="Row9" AutoSize="true">
+          <TableCell Name="Cell97" Text="Директор" Font="Times New Roman, 11pt"/>
+          <TableCell Name="Cell98" Padding="0, 0, 0, 0" HorzAlign="Center" Font="Times New Roman, 10pt"/>
+          <TableCell Name="Cell99" Text="[localPayment.Director]" Font="Times New Roman, 11pt"/>
+        </TableRow>
+        <TableRow Name="Row10">
+          <TableCell Name="Cell100" Font="Times New Roman, 10pt"/>
+          <TableCell Name="Cell101" HorzAlign="Center" Font="Times New Roman, 8pt"/>
+          <TableCell Name="Cell102" Font="Times New Roman, 10pt"/>
+        </TableRow>
+        <TableRow Name="Row11">
+          <TableCell Name="Cell103" Text="Главный бухгалтер" Font="Times New Roman, 11pt"/>
+          <TableCell Name="Cell104" Font="Times New Roman, 10pt"/>
+          <TableCell Name="Cell105" Text="[localPayment.Accounter]" Font="Times New Roman, 11pt"/>
+        </TableRow>
+      </TableObject>
+      <TextObject Name="Text1" Left="13.23" Top="43.47" Width="695.52" Height="18.9" Text="Сумма прописью: [ToWordsRu([FactTerritoryAccount.AcceptPrice])]" Font="Times New Roman, 12pt"/>
+      <TableObject Name="Table8" Left="9.45" Width="699.3" Height="18.9" Border.Lines="Left">
+        <TableColumn Name="Column69" Width="47.25"/>
+        <TableColumn Name="Column70" Width="472.5"/>
+        <TableColumn Name="Column71" Width="179.55"/>
+        <TableRow Name="Row16" AutoSize="true">
+          <TableCell Name="Cell149" Border.Lines="Bottom" Text="Всего за медицинскую помощь, отказанную в ЛПУ [localF001Source.RegionName] жителям [localF001Payer.RegionName]" Font="Times New Roman, 12pt" ColSpan="2"/>
+          <TableCell Name="Cell150" Border.Lines="Left, Right, Bottom" Font="Times New Roman, 12pt">
+            <Formats>
+              <DateFormat Format="MMMM yyyy"/>
+              <GeneralFormat/>
+            </Formats>
+          </TableCell>
+          <TableCell Name="Cell151" Border.Lines="Left, Right, Bottom" Text="[FactTerritoryAccount.AcceptPrice]" Format="Number" Format.UseLocale="true" HorzAlign="Right" Font="Times New Roman, 12pt"/>
+        </TableRow>
+      </TableObject>
+    </ReportSummaryBand>
+    <PageFooterBand Name="PageFooter1" Top="618.69" Width="718.2" Height="18.9">
+      <TextObject Name="Text5" Left="803.25" Width="245.7" Height="18.9" Text="[PageN] из [TotalPages#]" HorzAlign="Right"/>
+    </PageFooterBand>
+  </ReportPage>
+</Report>

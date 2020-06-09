@@ -1,0 +1,111 @@
+﻿<UserControl x:Class="Medical.AppLayer.Report.Views.ReportView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:converters="clr-namespace:Medical.AppLayer.Converters"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+             xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars"
+             xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+             xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+             xmlns:editors="clr-namespace:Medical.AppLayer.Editors"
+             xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             Name="ReportControl"
+             d:DesignHeight="661"
+             d:DesignWidth="800"
+             mc:Ignorable="d">
+  <UserControl.Resources>
+    <converters:ScopeConverter x:Key="ScopeConverter" />
+    <converters:VersionConverter x:Key="VersionConverter"/>
+  </UserControl.Resources>
+
+  <dxb:BarManager CreateStandardLayout="False">
+    <Grid>
+
+      <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Closed">
+          <i:InvokeCommandAction Command="{Binding ElementName=PLinqInstantDataSource, Path=DisposeCommand}" />
+        </i:EventTrigger>
+      </i:Interaction.Triggers>
+      <Grid>
+        <Grid.RowDefinitions>
+          <RowDefinition Height="Auto" />
+          <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <dx:PLinqInstantFeedbackDataSource Name="PLinqInstantDataSource" ListSource="{Binding Path=DataList}" />
+
+        <dxg:GridControl Grid.Row="1"
+                         ItemsSource="{Binding ElementName=PLinqInstantDataSource,
+                                               Path=Data}"
+                         ShowBorder="False">
+          <i:Interaction.Triggers>
+            <i:EventTrigger EventName="Loaded">
+              <ei:CallMethodAction MethodName="BestFitColumns" TargetObject="{Binding ElementName=TableView}" />
+            </i:EventTrigger>
+          </i:Interaction.Triggers>
+
+          <dxg:GridControl.Columns>
+            <dxg:GridColumn Width="40"
+                            FieldName="FactReportID"
+                            FixedWidth="True"
+                            Header="ID"
+                            SortIndex="0"
+                            SortOrder="Ascending" />
+            <dxg:GridColumn FieldName="Version" Header="Версия" FixedWidth="True" Width="50">
+              <dxg:GridColumn.EditSettings>
+                <dxe:TextEditSettings DisplayTextConverter="{StaticResource VersionConverter}"/>
+              </dxg:GridColumn.EditSettings>
+            </dxg:GridColumn>
+            <dxg:GridColumn Width="50"
+                            FieldName="IsEnable"
+                            FixedWidth="True"
+                            Header="Вкл." />
+            <dxg:GridColumn FieldName="Name" Header="Название" />
+            <dxg:GridColumn Width="150"
+                            FieldName="Scope"
+                            FixedWidth="True"
+                            Header="Область действия">
+              <dxg:GridColumn.EditSettings>
+                <dxe:TextEditSettings DisplayTextConverter="{StaticResource ScopeConverter}" />
+              </dxg:GridColumn.EditSettings>
+            </dxg:GridColumn>
+            <dxg:GridColumn FieldName="Description" Header="Описание" />
+            <dxg:GridColumn FieldName="Comments" Header="Комментарий" />
+          </dxg:GridControl.Columns>
+          <dxg:GridControl.View>
+            <dxg:TableView Name="TableView"
+                           AllowCascadeUpdate="True"
+                           AllowEditing="False"
+                           AutoWidth="True"
+                           FocusedRow="{Binding CurrentRow,
+                                                Mode=TwoWay,
+                                                UpdateSourceTrigger=PropertyChanged}"
+                           HeaderPanelMinHeight="35"
+                           NavigationStyle="Row"
+                           RowAnimationKind="None"
+                           ShowAutoFilterRow="True"
+                           ShowGroupPanel="False"
+                           ShowIndicator="True"
+                           ShowTotalSummary="True"
+                           WaitIndicatorType="Panel" />
+          </dxg:GridControl.View>
+        </dxg:GridControl>
+      </Grid>
+      <Grid Grid.ZIndex="1000">
+        <controls:Flyout Width="{Binding ElementName=ReportControl,
+                                         Path=ActualWidth,
+                                         Mode=OneWay}"
+                         Header="Создание отчета"
+                         IsOpen="{Binding IsNewReportOpen}"
+                         Position="Right">
+          <Grid Margin="10" HorizontalAlignment="Stretch">
+            <editors:DataControl DataContext="{Binding NewReportModel}" />
+          </Grid>
+        </controls:Flyout>
+      </Grid>
+    </Grid>
+
+  </dxb:BarManager>
+</UserControl>

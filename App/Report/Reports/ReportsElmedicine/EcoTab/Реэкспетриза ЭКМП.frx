@@ -1,0 +1,374 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report ScriptLanguage="CSharp" ReportInfo.Created="11/07/2013 01:06:27" ReportInfo.Modified="08/25/2014 15:17:08" ReportInfo.CreatorVersion="2013.4.4.0">
+  <Dictionary>
+    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlq+rW0RkboK+/8CKGGYUID3ctBV8q9SvKYxl3iiE7vBnh7Tgou0+4WFf3NfmPSvHVFCjCPzCp3SWULwyFIreHyXzMYbcyvIEJ4mvnAbEZIzIA9Yf/2eWj/L5idJgmLz4QK9LN9yFwJ3msWJa/K0YS4m/+7frTZXbdOG9Pabk4tVVn4SOrX1zg0li1T2VkZfdrK">
+      <TableDataSource Name="Table" Alias="Period" DataType="System.Int32" Enabled="true" SelectCommand="Select CONVERT(DATETIME,CONVERT(nvarchar(4),s.[YEAR])+&#13;&#10;(CASE WHEN s.[MONTH] &lt; 10 THEN '0'+CONVERT(nvarchar(2),s.[MONTH]) &#13;&#10;ELSE CONVERT(nvarchar(2),s.[MONTH]) END)+'01')&#13;&#10;From SCHET s Where ID = @p">
+        <Column Name="Column1" DataType="System.DateTime"/>
+        <CommandParameter Name="@p" DataType="8" Expression="[@p]" DefaultValue="2"/>
+      </TableDataSource>
+      <TableDataSource Name="Table5" Alias="NUMBER" DataType="System.Int32" Enabled="true" SelectCommand="Select * from FREP Where ID = @f">
+        <Column Name="ID" DataType="System.Int32"/>
+        <Column Name="NAME" DataType="System.String"/>
+        <Column Name="RNUMBER" DataType="System.Int32"/>
+        <Column Name="SCHET_ID" DataType="System.Int32"/>
+        <Column Name="RTYPE" DataType="System.Int32"/>
+        <Column Name="RBODY" DataType="System.String"/>
+        <Column Name="RDATE" DataType="System.DateTime"/>
+        <Column Name="USERID" DataType="System.Int32"/>
+        <CommandParameter Name="@f" DataType="8" Expression="@f" DefaultValue="0"/>
+      </TableDataSource>
+      <TableDataSource Name="Table6" Alias="Table1" DataType="System.Int32" Enabled="true" SelectCommand="SELECT NAM_SMOK, F.[addr_j], [nam_mok], FL.[addr_j]&#13;&#10;FROM SCHET S&#13;&#10;JOIN [SCHET_SMO] SS ON S.ID = SS.[SCHET_ID]&#13;&#10;JOIN [F002] F ON F.SMOCOD = SS.[PLAT]&#13;&#10;JOIN [F003] FL ON FL.[mcod] = SS.[CODE_MO]&#13;&#10;WHERE [SCHET_ID] = @p">
+        <Column Name="NAM_SMOK" DataType="System.String"/>
+        <Column Name="addr_j" DataType="System.String"/>
+        <Column Name="nam_mok" DataType="System.String"/>
+        <Column Name="addr_j1" DataType="System.String"/>
+        <CommandParameter Name="@p" DataType="8" Expression="[@p]" DefaultValue="2"/>
+      </TableDataSource>
+      <TableDataSource Name="Table7" Alias="Table2" DataType="System.Int32" Enabled="true" SelectCommand="select count(*) kol_all	,&#13;&#10;sum(CASE WHEN usl_ok = 1 then 1 else 0 end) as stac,&#13;&#10;sum(CASE WHEN usl_ok = 2 then 1 else 0 end) as dstac,&#13;&#10;sum(CASE WHEN usl_ok = 3 then 1 else 0 end) as pol,&#13;&#10;sum(CASE WHEN usl_ok = 4 then 1 else 0 end) as skor &#13;&#10;from sluch sl&#13;&#10;where [SCHET_ID] = @p&#13;&#10;and oplata in (0,1)">
+        <Column Name="kol_all" DataType="System.Int32"/>
+        <Column Name="stac" DataType="System.Int32"/>
+        <Column Name="dstac" DataType="System.Int32"/>
+        <Column Name="pol" DataType="System.Int32"/>
+        <Column Name="skor" DataType="System.Int32"/>
+        <CommandParameter Name="@p" DataType="8" Expression="[@p]" DefaultValue="2"/>
+      </TableDataSource>
+      <TableDataSource Name="Table8" Alias="TableSank" DataType="System.Int32" Enabled="true" SelectCommand="select count(*) kol_all	,&#13;&#10;sum(CASE WHEN usl_ok = 1 then 1 else 0 end) as stac,&#13;&#10;sum(CASE WHEN usl_ok = 2 then 1 else 0 end) as dstac,&#13;&#10;sum(CASE WHEN usl_ok = 3 then 1 else 0 end) as pol,&#13;&#10;&#13;&#10;sum(CASE WHEN s_osn is not null then 1 else 0 end) as kol_al_sank,&#13;&#10;sum(CASE WHEN usl_ok = 1 and s_osn is not null then 1 else 0 end) as stac_sank,&#13;&#10;sum(CASE WHEN usl_ok = 2 and s_osn is not null then 1 else 0 end) as dstac_sank,&#13;&#10;sum(CASE WHEN usl_ok = 3 and s_osn is not null then 1 else 0 end) as pol_sank&#13;&#10; &#13;&#10;from sluch sl&#13;&#10;inner join SANK s on sl.ID = s.SLID and s.S_TIP = 3&#13;&#10;where sl.[SCHET_ID] = @p">
+        <Column Name="kol_all" DataType="System.Int32"/>
+        <Column Name="stac" DataType="System.Int32"/>
+        <Column Name="dstac" DataType="System.Int32"/>
+        <Column Name="pol" DataType="System.Int32"/>
+        <Column Name="kol_al_sank" DataType="System.Int32"/>
+        <Column Name="stac_sank" DataType="System.Int32"/>
+        <Column Name="dstac_sank" DataType="System.Int32"/>
+        <Column Name="pol_sank" DataType="System.Int32"/>
+        <CommandParameter Name="@p" DataType="8" Expression="[@p]" DefaultValue="2"/>
+      </TableDataSource>
+      <TableDataSource Name="Table9" Alias="TableRe" DataType="System.Int32" Enabled="true" SelectCommand="select count(*) kol_all From SANK s&#13;&#10;where s.[SCHET_ID] = @p and s.S_TIP = 3 and s.RESANK is not NULL">
+        <Column Name="kol_all" DataType="System.Int32"/>
+        <CommandParameter Name="@p" DataType="8" Expression="[@p]" DefaultValue="671"/>
+      </TableDataSource>
+      <TableDataSource Name="Table10" Alias="Table3" DataType="System.Int32" Enabled="true" SelectCommand="select * from users where id = @user">
+        <Column Name="id" DataType="System.Int32"/>
+        <Column Name="UserName" DataType="System.String"/>
+        <Column Name="Password" DataType="System.String"/>
+        <Column Name="LayRTable" DataType="System.String"/>
+        <Column Name="CODE" DataType="System.String"/>
+        <Column Name="FAM" DataType="System.String"/>
+        <Column Name="IM" DataType="System.String"/>
+        <Column Name="OT" DataType="System.String"/>
+        <Column Name="DOLJ" DataType="System.String"/>
+        <CommandParameter Name="@user" DataType="8" Expression="@user" DefaultValue="1"/>
+      </TableDataSource>
+      <TableDataSource Name="Table11" Alias="Table4" DataType="System.Int32" Enabled="true" SelectCommand="--671 [RESANK] = 1 and and [SCHET_SMO_ID] is not null and&#13;&#10;&#13;&#10;Select t2.* from(&#13;&#10;select npolis, [NHISTORY], [DATE_1], [DATE_2], [PROFIL], [DS1], s.SLID&#13;&#10;from sluch sl&#13;&#10;inner join SANK s on sl.ID = s.SLID&#13;&#10;inner join PACIENT p on p.ID = sl.PID&#13;&#10;where sl.[SCHET_ID] = @p&#13;&#10;and s.S_TIP = 3 and s.S_OSN is NULL and [RESANK] is null) as t1&#13;&#10;join&#13;&#10;(select npolis, [NHISTORY], [DATE_1], [DATE_2], [PROFIL], [DS1], s.SLID&#13;&#10;&#13;&#10;from sluch sl&#13;&#10;inner join SANK s on sl.ID = s.SLID&#13;&#10;inner join PACIENT p on p.ID = sl.PID&#13;&#10;where sl.[SCHET_ID] = @p&#13;&#10;and RESANK = 1 and s.S_TIP = 3) t2&#13;&#10;on t1.SLID = t2.SLID">
+        <Column Name="npolis" DataType="System.String"/>
+        <Column Name="NHISTORY" DataType="System.String"/>
+        <Column Name="DATE_1" DataType="System.DateTime"/>
+        <Column Name="DATE_2" DataType="System.DateTime"/>
+        <Column Name="PROFIL" DataType="System.Int32"/>
+        <Column Name="DS1" DataType="System.String"/>
+        <Column Name="SLID" DataType="System.Int32"/>
+        <CommandParameter Name="@p" DataType="8" Expression="[@p]" DefaultValue="671"/>
+      </TableDataSource>
+      <TableDataSource Name="Table12" Alias="Table5" DataType="System.Int32" Enabled="true" SelectCommand="Select Count(*) FROM&#13;&#10;(&#13;&#10;Select t2.* from(&#13;&#10;select npolis, [NHISTORY], [DATE_1], [DATE_2], [PROFIL], sl.[DS1], [TARIF], s_osn, s.SLID&#13;&#10;from sluch sl&#13;&#10;inner join SANK s on sl.ID = s.SLID&#13;&#10;inner join PACIENT p on p.ID = sl.PID&#13;&#10;where sl.[SCHET_ID] = @p&#13;&#10;and s.S_TIP = 3 and s.S_OSN is NULL and [RESANK] is null) as t1&#13;&#10;join&#13;&#10;(select npolis, [NHISTORY], [DATE_1], [DATE_2], [PROFIL], sl.[DS1], s.S_SUM, s_osn, ek.[ZAKL], s.SLID&#13;&#10;from sluch sl&#13;&#10;inner join SANK s on sl.ID = s.SLID&#13;&#10;inner join PACIENT p on p.ID = sl.PID&#13;&#10;join AKT_EKMP_TBL ek on s.ID = ek.SANKID&#13;&#10;where sl.[SCHET_ID] = @p&#13;&#10;and RESANK = 2 and s.S_TIP = 3) t2&#13;&#10;on t1.SLID = t2.SLID&#13;&#10;) t3">
+        <Column Name="Column1" DataType="System.Int32"/>
+        <CommandParameter Name="@p" DataType="8" Expression="[@p]" DefaultValue="671"/>
+      </TableDataSource>
+      <TableDataSource Name="Table13" Alias="SUM" DataType="System.Int32" Enabled="true" SelectCommand="select count(sumv) sumv&#13;&#10;from sluch sl&#13;&#10;where [SCHET_ID] = @p">
+        <Column Name="sumv" DataType="System.Int32"/>
+        <CommandParameter Name="@p" DataType="8" Expression="[@p]" DefaultValue="2"/>
+      </TableDataSource>
+      <TableDataSource Name="Table15" DataType="System.Int32" Enabled="true" SelectCommand="Select t2.* from(&#13;&#10;select npolis, [NHISTORY], [DATE_1], [DATE_2], [PROFIL], sl.[DS1], [TARIF], s_osn, s.SLID&#13;&#10;from sluch sl&#13;&#10;inner join SANK s on sl.ID = s.SLID&#13;&#10;inner join PACIENT p on p.ID = sl.PID&#13;&#10;where sl.[SCHET_ID] = @p&#13;&#10;and s.S_TIP = 3 and s.S_OSN is NULL and [RESANK] is null) as t1&#13;&#10;join&#13;&#10;(select npolis, [NHISTORY], [DATE_1], [DATE_2], [PROFIL], sl.[DS1], s.S_SUM, s_osn, ek.[ZAKL], s.SLID&#13;&#10;from sluch sl&#13;&#10;inner join SANK s on sl.ID = s.SLID&#13;&#10;inner join PACIENT p on p.ID = sl.PID&#13;&#10;join AKT_EKMP_TBL ek on s.ID = ek.SANKID&#13;&#10;where sl.[SCHET_ID] = @p&#13;&#10;and RESANK = 2 and s.S_TIP = 3) t2&#13;&#10;on t1.SLID = t2.SLID">
+        <Column Name="npolis" DataType="System.String"/>
+        <Column Name="NHISTORY" DataType="System.String"/>
+        <Column Name="DATE_1" DataType="System.DateTime"/>
+        <Column Name="DATE_2" DataType="System.DateTime"/>
+        <Column Name="PROFIL" DataType="System.Int32"/>
+        <Column Name="DS1" DataType="System.String"/>
+        <Column Name="s_osn" DataType="System.String"/>
+        <Column Name="ZAKL" DataType="System.String"/>
+        <Column Name="S_SUM" DataType="System.Decimal"/>
+        <Column Name="SLID" DataType="System.Int32"/>
+        <CommandParameter Name="@p" DataType="8" Expression="[@p]" DefaultValue="671"/>
+      </TableDataSource>
+      <TableDataSource Name="Table16" DataType="System.Int32" Enabled="true" SelectCommand="Select Count(*) FROM&#13;&#10;(&#13;&#10;Select t2.* from(&#13;&#10;select npolis, [NHISTORY], [DATE_1], [DATE_2], [PROFIL], [DS1], s.SLID&#13;&#10;from sluch sl&#13;&#10;inner join SANK s on sl.ID = s.SLID&#13;&#10;inner join PACIENT p on p.ID = sl.PID&#13;&#10;where sl.[SCHET_ID] = @p&#13;&#10;and s.S_TIP = 3 and s.S_OSN is NULL and [RESANK] is null) as t1&#13;&#10;join&#13;&#10;(select npolis, [NHISTORY], [DATE_1], [DATE_2], [PROFIL], [DS1], s.SLID&#13;&#10;&#13;&#10;from sluch sl&#13;&#10;inner join SANK s on sl.ID = s.SLID&#13;&#10;inner join PACIENT p on p.ID = sl.PID&#13;&#10;where sl.[SCHET_ID] = @p&#13;&#10;and RESANK = 1 and s.S_TIP = 3) t2&#13;&#10;on t1.SLID = t2.SLID&#13;&#10;) t3">
+        <Column Name="Column1" DataType="System.Int32"/>
+        <CommandParameter Name="@p" DataType="8" Expression="[@p]" DefaultValue="671"/>
+      </TableDataSource>
+      <TableDataSource Name="Table17" DataType="System.Int32" Enabled="true" SelectCommand="Select t2.* from(&#13;&#10;select npolis, [NHISTORY], [DATE_1], [DATE_2], [PROFIL], [DS1], s.SLID&#13;&#10;from sluch sl&#13;&#10;inner join SANK s on sl.ID = s.SLID&#13;&#10;inner join PACIENT p on p.ID = sl.PID&#13;&#10;where sl.[SCHET_ID] = @p&#13;&#10;and s.S_TIP = 3 and s.S_OSN is NOT NULL and [RESANK] is null) as t1&#13;&#10;join&#13;&#10;(select npolis, [NHISTORY], [DATE_1], [DATE_2], [PROFIL], [DS1], s.SLID&#13;&#10;&#13;&#10;from sluch sl&#13;&#10;inner join SANK s on sl.ID = s.SLID&#13;&#10;inner join PACIENT p on p.ID = sl.PID&#13;&#10;where sl.[SCHET_ID] = @p&#13;&#10;and RESANK = 1 and s.S_TIP = 3) t2&#13;&#10;on t1.SLID = t2.SLID">
+        <Column Name="npolis" DataType="System.String"/>
+        <Column Name="NHISTORY" DataType="System.String"/>
+        <Column Name="DATE_1" DataType="System.DateTime"/>
+        <Column Name="DATE_2" DataType="System.DateTime"/>
+        <Column Name="PROFIL" DataType="System.Int32"/>
+        <Column Name="DS1" DataType="System.String"/>
+        <Column Name="SLID" DataType="System.Int32"/>
+        <CommandParameter Name="@p" DataType="8" Expression="[@p]" DefaultValue="671"/>
+      </TableDataSource>
+      <TableDataSource Name="Table19" DataType="System.Int32" Enabled="true" SelectCommand="Select t2.* from(&#13;&#10;select npolis, [NHISTORY], [DATE_1], [DATE_2], [PROFIL], sl.[DS1], [TARIF], s_osn, s.SLID&#13;&#10;from sluch sl&#13;&#10;inner join SANK s on sl.ID = s.SLID&#13;&#10;inner join PACIENT p on p.ID = sl.PID&#13;&#10;where sl.[SCHET_ID] = @p&#13;&#10;and s.S_TIP = 3 and s.S_OSN is NOT NULL and [RESANK] is null) as t1&#13;&#10;join&#13;&#10;(select npolis, [NHISTORY], [DATE_1], [DATE_2], [PROFIL], sl.[DS1], s.S_SUM, s_osn, ek.[ZAKL], s.SLID&#13;&#10;from sluch sl&#13;&#10;inner join SANK s on sl.ID = s.SLID&#13;&#10;inner join PACIENT p on p.ID = sl.PID&#13;&#10;join AKT_EKMP_TBL ek on s.ID = ek.SANKID&#13;&#10;where sl.[SCHET_ID] = @p&#13;&#10;and RESANK = 2 and s.S_TIP = 3) t2&#13;&#10;on t1.SLID = t2.SLID">
+        <Column Name="npolis" DataType="System.String"/>
+        <Column Name="NHISTORY" DataType="System.String"/>
+        <Column Name="DATE_1" DataType="System.DateTime"/>
+        <Column Name="DATE_2" DataType="System.DateTime"/>
+        <Column Name="PROFIL" DataType="System.Int32"/>
+        <Column Name="DS1" DataType="System.String"/>
+        <Column Name="S_SUM" DataType="System.Decimal"/>
+        <Column Name="s_osn" DataType="System.String"/>
+        <Column Name="ZAKL" DataType="System.String"/>
+        <Column Name="SLID" DataType="System.Int32"/>
+        <CommandParameter Name="@p" DataType="8" Expression="[@p]" DefaultValue="671"/>
+      </TableDataSource>
+      <TableDataSource Name="Table20" Alias="Table6" DataType="System.Int32" Enabled="true" SelectCommand="Select Count(*) FROM&#13;&#10;(&#13;&#10;Select t2.* from(&#13;&#10;select npolis, [NHISTORY], [DATE_1], [DATE_2], [PROFIL], [DS1], s.SLID&#13;&#10;from sluch sl&#13;&#10;inner join SANK s on sl.ID = s.SLID&#13;&#10;inner join PACIENT p on p.ID = sl.PID&#13;&#10;where sl.[SCHET_ID] = @p&#13;&#10;and s.S_TIP = 3 and s.S_OSN is NOT NULL and [RESANK] is null) as t1&#13;&#10;join&#13;&#10;(select npolis, [NHISTORY], [DATE_1], [DATE_2], [PROFIL], [DS1], s.SLID&#13;&#10;&#13;&#10;from sluch sl&#13;&#10;inner join SANK s on sl.ID = s.SLID&#13;&#10;inner join PACIENT p on p.ID = sl.PID&#13;&#10;where sl.[SCHET_ID] = @p&#13;&#10;and RESANK = 1 and s.S_TIP = 3) t2&#13;&#10;on t1.SLID = t2.SLID&#13;&#10;) t3">
+        <Column Name="Column1" DataType="System.Int32"/>
+        <CommandParameter Name="@p" DataType="8" Expression="[@p]" DefaultValue="671"/>
+      </TableDataSource>
+      <TableDataSource Name="Table21" Alias="Table7" DataType="System.Int32" Enabled="true" SelectCommand="Select Count(*) FROM&#13;&#10;(&#13;&#10;Select t2.* from(&#13;&#10;select npolis, [NHISTORY], [DATE_1], [DATE_2], [PROFIL], sl.[DS1], [TARIF], s_osn, s.SLID&#13;&#10;from sluch sl&#13;&#10;inner join SANK s on sl.ID = s.SLID&#13;&#10;inner join PACIENT p on p.ID = sl.PID&#13;&#10;where sl.[SCHET_ID] = @p&#13;&#10;and s.S_TIP = 3 and s.S_OSN is NOT NULL and [RESANK] is null) as t1&#13;&#10;join&#13;&#10;(select npolis, [NHISTORY], [DATE_1], [DATE_2], [PROFIL], sl.[DS1], s.S_SUM, s_osn, ek.[ZAKL], s.SLID&#13;&#10;from sluch sl&#13;&#10;inner join SANK s on sl.ID = s.SLID&#13;&#10;inner join PACIENT p on p.ID = sl.PID&#13;&#10;join AKT_EKMP_TBL ek on s.ID = ek.SANKID&#13;&#10;where sl.[SCHET_ID] = @p&#13;&#10;and RESANK = 2 and s.S_TIP = 3) t2&#13;&#10;on t1.SLID = t2.SLID&#13;&#10;) t3">
+        <Column Name="Column1" DataType="System.Int32"/>
+        <CommandParameter Name="@p" DataType="8" Expression="[@p]" DefaultValue="671"/>
+      </TableDataSource>
+    </MsSqlDataConnection>
+    <Parameter Name="@p" DataType="System.Int32"/>
+    <Parameter Name="@f" DataType="System.Int32"/>
+    <Parameter Name="@user" DataType="System.Int32"/>
+  </Dictionary>
+  <ReportPage Name="Page1" Guides="28.35,359.1,359.1,689.85,66.15">
+    <ReportTitleBand Name="ReportTitle1" Width="718.2" Height="633.15" Guides="321.3">
+      <TextObject Name="Text1" Left="567" Top="9.45" Width="122.85" Height="18.9" Text="Приложение 7"/>
+      <TextObject Name="Text2" Left="28.35" Top="37.8" Width="661.5" Height="37.8" Text="Акт № &lt;*&gt; реэкспертизы по результатам медико-экономической экспертизы&#13;&#10;" HorzAlign="Center" Font="Arial, 11pt, style=Bold"/>
+      <TextObject Name="Text8" Left="28.35" Top="141.75" Width="661.5" Height="37.8" Text="Экспертами   (специалист-эксперт/эксперт   качества   медицинской  помощи -&#13;&#10;нужное подчеркнуть): ____________ (должность) _____________ (ФИО)&#13;&#10;"/>
+      <TextObject Name="Text11" Left="28.35" Top="179.55" Width="661.5" Height="18.9" Text="проведена реэкспертиза по результатам МЭЭ/ЭКМП (нужное подчеркнуть),"/>
+      <TextObject Name="Text14" Left="28.35" Top="198.45" Width="661.5" Height="18.9" Text="проведенной СМО ___________________________________________________________"/>
+      <TextObject Name="Text23" Left="28.35" Top="236.25" Width="661.5" Height="18.9" Text="Адрес местонахождения СМО _________________________________________________"/>
+      <TextObject Name="Text49" Left="28.35" Top="122.85" Width="661.5" Height="18.9" Text="от [NUMBER.RDATE] за [Period.Column1] N [NUMBER.RNUMBER]"/>
+      <TextObject Name="Text51" Left="28.35" Top="217.35" Width="661.5" Height="18.9" Text="наименование СМО" HorzAlign="Center" Font="Arial, 8pt"/>
+      <TextObject Name="Text3" Left="28.35" Top="255.15" Width="661.5" Height="18.9" Text="Дата проведения проверки __________________________________________________"/>
+      <TextObject Name="Text7" Left="28.35" Top="274.05" Width="661.5" Height="18.9" Text="Проверка проведена за период [Period.Column1]"/>
+      <TextObject Name="Text10" Left="28.35" Top="292.95" Width="661.5" Height="18.9" Text="в медицинской организации"/>
+      <TextObject Name="Text20" Left="28.35" Top="85.05" Width="661.5" Height="37.8" Text="На  основании  приказа  директора  территориального фонда обязательного&#13;&#10;медицинского страхования ________________ (название)&#13;&#10;"/>
+      <TextObject Name="Text61" Left="160.65" Top="198.45" Width="529.2" Height="18.9" Text="[Table1.NAM_SMOK]" Font="Arial, 8pt"/>
+      <TextObject Name="Text62" Left="236.25" Top="236.25" Width="453.6" Height="18.9" Text="[Table1.addr_j]" Font="Arial, 8pt"/>
+      <TextObject Name="Text65" Left="217.35" Top="255.15" Width="472.5" Height="18.9" HorzAlign="Center" Font="Arial, 8pt"/>
+      <TextObject Name="Text63" Left="28.35" Top="302.4" Width="661.5" Height="18.9" Text="[Table1.nam_mok]" HorzAlign="Center" Font="Arial, 8pt"/>
+      <TextObject Name="Text55" Left="28.35" Top="321.3" Width="661.5" Height="18.9" Text="__________________________________________________________________________________"/>
+      <TextObject Name="Text18" Left="28.35" Top="340.2" Width="661.5" Height="18.9" Text="наименование медицинской организации, город, район" HorzAlign="Center" Font="Arial, 8pt"/>
+      <TextObject Name="Text19" Left="28.35" Top="368.55" Width="661.5" Height="18.9" Text="Принято к оплате [Table2.kol_all] счетов за пролеченных застрахованных"/>
+      <TextObject Name="Text21" Left="28.35" Top="387.45" Width="661.5" Height="18.9" Text="из них: стационарной помощи - ___________________________,"/>
+      <TextObject Name="Text22" Left="28.35" Top="406.35" Width="661.5" Height="18.9" Text="медицинской помощи в дневном стационаре - _________________,"/>
+      <TextObject Name="Text24" Left="28.35" Top="425.25" Width="661.5" Height="18.9" Text="амбулаторно-поликлинической помощи - ______________________."/>
+      <TextObject Name="Text25" Left="28.35" Top="444.15" Width="661.5" Height="18.9" Text="СМО проведена МЭЭ _______________ случаев (___%):"/>
+      <TextObject Name="Text29" Left="28.35" Top="519.75" Width="661.5" Height="37.8" Text="При этом СМО выявлено ________________ случаев (___%) нарушений, допущенных&#13;&#10;при предоставлении застрахованным лицам медицинской помощи.&#13;&#10;"/>
+      <TextObject Name="Text28" Left="28.35" Top="500.85" Width="661.5" Height="18.9" Text="амбулаторно-поликлинической помощи - ______________________ случаев (___%). "/>
+      <TextObject Name="Text27" Left="28.35" Top="463.05" Width="661.5" Height="18.9" Text="медицинской помощи в дневном стационаре - _________________ случаев (___%),"/>
+      <TextObject Name="Text26" Left="28.35" Top="481.95" Width="661.5" Height="18.9" Text="из них: стационарной помощи - _____________________________ случаев (___%),"/>
+      <TextObject Name="Text64" Left="28.35" Top="321.3" Width="661.5" Height="18.9" Text="[Table1.addr_j1]" HorzAlign="Center" Font="Arial, 8pt"/>
+      <TextObject Name="Text66" Left="245.7" Top="387.45" Width="444.15" Height="18.9" Text="[Table2.stac]" Font="Arial, 8pt"/>
+      <TextObject Name="Text67" Left="330.75" Top="406.35" Width="94.5" Height="18.9" Text="[Table2.dstac]" Font="Arial, 8pt"/>
+      <TextObject Name="Text68" Left="302.4" Top="425.25" Width="94.5" Height="18.9" Text="[Table2.pol]" Font="Arial, 8pt"/>
+      <TextObject Name="Text69" Left="170.1" Top="444.15" Width="113.4" Height="18.9" Text="[TableSank.kol_all]" Font="Arial, 8pt"/>
+      <TextObject Name="Text70" Left="330.75" Top="463.05" Width="122.85" Height="18.9" Text="[TableSank.dstac]" Font="Arial, 8pt"/>
+      <TextObject Name="Text71" Left="245.7" Top="481.95" Width="207.9" Height="18.9" Text="[TableSank.stac]" Font="Arial, 8pt"/>
+      <TextObject Name="Text72" Left="302.4" Top="500.85" Width="151.2" Height="18.9" Text="[TableSank.pol]" Font="Arial, 8pt"/>
+      <TextObject Name="Text73" Left="198.45" Top="519.75" Width="122.85" Height="18.9" Text="[TableSank.kol_al_sank]" Font="Arial, 8pt"/>
+      <TextObject Name="Text30" Left="28.35" Top="557.55" Width="661.5" Height="18.9" Text="1. Проведена реэкспертиза [TableRe.kol_all] случаев (___%)."/>
+      <TextObject Name="Text31" Left="28.35" Top="576.45" Width="661.5" Height="18.9" Text="2. При реэкспертизе [[Table16.Column1] + [Table5.Column1]] случаев, признанных СМО удовлетворительными,"/>
+      <TextObject Name="Text32" Left="28.35" Top="595.35" Width="661.5" Height="18.9" Text="экспертное заключение специалистов  ТФОМС  совпало с экспертным заключением"/>
+      <TextObject Name="Text33" Left="28.35" Top="614.25" Width="661.5" Height="18.9" Text="СМО в [Table16.Column1] случаях (___%), а именно:"/>
+    </ReportTitleBand>
+    <DataBand Name="Data1" Top="705.7" Width="718.2" Height="28.35" DataSource="Table11">
+      <TableObject Name="Table2" Left="28.35" Width="633.15" Height="28.35" Border.Lines="All">
+        <TableColumn Name="Column10" Width="37.8"/>
+        <TableColumn Name="Column11" Width="141.75"/>
+        <TableColumn Name="Column12" Width="151.2"/>
+        <TableColumn Name="Column13" Width="85.05"/>
+        <TableColumn Name="Column14" Width="113.4"/>
+        <TableColumn Name="Column15" Width="103.95"/>
+        <TableRow Name="Row3" Height="28.35">
+          <TableCell Name="Cell34" Border.Lines="All" Text="[Row#]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell35" Border.Lines="All" Text="[Table4.npolis]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell36" Border.Lines="All" Text="[Table4.NHISTORY]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell37" Border.Lines="All" Text="[Table4.DATE_1]&#13;&#10;[Table4.DATE_2]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt">
+            <Formats>
+              <DateFormat Format="dd.MM.yyyy"/>
+              <DateFormat Format="dd.MM.yyyy"/>
+            </Formats>
+          </TableCell>
+          <TableCell Name="Cell38" Border.Lines="All" Text="[Table4.PROFIL]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell59" Border.Lines="All" Text="[Table4.DS1]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+        </TableRow>
+      </TableObject>
+      <DataHeaderBand Name="DataHeader2" Top="636.35" Width="718.2" Height="66.15">
+        <TableObject Name="Table1" Left="28.35" Width="633.15" Height="66.15">
+          <TableColumn Name="Column28" Width="37.8"/>
+          <TableColumn Name="Column29" Width="141.75"/>
+          <TableColumn Name="Column30" Width="151.2"/>
+          <TableColumn Name="Column31" Width="85.05"/>
+          <TableColumn Name="Column32" Width="113.4"/>
+          <TableColumn Name="Column33" Width="103.95"/>
+          <TableRow Name="Row5" Height="66.15">
+            <TableCell Name="Cell72" Border.Lines="All" Text="N &#13;&#10;п/п&#13;&#10;" HorzAlign="Center" VertAlign="Center" Font="Arial, 9pt"/>
+            <TableCell Name="Cell73" Border.Lines="All" Text="N полиса      &#13;&#10;обязательного   &#13;&#10;медицинского    &#13;&#10;страхования    &#13;&#10;" HorzAlign="Center" VertAlign="Center" Font="Arial, 9pt"/>
+            <TableCell Name="Cell74" Border.Lines="All" Text="N медицинской карты стационарного, амбулаторного больного    &#13;&#10;" HorzAlign="Center" VertAlign="Center" Font="Arial, 9pt"/>
+            <TableCell Name="Cell75" Border.Lines="All" Text="Период лечения &#13;&#10;" HorzAlign="Center" VertAlign="Center" Font="Arial, 9pt"/>
+            <TableCell Name="Cell76" Border.Lines="All" Text="Код лечебного отделения &#13;&#10;" HorzAlign="Center" VertAlign="Center" Font="Arial, 9pt"/>
+            <TableCell Name="Cell97" Border.Lines="All" Text="Диагноз или код МКБ-10 &#13;&#10;" HorzAlign="Center" VertAlign="Center" Font="Arial, 9pt"/>
+          </TableRow>
+        </TableObject>
+      </DataHeaderBand>
+    </DataBand>
+    <DataBand Name="Data3" Top="872.75" Width="718.2" Height="28.35" DataSource="Table15">
+      <TableObject Name="Table14" Left="28.35" Width="661.5" Height="28.35" Border.Lines="All">
+        <TableColumn Name="Column52" Width="37.8"/>
+        <TableColumn Name="Column53" Width="141.75"/>
+        <TableColumn Name="Column54" Width="94.5"/>
+        <TableColumn Name="Column55" Width="85.05"/>
+        <TableColumn Name="Column56" Width="75.6"/>
+        <TableColumn Name="Column57" Width="103.95"/>
+        <TableColumn Name="Column59" Width="122.85"/>
+        <TableRow Name="Row9" Height="28.35">
+          <TableCell Name="Cell116" Border.Lines="All" Text="[Row#]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell117" Border.Lines="All" Text="[Table15.npolis]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell118" Border.Lines="All" Text="[Table15.DATE_1]&#13;&#10;[Table15.DATE_2]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt">
+            <Formats>
+              <DateFormat Format="dd.MM.yyyy"/>
+              <DateFormat Format="dd.MM.yyyy"/>
+            </Formats>
+          </TableCell>
+          <TableCell Name="Cell119" Border.Lines="All" Text="[Table15.S_SUM]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell120" Border.Lines="All" Text="[Table15.DS1]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell121" Border.Lines="All" Text="[Table15.s_osn]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell123" Text="[Table15.ZAKL]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+        </TableRow>
+      </TableObject>
+      <DataHeaderBand Name="DataHeader3" Top="737.25" Width="718.2" Height="132.3" Guides="37.8">
+        <TextObject Name="Text5" Left="28.35" Top="9.45" Width="661.5" Height="18.9" Text="2.1. По [Table5.Column1] случаям (___%) специалистами территориального" VertAlign="Center"/>
+        <TextObject Name="Text52" Left="28.35" Top="28.35" Width="661.5" Height="37.8" Text="фонда обязательного медицинского страхования выявлены нарушения, допущенные медицинской организацией, но не выявленные СМО.&#13;&#10;"/>
+        <TableObject Name="Table14" Left="28.35" Top="66.15" Width="661.5" Height="66.15">
+          <TableColumn Name="Column46" Width="37.8"/>
+          <TableColumn Name="Column47" Width="141.75"/>
+          <TableColumn Name="Column48" Width="94.5"/>
+          <TableColumn Name="Column49" Width="85.05"/>
+          <TableColumn Name="Column50" Width="75.6"/>
+          <TableColumn Name="Column51" Width="103.95"/>
+          <TableColumn Name="Column58" Width="122.85"/>
+          <TableRow Name="Row8" Height="66.15">
+            <TableCell Name="Cell110" Border.Lines="All" Text="N &#13;&#10;п/п&#13;&#10;" HorzAlign="Center" VertAlign="Center" Font="Arial, 9pt"/>
+            <TableCell Name="Cell111" Border.Lines="All" Text="N полиса      &#13;&#10;обязательного   &#13;&#10;медицинского    &#13;&#10;страхования    &#13;&#10;" HorzAlign="Center" VertAlign="Center" Font="Arial, 9pt"/>
+            <TableCell Name="Cell112" Border.Lines="All" Text="Период лечения &#13;&#10;" HorzAlign="Center" VertAlign="Center" Font="Arial, 9pt"/>
+            <TableCell Name="Cell113" Border.Lines="All" Text="Финансовая санкция" HorzAlign="Center" VertAlign="Center" Font="Arial, 9pt"/>
+            <TableCell Name="Cell114" Border.Lines="All" Text="Диагноз или код МКБ-10 &#13;&#10;" HorzAlign="Center" VertAlign="Center" Font="Arial, 9pt"/>
+            <TableCell Name="Cell115" Border.Lines="All" Text="Дефекты медицинской помощи/нарушения&#13;&#10;" HorzAlign="Center" VertAlign="Center" Font="Arial, 9pt"/>
+            <TableCell Name="Cell122" Border.Lines="All" Text="Экспертное заключение" HorzAlign="Center" VertAlign="Center"/>
+          </TableRow>
+        </TableObject>
+      </DataHeaderBand>
+    </DataBand>
+    <DataBand Name="Data2" Top="1068.15" Width="718.2" Height="28.35" DataSource="Table17">
+      <TableObject Name="Table4" Left="28.35" Width="623.7" Height="28.35" Border.Lines="All">
+        <TableColumn Name="Column40" Width="37.8"/>
+        <TableColumn Name="Column41" Width="141.75"/>
+        <TableColumn Name="Column42" Width="151.2"/>
+        <TableColumn Name="Column43" Width="85.05"/>
+        <TableColumn Name="Column44" Width="103.95"/>
+        <TableColumn Name="Column45" Width="103.95"/>
+        <TableRow Name="Row7" Height="28.35">
+          <TableCell Name="Cell104" Border.Lines="All" Text="[Row#]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell105" Border.Lines="All" Text="[Table17.npolis]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell106" Border.Lines="All" Text="[Table17.NHISTORY]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell107" Border.Lines="All" Text="[Table17.DATE_1]&#13;&#10;[Table17.DATE_2]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt">
+            <Formats>
+              <DateFormat Format="dd.MM.yyyy"/>
+              <DateFormat Format="dd.MM.yyyy"/>
+            </Formats>
+          </TableCell>
+          <TableCell Name="Cell108" Border.Lines="All" Text="[Table17.PROFIL]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell109" Border.Lines="All" Text="[Table17.DS1]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+        </TableRow>
+      </TableObject>
+      <DataHeaderBand Name="DataHeader1" Top="904.3" Width="718.2" Height="160.65">
+        <TextObject Name="Text17" Left="28.35" Top="9.45" Width="661.5" Height="28.35" Text="3. Проведена реэкспертиза [[Table6.Column1]+[Table7.Column1]] случаев с выявленными СМО нарушениями в медицинской  организации и оказании медицинской помощи застрахованным лицам.&#13;&#10;" VertAlign="Center"/>
+        <TextObject Name="Text12" Left="28.35" Top="37.8" Width="661.5" Height="56.7" Text="По [Table6.Column1] случаям  (___%)  экспертное  заключение  СМО  совпало  с экспертным   заключением  специалистов территориального фонда обязательного медицинского страхования, а именно:&#13;&#10;"/>
+        <TableObject Name="Table3" Left="28.35" Top="94.5" Width="623.7" Height="66.15">
+          <TableColumn Name="Column34" Width="37.8"/>
+          <TableColumn Name="Column35" Width="141.75"/>
+          <TableColumn Name="Column36" Width="151.2"/>
+          <TableColumn Name="Column37" Width="85.05"/>
+          <TableColumn Name="Column38" Width="103.95"/>
+          <TableColumn Name="Column39" Width="103.95"/>
+          <TableRow Name="Row6" Height="66.15">
+            <TableCell Name="Cell98" Border.Lines="All" Text="N &#13;&#10;п/п&#13;&#10;" HorzAlign="Center" VertAlign="Center" Font="Arial, 9pt"/>
+            <TableCell Name="Cell99" Border.Lines="All" Text="N полиса      &#13;&#10;обязательного   &#13;&#10;медицинского    &#13;&#10;страхования    &#13;&#10;" HorzAlign="Center" VertAlign="Center" Font="Arial, 9pt"/>
+            <TableCell Name="Cell100" Border.Lines="All" Text="N медицинской карты стационарного, амбулаторного больного    &#13;&#10;" HorzAlign="Center" VertAlign="Center" Font="Arial, 9pt"/>
+            <TableCell Name="Cell101" Border.Lines="All" Text="Период лечения &#13;&#10;" HorzAlign="Center" VertAlign="Center" Font="Arial, 9pt"/>
+            <TableCell Name="Cell102" Border.Lines="All" Text="Код лечебного отделения &#13;&#10;" HorzAlign="Center" VertAlign="Center" Font="Arial, 9pt"/>
+            <TableCell Name="Cell103" Border.Lines="All" Text="Диагноз или код МКБ-10 &#13;&#10;" HorzAlign="Center" VertAlign="Center" Font="Arial, 9pt"/>
+          </TableRow>
+        </TableObject>
+      </DataHeaderBand>
+    </DataBand>
+    <DataBand Name="Data4" Top="1225.75" Width="718.2" Height="28.35" Guides="28.35" DataSource="Table19">
+      <TableObject Name="Table18" Left="28.35" Width="661.5" Height="28.35" Border.Lines="All">
+        <TableColumn Name="Column67" Width="37.8"/>
+        <TableColumn Name="Column68" Width="141.75"/>
+        <TableColumn Name="Column69" Width="94.5"/>
+        <TableColumn Name="Column70" Width="85.05"/>
+        <TableColumn Name="Column71" Width="75.6"/>
+        <TableColumn Name="Column72" Width="103.95"/>
+        <TableColumn Name="Column73" Width="122.85"/>
+        <TableRow Name="Row11" Height="28.35">
+          <TableCell Name="Cell131" Border.Lines="All" Text="[Row#]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell132" Border.Lines="All" Text="[Table19.npolis]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell133" Border.Lines="All" Text="[Table19.DATE_1]&#13;&#10;[Table19.DATE_2]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt">
+            <Formats>
+              <DateFormat Format="dd.MM.yyyy"/>
+              <DateFormat Format="dd.MM.yyyy"/>
+            </Formats>
+          </TableCell>
+          <TableCell Name="Cell134" Border.Lines="All" Text="[Table19.S_SUM]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell135" Border.Lines="All" Text="[Table19.DS1]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell136" Border.Lines="All" Text="[Table19.s_osn]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell137" Text="[Table19.ZAKL]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+        </TableRow>
+      </TableObject>
+      <DataHeaderBand Name="DataHeader4" Top="1099.7" Width="718.2" Height="122.85" Guides="122.85">
+        <TextObject Name="Text15" Left="28.35" Width="661.5" Height="56.7" Text="3.1. По [Table7.Column1] случаям (___%) специалистами территориального фонда обязательного  медицинского  страхования  выявлены   нарушения,  допущенные специалистами СМО при МЭЭ/ЭКМП (нужное подчеркнуть).&#13;&#10;"/>
+        <TableObject Name="Table18" Left="28.35" Top="56.7" Width="661.5" Height="66.15">
+          <TableColumn Name="Column60" Width="37.8"/>
+          <TableColumn Name="Column61" Width="141.75"/>
+          <TableColumn Name="Column62" Width="94.5"/>
+          <TableColumn Name="Column63" Width="85.05"/>
+          <TableColumn Name="Column64" Width="75.6"/>
+          <TableColumn Name="Column65" Width="103.95"/>
+          <TableColumn Name="Column66" Width="122.85"/>
+          <TableRow Name="Row10" Height="66.15">
+            <TableCell Name="Cell124" Border.Lines="All" Text="N &#13;&#10;п/п&#13;&#10;" HorzAlign="Center" VertAlign="Center" Font="Arial, 9pt"/>
+            <TableCell Name="Cell125" Border.Lines="All" Text="N полиса      &#13;&#10;обязательного   &#13;&#10;медицинского    &#13;&#10;страхования    &#13;&#10;" HorzAlign="Center" VertAlign="Center" Font="Arial, 9pt"/>
+            <TableCell Name="Cell126" Border.Lines="All" Text="Период лечения &#13;&#10;" HorzAlign="Center" VertAlign="Center" Font="Arial, 9pt"/>
+            <TableCell Name="Cell127" Border.Lines="All" Text="Финансовая санкция" HorzAlign="Center" VertAlign="Center" Font="Arial, 9pt"/>
+            <TableCell Name="Cell128" Border.Lines="All" Text="Диагноз или код МКБ-10 &#13;&#10;" HorzAlign="Center" VertAlign="Center" Font="Arial, 9pt"/>
+            <TableCell Name="Cell129" Border.Lines="All" Text="Дефекты медицинской помощи/нарушения&#13;&#10;" HorzAlign="Center" VertAlign="Center" Font="Arial, 9pt"/>
+            <TableCell Name="Cell130" Border.Lines="All" Text="Экспертное заключение" HorzAlign="Center" VertAlign="Center"/>
+          </TableRow>
+        </TableObject>
+      </DataHeaderBand>
+    </DataBand>
+    <ReportSummaryBand Name="ReportSummary1" Top="1257.3" Width="718.2" Height="519.75">
+      <TextObject Name="Text38" Left="28.35" Top="9.45" Width="661.5" Height="47.25" Text="Экспертное заключение специалистов территориального фонда обязательного медицинского  страхования формулируется согласно договору с СМО с указанием номера  пункта  перечня  нарушений  и сумм финансовых санкций, наименования нарушений.&#13;&#10;"/>
+      <TextObject Name="Text39" Left="28.35" Top="56.7" Width="661.5" Height="18.9" Text="	Сумма по счету ____________ руб."/>
+      <TextObject Name="Text40" Left="28.35" Top="75.6" Width="661.5" Height="18.9" Text="	Необоснованно удержанная СМО с медицинской организации сумма _____ руб."/>
+      <TextObject Name="Text41" Left="28.35" Top="94.5" Width="661.5" Height="18.9" Text="	Сумма финансовых санкций ___________ руб."/>
+      <TextObject Name="Text42" Left="28.35" Top="113.4" Width="661.5" Height="75.6" Text="4.   Выводы:   Экспертное   заключение  СМО  и  территориального  фонда обязательного  медицинского страхования совпало в _________ случаях (___%), выявлено  нарушений,  допущенных  СМО  в  организации и проведении МЭЭ/ЭКМП (нужное  подчеркнуть)  в  _________  случаях  (___%),  в том числе по видам нарушений с указанием количества и сумм.&#13;&#10;"/>
+      <TextObject Name="Text43" Left="28.35" Top="189" Width="661.5" Height="37.8" Text="5.   Предложения:   Подлежит   восстановлению  медицинской  организации отдельным  платежным  поручением необоснованно удержанная сумма  в  размере ________ руб.&#13;&#10;"/>
+      <TextObject Name="Text44" Left="28.35" Top="226.8" Width="661.5" Height="37.8" Text="Подлежит  перечислению  за  счет  собственных средств СМО на счет ТФОМС финансовые санкции в размере _________ руб.&#13;&#10;"/>
+      <TextObject Name="Text45" Left="28.35" Top="264.6" Width="661.5" Height="18.9" Text="	Подпись специалистов, проводивших реэкспертизу:"/>
+      <TextObject Name="Text46" Left="28.35" Top="283.5" Width="661.5" Height="18.9" Text="	______________________________ ФИО ____________ подпись"/>
+      <TextObject Name="Text47" Left="28.35" Top="302.4" Width="661.5" Height="18.9" Text="	______________________________ ФИО ____________ подпись"/>
+      <TextObject Name="Text56" Left="28.35" Top="321.3" Width="661.5" Height="18.9" Text="	______________________________ ФИО ____________ подпись"/>
+      <TextObject Name="Text50" Left="28.35" Top="378" Width="661.5" Height="18.9" Text="С актом ознакомлены:"/>
+      <TextObject Name="Text53" Left="28.35" Top="396.9" Width="661.5" Height="18.9" Text="Руководитель СМО _____________________ ФИО ___________ подпись"/>
+      <TextObject Name="Text57" Left="28.35" Top="415.8" Width="661.5" Height="18.9" Text="М.П." HorzAlign="Center"/>
+      <TextObject Name="Text58" Left="28.35" Top="434.7" Width="661.5" Height="18.9" Text="Руководитель медицинской организации _____________ ФИО ________ подпись"/>
+      <TextObject Name="Text74" Left="28.35" Top="481.95" Width="699.3" Height="37.8" Text="Исполнитель [Table3.FAM] [Substring([Table3.IM],0,1)]. [Substring([Table3.OT],0,1)]."/>
+      <TextObject Name="Text75" Left="28.35" Top="349.65" Width="661.5" Height="18.9" Text="Директор ТФОМС Курской области						А. В. Курцев"/>
+      <TextObject Name="Text76" Left="189" Top="56.7" Width="94.5" Height="18.9" Text="[SUM.sumv]" Font="Arial, 8pt"/>
+    </ReportSummaryBand>
+  </ReportPage>
+</Report>

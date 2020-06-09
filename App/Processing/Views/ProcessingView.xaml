@@ -1,0 +1,112 @@
+﻿<UserControl x:Class="Medical.AppLayer.Processing.Views.ProcessingView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:converters="clr-namespace:Medical.AppLayer.Converters"
+             xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars"
+             xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
+             xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+             xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:editors="clr-namespace:Medical.AppLayer.Editors"
+             xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+             xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300"
+             x:Name="ProcessingControl">
+    <UserControl.Resources>
+        <converters:VersionConverter x:Key="VersionConverter"/>
+        <converters:ProcessingTypeToImageConverter x:Key="ProcessingTypeToImageConverter"/>
+        <converters:ScopeConverter x:Key="ScopeConverter"/>
+    </UserControl.Resources>
+
+    <dxb:BarManager  CreateStandardLayout="False" >
+        <Grid>
+            <Grid>
+                <dx:PLinqInstantFeedbackDataSource Name="pLinqProcessingDataSource" ListSource="{Binding Path=ProcessingListSource}" />
+                <dxlc:LayoutControl Padding="0" Orientation="Vertical">
+
+                    <dxlc:LayoutItem VerticalAlignment="Stretch">
+                        <dxg:GridControl Name="Grid" 
+                                         ItemsSource="{Binding ElementName=pLinqProcessingDataSource, Path=Data}"
+                                         ShowBorder="False"
+                                         UseLayoutRounding="True">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="DataContextChanged">
+                                    <ei:CallMethodAction TargetObject="{Binding ElementName=tableView}" MethodName="BestFitColumns"/>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+
+                            <dxg:GridControl.Columns>
+
+                                <dxg:GridColumn FieldName="ProcessingId" Header="ID" FixedWidth="True" Width="50"/>
+                                <dxg:GridColumn FieldName="ProcessingType_ProcessingTypeId" Header=""  FixedWidth="True" Width="22">
+                                    <dxg:GridColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Image Height="22" Width="22" HorizontalAlignment="Center" Source="{Binding Path=Value, Converter={StaticResource ProcessingTypeToImageConverter}}">
+                                                <RenderOptions.BitmapScalingMode>NearestNeighbor</RenderOptions.BitmapScalingMode>
+                                            </Image>
+                                        </DataTemplate>
+                                    </dxg:GridColumn.CellTemplate>
+                                </dxg:GridColumn>
+                                <dxg:GridColumn FieldName="Scope_ScopeID" Header="Область применения" FixedWidth="True" Width="100">
+                                    <dxg:GridColumn.EditSettings>
+                                        <dxe:TextEditSettings DisplayTextConverter="{StaticResource ScopeConverter}"/>
+                                    </dxg:GridColumn.EditSettings>
+                                </dxg:GridColumn>
+                                <dxg:GridColumn FieldName="Name" Header="Название"/>
+                                <dxg:GridColumn FieldName="Description" Header="Описание"/>
+                                <dxg:GridColumn FieldName="Comments" Header="Комментарий"/>
+                                <dxg:GridColumn FieldName="Weight" Header="Вес"  FixedWidth="True" Width="50"/>
+                                <dxg:GridColumn FieldName="IsEnable" Header="Вкл."  FixedWidth="True" Width="50"/>
+                                <dxg:GridColumn FieldName="DateBegin" Header="Дата начала" FixedWidth="True" Width="100"/>
+                                <dxg:GridColumn FieldName="DateEnd" Header="Дата окончания" FixedWidth="True" Width="100"/>
+                                <dxg:GridColumn FieldName="Version_VersionID" Header="Версия" FixedWidth="True" Width="50">
+                                    <dxg:GridColumn.EditSettings>
+                                        <dxe:TextEditSettings DisplayTextConverter="{StaticResource VersionConverter}"/>
+                                    </dxg:GridColumn.EditSettings>
+                                </dxg:GridColumn>
+                            </dxg:GridControl.Columns>
+
+                            <dxg:GridControl.View>
+                                <dxg:TableView Name="tableView"  
+                                       AllowEditing="False" 
+                                       ShowIndicator="True"
+                                       AllowCascadeUpdate="True"        
+                                       ShowGroupPanel="False" 
+                                       ShowAutoFilterRow="True" 
+                                       NavigationStyle="Row"
+                                       WaitIndicatorType="Panel"
+                                       ShowTotalSummary="True"
+                                       RowAnimationKind="None"
+                                       HeaderPanelMinHeight="35"
+                                       AutoWidth="True"
+                                       FocusedRow="{Binding CurrentRow, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                            </dxg:GridControl.View>
+                        </dxg:GridControl>
+                    </dxlc:LayoutItem>
+                </dxlc:LayoutControl>
+            </Grid>
+            <Grid Grid.ZIndex="1000">
+                <controls:Flyout IsOpen="{Binding IsEditProcessingOpen}"
+                                Header="Добавление/редактирование функции обработки данных"
+                                Position="Right"
+                                Width="{Binding ElementName=ProcessingControl, Path=ActualWidth, Mode=OneWay}">
+                    <Grid Margin="10" HorizontalAlignment="Stretch" >
+                        <editors:DataControl DataContext="{Binding ProcessingModel}"/>
+                    </Grid>
+                </controls:Flyout>
+            </Grid>
+        </Grid>
+
+        <i:Interaction.Triggers>
+            <i:EventTrigger EventName="Closed">
+                <i:InvokeCommandAction Command="{Binding ElementName=pLinqProcessingDataSource, Path=DisposeCommand}" />
+            </i:EventTrigger>
+        </i:Interaction.Triggers>
+
+
+    </dxb:BarManager>
+</UserControl>

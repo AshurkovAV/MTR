@@ -1,0 +1,22 @@
+﻿<!--<BlurEffect x:Key="BlurEffect" Radius="2"/>
+	<Style x:Key="BlurGroup" TargetType="dxlc:LayoutGroup">
+		<Style.Triggers>
+			<DataTrigger Binding="{Binding Path=NoServices}" Value="True">
+				<Setter Property="Effect" Value="{StaticResource BlurEffect}" />
+			</DataTrigger>
+			<DataTrigger Binding="{Binding Path=NoServices}" Value="False">
+				<Setter Property="Effect" Value="{x:Null}" />
+			</DataTrigger>
+		</Style.Triggers>
+	</Style>-->
+
+	<x:Array Type="appLayer:OperatorMode" x:Key="InterTerritorialModes">
+		<appLayer:OperatorMode>InterTerritorial</appLayer:OperatorMode>
+		<appLayer:OperatorMode>InterTerritorialError</appLayer:OperatorMode>
+		<appLayer:OperatorMode>InterTerritorialSrzQuery</appLayer:OperatorMode>
+	</x:Array>
+	<x:Array Type="appLayer:OperatorMode" x:Key="LocalModes">
+		<appLayer:OperatorMode>Local</appLayer:OperatorMode>
+		<appLayer:OperatorMode>LocalError</appLayer:OperatorMode>
+		<appLayer:OperatorMode>LocalSrzQuery</appLayer:OperatorMode>
+	</x:Array>

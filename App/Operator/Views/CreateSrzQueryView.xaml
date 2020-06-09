@@ -1,0 +1,55 @@
+﻿<UserControl  x:Class="Medical.AppLayer.Operator.Views.CreateSrzQueryView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol"
+        xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors" 
+        xmlns:extToolkit="http://schemas.microsoft.com/winfx/2006/xaml/presentation/toolkit/extended"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        mc:Ignorable="d" 
+        d:DesignHeight="600" 
+        d:DesignWidth="800" 
+        Height="Auto"
+        
+        >
+    <Grid Background="White">
+        <dxlc:LayoutControl Orientation="Vertical" MinWidth="300">
+            <dxlc:LayoutItem Height="200">
+                <dxe:ListBoxEdit ShowCustomItems="True"
+                                ValueMember="ValueField" 
+                                 DisplayMember="DisplayField" 
+                                 ItemsSource="{Binding FieldsList}" 
+                                 EditValue="{Binding SelectedList,UpdateSourceTrigger=PropertyChanged,
+                                 ValidatesOnExceptions=true, 
+                                 ValidatesOnDataErrors=true, 
+                                 NotifyOnValidationError=true}" 
+                                 SelectionMode="Multiple" 
+                                 AllowItemHighlighting="True"
+                                 VerticalAlignment="Stretch">
+                    <dxe:ListBoxEdit.StyleSettings>
+                        <dxe:CheckedListBoxEditStyleSettings />
+                    </dxe:ListBoxEdit.StyleSettings>
+                </dxe:ListBoxEdit>
+            </dxlc:LayoutItem>
+            <dxlc:LayoutItem Height="24" Label="Журнал отправки запроса">
+                <Separator/>
+            </dxlc:LayoutItem>
+            <dxlc:LayoutItem VerticalAlignment="Stretch">
+                <extToolkit:RichTextBox  
+                    BorderBrush="Gray" 
+                    Padding="10"
+                    Text="{Binding Notes}" 
+                    ScrollViewer.VerticalScrollBarVisibility="Auto" 
+                    IsReadOnly="True" />
+            </dxlc:LayoutItem>
+
+            <dxlc:LayoutItem Height="24">
+                <Separator VerticalAlignment="Bottom"/>
+            </dxlc:LayoutItem>
+            <dxlc:LayoutGroup VerticalAlignment="Bottom">
+                <Button Content="Отправить запрос" Height="23" HorizontalAlignment="Right" VerticalAlignment="Top" Width="112" Command="{Binding CreateQueryCommand}" />
+            </dxlc:LayoutGroup>
+            
+        </dxlc:LayoutControl>
+    </Grid>
+</UserControl>

@@ -1,0 +1,13 @@
+*.exe
+*.cache
+_._
+*.baml
+*.pdb
+bin/
+obj/
+_ReSharper*/
+packages/
+*.coverage
+/Utilites/ClassifiersUpdater/Data/*.xml
+*.dat
+*.log

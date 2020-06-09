@@ -1,0 +1,449 @@
+﻿<UserControl x:Class="Medical.AppLayer.Register.Views.MedicalAccountView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:converters="clr-namespace:Medical.AppLayer.Converters"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+             xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars"
+             xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+             xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+             xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol"
+             xmlns:editors="clr-namespace:Medical.AppLayer.Editors"
+             xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
+             xmlns:examination="clr-namespace:Medical.AppLayer.Examination.Views"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:processing="clr-namespace:Medical.AppLayer.Processing.Views"
+             xmlns:report="clr-namespace:Medical.AppLayer.Report.Views"
+             xmlns:views="clr-namespace:Medical.AppLayer.Register.Views"
+             x:Name="MedicalAccountControl"
+             d:DesignHeight="661"
+             d:DesignWidth="800"
+             mc:Ignorable="d">
+  <UserControl.Resources>
+    <converters:AccountStatusConverter x:Key="AccountStatusConverter" />
+    <converters:HalfConverter x:Key="HalfConverter" />
+    <ControlTemplate x:Key="medicalOrgtanizationPopupContentTemplate">
+      <dxg:GridControl x:Name="PART_GridControl" AutoExpandAllGroups="True">
+        <dxg:GridControl.Columns>
+          <dxg:GridColumn FieldName="DisplayName" Header="Медицинская организация" />
+        </dxg:GridControl.Columns>
+        <dxg:GridControl.View>
+          <dxg:TableView Name="View"
+                         AllowPerPixelScrolling="True"
+                         AutoWidth="True"
+                         HeaderPanelMinHeight="35"
+                         IsSynchronizedWithCurrentItem="False"
+                         NewItemRowPosition="None"
+                         ScrollAnimationDuration="0"
+                         ShowAutoFilterRow="False"
+                         ShowGroupedColumns="False"
+                         ShowTotalSummary="False" />
+        </dxg:GridControl.View>
+      </dxg:GridControl>
+    </ControlTemplate>
+    <Style TargetType="dxe:FilterControl">
+      <Setter Property="Foreground" Value="Black" />
+      <Style.Resources>
+        <Style TargetType="dxe:TextEdit">
+          <Setter Property="Foreground" Value="Black" />
+        </Style>
+      </Style.Resources>
+    </Style>
+  </UserControl.Resources>
+
+  <dxb:BarManager x:Name="barManager" CreateStandardLayout="False">
+
+    <Grid>
+      <Grid>
+        <Grid.RowDefinitions>
+          <RowDefinition Height="Auto" />
+          <RowDefinition Height="50" />
+          <RowDefinition Height="550*" />
+        </Grid.RowDefinitions>
+        <dx:PLinqInstantFeedbackDataSource Name="pLinqInstantDataSource" ListSource="{Binding Path=EventListSource}" />
+        <dx:PLinqInstantFeedbackDataSource Name="pLinqAccountDataSource" ListSource="{Binding Path=AccountListSource}" />
+
+        <dxb:BarContainerControl Grid.Row="0" DockPanel.Dock="Top">
+
+          <dxb:ToolBarControl AllowQuickCustomization="False" Caption="Просмотр">
+            <dxb:BarLinkContainerItem>
+              <dxb:BarButtonItem Command="{Binding ViewAccountCommand}"
+                                 Content="Просмотр позиций"
+                                 Glyph="{dx:DXImage Image=Show_16x16.png}"
+                                 LargeGlyph="{dx:DXImage Image=Show_32x32.png}" />
+              <dxb:BarSubItem Content="Просмотр (фильтры)"
+                              Glyph="{dx:DXImage Image=MasterFilter_16x16.png}"
+                              LargeGlyph="{dx:DXImage Image=MasterFilter_32x32.png}">
+                <dxb:BarButtonItem Command="{Binding ViewAccountErrorCommand}"
+                                   Content="Позиции счета(ошибки)"
+                                   Glyph="{dx:DXImage Image=IgnoreMasterFilter_16x16.png}"
+                                   LargeGlyph="{dx:DXImage Image=IgnoreMasterFilter_32x32.png}" />
+                <dxb:BarButtonItem Command="{Binding ViewAccountSrzCommand}"
+                                   Content="Позиции счета(СРЗ)"
+                                   Glyph="{dx:DXImage Image=MultipleMasterFilter_16x16.png}"
+                                   LargeGlyph="{dx:DXImage Image=MultipleMasterFilter_32x32.png}" />
+              </dxb:BarSubItem>
+
+              <dxb:BarItemLinkSeparator />
+              <dxb:BarButtonItem Command="{Binding CreateAccountCommand}"
+                                 Content="Создание счета"
+                                 Glyph="{dx:DXImage Image=Add_16x16.png}"
+                                 LargeGlyph="{dx:DXImage Image=Add_32x32.png}" />
+              <dxb:BarButtonItem Command="{Binding EditAccountCommand}"
+                                 Content="Редактировать"
+                                 Glyph="{dx:DXImage Image=Edit_16x16.png}"
+                                 LargeGlyph="{dx:DXImage Image=Edit_32x32.png}" />
+              <dxb:BarItemLinkSeparator />
+              <dxb:BarButtonItem Command="{Binding ReloadCommand}"
+                                 Content="Обновить"
+                                 Glyph="{dx:DXImage Image=Refresh_16x16.png}"
+                                 LargeGlyph="{dx:DXImage Image=Refresh_32x32.png}" />
+              <dxb:BarSubItem Content="Связанные данные"
+                              Glyph="{dx:DXImage Image=ConvertToRange_16x16.png}"
+                              LargeGlyph="{dx:DXImage Image=ConvertToRange_32x32.png}">
+                <dxb:BarButtonItem Command="{Binding ViewExchangeCommand}"
+                                   Content="Журнал информационного взаимодействия"
+                                   Glyph="{dx:DXImage Image=SortDialog_16x16.png}"
+                                   LargeGlyph="{dx:DXImage Image=SortDialog_32x32.png}" />
+              </dxb:BarSubItem>
+              <dxb:BarSubItem Content="Удаление"
+                              Glyph="{dx:DXImage Image=Trash_16x16.png}"
+                              LargeGlyph="{dx:DXImage Image=Trash_32x32.png}">
+                <dxb:BarButtonItem Command="{Binding DeleteAccountCommand}"
+                                   Content="Удалить"
+                                   Glyph="{dx:DXImage Image=Delete_16x16.png}"
+                                   LargeGlyph="{dx:DXImage Image=Delete_32x32.png}" />
+                <dxb:BarButtonItem Command="{Binding DeleteByPeriodAccountCommand}"
+                                   Content="Удалить за период"
+                                   Glyph="{dx:DXImage Image=DeleteSheetRows_16x16.png}"
+                                   LargeGlyph="{dx:DXImage Image=DeleteSheetRows_32x32.png}" />
+              </dxb:BarSubItem>
+              <dxb:BarItemLinkSeparator />
+              <dxb:BarButtonItem Command="{Binding ShowSummaryCommand}"
+                                 Content="Саммари"
+                                 Glyph="{dx:DXImage Image=ChartTitlesAboveChart_16x16.png}"
+                                 LargeGlyph="{dx:DXImage Image=ChartTitlesAboveChart_32x32.png}" />
+              <dxb:BarItemLinkSeparator />
+              <dxb:BarButtonItem Content="Выгрузка OMS"
+                                 Glyph="{dx:DXImage Image=Export_16x16.png}"
+                                 ItemClick="Test_OnItemClick"
+                                 LargeGlyph="{dx:DXImage Image=Export_32x32.png}" />
+              <dxb:BarItemLinkSeparator />
+              <dxb:BarButtonItem Command="{Binding RunCheckCommand}"
+                                 Content="Запуск экспертиз"
+                                 Glyph="{dx:DXImage Image=Clear_16x16.png}"
+                                 LargeGlyph="{dx:DXImage Image=Clear_32x32.png}" />
+              <dxb:BarButtonItem Command="{Binding CheckPolicyCommand}"
+                                 Content="Проверка полисов"
+                                 Glyph="{dx:DXImage Image=CheckBox_16x16.png}"
+                                 LargeGlyph="{dx:DXImage Image=CheckBox_32x32.png}" />
+              <dxb:BarButtonItem Command="{Binding RunProcessingCommand}"
+                                 Content="Запуск обработки данных"
+                                 Glyph="{dx:DXImage Image=ManageDatasource_16x16.png}"
+                                 LargeGlyph="{dx:DXImage Image=ManageDatasource_32x32.png}" />
+              <dxb:BarItemLinkSeparator />
+              <dxb:BarButtonItem Command="{Binding MakeTerritoryAccountCommand}"
+                                 Content="Сформировать счета на территории"
+                                 Glyph="/CoreLayer;component/Resource/Icons/run-build2.png"
+                                 LargeGlyph="/CoreLayer;component/Resource/Icons/run-build2.png" />
+              <dxb:BarButtonItem Command="{Binding CreateDocumentCommand}"
+                                 Content="Сформировать документы"
+                                 Glyph="{dx:DXImage Image=PrintArea_16x16.png}"
+                                 LargeGlyph="{dx:DXImage Image=PrintArea_32x32.png}" />
+              <dxb:BarButtonItem Command="{Binding PrintDocumentCommand}"
+                                 Content="Печать документов"
+                                 Glyph="{dx:DXImage Image=Printer_16x16.png}"
+                                 LargeGlyph="{dx:DXImage Image=Printer_32x32.png}" />
+              <dxb:BarItemLinkSeparator />
+              <dxb:BarSubItem Content="Акты"
+                              Glyph="{dx:DXImage Image=BONote_16x16.png}"
+                              LargeGlyph="{dx:DXImage Image=BONote_32x32.png}">
+                <dxb:BarButtonItem Command="{Binding AddMeeCommand}"
+                                   Content="Добавить акт МЭЭ"
+                                   Glyph="{dx:DXImage Image=AddFile_16x16.png}"
+                                   LargeGlyph="{dx:DXImage Image=AddFile_32x32.png}" />
+                <dxb:BarButtonItem Command="{Binding AddEqmaCommand}"
+                                   Content="Добавить акт ЭКМП"
+                                   Glyph="{dx:DXImage Image=AddItem_16x16.png}"
+                                   LargeGlyph="{dx:DXImage Image=AddItem_32x32.png}" />
+                <dxb:BarButtonItem Command="{Binding ViewActCommand}"
+                                   Content="Просмотр актов МЭЭ/ЭКМП"
+                                   Glyph="{dx:DXImage Image=ServerMode_16x16.png}"
+                                   LargeGlyph="{dx:DXImage Image=ServerMode_32x32.png}" />
+              </dxb:BarSubItem>
+            </dxb:BarLinkContainerItem>
+
+          </dxb:ToolBarControl>
+
+        </dxb:BarContainerControl>
+        <!--<dxb:BarContainerControl Grid.Row="0" DockPanel.Dock="Top" HorizontalAlignment="Right">
+          <dxb:ToolBarControl AllowQuickCustomization="False" Caption="Шаблоны фильтров">
+            <dxb:BarLinkContainerItem>
+              <dxb:BarButtonItem Command="{Binding ViewAccountCommand}"
+                                 Content="Сохранить фильтр"
+                                 Glyph="{dx:DXImage Image=Save_16x16.png}"
+                                 LargeGlyph="{dx:DXImage Image=Save_32x32.png}" />
+              <dxb:BarButtonItem Command="{Binding ViewAccountCommand}"
+                                 Content="Просмотр фильтров"
+                                 Glyph="{dx:DXImage Image=Open_16x16.png}"
+                                 LargeGlyph="{dx:DXImage Image=Open_32x32.png}" />
+
+            </dxb:BarLinkContainerItem>
+          </dxb:ToolBarControl>
+        </dxb:BarContainerControl>-->
+
+
+        <dxlc:LayoutControl Grid.Row="1">
+          <dxlc:LayoutItem Label="Год">
+            <dxe:ComboBoxEdit AutoComplete="True"
+                              EditValue="{Binding SelectedYear,
+                                                  UpdateSourceTrigger=PropertyChanged}"
+                              ItemsSource="{Binding YearItemsSource}" />
+          </dxlc:LayoutItem>
+          <dxlc:LayoutItem Label="Месяц">
+            <dxe:ComboBoxEdit AutoComplete="True"
+                              DisplayMember="DisplayField"
+                              EditValue="{Binding SelectedMonth,
+                                                  UpdateSourceTrigger=PropertyChanged}"
+                              ItemsSource="{Binding MonthItemsSource}"
+                              ValueMember="ValueField" />
+          </dxlc:LayoutItem>
+          <dxlc:LayoutItem Label="Медицинская организация">
+            <dxg:LookUpEdit Name="MedicalOrganizationEdit"
+                            HorizontalAlignment="Stretch"
+                            AddNewButtonPlacement="None"
+                            AutoPopulateColumns="False"
+                            DisplayMember="DisplayName"
+                            EditValue="{Binding SelectedMedicalOrganization,
+                                                UpdateSourceTrigger=PropertyChanged}"
+                            FilterCondition="Contains"
+                            FindButtonPlacement="Popup"
+                            FindMode="Always"
+                            IsPopupAutoWidth="False"
+                            NullValueButtonPlacement="Popup"
+                            PopupContentTemplate="{StaticResource medicalOrgtanizationPopupContentTemplate}"
+                            PopupHeight="300"
+                            PopupMinHeight="100"
+                            PopupMinWidth="100"
+                            PopupWidth="350"
+                            ShowSizeGrip="True"
+                            ValueMember="Value">
+              <dxg:LookUpEdit.StyleSettings>
+                <dxg:SearchLookUpEditStyleSettings />
+              </dxg:LookUpEdit.StyleSettings>
+            </dxg:LookUpEdit>
+          </dxlc:LayoutItem>
+        </dxlc:LayoutControl>
+
+        <dxlc:LayoutControl Grid.Row="2"
+                            Orientation="Vertical"
+                            Padding="0">
+
+          <dxlc:LayoutItem VerticalAlignment="Stretch" dxlc:LayoutControl.AllowHorizontalSizing="True">
+            <dxg:GridControl x:Name="so"
+                             AutoExpandAllGroups="True"
+                             ItemsSource="{Binding ElementName=pLinqAccountDataSource,
+                                                   Path=Data}"
+                             ShowBorder="False"
+                             UseLayoutRounding="True">
+              <i:Interaction.Triggers>
+                <i:EventTrigger EventName="DataContextChanged">
+                  <ei:CallMethodAction MethodName="BestFitColumns" TargetObject="{Binding ElementName=tableView}" />
+                </i:EventTrigger>
+              </i:Interaction.Triggers>
+              <dxg:GridControl.Resources>
+                <Style x:Key="optimizedRowStyle" TargetType="{x:Type dxg:RowControl}">
+                  <Style.Triggers>
+                    <Trigger Property="dxg:GridViewBase.IsFocusedRow" Value="True">
+                      <Setter Property="Background" Value="{Binding Path=Row.Status, Converter={converters:IntoToColorConverter}}" />
+                      <Setter Property="FontWeight" Value="Bold" />
+                    </Trigger>
+                    <Trigger Property="dxg:GridViewBase.IsFocusedRow" Value="False">
+                      <Setter Property="Background" Value="{Binding Path=Row.Status, Converter={converters:IntoToColorConverter}}" />
+                    </Trigger>
+                  </Style.Triggers>
+                </Style>
+              </dxg:GridControl.Resources>
+
+              <dxg:GridControl.Columns>
+                <dxg:GridColumn FieldName="CodeMo"
+                                Header="Код МО"
+                                ReadOnly="True" />
+                <dxg:GridColumn FieldName="ShortNameMo"
+                                Header="МО"
+                                ReadOnly="True" />
+                <dxg:GridColumn FieldName="AccountNumber" Header="Номер счета" />
+                <dxg:GridColumn FieldName="Date" Header="Отчетный год">
+                  <dxg:GridColumn.EditSettings>
+                    <dxe:TextEditSettings DisplayFormat="yyyy"
+                                          Mask="yyyy"
+                                          MaskType="DateTime"
+                                          TextWrapping="WrapWithOverflow" />
+                  </dxg:GridColumn.EditSettings>
+                </dxg:GridColumn>
+                <dxg:GridColumn FieldName="Date" Header="Отчетный месяц">
+                  <dxg:GridColumn.EditSettings>
+                    <dxe:TextEditSettings DisplayFormat="MMMM"
+                                          Mask="MMMM"
+                                          MaskType="DateTime"
+                                          TextWrapping="WrapWithOverflow" />
+                  </dxg:GridColumn.EditSettings>
+                </dxg:GridColumn>
+                <dxg:GridColumn FieldName="AccountDate" Header="Дата выставления счета" />
+                <dxg:GridColumn FieldName="Price" Header="Сумма счета">
+                  <dxg:GridColumn.EditSettings>
+                    <dxe:TextEditSettings DisplayFormat="c2"
+                                          Mask="c2"
+                                          MaskType="Numeric"
+                                          TextWrapping="WrapWithOverflow" />
+                  </dxg:GridColumn.EditSettings>
+                </dxg:GridColumn>
+                <dxg:GridColumn FieldName="AcceptPrice" Header="Сумма принятая к оплате">
+                  <dxg:GridColumn.EditSettings>
+                    <dxe:TextEditSettings DisplayFormat="c2"
+                                          Mask="c2"
+                                          MaskType="Numeric"
+                                          TextWrapping="WrapWithOverflow" />
+                  </dxg:GridColumn.EditSettings>
+                </dxg:GridColumn>
+
+                <dxg:GridColumn FieldName="MECPenalties" Header="МЭК">
+                  <dxg:GridColumn.EditSettings>
+                    <dxe:TextEditSettings DisplayFormat="c2"
+                                          Mask="c2"
+                                          MaskType="Numeric"
+                                          TextWrapping="WrapWithOverflow" />
+                  </dxg:GridColumn.EditSettings>
+                </dxg:GridColumn>
+                <dxg:GridColumn FieldName="MEEPenalties" Header="МЭЭ">
+                  <dxg:GridColumn.EditSettings>
+                    <dxe:TextEditSettings DisplayFormat="c2"
+                                          Mask="c2"
+                                          MaskType="Numeric"
+                                          TextWrapping="WrapWithOverflow" />
+                  </dxg:GridColumn.EditSettings>
+                </dxg:GridColumn>
+                <dxg:GridColumn FieldName="EQMAPenalties" Header="ЭКМП">
+                  <dxg:GridColumn.EditSettings>
+                    <dxe:TextEditSettings DisplayFormat="c2"
+                                          Mask="c2"
+                                          MaskType="Numeric"
+                                          TextWrapping="WrapWithOverflow" />
+                  </dxg:GridColumn.EditSettings>
+                </dxg:GridColumn>
+                <dxg:GridColumn FieldName="Status" Header="Статус счета">
+                  <dxg:GridColumn.EditSettings>
+                    <dxe:TextEditSettings DisplayTextConverter="{StaticResource AccountStatusConverter}" />
+                  </dxg:GridColumn.EditSettings>
+                </dxg:GridColumn>
+                <dxg:GridColumn FieldName="Comments" Header="Комментарии" />
+                <dxg:GridColumn FieldName="MedicalAccountId" Header="ID счета" />
+
+              </dxg:GridControl.Columns>
+              <dxg:GridControl.TotalSummary>
+                <dxg:GridSummaryItem DisplayFormat="Всего счетов: {0}"
+                                     FieldName="MedicalAccountId"
+                                     SummaryType="Count" />
+                <dxg:GridSummaryItem FieldName="Price" SummaryType="Sum" />
+                <dxg:GridSummaryItem FieldName="AcceptPrice" SummaryType="Sum" />
+                <dxg:GridSummaryItem FieldName="MECPenalties" SummaryType="Sum" />
+                <dxg:GridSummaryItem FieldName="MEEPenalties" SummaryType="Sum" />
+                <dxg:GridSummaryItem FieldName="EQMAPenalties" SummaryType="Sum" />
+              </dxg:GridControl.TotalSummary>
+
+              <dxg:GridControl.View>
+                <dxg:TableView Name="tableView"
+                               AllowCascadeUpdate="True"
+                               AllowConditionalFormattingMenu="True"
+                               AllowEditing="False"
+                               FocusedRow="{Binding CurrentRow,
+                                                    Mode=TwoWay,
+                                                    UpdateSourceTrigger=PropertyChanged}"
+                               HeaderPanelMinHeight="35"
+                               NavigationStyle="Row"
+                               RowStyle="{StaticResource optimizedRowStyle}"
+                               ShowCheckBoxSelectorColumn="True"
+                               ShowGroupPanel="False"
+                               ShowIndicator="True"
+                               ShowTotalSummary="True"
+                               WaitIndicatorType="Panel" />
+              </dxg:GridControl.View>
+            </dxg:GridControl>
+          </dxlc:LayoutItem>
+          <dxlc:LayoutGroup>
+            <dxlc:LayoutGroup Orientation="Vertical">
+              <dxlc:LayoutGroup Header="Детальные данные о случаях"
+                                IsCollapsed="True"
+                                IsCollapsible="True"
+                                UseLayoutRounding="True"
+                                View="GroupBox">
+                <!--<dxg:GridControl Name="GridControldet" ItemsSource="{Binding ElementName=pLinqInstantDataSource,
+                                                       Path=Data}" AutoGenerateColumns="AddNew" SelectionMode="Row" SelectedItems="{Binding Selection}" >
+                  <dxg:GridControl.View>
+                    <dxg:TableView NavigationStyle="Row" />
+                  </dxg:GridControl.View>
+                </dxg:GridControl>-->
+
+
+                <dxg:GridControl Name="GridControldet"
+                                 MaxHeight="400"
+                                 AutoPopulateColumns="True"
+                                 ItemsSource="{Binding ElementName=pLinqInstantDataSource,
+                                                       Path=Data}"
+                                 SelectionMode="MultipleRow"
+                                 ShowBorder="False">
+                  <dxg:GridControl.TotalSummary>
+                    <dxg:GridSummaryItem DisplayFormat="Всего случаев: {0}"
+                                         FieldName="ExternalId"
+                                         SummaryType="Count" />
+                    <dxg:GridSummaryItem FieldName="ZslPrice" SummaryType="Sum" />
+                    <dxg:GridSummaryItem FieldName="AcceptPrice" SummaryType="Sum" />
+                    <dxg:GridSummaryItem FieldName="MoPrice" SummaryType="Sum" />
+                    <dxg:GridSummaryItem FieldName="Price" SummaryType="Sum" />
+                    <dxg:GridSummaryItem FieldName="MEC" SummaryType="Sum" />
+                    <dxg:GridSummaryItem FieldName="MEE" SummaryType="Sum" />
+                    <dxg:GridSummaryItem FieldName="EQMA" SummaryType="Sum" />
+                  </dxg:GridControl.TotalSummary>
+                  <dxg:GridControl.View>
+                    <dxg:TableView Name="tableView2"
+                                   AllowCascadeUpdate="True"
+                                   AllowConditionalFormattingMenu="True"
+                                   AllowEditing="False"
+                                   HeaderPanelMinHeight="35"
+                                   NavigationStyle="Row"
+                                   ShowAutoFilterRow="True"
+                                   ShowCheckBoxSelectorColumn="True"
+                                   ShowGroupPanel="False"
+                                   ShowTotalSummary="True"
+                                   WaitIndicatorType="Panel" >
+                      <dxg:TableView.RowCellMenuCustomizations>
+                        <dxb:BarButtonItem Command="{Binding Path=View.DataContext.ExportExcelCommand}"
+                                           Content="Предварительный просмотр"
+                                           ItemClick="ExportExcel_OnItemClick" />
+                      </dxg:TableView.RowCellMenuCustomizations>
+                    </dxg:TableView>
+
+                  </dxg:GridControl.View>
+                </dxg:GridControl>
+              </dxlc:LayoutGroup>
+            </dxlc:LayoutGroup>
+          </dxlc:LayoutGroup>
+        </dxlc:LayoutControl>
+      </Grid>
+
+
+
+    </Grid>
+
+
+    <i:Interaction.Triggers>
+      <i:EventTrigger EventName="Closed">
+        <i:InvokeCommandAction Command="{Binding ElementName=pLinqAccountDataSource, Path=DisposeCommand}" />
+        <i:InvokeCommandAction Command="{Binding ElementName=pLinqInstantDataSource, Path=DisposeCommand}" />
+      </i:EventTrigger>
+    </i:Interaction.Triggers>
+
+  </dxb:BarManager>
+</UserControl>

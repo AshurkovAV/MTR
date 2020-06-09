@@ -1,0 +1,235 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report ScriptLanguage="CSharp" ReportInfo.Created="06/20/2009 22:40:42" ReportInfo.Modified="03/21/2012 00:08:22" ReportInfo.CreatorVersion="1.8.1.0">
+  <Dictionary>
+    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqM3/HbiZANEYP3Y6oNtE7mrUmT0ytl94C6DYS4DXvgc8JqhVjVQGe7Sc2pOMNI3eDZu4y6+BLf6/PCErp5V5iYO+NhUsLGHVpiKUoEc7fdRAKM3dC4G3zKvHq63vBaaJuNWt1RaEUDxyLLh6IMbjf+Iqjj5s+Su4iyajqSNb5u2nF0Ip/qsHK9H4qiQXaYG1j">
+      <TableDataSource Name="FactRegister" DataType="System.Int32" Enabled="true" TableName="FactRegister" SelectCommand="SELECT F.RegisterId, F.MedicalOrganization, F.Date, F.RegisterDate, F.Price, F.AcceptPrice, F.MECPenalties, F.MEEPenalties, F.EQMAPenalties, F.Comments, F.ExternalId, F.Status, F.PacketNumber&#13;&#10;FROM &quot;FactRegister&quot; F&#13;&#10;WHERE F.RegisterId=@RegisterIdParam&#13;&#10;">
+        <Column Name="RegisterId" DataType="System.Int32"/>
+        <Column Name="MedicalOrganization" DataType="System.String"/>
+        <Column Name="Date" DataType="System.DateTime"/>
+        <Column Name="RegisterDate" DataType="System.DateTime"/>
+        <Column Name="Price" DataType="System.Decimal"/>
+        <Column Name="AcceptPrice" DataType="System.Decimal"/>
+        <Column Name="MECPenalties" DataType="System.Decimal"/>
+        <Column Name="MEEPenalties" DataType="System.Decimal"/>
+        <Column Name="EQMAPenalties" DataType="System.Decimal"/>
+        <Column Name="Comments" DataType="System.String"/>
+        <Column Name="ExternalId" DataType="System.Int32"/>
+        <Column Name="Status" DataType="System.Int32"/>
+        <Column Name="PacketNumber" DataType="System.Int32"/>
+        <CommandParameter Name="RegisterIdParam" DataType="8" Expression="[RegisterId]" DefaultValue="1"/>
+      </TableDataSource>
+      <TableDataSource Name="F003" DataType="System.Int32" Enabled="true" TableName="F003" SelectCommand="SELECT F.Id, F.tf_okato, F.mcod, F.nam_mop, F.nam_mok, F.inn, F.Ogrn, F.KPP, F.index_j, F.addr_j, F.okopf, F.vedpri, F.org, F.fam_ruk, F.im_ruk, F.ot_ruk, F.phone, F.fax, F.e_mail, F.n_doc, F.d_start, F.data_e, F.mp, F.www, F.d_begin, F.d_end, F.name_e, F.DUVED, F.d_edit&#13;&#10;FROM &quot;F003&quot; F&#13;&#10;WHERE F.mcod=@MCodeParam&#13;&#10;">
+        <Column Name="Id" DataType="System.Int32"/>
+        <Column Name="tf_okato" DataType="System.String"/>
+        <Column Name="mcod" DataType="System.String"/>
+        <Column Name="nam_mop" DataType="System.String"/>
+        <Column Name="nam_mok" DataType="System.String"/>
+        <Column Name="inn" DataType="System.String"/>
+        <Column Name="Ogrn" DataType="System.String"/>
+        <Column Name="KPP" DataType="System.String"/>
+        <Column Name="index_j" DataType="System.String"/>
+        <Column Name="addr_j" DataType="System.String"/>
+        <Column Name="okopf" DataType="System.String"/>
+        <Column Name="vedpri" DataType="System.Decimal"/>
+        <Column Name="org" DataType="System.Decimal"/>
+        <Column Name="fam_ruk" DataType="System.String"/>
+        <Column Name="im_ruk" DataType="System.String"/>
+        <Column Name="ot_ruk" DataType="System.String"/>
+        <Column Name="phone" DataType="System.String"/>
+        <Column Name="fax" DataType="System.String"/>
+        <Column Name="e_mail" DataType="System.String"/>
+        <Column Name="n_doc" DataType="System.String"/>
+        <Column Name="d_start" DataType="System.DateTime"/>
+        <Column Name="data_e" DataType="System.DateTime"/>
+        <Column Name="mp" DataType="System.String"/>
+        <Column Name="www" DataType="System.String"/>
+        <Column Name="d_begin" DataType="System.DateTime"/>
+        <Column Name="d_end" DataType="System.DateTime"/>
+        <Column Name="name_e" DataType="System.String"/>
+        <Column Name="DUVED" DataType="System.DateTime"/>
+        <Column Name="d_edit" DataType="System.DateTime"/>
+        <CommandParameter Name="MCodeParam" DataType="22" Expression="[localOptionsDictionary.Value]" DefaultValue="460001"/>
+      </TableDataSource>
+      <TableDataSource Name="localOptionsDictionary" DataType="System.Int32" Enabled="true" TableName="localOptionsDictionary" SelectCommand="SELECT  L.Value&#13;&#10;FROM &quot;localOptionsDictionary&quot; L&#13;&#10;WHERE L.[Key]=3">
+        <Column Name="Value" DataType="System.String"/>
+      </TableDataSource>
+      <TableDataSource Name="localPayment" DataType="System.Int32" Enabled="true" TableName="localPayment" SelectCommand="SELECT L.Code, L.PaymentId, L.Type, L.Name, L.Inn, L.Ogrn, L.KPP, L.Account, L.CorrespondentAccount, L.BIK, L.BankName, L.AgreementNumber, L.AgreementDate, L.Director, L.Accounter, L.Address, L.DateBegin, L.DateEnd&#13;&#10;FROM &quot;localPayment&quot; L&#13;&#10;WHERE L.Code=@OrganizationCodeParam&#13;&#10;">
+        <Column Name="PaymentId" DataType="System.Int32"/>
+        <Column Name="Code" DataType="System.Int32"/>
+        <Column Name="Type" DataType="System.Int32"/>
+        <Column Name="Name" DataType="System.String"/>
+        <Column Name="Inn" DataType="System.String"/>
+        <Column Name="Ogrn" DataType="System.String"/>
+        <Column Name="KPP" DataType="System.String"/>
+        <Column Name="Account" DataType="System.String"/>
+        <Column Name="CorrespondentAccount" DataType="System.String"/>
+        <Column Name="BIK" DataType="System.String"/>
+        <Column Name="BankName" DataType="System.String"/>
+        <Column Name="AgreementNumber" DataType="System.String"/>
+        <Column Name="AgreementDate" DataType="System.DateTime"/>
+        <Column Name="Director" DataType="System.String"/>
+        <Column Name="Accounter" DataType="System.String"/>
+        <Column Name="Address" DataType="System.String"/>
+        <Column Name="DateBegin" DataType="System.DateTime"/>
+        <Column Name="DateEnd" DataType="System.DateTime"/>
+        <CommandParameter Name="OrganizationCodeParam" DataType="22" Expression="[localOptionsDictionary.Value]" DefaultValue="460001"/>
+      </TableDataSource>
+      <TableDataSource Name="EventShortView" DataType="System.Int32" Enabled="true" TableName="EventShortView" SelectCommand="SELECT  E.InsuranceCode, E.InsuranceName, Sum(E.Price) AS Price, Sum(E.Quantity) AS Quantity&#13;&#10;FROM &quot;EventShortView&quot; E&#13;&#10;WHERE E.RegisterId=@RegisterIdParam AND  E.InsuranceCode LIKE '4600%'&#13;&#10;GROUP BY   E.InsuranceCode, E.InsuranceName&#13;&#10;">
+        <Column Name="InsuranceCode" DataType="System.String"/>
+        <Column Name="InsuranceName" DataType="System.String"/>
+        <Column Name="Price" DataType="System.Decimal"/>
+        <Column Name="Quantity" DataType="System.Decimal"/>
+        <CommandParameter Name="RegisterIdParam" DataType="8" Expression="[RegisterId]" DefaultValue="1"/>
+      </TableDataSource>
+      <TableDataSource Name="Table" Alias="EventShortView2" DataType="System.Int32" Enabled="true" SelectCommand="SELECT  DISTINCT Count(E.PatientId) AS CountPatients, Sum(E.Price) AS Price, Sum(E.Quantity) as Quantity, E.AssistanceConditions &#13;&#10;FROM &quot;EventShortView&quot; E&#13;&#10;WHERE E.RegisterId=@RegisterIdParam AND E.InsuranceCode=@InsuranceCodeParam&#13;&#10;GROUP BY E.AssistanceConditions&#13;&#10;&#13;&#10;">
+        <Column Name="Price" DataType="System.Decimal"/>
+        <Column Name="Quantity" DataType="System.Decimal"/>
+        <Column Name="AssistanceConditions" DataType="System.Decimal"/>
+        <Column Name="CountPatients" DataType="System.Int32"/>
+        <CommandParameter Name="RegisterIdParam" DataType="8" Expression="[RegisterId]" DefaultValue="1"/>
+        <CommandParameter Name="InsuranceCodeParam" DataType="22" Expression="[EventShortView.InsuranceCode]" DefaultValue="46001"/>
+      </TableDataSource>
+      <TableDataSource Name="Table4" Alias="EventShortView3" DataType="System.Int32" Enabled="true" SelectCommand="SELECT  DISTINCT Count(E.PatientId) AS CountPatients, Sum(E.Price) AS Price, Sum(E.Quantity) as Quantity, E.AssistanceConditions &#13;&#10;FROM &quot;EventShortView&quot; E&#13;&#10;WHERE E.RegisterId=@RegisterIdParam AND E.InsuranceCode NOT LIKE '4600%'&#13;&#10;GROUP BY E.AssistanceConditions">
+        <Column Name="Price" DataType="System.Decimal"/>
+        <Column Name="Quantity" DataType="System.Decimal"/>
+        <Column Name="CountPatients" DataType="System.Int32"/>
+        <Column Name="AssistanceConditions" DataType="System.Decimal"/>
+        <CommandParameter Name="RegisterIdParam" DataType="8" Expression="[RegisterId]" DefaultValue="1"/>
+      </TableDataSource>
+      <TableDataSource Name="Table6" Alias="EventShortViewTotal" DataType="System.Int32" Enabled="true" SelectCommand="SELECT  DISTINCT Count(E.PatientId) AS CountPatients, Sum(E.Price) AS Price, Sum(E.Quantity) as Quantity, E.AssistanceConditions &#13;&#10;FROM &quot;EventShortView&quot; E&#13;&#10;WHERE E.RegisterId=@RegisterIdParam&#13;&#10;GROUP BY E.AssistanceConditions">
+        <Column Name="CountPatients" DataType="System.Int32"/>
+        <Column Name="Price" DataType="System.Decimal"/>
+        <Column Name="Quantity" DataType="System.Decimal"/>
+        <Column Name="AssistanceConditions" DataType="System.Decimal"/>
+        <CommandParameter Name="RegisterIdParam" DataType="8" Expression="[RegisterId]" DefaultValue="1"/>
+      </TableDataSource>
+    </MsSqlDataConnection>
+    <Parameter Name="RegisterId" DataType="System.Int32"/>
+  </Dictionary>
+  <ReportPage Name="Page1" RawPaperSize="9">
+    <PageHeaderBand Name="PageHeader1" Width="718.2" Height="122.85">
+      <TextObject Name="Text7" Width="519.75" Height="18.9" Text="[F003.nam_mok]">
+        <Formats>
+          <DateFormat/>
+          <DateFormat/>
+        </Formats>
+      </TextObject>
+      <TextObject Name="Text9" Top="18.9" Width="718.2" Height="18.9" Text="Итоги по филиалам страховых организаций за [FactRegister.Date]" Format="Date" Format.Format="MMMM yyyy"/>
+      <TableObject Name="Table2" Top="75.6" Width="718.2" Height="47.25" Border.Lines="All">
+        <TableColumn Name="Column18" Width="359.1"/>
+        <TableColumn Name="Column19" Width="113.4"/>
+        <TableColumn Name="Column20" Width="103.95"/>
+        <TableColumn Name="Column21" Width="141.75"/>
+        <TableRow Name="Row4" Height="28.35">
+          <TableCell Name="Cell64" Border.Lines="Left, Right, Top" Text="Страховая организация" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold" RowSpan="2"/>
+          <TableCell Name="Cell65" Border.Lines="Left, Right, Top" Text="Кол-во больных" HorzAlign="Center" VertAlign="Center" RowSpan="2"/>
+          <TableCell Name="Cell66" Border.Lines="Left, Right, Top" Text="Койко день" HorzAlign="Center" VertAlign="Center" RowSpan="2"/>
+          <TableCell Name="Cell67" Border.Lines="All" Text="Сумма&#13;&#10;" HorzAlign="Center" VertAlign="Center" RowSpan="2"/>
+        </TableRow>
+        <TableRow Name="Row7">
+          <TableCell Name="Cell91" Border.Lines="Right"/>
+          <TableCell Name="Cell92" Border.Lines="Right"/>
+          <TableCell Name="Cell93" Border.Lines="Right, Top" Text="Всего"/>
+          <TableCell Name="Cell94" Border.Lines="Right, Top" Text="С учетом УЕТ"/>
+        </TableRow>
+      </TableObject>
+    </PageHeaderBand>
+    <DataBand Name="Data1" Top="126.85" Width="718.2" Height="18.9" CanGrow="true" CanShrink="true" DataSource="EventShortView">
+      <TableObject Name="Table1" Width="718.2" Height="18.9">
+        <TableColumn Name="Column23" Width="359.1"/>
+        <TableColumn Name="Column24" Width="113.4"/>
+        <TableColumn Name="Column25" Width="103.95"/>
+        <TableColumn Name="Column26" Width="141.75"/>
+        <TableRow Name="Row6">
+          <TableCell Name="Cell86" Border.Lines="All" Text="[EventShortView.InsuranceCode] [EventShortView.InsuranceName]" VertAlign="Center" Font="Arial, 10pt, style=Bold" ColSpan="4"/>
+          <TableCell Name="Cell87" Border.Lines="All" HorzAlign="Center" VertAlign="Center"/>
+          <TableCell Name="Cell88" Border.Lines="All" HorzAlign="Center" VertAlign="Center"/>
+          <TableCell Name="Cell89" Border.Lines="All" HorzAlign="Center" VertAlign="Center"/>
+        </TableRow>
+      </TableObject>
+      <DataBand Name="Data2" Top="149.75" Width="718.2" Height="18.9" DataSource="Table">
+        <TableObject Name="Table1" Width="718.2" Height="18.9">
+          <TableColumn Name="Column31" Width="359.1"/>
+          <TableColumn Name="Column32" Width="113.4"/>
+          <TableColumn Name="Column33" Width="103.95"/>
+          <TableColumn Name="Column34" Width="141.75"/>
+          <TableRow Name="Row14">
+            <TableCell Name="Cell119" Border.Lines="All" Text="[Switch([EventShortView2.AssistanceConditions]==1,&quot;Стационар круглосуточного пребывания&quot;, [EventShortView2.AssistanceConditions]==2,&quot;Стационарозамещающие технологии&quot;,[EventShortView2.AssistanceConditions]==3,&quot;Амбулаторно поликлинически&quot;)]" VertAlign="Center"/>
+            <TableCell Name="Cell120" Border.Lines="All" Text="[EventShortView2.CountPatients]" HorzAlign="Center" VertAlign="Center"/>
+            <TableCell Name="Cell121" Border.Lines="All" Text="[EventShortView2.Quantity]" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center"/>
+            <TableCell Name="Cell122" Border.Lines="All" Text="[EventShortView2.Price]" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center"/>
+          </TableRow>
+        </TableObject>
+      </DataBand>
+    </DataBand>
+    <DataBand Name="Data3" Top="172.65" Width="718.2" Height="18.9" DataSource="Table4">
+      <TableObject Name="Table1" Width="718.2" Height="18.9">
+        <TableColumn Name="Column35" Width="359.1"/>
+        <TableColumn Name="Column36" Width="113.4"/>
+        <TableColumn Name="Column37" Width="103.95"/>
+        <TableColumn Name="Column38" Width="141.75"/>
+        <TableRow Name="Row15">
+          <TableCell Name="Cell123" Border.Lines="All" Text="Другие области РФ" VertAlign="Center" Font="Arial, 10pt, style=Bold" ColSpan="4"/>
+          <TableCell Name="Cell124" Border.Lines="All" HorzAlign="Center" VertAlign="Center"/>
+          <TableCell Name="Cell125" Border.Lines="All" HorzAlign="Center" VertAlign="Center"/>
+          <TableCell Name="Cell126" Border.Lines="All" HorzAlign="Center" VertAlign="Center"/>
+        </TableRow>
+      </TableObject>
+      <DataBand Name="Data4" Top="195.55" Width="718.2" Height="18.9" DataSource="Table4">
+        <TableObject Name="Table1" Width="718.2" Height="18.9">
+          <TableColumn Name="Column39" Width="359.1"/>
+          <TableColumn Name="Column40" Width="113.4"/>
+          <TableColumn Name="Column41" Width="103.95"/>
+          <TableColumn Name="Column42" Width="141.75"/>
+          <TableRow Name="Row16">
+            <TableCell Name="Cell127" Border.Lines="All" Text="[Switch([EventShortView3.AssistanceConditions]==1,&quot;Стационар круглосуточного пребывания&quot;, [EventShortView3.AssistanceConditions]==2,&quot;Стационарозамещающие технологии&quot;,[EventShortView3.AssistanceConditions]==3,&quot;Амбулаторно поликлинически&quot;)]" VertAlign="Center"/>
+            <TableCell Name="Cell128" Border.Lines="All" Text="[EventShortView3.CountPatients]" HorzAlign="Center" VertAlign="Center"/>
+            <TableCell Name="Cell129" Border.Lines="All" Text="[EventShortView3.Quantity]" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center"/>
+            <TableCell Name="Cell130" Border.Lines="All" Text="[EventShortView3.Price]" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center"/>
+          </TableRow>
+        </TableObject>
+      </DataBand>
+    </DataBand>
+    <DataBand Name="Data5" Top="218.45" Width="718.2" Height="37.8">
+      <TableObject Name="Table3" Width="718.2" Height="37.8">
+        <TableColumn Name="Column27" Width="359.1"/>
+        <TableColumn Name="Column28" Width="113.4"/>
+        <TableColumn Name="Column29" Width="103.95"/>
+        <TableColumn Name="Column30" Width="141.75"/>
+        <TableRow Name="Row10">
+          <TableCell Name="Cell103" Border.Lines="All" Text="Итого по филиалам:" HorzAlign="Center" VertAlign="Center"/>
+          <TableCell Name="Cell104" Border.Lines="All" HorzAlign="Center" VertAlign="Center"/>
+          <TableCell Name="Cell105" Border.Lines="All" HorzAlign="Center" VertAlign="Center"/>
+          <TableCell Name="Cell106" Border.Lines="All" HorzAlign="Center" VertAlign="Center"/>
+        </TableRow>
+        <TableRow Name="Row11">
+          <TableCell Name="Cell107" Border.Lines="All" Text="В том числе" ColSpan="4"/>
+          <TableCell Name="Cell108" Border.Lines="All"/>
+          <TableCell Name="Cell109" Border.Lines="All"/>
+          <TableCell Name="Cell110" Border.Lines="All"/>
+        </TableRow>
+      </TableObject>
+      <DataBand Name="Data6" Top="260.25" Width="718.2" Height="18.9" DataSource="Table6">
+        <TableObject Name="Table5" Width="718.2" Height="18.9">
+          <TableColumn Name="Column43" Width="359.1"/>
+          <TableColumn Name="Column44" Width="113.4"/>
+          <TableColumn Name="Column45" Width="103.95"/>
+          <TableColumn Name="Column46" Width="141.75"/>
+          <TableRow Name="Row17">
+            <TableCell Name="Cell131" Border.Lines="All" Text="[Switch([EventShortViewTotal.AssistanceConditions]==1,&quot;Стационар круглосуточного пребывания&quot;, [EventShortViewTotal.AssistanceConditions]==2,&quot;Стационарозамещающие технологии&quot;,[EventShortViewTotal.AssistanceConditions]==3,&quot;Амбулаторно поликлинически&quot;)]" VertAlign="Center"/>
+            <TableCell Name="Cell132" Border.Lines="All" Text="[EventShortViewTotal.CountPatients]" HorzAlign="Center" VertAlign="Center"/>
+            <TableCell Name="Cell133" Border.Lines="All" Text="[EventShortViewTotal.Quantity]" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center"/>
+            <TableCell Name="Cell134" Border.Lines="All" Text="[EventShortViewTotal.Price]" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center"/>
+          </TableRow>
+        </TableObject>
+      </DataBand>
+    </DataBand>
+    <ReportSummaryBand Name="ReportSummary1" Top="283.15" Width="718.2" Height="245.7">
+      <TextObject Name="Text6" Top="226.8" Width="113.4" Height="18.9" Text="Дата [Date]" Format="Date" Format.Format="d"/>
+      <TextObject Name="Text2" Top="94.5" Width="718.2" Height="113.4" Text="Главный врач _________________________________[localPayment.Director]  &#13;&#10;                           &#13;&#10;&#13;&#10;Зам. главного врача&#13;&#10;по эконом. вопросам____________________________[localPayment.Accounter]&#13;&#10;&#13;&#10;&#13;&#10;&#13;&#10;"/>
+    </ReportSummaryBand>
+    <PageFooterBand Name="PageFooter1" Top="532.85" Width="718.2" Height="18.9">
+      <TextObject Name="Text5" Left="803.25" Width="245.7" Height="18.9" Text="[PageN] из [TotalPages#]" HorzAlign="Right"/>
+    </PageFooterBand>
+  </ReportPage>
+</Report>

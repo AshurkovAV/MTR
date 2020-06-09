@@ -1,0 +1,500 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report ScriptLanguage="CSharp" DoublePass="true" ReportInfo.Created="06/20/2009 22:40:42" ReportInfo.Modified="02/27/2012 11:23:33" ReportInfo.CreatorVersion="1.8.1.0">
+  <ScriptText>using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Windows.Forms;
+using System.Drawing;
+using System.Data;
+using FastReport;
+using FastReport.Data;
+using FastReport.Dialog;
+using FastReport.Barcode;
+using FastReport.Table;
+using FastReport.Utils;
+
+namespace FastReport
+{
+  public class ReportScript
+  {
+
+    private void btnOk_Click(object sender, EventArgs e)
+    {
+      
+    }
+
+    private void Form1_Load(object sender, EventArgs e)
+    {
+         
+    }
+
+    private void DataSelector1_Click(object sender, EventArgs e)
+    {
+      
+    }
+  }
+}
+</ScriptText>
+  <Dictionary>
+    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqM3/HbiZANEYP3Y6oNtE7mhb00LswZpLPL1nHlNPE8Ttd/PYtJWZHa+Bi6VxY2kO/86yqC3dEAfSOFuAtVHPo27ltpeit54RmWfyB1HPJuDUSBNOELtEhifv9pd5xb8NjHezfLLxa7C+tQPiWNZSeit87AB8t6AmMtrd+vPQLBd8=">
+      <TableDataSource Name="localEmployee" DataType="System.Int32" Enabled="true" TableName="localEmployee" SelectCommand="SELECT L.Surname, L.EName, L.Patronymic, L.Position, L.Speciality, L.Phone, L.EmployeeId, L.ConfNumber&#13;&#10;FROM &quot;localEmployee&quot; L where L.EmployeeId = @EmployeeId">
+        <Column Name="Surname" DataType="System.String"/>
+        <Column Name="EName" DataType="System.String"/>
+        <Column Name="Patronymic" DataType="System.String"/>
+        <Column Name="Position" DataType="System.String"/>
+        <Column Name="Speciality" DataType="System.String"/>
+        <Column Name="Phone" DataType="System.String"/>
+        <Column Name="EmployeeId" DataType="System.Int32"/>
+        <Column Name="FullNameInitials" DataType="System.String" PropName="Column" Calculated="true" Expression="[localEmployee.Surname] + &quot; &quot;+Substring([localEmployee.EName],0,1) + &quot;.&quot; +Substring([localEmployee.Patronymic],0,1) + &quot;.&quot;"/>
+        <Column Name="FullNamePos" DataType="System.String" PropName="Column" Calculated="true" Expression="LowerCase([localEmployee.Position])+&quot; &quot;+Substring([localEmployee.EName],0,1) + &quot;.&quot; +Substring([localEmployee.Patronymic],0,1) + &quot;. &quot; +[localEmployee.Surname]"/>
+        <Column Name="ConfNumber" DataType="System.String"/>
+        <CommandParameter Name="@EmployeeId" DataType="8" Expression="[EmployeeId]" DefaultValue="1"/>
+      </TableDataSource>
+      <TableDataSource Name="TerritoryAccount" DataType="System.Int32" PropName="Table" Enabled="true" TableName="FactTerritoryAccount" SelectCommand="SELECT F.Date, F.AccountNumber, F.AccountDate, F.Price, F.AcceptPrice, F.MECPenalties, F.MEEPenalties, F.EQMAPenalties, F.Comments, F.Source, F.Destination, F.Status, F.TerritoryAccountId, F.ExternalId&#13;&#10;FROM &quot;FactTerritoryAccount&quot; F WHERE  F.TerritoryAccountId=@AccountParam&#13;&#10;">
+        <Column Name="Date" DataType="System.DateTime"/>
+        <Column Name="AccountNumber" DataType="System.String"/>
+        <Column Name="AccountDate" DataType="System.DateTime"/>
+        <Column Name="Price" DataType="System.Decimal"/>
+        <Column Name="AcceptPrice" DataType="System.Decimal"/>
+        <Column Name="MECPenalties" DataType="System.Decimal"/>
+        <Column Name="MEEPenalties" DataType="System.Decimal"/>
+        <Column Name="EQMAPenalties" DataType="System.Decimal"/>
+        <Column Name="Comments" DataType="System.String"/>
+        <Column Name="Source" DataType="System.String"/>
+        <Column Name="Destination" DataType="System.String"/>
+        <Column Name="Status" DataType="System.Int32"/>
+        <Column Name="TerritoryAccountId" DataType="System.Int32"/>
+        <Column Name="ExternalId" DataType="System.Int32"/>
+        <CommandParameter Name="AccountParam" DataType="22" Expression="[AccountId]" DefaultValue="1"/>
+      </TableDataSource>
+      <TableDataSource Name="EventShortView" DataType="System.Int32" PropName="Table4" Enabled="true" TableName="EventShortView" SelectCommand="SELECT E.ExternalId, E.AccountId, E.EventId, E.PatientId, E.Surname, E.Name, E.Patronymic, E.Birthday, E.Sex, E.BirthPlace, E.INP, E.InsuranceDocNumber, E.InsuranceDocSeries, E.Insurance, E.AssistanceConditions, E.Diagnosis, E.Price, E.Rate, E.Quantity, E.AcceptPrice, E.EventBegin, E.EventEnd, E.Profile, E.Speciality, E.Result, E.Outcome, E.PaymentStatus, E.MEC, E.MEE,E.DocSeries, E.DocNum, E.EQMA,E.EventComments,(SELECT MedicalEventId =&#13;&#10;(&#13;&#10;    SELECT CONVERT(nvarchar(30),F1.Osn) + ','	&#13;&#10;        FROM &quot;FactMEC&quot;&#13;&#10;				INNER JOIN &quot;F014&quot; F1 ON ReasonId = F1.Id &#13;&#10;				WHERE MedicalEventId =  E.EventId &#13;&#10;        ORDER BY ReasonId&#13;&#10;        FOR XML PATH(''), TYPE&#13;&#10;).value('.[1]', 'NVARCHAR(MAX)')) as MecRefusals&#13;&#10;FROM &quot;EventShortView&quot; E WHERE E.AccountId=@AccountParam&#13;&#10;">
+        <Column Name="ExternalId" DataType="System.Int32"/>
+        <Column Name="AccountId" DataType="System.Int32"/>
+        <Column Name="EventId" DataType="System.Int32"/>
+        <Column Name="PatientId" DataType="System.Int32"/>
+        <Column Name="Surname" DataType="System.String"/>
+        <Column Name="Name" DataType="System.String"/>
+        <Column Name="Patronymic" DataType="System.String"/>
+        <Column Name="Birthday" DataType="System.DateTime"/>
+        <Column Name="Sex" DataType="System.String"/>
+        <Column Name="BirthPlace" DataType="System.String"/>
+        <Column Name="INP" DataType="System.String"/>
+        <Column Name="InsuranceDocNumber" DataType="System.String"/>
+        <Column Name="InsuranceDocSeries" DataType="System.String"/>
+        <Column Name="Insurance" DataType="System.String"/>
+        <Column Name="AssistanceConditions" DataType="System.Decimal"/>
+        <Column Name="Diagnosis" DataType="System.String"/>
+        <Column Name="Price" DataType="System.Decimal"/>
+        <Column Name="Rate" DataType="System.Decimal"/>
+        <Column Name="Quantity" DataType="System.Decimal"/>
+        <Column Name="AcceptPrice" DataType="System.Decimal"/>
+        <Column Name="EventBegin" DataType="System.DateTime"/>
+        <Column Name="EventEnd" DataType="System.DateTime"/>
+        <Column Name="Profile" DataType="System.Decimal"/>
+        <Column Name="Speciality" DataType="System.Decimal"/>
+        <Column Name="Result" DataType="System.Decimal"/>
+        <Column Name="Outcome" DataType="System.Decimal"/>
+        <Column Name="PaymentStatus" DataType="System.String"/>
+        <Column Name="MEC" DataType="System.Decimal"/>
+        <Column Name="MEE" DataType="System.Decimal"/>
+        <Column Name="EQMA" DataType="System.Decimal"/>
+        <Column Name="RefusalPrice" DataType="System.Decimal" PropName="Column" Calculated="true" Expression="[EventShortView.Price]-[EventShortView.AcceptPrice]"/>
+        <Column Name="MecRefusals" DataType="System.String"/>
+        <Column Name="DocSeries" DataType="System.String"/>
+        <Column Name="DocNum" DataType="System.String"/>
+        <Column Name="EventComments" DataType="System.String"/>
+        <CommandParameter Name="AccountParam" DataType="8" Expression="[AccountId]" DefaultValue="1"/>
+      </TableDataSource>
+      <TableDataSource Name="localF001" Alias="localF001Source" DataType="System.Int32" Enabled="true" TableName="localF001" SelectCommand="SELECT L.LocalF001Id, L.ShortName, L.PositionName, L.Name, L.Surname, L.Patronymic, L.OKATO, L.Code&#13;&#10;FROM &quot;localF001&quot; L WHERE L.OKATO = @OkatoSource&#13;&#10;">
+        <Column Name="LocalF001Id" DataType="System.Int32"/>
+        <Column Name="ShortName" DataType="System.String"/>
+        <Column Name="PositionName" DataType="System.String"/>
+        <Column Name="Name" DataType="System.String"/>
+        <Column Name="Surname" DataType="System.String"/>
+        <Column Name="Patronymic" DataType="System.String"/>
+        <Column Name="OKATO" DataType="System.String"/>
+        <Column Name="Code" DataType="System.String"/>
+        <CommandParameter Name="OkatoSource" DataType="22" Expression="[TerritoryAccount.Source]"/>
+      </TableDataSource>
+      <TableDataSource Name="Table" Alias="SumEvents" DataType="System.Int32" Enabled="true" SelectCommand="SELECT SUM(E.Price) as Total_Price,SUM(E.AcceptPrice) as Total_AcceptPrice, &#13;&#10;COUNT(*) as TotalPositions,(SELECT &#13;&#10;COUNT(*)&#13;&#10;FROM &quot;EventShortView&quot; E WHERE E.AccountId=@AccountParam AND E.Price=E.AcceptPrice) as TotalAcceptPositions&#13;&#10;FROM &quot;EventShortView&quot; E WHERE E.AccountId=@AccountParam&#13;&#10;&#13;&#10;">
+        <Column Name="Total_Price" DataType="System.Decimal"/>
+        <Column Name="Total_AcceptPrice" DataType="System.Decimal"/>
+        <Column Name="TotalPositions" DataType="System.Int32"/>
+        <Column Name="TotalAcceptPositions" DataType="System.Int32"/>
+        <CommandParameter Name="AccountParam" DataType="8" Expression="[AccountId]" DefaultValue="1"/>
+      </TableDataSource>
+    </MsSqlDataConnection>
+    <Parameter Name="AccountId" DataType="System.Int32"/>
+    <Parameter Name="ActDate" DataType="System.DateTime" Expression="[Date]"/>
+    <Parameter Name="ActNumber" DataType="System.Decimal"/>
+    <Parameter Name="EmployeeId" DataType="System.Int32"/>
+    <Parameter Name="dBeg" DataType="System.DateTime"/>
+    <Parameter Name="dEnd" DataType="System.DateTime"/>
+    <Total Name="TotalPrice" Expression="[EventShortView.Price]"/>
+    <Total Name="TotalRefusal" Expression="[EventShortView.RefusalPrice]" ResetAfterPrint="false"/>
+    <Total Name="TotalPosition" TotalType="Count"/>
+  </Dictionary>
+  <ReportPage Name="Page1" Landscape="true" PaperWidth="297" PaperHeight="210" RawPaperSize="9">
+    <ReportTitleBand Name="ReportTitle1" Width="1047.06" Height="47.25">
+      <RichObject Name="Rich2" Left="9.45" Width="1030.05" Height="47.25" Text="{\rtf1\ansi\ansicpg1251\deff0\deflang1049{\fonttbl{\f0\fnil\fcharset204{\*\fname Times New Roman;}Times New Roman CYR;}{\f1\fnil\fcharset0 Times New Roman;}}&#13;&#10;{\*\generator Msftedit 5.41.15.1515;}\viewkind4\uc1\pard\nowidctlpar\qj\b\f0\fs24\'c0\'ea\'f2 \'ee \'ef\'f0\'e8\'f7\'e8\'ed\'e0\'f5 \'ed\'e5 \'ef\'f0\'e8\'ed\'ff\'f2\'fb\'f5 \'ea \'e2\'ee\'e7\'ec\'e5\'f9\'e5\'ed\'e8\'fe \'ef\'ee \'f0\'e5\'e5\'f1\'f2\'f0\'f3 \'f1\'f7\'e5\'f2\'ee\'e2 \'ed\'e0 \'ee\'ef\'eb\'e0\'f2\'f3 \'ec\'e5\'e4\'e8\'f6\'e8\'ed\'f1\'ea\'ee\'e9 \'ef\'ee\'ec\'ee\'f9\'e8, \'ee\'ea\'e0\'e7\'e0\'ed\'ed\'ee\'e9 \'e7\'e0\'f1\'f2\'f0\'e0\'f5\'ee\'e2\'e0\'ed\'ed\'fb\'ec \'eb\'e8\'f6\'e0\'ec \'e7\'e0 \'ef\'f0\'e5\'e4\'e5\'eb\'e0\'ec\'e8 \'f1\'f3\'e1\'fa\'e5\'ea\'f2\'e0 \'d0\'d4, \'ed\'e0 \'f2\'e5\'f0\'f0\'e8\'f2\'ee\'f0\'e8\'e8 \'ea\'ee\'f2\'ee\'f0\'ee\'e3\'ee \'e2\'fb\'e4\'e0\'ed \'ef\'ee\'eb\'e8\'f1 \'ce\'cc\'d1 \'e2 \lang1033\f1 ________________________\lang1049\f0\'e7\'e0 \'ef\'e5\'f0\'e8\'ee\'e4 \'f1\lang1033\f1  \lang1049\f0 [dBeg]\lang1033\f1  \lang1049\f0\'ef\'ee\lang1033\f1  [dEnd].\lang1049\f0\par&#13;&#10;\pard\qj\par&#13;&#10;}&#13;&#10;"/>
+    </ReportTitleBand>
+    <DataBand Name="Data1" Top="205.35" Width="1047.06" Height="18.9" Guides="9.45">
+      <TableObject Name="Table1" Width="1047.15" Height="18.9" Border.Lines="All">
+        <TableColumn Name="Column113" Width="28.25"/>
+        <TableColumn Name="Column114" Width="84.95"/>
+        <TableColumn Name="Column115" Width="47.15"/>
+        <TableColumn Name="Column116" Width="66.05"/>
+        <TableColumn Name="Column117" Width="47.15"/>
+        <TableColumn Name="Column118" Width="47.15"/>
+        <TableColumn Name="Column119" Width="56.6"/>
+        <TableColumn Name="Column120" Width="56.6"/>
+        <TableColumn Name="Column121" Width="84.95"/>
+        <TableColumn Name="Column122" Width="47.15"/>
+        <TableColumn Name="Column123" Width="47.15"/>
+        <TableColumn Name="Column124" Width="47.15"/>
+        <TableColumn Name="Column125" Width="56.6"/>
+        <TableColumn Name="Column126" Width="56.6"/>
+        <TableColumn Name="Column127" Width="66.05"/>
+        <TableColumn Name="Column128" Width="56.6"/>
+        <TableColumn Name="Column129" Width="56.6"/>
+        <TableColumn Name="Column130" Width="94.4"/>
+        <TableRow Name="Row20">
+          <TableCell Name="Cell242" Border.Lines="All" Text="УСЛОВИЕ ОКАЗАНИЯ МП   " Font="Times New Roman, 9pt" ColSpan="18"/>
+          <TableCell Name="Cell243" Border.Lines="All" Font="Times New Roman, 9pt"/>
+          <TableCell Name="Cell244" Border.Lines="All" Font="Times New Roman, 9pt"/>
+          <TableCell Name="Cell245" Border.Lines="All" Font="Times New Roman, 9pt"/>
+          <TableCell Name="Cell246" Border.Lines="All" Font="Times New Roman, 9pt"/>
+          <TableCell Name="Cell247" Border.Lines="All" Font="Times New Roman, 9pt"/>
+          <TableCell Name="Cell248" Border.Lines="All" Font="Times New Roman, 9pt"/>
+          <TableCell Name="Cell249" Border.Lines="All" Font="Times New Roman, 9pt"/>
+          <TableCell Name="Cell250" Border.Lines="All" HorzAlign="Center" Font="Times New Roman, 9pt"/>
+          <TableCell Name="Cell251" Border.Lines="All" Font="Times New Roman, 9pt"/>
+          <TableCell Name="Cell252" Border.Lines="All" Font="Times New Roman, 9pt"/>
+          <TableCell Name="Cell253" Border.Lines="All" Font="Times New Roman, 9pt"/>
+          <TableCell Name="Cell254" Border.Lines="All" Font="Times New Roman, 9pt"/>
+          <TableCell Name="Cell255" Border.Lines="All" Font="Times New Roman, 9pt"/>
+          <TableCell Name="Cell256" Border.Lines="All" Font="Times New Roman, 9pt"/>
+          <TableCell Name="Cell257" Border.Lines="All" Font="Times New Roman, 9pt"/>
+          <TableCell Name="Cell258" Border.Lines="All" Font="Times New Roman, 9pt"/>
+          <TableCell Name="Cell259" Border.Lines="All" Font="Times New Roman, 9pt"/>
+        </TableRow>
+      </TableObject>
+      <DataHeaderBand Name="DataHeader1" Top="50.7" Width="1047.06" Height="151.2">
+        <TableObject Name="Table2" Top="37.8" Width="1047.15" Height="113.4" Border.Lines="All">
+          <TableColumn Name="Column57" Width="28.25"/>
+          <TableColumn Name="Column58" Width="84.95"/>
+          <TableColumn Name="Column59" Width="47.15"/>
+          <TableColumn Name="Column60" Width="66.05"/>
+          <TableColumn Name="Column61" Width="47.15"/>
+          <TableColumn Name="Column62" Width="47.15"/>
+          <TableColumn Name="Column63" Width="56.6"/>
+          <TableColumn Name="Column64" Width="56.6"/>
+          <TableColumn Name="Column65" Width="84.95"/>
+          <TableColumn Name="Column75" Width="47.15"/>
+          <TableColumn Name="Column76" Width="47.15"/>
+          <TableColumn Name="Column88" Width="47.15"/>
+          <TableColumn Name="Column89" Width="56.6"/>
+          <TableColumn Name="Column90" Width="56.6"/>
+          <TableColumn Name="Column91" Width="66.05"/>
+          <TableColumn Name="Column92" Width="56.6"/>
+          <TableColumn Name="Column93" Width="56.6"/>
+          <TableColumn Name="Column94" Width="94.4"/>
+          <TableRow Name="Row17">
+            <TableCell Name="Cell144" Border.Lines="All" Text="№" Font="Times New Roman, 9pt" RowSpan="2"/>
+            <TableCell Name="Cell145" Border.Lines="All" Text="Ф.И.О. больного" Font="Times New Roman, 9pt" RowSpan="2"/>
+            <TableCell Name="Cell146" Border.Lines="All" Text="Код нозо-логии" Font="Times New Roman, 9pt" RowSpan="2"/>
+            <TableCell Name="Cell147" Border.Lines="All" Text="Длитель-ность пребыва-ния фактичес-кая" Font="Times New Roman, 9pt" RowSpan="2"/>
+            <TableCell Name="Cell148" Border.Lines="All" Text="Дней оплаты" Font="Times New Roman, 9pt" RowSpan="2"/>
+            <TableCell Name="Cell169" Border.Lines="All" Text="Тариф" Font="Times New Roman, 9pt" RowSpan="2"/>
+            <TableCell Name="Cell170" Border.Lines="All" Text="Сумма &#13;&#10;по реестру&#13;&#10;" Font="Times New Roman, 9pt" RowSpan="2"/>
+            <TableCell Name="Cell171" Border.Lines="All" Text="Оплаче-но после МЭК" Font="Times New Roman, 9pt" RowSpan="2"/>
+            <TableCell Name="Cell172" Border.Lines="All" Text="ЗАКЛЮЧЕНИЕ ЭКСПЕРТИЗЫ" HorzAlign="Center" Font="Times New Roman, 9pt" ColSpan="10"/>
+            <TableCell Name="Cell195" Border.Lines="All" Font="Times New Roman, 9pt"/>
+            <TableCell Name="Cell196" Border.Lines="All" Font="Times New Roman, 9pt"/>
+            <TableCell Name="Cell210" Border.Lines="All" Font="Times New Roman, 9pt"/>
+            <TableCell Name="Cell211" Border.Lines="All" Font="Times New Roman, 9pt"/>
+            <TableCell Name="Cell212" Border.Lines="All" Font="Times New Roman, 9pt"/>
+            <TableCell Name="Cell213" Border.Lines="All" Font="Times New Roman, 9pt"/>
+            <TableCell Name="Cell214" Border.Lines="All" Font="Times New Roman, 9pt"/>
+            <TableCell Name="Cell215" Border.Lines="All" Font="Times New Roman, 9pt"/>
+            <TableCell Name="Cell216" Border.Lines="All" Font="Times New Roman, 9pt"/>
+          </TableRow>
+          <TableRow Name="Row18" Height="94.5">
+            <TableCell Name="Cell149" Border.Lines="All" HorzAlign="Center" Font="Times New Roman, 9pt"/>
+            <TableCell Name="Cell150" Border.Lines="All" HorzAlign="Center" Font="Times New Roman, 9pt"/>
+            <TableCell Name="Cell151" Border.Lines="All" HorzAlign="Center" Font="Times New Roman, 9pt"/>
+            <TableCell Name="Cell152" Border.Lines="All" HorzAlign="Center" Font="Times New Roman, 9pt"/>
+            <TableCell Name="Cell153" Border.Lines="All" HorzAlign="Center" Font="Times New Roman, 9pt"/>
+            <TableCell Name="Cell173" Border.Lines="All" HorzAlign="Center" Font="Times New Roman, 9pt"/>
+            <TableCell Name="Cell174" Border.Lines="All" HorzAlign="Center" Font="Times New Roman, 9pt"/>
+            <TableCell Name="Cell175" Border.Lines="All" HorzAlign="Center" Font="Times New Roman, 9pt"/>
+            <TableCell Name="Cell176" Border.Lines="All" Text="Ф.И.О. эксперта" HorzAlign="Center" Font="Times New Roman, 9pt"/>
+            <TableCell Name="Cell197" Border.Lines="All" Text="Дней оплаты после МЭЭ, ЭКМП" HorzAlign="Center" Font="Times New Roman, 9pt"/>
+            <TableCell Name="Cell198" Border.Lines="All" Text="Тариф" HorzAlign="Center" Font="Times New Roman, 9pt"/>
+            <TableCell Name="Cell217" Border.Lines="All" Text="Удер-жание МЭЭ, ЭКМП" Font="Times New Roman, 9pt"/>
+            <TableCell Name="Cell218" Border.Lines="All" Text="Код причины отказа" Font="Times New Roman, 9pt"/>
+            <TableCell Name="Cell219" Border.Lines="All" Text="Сумма удержа-ния" Font="Times New Roman, 9pt"/>
+            <TableCell Name="Cell220" Border.Lines="All" Text="Итого удержано" Font="Times New Roman, 9pt"/>
+            <TableCell Name="Cell221" Border.Lines="All" Text="Итого допла-чено" Font="Times New Roman, 9pt"/>
+            <TableCell Name="Cell222" Border.Lines="All" Text="Возме-щено ЛПУ" Font="Times New Roman, 9pt"/>
+            <TableCell Name="Cell223" Border.Lines="All" Text="Примечание" Font="Times New Roman, 9pt"/>
+          </TableRow>
+        </TableObject>
+      </DataHeaderBand>
+      <DataBand Name="Data2" Top="227.69" Width="1047.06" Height="18.9">
+        <TableObject Name="Table1" Width="1047.15" Height="18.9" Border.Lines="All">
+          <TableColumn Name="Column131" Width="28.25"/>
+          <TableColumn Name="Column132" Width="84.95"/>
+          <TableColumn Name="Column133" Width="47.15"/>
+          <TableColumn Name="Column134" Width="66.05"/>
+          <TableColumn Name="Column135" Width="47.15"/>
+          <TableColumn Name="Column136" Width="47.15"/>
+          <TableColumn Name="Column137" Width="56.6"/>
+          <TableColumn Name="Column138" Width="56.6"/>
+          <TableColumn Name="Column139" Width="84.95"/>
+          <TableColumn Name="Column140" Width="47.15"/>
+          <TableColumn Name="Column141" Width="47.15"/>
+          <TableColumn Name="Column142" Width="47.15"/>
+          <TableColumn Name="Column143" Width="56.6"/>
+          <TableColumn Name="Column144" Width="56.6"/>
+          <TableColumn Name="Column145" Width="66.05"/>
+          <TableColumn Name="Column146" Width="56.6"/>
+          <TableColumn Name="Column147" Width="56.6"/>
+          <TableColumn Name="Column148" Width="94.4"/>
+          <TableRow Name="Row21">
+            <TableCell Name="Cell260" Border.Lines="All" Text="ОТДЕЛЕНИЕ" Font="Times New Roman, 9pt" ColSpan="18"/>
+            <TableCell Name="Cell261" Border.Lines="All" Font="Times New Roman, 9pt"/>
+            <TableCell Name="Cell262" Border.Lines="All" Font="Times New Roman, 9pt"/>
+            <TableCell Name="Cell263" Border.Lines="All" Font="Times New Roman, 9pt"/>
+            <TableCell Name="Cell264" Border.Lines="All" Font="Times New Roman, 9pt"/>
+            <TableCell Name="Cell265" Border.Lines="All" Font="Times New Roman, 9pt"/>
+            <TableCell Name="Cell266" Border.Lines="All" Font="Times New Roman, 9pt"/>
+            <TableCell Name="Cell267" Border.Lines="All" Font="Times New Roman, 9pt"/>
+            <TableCell Name="Cell268" Border.Lines="All" HorzAlign="Center" Font="Times New Roman, 9pt"/>
+            <TableCell Name="Cell269" Border.Lines="All" Font="Times New Roman, 9pt"/>
+            <TableCell Name="Cell270" Border.Lines="All" Font="Times New Roman, 9pt"/>
+            <TableCell Name="Cell271" Border.Lines="All" Font="Times New Roman, 9pt"/>
+            <TableCell Name="Cell272" Border.Lines="All" Font="Times New Roman, 9pt"/>
+            <TableCell Name="Cell273" Border.Lines="All" Font="Times New Roman, 9pt"/>
+            <TableCell Name="Cell274" Border.Lines="All" Font="Times New Roman, 9pt"/>
+            <TableCell Name="Cell275" Border.Lines="All" Font="Times New Roman, 9pt"/>
+            <TableCell Name="Cell276" Border.Lines="All" Font="Times New Roman, 9pt"/>
+            <TableCell Name="Cell277" Border.Lines="All" Font="Times New Roman, 9pt"/>
+          </TableRow>
+        </TableObject>
+        <DataBand Name="Data3" Top="250.04" Width="1047.06" Height="18.9">
+          <TableObject Name="Table1" Width="1047.15" Height="18.9" Border.Lines="All">
+            <TableColumn Name="Column149" Width="28.25"/>
+            <TableColumn Name="Column150" Width="84.95"/>
+            <TableColumn Name="Column151" Width="47.15"/>
+            <TableColumn Name="Column152" Width="66.05"/>
+            <TableColumn Name="Column153" Width="47.15"/>
+            <TableColumn Name="Column154" Width="47.15"/>
+            <TableColumn Name="Column155" Width="56.6"/>
+            <TableColumn Name="Column156" Width="56.6"/>
+            <TableColumn Name="Column157" Width="84.95"/>
+            <TableColumn Name="Column158" Width="47.15"/>
+            <TableColumn Name="Column159" Width="47.15"/>
+            <TableColumn Name="Column160" Width="47.15"/>
+            <TableColumn Name="Column161" Width="56.6"/>
+            <TableColumn Name="Column162" Width="56.6"/>
+            <TableColumn Name="Column163" Width="66.05"/>
+            <TableColumn Name="Column164" Width="56.6"/>
+            <TableColumn Name="Column165" Width="56.6"/>
+            <TableColumn Name="Column166" Width="94.4"/>
+            <TableRow Name="Row22">
+              <TableCell Name="Cell278" Border.Lines="All" Text="ПРОФИЛЬ" Font="Times New Roman, 9pt" ColSpan="18"/>
+              <TableCell Name="Cell279" Border.Lines="All" Font="Times New Roman, 9pt"/>
+              <TableCell Name="Cell280" Border.Lines="All" Font="Times New Roman, 9pt"/>
+              <TableCell Name="Cell281" Border.Lines="All" Font="Times New Roman, 9pt"/>
+              <TableCell Name="Cell282" Border.Lines="All" Font="Times New Roman, 9pt"/>
+              <TableCell Name="Cell283" Border.Lines="All" Font="Times New Roman, 9pt"/>
+              <TableCell Name="Cell284" Border.Lines="All" Font="Times New Roman, 9pt"/>
+              <TableCell Name="Cell285" Border.Lines="All" Font="Times New Roman, 9pt"/>
+              <TableCell Name="Cell286" Border.Lines="All" HorzAlign="Center" Font="Times New Roman, 9pt"/>
+              <TableCell Name="Cell287" Border.Lines="All" Font="Times New Roman, 9pt"/>
+              <TableCell Name="Cell288" Border.Lines="All" Font="Times New Roman, 9pt"/>
+              <TableCell Name="Cell289" Border.Lines="All" Font="Times New Roman, 9pt"/>
+              <TableCell Name="Cell290" Border.Lines="All" Font="Times New Roman, 9pt"/>
+              <TableCell Name="Cell291" Border.Lines="All" Font="Times New Roman, 9pt"/>
+              <TableCell Name="Cell292" Border.Lines="All" Font="Times New Roman, 9pt"/>
+              <TableCell Name="Cell293" Border.Lines="All" Font="Times New Roman, 9pt"/>
+              <TableCell Name="Cell294" Border.Lines="All" Font="Times New Roman, 9pt"/>
+              <TableCell Name="Cell295" Border.Lines="All" Font="Times New Roman, 9pt"/>
+            </TableRow>
+          </TableObject>
+          <DataBand Name="Data4" Top="272.39" Width="1047.06" Height="18.9">
+            <TableObject Name="Table1" Width="1047.15" Height="18.9" Border.Lines="All">
+              <TableColumn Name="Column95" Width="28.25"/>
+              <TableColumn Name="Column96" Width="84.95"/>
+              <TableColumn Name="Column97" Width="47.15"/>
+              <TableColumn Name="Column98" Width="66.05"/>
+              <TableColumn Name="Column99" Width="47.15"/>
+              <TableColumn Name="Column100" Width="47.15"/>
+              <TableColumn Name="Column101" Width="56.6"/>
+              <TableColumn Name="Column102" Width="56.6"/>
+              <TableColumn Name="Column103" Width="84.95"/>
+              <TableColumn Name="Column104" Width="47.15"/>
+              <TableColumn Name="Column105" Width="47.15"/>
+              <TableColumn Name="Column106" Width="47.15"/>
+              <TableColumn Name="Column107" Width="56.6"/>
+              <TableColumn Name="Column108" Width="56.6"/>
+              <TableColumn Name="Column109" Width="66.05"/>
+              <TableColumn Name="Column110" Width="56.6"/>
+              <TableColumn Name="Column111" Width="56.6"/>
+              <TableColumn Name="Column112" Width="94.4"/>
+              <TableRow Name="Row19">
+                <TableCell Name="Cell224" Border.Lines="All" Font="Times New Roman, 9pt"/>
+                <TableCell Name="Cell225" Border.Lines="All" Font="Times New Roman, 9pt"/>
+                <TableCell Name="Cell226" Border.Lines="All" Font="Times New Roman, 9pt"/>
+                <TableCell Name="Cell227" Border.Lines="All" Font="Times New Roman, 9pt"/>
+                <TableCell Name="Cell228" Border.Lines="All" Font="Times New Roman, 9pt"/>
+                <TableCell Name="Cell229" Border.Lines="All" Font="Times New Roman, 9pt"/>
+                <TableCell Name="Cell230" Border.Lines="All" Font="Times New Roman, 9pt"/>
+                <TableCell Name="Cell231" Border.Lines="All" Font="Times New Roman, 9pt"/>
+                <TableCell Name="Cell232" Border.Lines="All" HorzAlign="Center" Font="Times New Roman, 9pt"/>
+                <TableCell Name="Cell233" Border.Lines="All" Font="Times New Roman, 9pt"/>
+                <TableCell Name="Cell234" Border.Lines="All" Font="Times New Roman, 9pt"/>
+                <TableCell Name="Cell235" Border.Lines="All" Font="Times New Roman, 9pt"/>
+                <TableCell Name="Cell236" Border.Lines="All" Font="Times New Roman, 9pt"/>
+                <TableCell Name="Cell237" Border.Lines="All" Font="Times New Roman, 9pt"/>
+                <TableCell Name="Cell238" Border.Lines="All" Font="Times New Roman, 9pt"/>
+                <TableCell Name="Cell239" Border.Lines="All" Font="Times New Roman, 9pt"/>
+                <TableCell Name="Cell240" Border.Lines="All" Font="Times New Roman, 9pt"/>
+                <TableCell Name="Cell241" Border.Lines="All" Font="Times New Roman, 9pt"/>
+              </TableRow>
+            </TableObject>
+          </DataBand>
+        </DataBand>
+        <DataFooterBand Name="DataFooter2" Top="294.74" Width="1047.06" Height="18.9">
+          <TableObject Name="Table1" Width="1047.15" Height="18.9" Border.Lines="All">
+            <TableColumn Name="Column167" Width="28.25"/>
+            <TableColumn Name="Column168" Width="84.95"/>
+            <TableColumn Name="Column169" Width="47.15"/>
+            <TableColumn Name="Column170" Width="66.05"/>
+            <TableColumn Name="Column171" Width="47.15"/>
+            <TableColumn Name="Column172" Width="47.15"/>
+            <TableColumn Name="Column173" Width="56.6"/>
+            <TableColumn Name="Column174" Width="56.6"/>
+            <TableColumn Name="Column175" Width="84.95"/>
+            <TableColumn Name="Column176" Width="47.15"/>
+            <TableColumn Name="Column177" Width="47.15"/>
+            <TableColumn Name="Column178" Width="47.15"/>
+            <TableColumn Name="Column179" Width="56.6"/>
+            <TableColumn Name="Column180" Width="56.6"/>
+            <TableColumn Name="Column181" Width="66.05"/>
+            <TableColumn Name="Column182" Width="56.6"/>
+            <TableColumn Name="Column183" Width="56.6"/>
+            <TableColumn Name="Column184" Width="94.4"/>
+            <TableRow Name="Row23">
+              <TableCell Name="Cell296" Border.Lines="All" Text="ИТОГО" Font="Times New Roman, 9pt" ColSpan="16"/>
+              <TableCell Name="Cell297" Border.Lines="All" Font="Times New Roman, 9pt"/>
+              <TableCell Name="Cell298" Border.Lines="All" Font="Times New Roman, 9pt"/>
+              <TableCell Name="Cell299" Border.Lines="All" Font="Times New Roman, 9pt"/>
+              <TableCell Name="Cell300" Border.Lines="All" Font="Times New Roman, 9pt"/>
+              <TableCell Name="Cell301" Border.Lines="All" Font="Times New Roman, 9pt"/>
+              <TableCell Name="Cell302" Border.Lines="All" Font="Times New Roman, 9pt"/>
+              <TableCell Name="Cell303" Border.Lines="All" Font="Times New Roman, 9pt"/>
+              <TableCell Name="Cell304" Border.Lines="All" HorzAlign="Center" Font="Times New Roman, 9pt"/>
+              <TableCell Name="Cell305" Border.Lines="All" Font="Times New Roman, 9pt"/>
+              <TableCell Name="Cell306" Border.Lines="All" Font="Times New Roman, 9pt"/>
+              <TableCell Name="Cell307" Border.Lines="All" Font="Times New Roman, 9pt"/>
+              <TableCell Name="Cell308" Border.Lines="All" Font="Times New Roman, 9pt"/>
+              <TableCell Name="Cell309" Border.Lines="All" Font="Times New Roman, 9pt"/>
+              <TableCell Name="Cell310" Border.Lines="All" Font="Times New Roman, 9pt"/>
+              <TableCell Name="Cell311" Border.Lines="All" Font="Times New Roman, 9pt"/>
+              <TableCell Name="Cell312" Border.Lines="All" Font="Times New Roman, 9pt"/>
+              <TableCell Name="Cell313" Border.Lines="All" Font="Times New Roman, 9pt"/>
+            </TableRow>
+          </TableObject>
+        </DataFooterBand>
+      </DataBand>
+      <DataFooterBand Name="DataFooter1" Top="317.09" Width="1047.06" Height="207.9">
+        <TableObject Name="Table1" Width="1047.15" Height="18.9" Border.Lines="All">
+          <TableColumn Name="Column185" Width="28.25"/>
+          <TableColumn Name="Column186" Width="84.95"/>
+          <TableColumn Name="Column187" Width="47.15"/>
+          <TableColumn Name="Column188" Width="66.05"/>
+          <TableColumn Name="Column189" Width="47.15"/>
+          <TableColumn Name="Column190" Width="47.15"/>
+          <TableColumn Name="Column191" Width="56.6"/>
+          <TableColumn Name="Column192" Width="56.6"/>
+          <TableColumn Name="Column193" Width="84.95"/>
+          <TableColumn Name="Column194" Width="47.15"/>
+          <TableColumn Name="Column195" Width="47.15"/>
+          <TableColumn Name="Column196" Width="47.15"/>
+          <TableColumn Name="Column197" Width="56.6"/>
+          <TableColumn Name="Column198" Width="56.6"/>
+          <TableColumn Name="Column199" Width="66.05"/>
+          <TableColumn Name="Column200" Width="56.6"/>
+          <TableColumn Name="Column201" Width="56.6"/>
+          <TableColumn Name="Column202" Width="94.4"/>
+          <TableRow Name="Row24">
+            <TableCell Name="Cell314" Border.Lines="All" Text="ВСЕГО" Font="Times New Roman, 9pt" ColSpan="16"/>
+            <TableCell Name="Cell315" Border.Lines="All" Font="Times New Roman, 9pt"/>
+            <TableCell Name="Cell316" Border.Lines="All" Font="Times New Roman, 9pt"/>
+            <TableCell Name="Cell317" Border.Lines="All" Font="Times New Roman, 9pt"/>
+            <TableCell Name="Cell318" Border.Lines="All" Font="Times New Roman, 9pt"/>
+            <TableCell Name="Cell319" Border.Lines="All" Font="Times New Roman, 9pt"/>
+            <TableCell Name="Cell320" Border.Lines="All" Font="Times New Roman, 9pt"/>
+            <TableCell Name="Cell321" Border.Lines="All" Font="Times New Roman, 9pt"/>
+            <TableCell Name="Cell322" Border.Lines="All" HorzAlign="Center" Font="Times New Roman, 9pt"/>
+            <TableCell Name="Cell323" Border.Lines="All" Font="Times New Roman, 9pt"/>
+            <TableCell Name="Cell324" Border.Lines="All" Font="Times New Roman, 9pt"/>
+            <TableCell Name="Cell325" Border.Lines="All" Font="Times New Roman, 9pt"/>
+            <TableCell Name="Cell326" Border.Lines="All" Font="Times New Roman, 9pt"/>
+            <TableCell Name="Cell327" Border.Lines="All" Font="Times New Roman, 9pt"/>
+            <TableCell Name="Cell328" Border.Lines="All" Font="Times New Roman, 9pt"/>
+            <TableCell Name="Cell329" Border.Lines="All" Font="Times New Roman, 9pt"/>
+            <TableCell Name="Cell330" Border.Lines="All" Font="Times New Roman, 9pt"/>
+            <TableCell Name="Cell331" Border.Lines="All" Font="Times New Roman, 9pt"/>
+          </TableRow>
+        </TableObject>
+        <TableObject Name="Table1" Left="18.9" Top="37.8" Width="689.85" Height="56.7">
+          <TableColumn Name="Column39" Width="223.65"/>
+          <TableColumn Name="Column40" Width="242.55"/>
+          <TableColumn Name="Column41" Width="223.65"/>
+          <TableRow Name="Row11" AutoSize="true">
+            <TableCell Name="Cell112" Text="Директор ТФОМС Курской области" Font="Times New Roman, 10pt"/>
+            <TableCell Name="Cell113" Border.Lines="Bottom" Padding="0, 0, 0, 0" HorzAlign="Center" Font="Times New Roman, 10pt"/>
+            <TableCell Name="Cell114" Text="А. В. Курцев" Font="Times New Roman, 10pt"/>
+          </TableRow>
+          <TableRow Name="Row12" Height="37.8">
+            <TableCell Name="Cell115" VertAlign="Center" Font="Times New Roman, 10pt"/>
+            <TableCell Name="Cell116" HorzAlign="Center" Font="Times New Roman, 8pt"/>
+            <TableCell Name="Cell117" Font="Times New Roman, 10pt"/>
+          </TableRow>
+        </TableObject>
+        <TableObject Name="Table1" Left="18.9" Top="94.5" Width="689.85" Height="56.7">
+          <TableColumn Name="Column203" Width="223.65"/>
+          <TableColumn Name="Column204" Width="242.55"/>
+          <TableColumn Name="Column205" Width="223.65"/>
+          <TableRow Name="Row25" AutoSize="true">
+            <TableCell Name="Cell332" Text="Главный бухгалтер" Font="Times New Roman, 10pt"/>
+            <TableCell Name="Cell333" Border.Lines="Bottom" Padding="0, 0, 0, 0" HorzAlign="Center" Font="Times New Roman, 10pt"/>
+            <TableCell Name="Cell334" Text="С. А. Чернышева" Font="Times New Roman, 10pt"/>
+          </TableRow>
+          <TableRow Name="Row26" Height="37.8">
+            <TableCell Name="Cell335" VertAlign="Center" Font="Times New Roman, 10pt"/>
+            <TableCell Name="Cell336" HorzAlign="Center" Font="Times New Roman, 8pt"/>
+            <TableCell Name="Cell337" Font="Times New Roman, 10pt"/>
+          </TableRow>
+        </TableObject>
+      </DataFooterBand>
+    </DataBand>
+    <ReportSummaryBand Name="ReportSummary1" Top="528.44" Width="1047.06" Height="47.25" PrintOnBottom="true"/>
+    <PageFooterBand Name="PageFooter1" Top="579.13" Width="1047.06" Height="18.9"/>
+  </ReportPage>
+  <DialogPage Name="Form1" Width="306" Height="154" AcceptButton="btnOk" CancelButton="btnCancel" LoadEvent="Form1_Load">
+    <ButtonControl Name="btnOk" Left="134" Top="95" Anchor="Bottom, Right" Font="Tahoma, 8pt" TabIndex="0" Text="ОК" ClickEvent="btnOk_Click" DialogResult="OK"/>
+    <ButtonControl Name="btnCancel" Left="217" Top="95" Anchor="Bottom, Right" Font="Tahoma, 8pt" TabIndex="1" Text="Отмена" DialogResult="Cancel"/>
+    <LabelControl Name="Label1" Left="12" Top="12" Width="53" Height="13" Font="Tahoma, 8pt" TabIndex="2" Text="Период с"/>
+    <LabelControl Name="Label2" Left="48" Top="36" Width="19" Height="13" Font="Tahoma, 8pt" TabIndex="3" Text="по"/>
+    <DateTimePickerControl Name="DateTimePicker1" Left="68" Top="8" Width="124" Font="Tahoma, 8pt" TabIndex="4" Value="02/27/2012 10:36:07"/>
+    <DateTimePickerControl Name="DateTimePicker2" Left="68" Top="32" Width="124" Font="Tahoma, 8pt" TabIndex="5" Value="02/27/2012 10:36:11"/>
+    <ComboBoxControl Name="ComboBox1" Left="68" Top="60" Width="229" Font="Tahoma, 8pt" TabIndex="6" Text="ComboBox" DropDownWidth="229" ItemHeight="13"/>
+    <LabelControl Name="Label3" Left="36" Top="64" Width="28" Height="13" Font="Tahoma, 8pt" TabIndex="7" Text="ЛПУ"/>
+  </DialogPage>
+</Report>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          

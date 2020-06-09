@@ -1,0 +1,659 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report ScriptLanguage="CSharp" ReportInfo.Created="06/20/2009 22:40:42" ReportInfo.Modified="09/08/2011 12:59:37" ReportInfo.CreatorVersion="1.7.1.0">
+  <Dictionary>
+    <BusinessObjectDataSource Name="register12" ReferenceName="register12" DataType="null" Enabled="true">
+      <Column Name="AccountNumber" DataType="System.String"/>
+      <Column Name="MedicalOrganizationName" DataType="System.String"/>
+      <Column Name="MedicalOrganizationOgrn" DataType="System.String"/>
+      <Column Name="AccountBegin" DataType="System.DateTime"/>
+      <Column Name="AccountEnd" DataType="System.DateTime"/>
+      <Column Name="Director" DataType="System.String"/>
+      <Column Name="Accounter" DataType="System.String"/>
+      <Column Name="Manager" DataType="System.String"/>
+      <Column Name="Patient" DataType="null">
+        <Column Name="INP" DataType="System.String"/>
+        <Column Name="InsuranceDocSeries" DataType="System.String"/>
+        <Column Name="InsuranceDocNumber" DataType="System.String"/>
+        <Column Name="RegisterPosition" DataType="System.Nullable`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+      </Column>
+      <Column Name="Person" DataType="null">
+        <Column Name="PName" DataType="System.String"/>
+        <Column Name="Surname" DataType="System.String"/>
+        <Column Name="Patronymic" DataType="System.String"/>
+        <Column Name="Sex" DataType="System.Nullable`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+        <Column Name="Birthday" DataType="System.Nullable`1[[System.DateTime, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+        <Column Name="BirthPlace" DataType="System.String"/>
+        <Column Name="SNILS" DataType="System.String"/>
+        <Column Name="SexName" DataType="System.String"/>
+      </Column>
+      <Column Name="Document" DataType="null">
+        <Column Name="DocSeries" DataType="System.String"/>
+        <Column Name="DocNum" DataType="System.String"/>
+        <Column Name="DocType" DataType="System.Nullable`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+        <Column Name="DocTypeName" DataType="System.String"/>
+      </Column>
+      <Column Name="Event" DataType="null">
+        <Column Name="AssistanceType" DataType="System.Nullable`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+        <Column Name="DiagnosisGeneral" DataType="System.Nullable`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+        <Column Name="EventBegin" DataType="System.Nullable`1[[System.DateTime, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+        <Column Name="EventEnd" DataType="System.Nullable`1[[System.DateTime, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+        <Column Name="Quantity" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+        <Column Name="ProfileCodeId" DataType="System.Nullable`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+        <Column Name="SpecialityCode" DataType="System.Nullable`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+        <Column Name="Rate" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+        <Column Name="Price" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+        <Column Name="Result" DataType="System.Nullable`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+        <Column Name="AssistanceTypeCode" DataType="System.String"/>
+        <Column Name="DiagnosisGeneralCode" DataType="System.String"/>
+        <Column Name="ProfileCode" DataType="System.String"/>
+        <Column Name="SpecialityCodeName" DataType="System.String"/>
+        <Column Name="ResultCode" DataType="System.String"/>
+      </Column>
+    </BusinessObjectDataSource>
+    <Parameter Name="AccountNumber" DataType="System.String"/>
+    <Parameter Name="AccountBegin" DataType="System.DateTime"/>
+    <Parameter Name="AccountEnd" DataType="System.DateTime"/>
+    <Parameter Name="MedicalOrganizationName" DataType="System.String"/>
+    <Parameter Name="MedicalOrganizationOgrn" DataType="System.String"/>
+    <Parameter Name="Accounter" DataType="System.String"/>
+    <Parameter Name="Director" DataType="System.String"/>
+    <Parameter Name="Manager" DataType="System.String"/>
+  </Dictionary>
+  <ReportPage Name="Page1" RawPaperSize="9">
+    <PageHeaderBand Name="PageHeader1" Width="718.2" Height="1001.7">
+      <TextObject Name="Text11" Top="37.8" Width="718.2" Height="18.9" Text="Статистическая карта выбывшего из стационара №" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text1" Width="245.7" Height="18.9" Text="Министерство здравохранения РФ"/>
+      <TextObject Name="Text12" Top="18.9" Width="245.7" Height="18.9" Text="Название ЛПУ"/>
+      <TextObject Name="Text3" Left="472.5" Width="160.65" Height="28.35" Text="Медицинская документация&#13;&#10;Форма № 066/у" Font="Arial, 8pt"/>
+      <BarcodeObject Name="Barcode1" Left="633.15" Width="83.75" Height="47.25" Barcode="EAN8"/>
+      <TextObject Name="Text4" Top="56.7" Width="94.5" Height="18.9" Text="Отделение" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text7" Top="75.6" Width="151.2" Height="18.9" Border.Lines="All" Text="№ истории болезни" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text8" Top="94.5" Width="151.2" Height="18.9" Border.Lines="All" Font="Arial, 10pt, style=Bold"/>
+      <CheckBoxObject Name="CheckBox1" Left="170.1" Top="75.6" Width="18.9" Height="18.9" Border.Lines="All" Checked="false"/>
+      <CheckBoxObject Name="CheckBox2" Left="170.1" Top="94.5" Width="18.9" Height="18.9" Border.Lines="All" Checked="false"/>
+      <CheckBoxObject Name="CheckBox3" Left="302.4" Top="75.6" Width="18.9" Height="18.9" Border.Lines="All" Checked="false"/>
+      <CheckBoxObject Name="CheckBox4" Left="302.4" Top="94.5" Width="18.9" Height="18.9" Border.Lines="All" Checked="false"/>
+      <TextObject Name="Text9" Left="189" Top="75.6" Width="113.4" Height="18.9" Text="Круглосуточный"/>
+      <TextObject Name="Text13" Left="189" Top="94.5" Width="113.4" Height="18.9" Text="Дневной"/>
+      <CheckBoxObject Name="CheckBox5" Left="302.4" Top="113.4" Width="18.9" Height="18.9" Border.Lines="All" Checked="false"/>
+      <TextObject Name="Text14" Left="321.3" Top="75.6" Width="103.95" Height="18.9" Text="1-Работает"/>
+      <TextObject Name="Text15" Left="321.3" Top="94.5" Width="103.95" Height="18.9" Text="4-Пенсионер"/>
+      <TextObject Name="Text16" Left="321.3" Top="113.4" Width="103.95" Height="28.35" Text="7-Д/школьник&#13;&#10;(организован)"/>
+      <CheckBoxObject Name="CheckBox6" Left="425.25" Top="75.6" Width="18.9" Height="18.9" Border.Lines="All" Checked="false"/>
+      <CheckBoxObject Name="CheckBox7" Left="425.25" Top="94.5" Width="18.9" Height="18.9" Border.Lines="All" Checked="false"/>
+      <CheckBoxObject Name="CheckBox8" Left="425.25" Top="113.4" Width="18.9" Height="18.9" Border.Lines="All" Checked="false"/>
+      <TextObject Name="Text17" Left="444.15" Top="75.6" Width="103.95" Height="18.9" Text="2-Не работает"/>
+      <TextObject Name="Text18" Left="444.15" Top="94.5" Width="103.95" Height="18.9" Text="5-Военносл."/>
+      <TextObject Name="Text19" Left="444.15" Top="113.4" Width="122.85" Height="28.35" Text="8-Д/школьник&#13;&#10;(не организован)"/>
+      <CheckBoxObject Name="CheckBox9" Left="567" Top="75.6" Width="18.9" Height="18.9" Border.Lines="All" Checked="false"/>
+      <CheckBoxObject Name="CheckBox10" Left="567" Top="94.5" Width="18.9" Height="18.9" Border.Lines="All" Checked="false"/>
+      <CheckBoxObject Name="CheckBox11" Left="567" Top="113.4" Width="18.9" Height="18.9" Border.Lines="All" Checked="false"/>
+      <TextObject Name="Text20" Left="585.9" Top="75.6" Width="103.95" Height="18.9" Text="3-Учащийся"/>
+      <TextObject Name="Text21" Left="585.9" Top="94.5" Width="103.95" Height="18.9" Text="6-Член семьи в/сл"/>
+      <TextObject Name="Text22" Left="585.9" Top="113.4" Width="103.95" Height="28.35" Text="9-БОМЖ"/>
+      <TableObject Name="Table1" Top="151.2" Width="718.2" Height="37.8">
+        <TableColumn Name="Column32" Width="198.45"/>
+        <TableColumn Name="Column33" Width="189"/>
+        <TableColumn Name="Column34" Width="160.65"/>
+        <TableColumn Name="Column35" Width="28.35"/>
+        <TableColumn Name="Column36" Width="28.35"/>
+        <TableColumn Name="Column37" Width="113.4"/>
+        <TableRow Name="Row8">
+          <TableCell Name="Cell95" Border.Lines="All" Text="Фамилия" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+          <TableCell Name="Cell96" Border.Lines="All" Text="Имя" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+          <TableCell Name="Cell97" Border.Lines="All" Text="Отчество" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+          <TableCell Name="Cell98" Border.Lines="All" Text="Пол" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold" ColSpan="2"/>
+          <TableCell Name="Cell99"/>
+          <TableCell Name="Cell120" Border.Lines="All" Text="Дата рождения" HorzAlign="Center" Font="Arial, 10pt, style=Bold"/>
+        </TableRow>
+        <TableRow Name="Row9">
+          <TableCell Name="Cell100" Border.Lines="All" HorzAlign="Center" VertAlign="Center"/>
+          <TableCell Name="Cell101" Border.Lines="All" HorzAlign="Center" VertAlign="Center"/>
+          <TableCell Name="Cell102" Border.Lines="All" HorzAlign="Center" VertAlign="Center"/>
+          <TableCell Name="Cell103" Border.Lines="All" HorzAlign="Center" VertAlign="Center"/>
+          <TableCell Name="Cell104" Border.Lines="All" HorzAlign="Center" VertAlign="Center"/>
+          <TableCell Name="Cell121" Border.Lines="All" HorzAlign="Center" VertAlign="Center"/>
+        </TableRow>
+      </TableObject>
+      <TextObject Name="Text10" Top="198.45" Width="170.1" Height="18.9" Text="Код места жительства" HorzAlign="Center"/>
+      <TextObject Name="Text23" Left="170.1" Top="198.45" Width="103.95" Height="18.9" Border.Lines="All" HorzAlign="Center"/>
+      <CheckBoxObject Name="CheckBox12" Left="368.55" Top="198.45" Width="18.9" Height="18.9" Border.Lines="All" Checked="false"/>
+      <CheckBoxObject Name="CheckBox13" Left="444.15" Top="198.45" Width="18.9" Height="18.9" Border.Lines="All" Checked="false"/>
+      <TextObject Name="Text24" Left="274.05" Top="198.45" Width="94.5" Height="18.9" Text="Город" HorzAlign="Center"/>
+      <TextObject Name="Text25" Left="396.9" Top="198.45" Width="47.25" Height="18.9" Text="Село" HorzAlign="Center"/>
+      <TextObject Name="Text26" Left="472.5" Top="198.45" Width="132.3" Height="18.9" Text="ЛПУ прикрепления" HorzAlign="Center"/>
+      <TextObject Name="Text27" Left="604.8" Top="198.45" Width="113.4" Height="18.9" Border.Lines="All" HorzAlign="Center"/>
+      <TableObject Name="Table4" Top="226.8" Width="718.2" Height="47.25">
+        <TableColumn Name="Column38"/>
+        <TableColumn Name="Column39" Width="189"/>
+        <TableColumn Name="Column40" Width="113.4"/>
+        <TableColumn Name="Column41" Width="28.35"/>
+        <TableColumn Name="Column42" Width="28.35"/>
+        <TableColumn Name="Column43" Width="179.55"/>
+        <TableColumn Name="Column44" Width="113.4"/>
+        <TableRow Name="Row10">
+          <TableCell Name="Cell122" Border.Lines="All" Text="ФОМС" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+          <TableCell Name="Cell123" Border.Lines="All" Text="Полис" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+          <TableCell Name="Cell124" Border.Lines="All" Text="Код компании" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+          <TableCell Name="Cell125" Border.Lines="All" Text="ДМС" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold" ColSpan="2" RowSpan="2"/>
+          <TableCell Name="Cell126"/>
+          <TableCell Name="Cell127" Border.Lines="All" Text="Полис" HorzAlign="Center" Font="Arial, 10pt, style=Bold"/>
+          <TableCell Name="Cell134" Border.Lines="All" Text="Код компании" HorzAlign="Center" Font="Arial, 10pt, style=Bold"/>
+        </TableRow>
+        <TableRow Name="Row11" Height="28.35">
+          <TableCell Name="Cell128" Border.Lines="All" HorzAlign="Center" VertAlign="Center"/>
+          <TableCell Name="Cell129" Border.Lines="All" HorzAlign="Center" VertAlign="Center"/>
+          <TableCell Name="Cell130" Border.Lines="All" HorzAlign="Center" VertAlign="Center"/>
+          <TableCell Name="Cell131" Border.Lines="All" HorzAlign="Center" VertAlign="Center"/>
+          <TableCell Name="Cell132" Border.Lines="All" HorzAlign="Center" VertAlign="Center"/>
+          <TableCell Name="Cell133" Border.Lines="All" HorzAlign="Center" VertAlign="Center"/>
+          <TableCell Name="Cell135" Border.Lines="All"/>
+        </TableRow>
+      </TableObject>
+      <TextObject Name="Text28" Top="283.5" Width="132.3" Height="18.9" Text="Платные услуги:" HorzAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <CheckBoxObject Name="CheckBox14" Left="141.75" Top="283.5" Width="18.9" Height="18.9" Border.Lines="All" Checked="false"/>
+      <TextObject Name="Text29" Left="160.65" Top="283.5" Width="94.5" Height="18.9" Text="2-договор" HorzAlign="Center"/>
+      <TextObject Name="Text30" Left="264.6" Top="283.5" Width="94.5" Height="18.9" Text="№ договора" HorzAlign="Center"/>
+      <TextObject Name="Text31" Left="359.1" Top="283.5" Width="132.3" Height="18.9" Border.Lines="All" HorzAlign="Center"/>
+      <CheckBoxObject Name="CheckBox15" Left="510.3" Top="283.5" Width="18.9" Height="18.9" Border.Lines="All" Checked="false"/>
+      <TextObject Name="Text32" Left="529.2" Top="283.5" Width="94.5" Height="18.9" Text="3-касса" HorzAlign="Center"/>
+      <CheckBoxObject Name="CheckBox16" Top="311.85" Width="18.9" Height="18.9" Border.Lines="All" Checked="false"/>
+      <CheckBoxObject Name="CheckBox17" Top="330.75" Width="18.9" Height="18.9" Border.Lines="All" Checked="false"/>
+      <TextObject Name="Text33" Left="18.9" Top="311.85" Width="122.85" Height="18.9" Text="Военнослужащий"/>
+      <TextObject Name="Text34" Left="18.9" Top="330.75" Width="189" Height="18.9" Text="Сотрудник МВД,ФСБ и т.д."/>
+      <TextObject Name="Text35" Left="226.8" Top="311.85" Width="113.4" Height="18.9" Text="Бюджет. Сирота"/>
+      <TextObject Name="Text36" Left="226.8" Top="330.75" Width="132.3" Height="18.9" Text="Бюджет. Беженец."/>
+      <TextObject Name="Text37" Left="378" Top="311.85" Width="151.2" Height="18.9" Text="Бюджет. Иностранец."/>
+      <TextObject Name="Text38" Left="378" Top="330.75" Width="141.75" Height="18.9" Text="Бюджет. Призывник."/>
+      <TextObject Name="Text39" Left="548.1" Top="311.85" Width="132.3" Height="18.9" Text="Бюджет. Прочие."/>
+      <CheckBoxObject Name="CheckBox18" Left="207.9" Top="311.85" Width="18.9" Height="18.9" Border.Lines="All" Checked="false"/>
+      <CheckBoxObject Name="CheckBox19" Left="207.9" Top="330.75" Width="18.9" Height="18.9" Border.Lines="All" Checked="false"/>
+      <CheckBoxObject Name="CheckBox20" Left="359.1" Top="311.85" Width="18.9" Height="18.9" Border.Lines="All" Checked="false"/>
+      <CheckBoxObject Name="CheckBox21" Left="359.1" Top="330.75" Width="18.9" Height="18.9" Border.Lines="All" Checked="false"/>
+      <CheckBoxObject Name="CheckBox22" Left="529.2" Top="311.85" Width="18.9" Height="18.9" Border.Lines="All" Checked="false"/>
+      <TableObject Name="Table5" Top="387.45" Width="718.2" Height="85.05">
+        <TableColumn Name="Column45" Width="151.2"/>
+        <TableColumn Name="Column46" Width="160.65"/>
+        <TableColumn Name="Column47" Width="151.2"/>
+        <TableColumn Name="Column48" Width="122.85"/>
+        <TableColumn Name="Column49" Width="132.3"/>
+        <TableRow Name="Row12">
+          <TableCell Name="Cell136" Border.Lines="All" Text="Адрес" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+          <TableCell Name="Cell137" Border.Lines="All" Text="Место работы" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+          <TableCell Name="Cell138" Border.Lines="All" Text="Паспорт" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+          <TableCell Name="Cell139" Border.Lines="All" Text="Данные ОМС" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+          <TableCell Name="Cell140" Border.Lines="All" Text="Другие данные" HorzAlign="Center" Font="Arial, 10pt, style=Bold"/>
+        </TableRow>
+        <TableRow Name="Row13" Height="66.15">
+          <TableCell Name="Cell142" Border.Lines="All" HorzAlign="Center" VertAlign="Center"/>
+          <TableCell Name="Cell143" Border.Lines="All" HorzAlign="Center" VertAlign="Center"/>
+          <TableCell Name="Cell144" Border.Lines="All" HorzAlign="Center" VertAlign="Center"/>
+          <TableCell Name="Cell145" Border.Lines="All" HorzAlign="Center" VertAlign="Center"/>
+          <TableCell Name="Cell146" Border.Lines="All" HorzAlign="Center" VertAlign="Center"/>
+        </TableRow>
+      </TableObject>
+      <TextObject Name="Text40" Top="359.1" Width="718.2" Height="18.9" Text="Дополнительная информация заполняется для больных, не имеющих полиса, а также иногородних"/>
+      <TextObject Name="Text41" Top="491.4" Width="94.5" Height="18.9" Text="Поступил" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text42" Left="94.5" Top="491.4" Width="56.7" Height="18.9" Text="Дата" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text43" Left="151.2" Top="491.4" Width="94.5" Height="18.9" Border.Lines="All" HorzAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text44" Left="255.15" Top="491.4" Width="56.7" Height="18.9" Text="Время" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text45" Left="311.85" Top="491.4" Width="94.5" Height="18.9" Border.Lines="All" HorzAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text46" Left="415.8" Top="491.4" Width="122.85" Height="18.9" Text="Кем направлен" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text47" Left="538.65" Top="491.4" Width="94.5" Height="18.9" Border.Lines="All" HorzAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text48" Top="519.75" Width="122.85" Height="18.9" Text="Госпитализация" Font="Arial, 10pt, style=Bold"/>
+      <CheckBoxObject Name="CheckBox23" Left="122.85" Top="519.75" Width="18.9" Height="18.9" Border.Lines="All" Checked="false"/>
+      <TextObject Name="Text49" Left="274.05" Top="519.75" Width="94.5" Height="18.9" Text="2 - Плановая"/>
+      <TextObject Name="Text50" Left="141.75" Top="519.75" Width="113.4" Height="18.9" Text="1 - Экстренная"/>
+      <CheckBoxObject Name="CheckBox24" Left="255.15" Top="519.75" Width="18.9" Height="18.9" Border.Lines="All" Checked="false"/>
+      <TextObject Name="Text51" Top="548.1" Width="122.85" Height="18.9" Text="Доставлен" Font="Arial, 10pt, style=Bold"/>
+      <CheckBoxObject Name="CheckBox25" Left="122.85" Top="548.1" Width="18.9" Height="18.9" Border.Lines="All" Checked="false"/>
+      <TextObject Name="Text52" Left="302.4" Top="548.1" Width="132.3" Height="18.9" Text="2 - Через 7-24 часа"/>
+      <TextObject Name="Text53" Left="141.75" Top="548.1" Width="141.75" Height="18.9" Text="1 - В первые 6 часов"/>
+      <CheckBoxObject Name="CheckBox26" Left="283.5" Top="548.1" Width="18.9" Height="18.9" Border.Lines="All" Checked="false"/>
+      <TextObject Name="Text54" Left="453.6" Top="548.1" Width="132.3" Height="18.9" Text="3 - Позже 24 часов"/>
+      <CheckBoxObject Name="CheckBox27" Left="434.7" Top="548.1" Width="18.9" Height="18.9" Border.Lines="All" Checked="false"/>
+      <TextObject Name="Text55" Top="576.45" Width="122.85" Height="18.9" Text="В состоянии опьянения" Font="Arial, 10pt, style=Bold"/>
+      <CheckBoxObject Name="CheckBox28" Left="122.85" Top="576.45" Width="18.9" Height="18.9" Border.Lines="All" Checked="false"/>
+      <TextObject Name="Text56" Left="302.4" Top="576.45" Width="132.3" Height="18.9" Text="2 - наркотического"/>
+      <TextObject Name="Text57" Left="141.75" Top="576.45" Width="141.75" Height="18.9" Text="1 - алкогольного"/>
+      <CheckBoxObject Name="CheckBox29" Left="283.5" Top="576.45" Width="18.9" Height="18.9" Border.Lines="All" Checked="false"/>
+      <TextObject Name="Text58" Top="604.8" Width="75.6" Height="18.9" Text="Травмы:" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text59" Left="94.5" Top="604.8" Width="198.45" Height="18.9" Text="не связанные с производством" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt, style=Bold"/>
+      <TextObject Name="Text60" Left="463.05" Top="604.8" Width="198.45" Height="18.9" Text="производственные травмы" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt, style=Bold"/>
+      <CheckBoxObject Name="CheckBox30" Top="633.15" Width="18.9" Height="18.9" Border.Lines="All" Checked="false"/>
+      <TextObject Name="Text61" Left="18.9" Top="633.15" Width="141.75" Height="18.9" Text="10 - противоправная"/>
+      <CheckBoxObject Name="CheckBox31" Top="652.05" Width="18.9" Height="18.9" Border.Lines="All" Checked="false"/>
+      <TextObject Name="Text62" Left="18.9" Top="652.05" Width="141.75" Height="18.9" Text="11 - бытовая"/>
+      <CheckBoxObject Name="CheckBox32" Top="670.95" Width="18.9" Height="18.9" Border.Lines="All" Checked="false"/>
+      <TextObject Name="Text63" Left="18.9" Top="670.95" Width="141.75" Height="18.9" Text="12 - уличная"/>
+      <CheckBoxObject Name="CheckBox33" Top="689.85" Width="18.9" Height="18.9" Border.Lines="All" Checked="false"/>
+      <TextObject Name="Text64" Left="18.9" Top="689.85" Width="198.45" Height="18.9" Text="13 - транспортная(кроме а/д)"/>
+      <CheckBoxObject Name="CheckBox34" Left="217.35" Top="633.15" Width="18.9" Height="18.9" Border.Lines="All" Checked="false"/>
+      <TextObject Name="Text65" Left="236.25" Top="633.15" Width="141.75" Height="18.9" Text="14 - автодорожная"/>
+      <CheckBoxObject Name="CheckBox35" Left="217.35" Top="652.05" Width="18.9" Height="18.9" Border.Lines="All" Checked="false"/>
+      <TextObject Name="Text66" Left="236.25" Top="652.05" Width="141.75" Height="18.9" Text="15 - школьная"/>
+      <CheckBoxObject Name="CheckBox36" Left="217.35" Top="670.95" Width="18.9" Height="18.9" Border.Lines="All" Checked="false"/>
+      <TextObject Name="Text67" Left="236.25" Top="670.95" Width="141.75" Height="18.9" Text="16 - спортивная"/>
+      <CheckBoxObject Name="CheckBox37" Left="217.35" Top="689.85" Width="18.9" Height="18.9" Border.Lines="All" Checked="false"/>
+      <TextObject Name="Text68" Left="236.25" Top="689.85" Width="198.45" Height="18.9" Text="17 - прочее"/>
+      <CheckBoxObject Name="CheckBox38" Left="444.15" Top="633.15" Width="18.9" Height="18.9" Border.Lines="All" Checked="false"/>
+      <TextObject Name="Text69" Left="463.05" Top="633.15" Width="160.65" Height="18.9" Text="21 - в промышленности"/>
+      <CheckBoxObject Name="CheckBox39" Left="444.15" Top="652.05" Width="18.9" Height="18.9" Border.Lines="All" Checked="false"/>
+      <TextObject Name="Text70" Left="463.05" Top="652.05" Width="198.45" Height="18.9" Text="22 - транспортная(кроме а/д)"/>
+      <CheckBoxObject Name="CheckBox40" Left="444.15" Top="670.95" Width="18.9" Height="18.9" Border.Lines="All" Checked="false"/>
+      <TextObject Name="Text71" Left="463.05" Top="670.95" Width="141.75" Height="18.9" Text="23 - автодорожная"/>
+      <CheckBoxObject Name="CheckBox41" Left="444.15" Top="689.85" Width="18.9" Height="18.9" Border.Lines="All" Checked="false"/>
+      <TextObject Name="Text72" Left="463.05" Top="689.85" Width="198.45" Height="18.9" Text="24 - в с/хозяйстве"/>
+      <CheckBoxObject Name="CheckBox42" Left="623.7" Top="633.15" Width="18.9" Height="18.9" Border.Lines="All" Checked="false"/>
+      <TextObject Name="Text73" Left="642.6" Top="633.15" Width="85.05" Height="18.9" Text="25 - прочее"/>
+      <TextObject Name="Text74" Top="718.2" Width="151.2" Height="18.9" Text="Исход заболевания" Font="Arial, 10pt, style=Bold"/>
+      <CheckBoxObject Name="CheckBox43" Top="737.1" Width="18.9" Height="18.9" Border.Lines="All" Checked="false"/>
+      <TextObject Name="Text75" Left="18.9" Top="737.1" Width="141.75" Height="18.9" Text="1 - выписан"/>
+      <CheckBoxObject Name="CheckBox44" Top="774.9" Width="18.9" Height="18.9" Border.Lines="All" Checked="false"/>
+      <TextObject Name="Text76" Left="18.9" Top="774.9" Width="217.35" Height="18.9" Text="3 - перевод в другое отделение"/>
+      <CheckBoxObject Name="CheckBox45" Left="160.65" Top="737.1" Width="18.9" Height="18.9" Border.Lines="All" Checked="false"/>
+      <TextObject Name="Text77" Left="179.55" Top="737.1" Width="66.15" Height="18.9" Text="2 - умер"/>
+      <TextObject Name="Text78" Left="245.7" Top="756" Width="103.95" Height="18.9" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt, style=Bold"/>
+      <TextObject Name="Text79" Left="245.7" Top="737.1" Width="103.95" Height="18.9" Text="Причина смерти" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt, style=Bold"/>
+      <CheckBoxObject Name="CheckBox46" Top="793.8" Width="18.9" Height="18.9" Border.Lines="All" Checked="false"/>
+      <TextObject Name="Text80" Left="18.9" Top="793.8" Width="217.35" Height="18.9" Text="4 - перевод в другой стационар"/>
+      <CheckBoxObject Name="CheckBox47" Top="812.7" Width="18.9" Height="18.9" Border.Lines="All" Checked="false"/>
+      <TextObject Name="Text81" Left="18.9" Top="812.7" Width="264.6" Height="18.9" Text="5 - выписка по др. причинам, самоуход"/>
+      <CheckBoxObject Name="CheckBox48" Top="850.5" Width="18.9" Height="18.9" Border.Lines="All" Checked="false"/>
+      <TextObject Name="Text82" Left="18.9" Top="850.5" Width="103.95" Height="18.9" Text="6 - перевод на"/>
+      <LineObject Name="Line2" Left="122.85" Top="859.95" Width="18.9" Height="18.9" Diagonal="true" EndCap.Width="4" EndCap.Style="Arrow"/>
+      <LineObject Name="Line3" Left="122.85" Top="859.95" Width="18.9" Height="-18.9" Diagonal="true" EndCap.Width="4" EndCap.Style="Arrow"/>
+      <TextObject Name="Text83" Left="141.75" Top="831.6" Width="198.45" Height="18.9" Text="дневной стационар (для к/суточного)" VertAlign="Center" Font="Arial, 8pt"/>
+      <TextObject Name="Text84" Left="141.75" Top="869.4" Width="226.8" Height="18.9" Text="круглосуточный стационар (для дневного)" VertAlign="Center" Font="Arial, 8pt"/>
+      <TextObject Name="Text85" Top="897.75" Width="75.6" Height="18.9" Text="Выписка" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text86" Left="75.6" Top="897.75" Width="47.25" Height="18.9" Text="Дата" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text87" Left="122.85" Top="897.75" Width="94.5" Height="18.9" Border.Lines="All" HorzAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text88" Left="217.35" Top="897.75" Width="56.7" Height="18.9" Text="Время" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text89" Left="274.05" Top="897.75" Width="94.5" Height="18.9" Border.Lines="All" HorzAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text90" Left="368.55" Top="897.75" Width="56.7" Height="18.9" Text="К/дней" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text91" Left="425.25" Top="897.75" Width="94.5" Height="18.9" Border.Lines="All" HorzAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text92" Left="519.75" Top="897.75" Width="122.85" Height="18.9" Text="К/дней по стандарту" Font="Arial, 8pt, style=Bold"/>
+      <TextObject Name="Text93" Left="642.6" Top="897.75" Width="75.6" Height="18.9" Border.Lines="All" HorzAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text94" Top="926.1" Width="170.1" Height="37.8" Text="Диагноз направившего учреждения МКБ 10" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text2" Left="170.1" Top="926.1" Width="113.4" Height="37.8" Border.Lines="All" VertAlign="Center" Font="Arial, 8pt, style=Bold"/>
+      <TextObject Name="Text95" Left="283.5" Top="926.1" Width="141.75" Height="37.8" Text="Диагноз приемного отделения МКБ 10" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text96" Left="425.25" Top="926.1" Width="113.4" Height="37.8" Border.Lines="All" VertAlign="Center" Font="Arial, 8pt, style=Bold"/>
+      <TextObject Name="Text97" Left="538.65" Top="926.1" Width="37.8" Height="37.8" Text="КСГ" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text98" Left="576.45" Top="926.1" Width="37.8" Height="37.8" Border.Lines="All" VertAlign="Center" Font="Arial, 8pt, style=Bold"/>
+      <CheckBoxObject Name="CheckBox49" Left="699.3" Top="926.1" Width="18.9" Height="18.9" Border.Lines="All" Checked="false"/>
+      <TextObject Name="Text99" Left="614.25" Top="926.1" Width="85.05" Height="37.8" Text="Новые технологии"/>
+      <TextObject Name="Text5" Left="340.2" Top="718.2" Width="236.25" Height="18.9" Text="Показатели качества Результат" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TableObject Name="Table2" Left="538.65" Top="718.2" Width="179.55" Height="141.75">
+        <TableColumn Name="Column50"/>
+        <TableColumn Name="Column51" Width="56.7"/>
+        <TableColumn Name="Column52" Width="56.7"/>
+        <TableRow Name="Row14">
+          <TableCell Name="Cell171"/>
+          <TableCell Name="Cell172" Text="Факт" Font="Arial, 10pt, style=Bold"/>
+          <TableCell Name="Cell173" Text="План" Font="Arial, 10pt, style=Bold"/>
+        </TableRow>
+        <TableRow Name="Row15">
+          <TableCell Name="Cell174" Text="1" HorzAlign="Right"/>
+          <TableCell Name="Cell175" Border.Lines="All"/>
+          <TableCell Name="Cell176" Border.Lines="All"/>
+        </TableRow>
+        <TableRow Name="Row16">
+          <TableCell Name="Cell177" Text="2" HorzAlign="Right"/>
+          <TableCell Name="Cell178" Border.Lines="All"/>
+          <TableCell Name="Cell179" Border.Lines="All"/>
+        </TableRow>
+        <TableRow Name="Row17">
+          <TableCell Name="Cell180" Text="3" HorzAlign="Right"/>
+          <TableCell Name="Cell181" Border.Lines="All"/>
+          <TableCell Name="Cell182" Border.Lines="All"/>
+        </TableRow>
+        <TableRow Name="Row18">
+          <TableCell Name="Cell183" Text="4" HorzAlign="Right"/>
+          <TableCell Name="Cell184" Border.Lines="All"/>
+          <TableCell Name="Cell185" Border.Lines="All"/>
+        </TableRow>
+        <TableRow Name="Row19">
+          <TableCell Name="Cell211"/>
+          <TableCell Name="Cell212"/>
+          <TableCell Name="Cell213"/>
+        </TableRow>
+        <TableRow Name="Row25" Height="28.35">
+          <TableCell Name="Cell214" Text="Стандарт&#13;&#10;выполнен" Font="Arial, 8pt, style=Bold"/>
+          <TableCell Name="Cell215" Border.Lines="All" Text="1 - да"/>
+          <TableCell Name="Cell216" Border.Lines="All" Text="2 - нет"/>
+        </TableRow>
+      </TableObject>
+      <TableObject Name="Table3" Left="359.1" Top="737.1" Width="198.45" Height="94.5" Border.Lines="All" Border.Color="Transparent">
+        <TableColumn Name="Column53" Width="40.95"/>
+        <TableColumn Name="Column54" Width="59.85"/>
+        <TableColumn Name="Column55" Width="97.65"/>
+        <TableRow Name="Row20">
+          <TableCell Name="Cell189" Text="ОДМ"/>
+          <TableCell Name="Cell190" Border.Lines="All"/>
+          <TableCell Name="Cell191" Text="Выздоровление" Font="Arial, 8pt"/>
+        </TableRow>
+        <TableRow Name="Row21">
+          <TableCell Name="Cell194" Text="ОД"/>
+          <TableCell Name="Cell195" Border.Lines="All"/>
+          <TableCell Name="Cell196" Text="Улучшение" Font="Arial, 8pt"/>
+        </TableRow>
+        <TableRow Name="Row22">
+          <TableCell Name="Cell199" Text="ОМЛ"/>
+          <TableCell Name="Cell200" Border.Lines="All"/>
+          <TableCell Name="Cell201" Text="Без перемен" Font="Arial, 8pt"/>
+        </TableRow>
+        <TableRow Name="Row23">
+          <TableCell Name="Cell202" Text="ОВР"/>
+          <TableCell Name="Cell203" Border.Lines="All"/>
+          <TableCell Name="Cell204" Text="Ухудшение" Font="Arial, 8pt"/>
+        </TableRow>
+        <TableRow Name="Row24">
+          <TableCell Name="Cell205" Text="ООЛ"/>
+          <TableCell Name="Cell206" Border.Lines="All"/>
+          <TableCell Name="Cell207"/>
+        </TableRow>
+      </TableObject>
+    </PageHeaderBand>
+  </ReportPage>
+  <ReportPage Name="Page2">
+    <ReportTitleBand Name="ReportTitle1" Width="718.2" Height="992.25">
+      <TextObject Name="Text100" Width="141.75" Height="18.9" Text="Госпитализирован" Font="Arial, 10pt, style=Bold"/>
+      <CheckBoxObject Name="CheckBox50" Left="141.75" Width="18.9" Height="18.9" Border.Lines="All" Checked="false"/>
+      <TextObject Name="Text101" Left="292.95" Width="94.5" Height="18.9" Text="2 - Повторно"/>
+      <TextObject Name="Text102" Left="160.65" Width="113.4" Height="18.9" Text="1 - Впервые"/>
+      <CheckBoxObject Name="CheckBox51" Left="274.05" Width="18.9" Height="18.9" Border.Lines="All" Checked="false"/>
+      <TextObject Name="Text103" Left="387.45" Width="94.5" Height="18.9" Text="Обследован" Font="Arial, 10pt, style=Bold"/>
+      <CheckBoxObject Name="CheckBox52" Left="481.95" Width="18.9" Height="18.9" Border.Lines="All" Checked="false"/>
+      <TextObject Name="Text104" Left="557.55" Width="47.25" Height="18.9" Text="AIDS"/>
+      <TextObject Name="Text105" Left="500.85" Width="37.8" Height="18.9" Text="RW"/>
+      <CheckBoxObject Name="CheckBox53" Left="538.65" Width="18.9" Height="18.9" Border.Lines="All" Checked="false"/>
+      <TextObject Name="Text6" Top="28.35" Width="538.65" Height="18.9" Text="Документ о временной нетрудоспособности (при закрытом больничном листе)" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text106" Top="47.25" Width="66.15" Height="18.9" Border.Lines="All" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text107" Left="66.15" Top="47.25" Width="47.25" Height="18.9" Text="Дней"/>
+      <TextObject Name="Text108" Left="122.85" Top="47.25" Width="103.95" Height="18.9" Text="Тип документа"/>
+      <CheckBoxObject Name="CheckBox54" Left="226.8" Top="47.25" Width="18.9" Height="18.9" Border.Lines="All" Checked="false"/>
+      <TextObject Name="Text109" Left="245.7" Top="47.25" Width="56.7" Height="18.9" Text="1 - Б/л"/>
+      <CheckBoxObject Name="CheckBox55" Left="406.35" Top="47.25" Width="18.9" Height="18.9" Border.Lines="All" Checked="false"/>
+      <TextObject Name="Text110" Left="425.25" Top="47.25" Width="94.5" Height="18.9" Text="3 - Б/л(уход)"/>
+      <CheckBoxObject Name="CheckBox56" Left="302.4" Top="47.25" Width="18.9" Height="18.9" Border.Lines="All" Checked="false"/>
+      <TextObject Name="Text111" Left="321.3" Top="47.25" Width="85.05" Height="18.9" Text="2 - Справка"/>
+      <CheckBoxObject Name="CheckBox57" Left="519.75" Top="47.25" Width="18.9" Height="18.9" Border.Lines="All" Checked="false"/>
+      <TextObject Name="Text112" Left="538.65" Top="47.25" Width="122.85" Height="18.9" Text="4 - Справка(уход)"/>
+      <TextObject Name="Text113" Left="122.85" Top="75.6" Width="311.85" Height="18.9" Text="Пол и возраст получателя документа по уходу:"/>
+      <TextObject Name="Text114" Left="463.05" Top="75.6" Width="37.8" Height="18.9" Text="пол"/>
+      <TextObject Name="Text115" Left="557.55" Top="75.6" Width="122.85" Height="18.9" Text="полных лет"/>
+      <TextObject Name="Text116" Left="500.85" Top="75.6" Width="56.7" Height="18.9" Border.Lines="All"/>
+      <TextObject Name="Text117" Left="434.7" Top="75.6" Width="28.35" Height="18.9" Border.Lines="All"/>
+      <TableObject Name="Table6" Top="113.4" Width="718.74" Height="264.6" Border.Lines="All">
+        <TableColumn Name="Column56" Width="31.59"/>
+        <TableColumn Name="Column57" Width="163.89"/>
+        <TableColumn Name="Column58" Width="69.39"/>
+        <TableColumn Name="Column59" Width="144.99"/>
+        <TableColumn Name="Column60" Width="69.39"/>
+        <TableColumn Name="Column61" Width="173.34"/>
+        <TableColumn Name="Column62"/>
+        <TableRow Name="Row26" Height="37.8">
+          <TableCell Name="Cell217" Border.Lines="All" Text="Клинический&#13;&#10;Заключительный" HorzAlign="Center" VertAlign="Center" Angle="270" RowSpan="2"/>
+          <TableCell Name="Cell218" Border.Lines="All" Text="Основное заболевание"/>
+          <TableCell Name="Cell219" Border.Lines="All" Text="Код МКБ"/>
+          <TableCell Name="Cell220" Border.Lines="All" Text="Осложнение"/>
+          <TableCell Name="Cell221" Border.Lines="All" Text="Код МКБ"/>
+          <TableCell Name="Cell232" Border.Lines="All" Text="Сопутствующие заболевания"/>
+          <TableCell Name="Cell235" Border.Lines="All" Text="Код МКБ"/>
+        </TableRow>
+        <TableRow Name="Row27" Height="103.95">
+          <TableCell Name="Cell222"/>
+          <TableCell Name="Cell223" Border.Lines="All"/>
+          <TableCell Name="Cell224" Border.Lines="All"/>
+          <TableCell Name="Cell225" Border.Lines="All"/>
+          <TableCell Name="Cell226" Border.Lines="All"/>
+          <TableCell Name="Cell233" Border.Lines="All"/>
+          <TableCell Name="Cell236" Border.Lines="All"/>
+        </TableRow>
+        <TableRow Name="Row28" Height="122.85">
+          <TableCell Name="Cell227" Border.Lines="All" Text="Паталого-&#13;&#10;анатомический" HorzAlign="Center" VertAlign="Center" Angle="270"/>
+          <TableCell Name="Cell228" Border.Lines="All"/>
+          <TableCell Name="Cell229" Border.Lines="All"/>
+          <TableCell Name="Cell230" Border.Lines="All"/>
+          <TableCell Name="Cell231" Border.Lines="All"/>
+          <TableCell Name="Cell234" Border.Lines="All"/>
+          <TableCell Name="Cell237" Border.Lines="All"/>
+        </TableRow>
+      </TableObject>
+      <TextObject Name="Text118" Top="387.45" Width="151.2" Height="18.9" Text="Категории больных" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <CheckBoxObject Name="CheckBox58" Top="406.35" Width="18.9" Height="18.9" Border.Lines="All" Checked="false"/>
+      <CheckBoxObject Name="CheckBox59" Top="425.25" Width="18.9" Height="18.9" Border.Lines="All" Checked="false"/>
+      <CheckBoxObject Name="CheckBox60" Top="444.15" Width="18.9" Height="18.9" Border.Lines="All" Checked="false"/>
+      <TextObject Name="Text119" Left="18.9" Top="406.35" Width="113.4" Height="18.9" Text="Инвалид ВОВ"/>
+      <TextObject Name="Text120" Left="18.9" Top="425.25" Width="113.4" Height="18.9" Text="Инвалид 1гр. - 1"/>
+      <TextObject Name="Text121" Left="18.9" Top="444.15" Width="113.4" Height="28.35" Text="Беременная"/>
+      <CheckBoxObject Name="CheckBox61" Left="132.3" Top="406.35" Width="18.9" Height="18.9" Border.Lines="All" Checked="false"/>
+      <CheckBoxObject Name="CheckBox62" Left="132.3" Top="425.25" Width="18.9" Height="18.9" Border.Lines="All" Checked="false"/>
+      <CheckBoxObject Name="CheckBox63" Left="132.3" Top="444.15" Width="18.9" Height="18.9" Border.Lines="All" Checked="false"/>
+      <TextObject Name="Text122" Left="151.2" Top="406.35" Width="103.95" Height="18.9" Text="Участник ВОВ"/>
+      <TextObject Name="Text123" Left="151.2" Top="425.25" Width="113.4" Height="18.9" Text="Инвалид 2гр. - 2"/>
+      <TextObject Name="Text124" Left="151.2" Top="444.15" Width="122.85" Height="28.35" Text="Инкурабельный"/>
+      <CheckBoxObject Name="CheckBox64" Left="274.05" Top="406.35" Width="18.9" Height="18.9" Border.Lines="All" Checked="false"/>
+      <CheckBoxObject Name="CheckBox65" Left="274.05" Top="425.25" Width="18.9" Height="18.9" Border.Lines="All" Checked="false"/>
+      <CheckBoxObject Name="CheckBox66" Left="274.05" Top="444.15" Width="18.9" Height="18.9" Border.Lines="All" Checked="false"/>
+      <TextObject Name="Text125" Left="292.95" Top="406.35" Width="113.4" Height="18.9" Text="Воин-интернац."/>
+      <TextObject Name="Text126" Left="292.95" Top="425.25" Width="113.4" Height="18.9" Text="Инвалид 3гр. - 3"/>
+      <TextObject Name="Text127" Left="292.95" Top="444.15" Width="122.85" Height="28.35" Text="Проавансирован"/>
+      <CheckBoxObject Name="CheckBox67" Left="415.8" Top="406.35" Width="18.9" Height="18.9" Border.Lines="All" Checked="false"/>
+      <CheckBoxObject Name="CheckBox68" Left="415.8" Top="425.25" Width="18.9" Height="18.9" Border.Lines="All" Checked="false"/>
+      <TextObject Name="Text128" Left="434.7" Top="406.35" Width="132.3" Height="18.9" Text="Ликвидотор ЧАЭС"/>
+      <TextObject Name="Text129" Left="434.7" Top="425.25" Width="122.85" Height="18.9" Text="Ребенок инв. - 4"/>
+      <CheckBoxObject Name="CheckBox69" Left="567" Top="406.35" Width="18.9" Height="18.9" Border.Lines="All" Checked="false"/>
+      <CheckBoxObject Name="CheckBox70" Left="567" Top="425.25" Width="18.9" Height="18.9" Border.Lines="All" Checked="false"/>
+      <TextObject Name="Text130" Left="585.9" Top="406.35" Width="141.75" Height="18.9" Text="Лицо, подв. р/а обл."/>
+      <TextObject Name="Text131" Left="585.9" Top="425.25" Width="141.75" Height="18.9" Text="Инвалид детства- 5"/>
+      <TextObject Name="Text132" Top="481.95" Width="236.25" Height="18.9" Text="Дефекты догоспитального этапа" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <CheckBoxObject Name="CheckBox71" Top="510.3" Width="18.9" Height="18.9" Border.Lines="All" Checked="false"/>
+      <TextObject Name="Text133" Left="18.9" Top="510.3" Width="151.2" Height="47.25" Text="1 - Несвоевременная госпитализация"/>
+      <CheckBoxObject Name="CheckBox72" Left="170.1" Top="510.3" Width="18.9" Height="18.9" Border.Lines="All" Checked="false"/>
+      <TextObject Name="Text134" Left="189" Top="510.3" Width="132.3" Height="47.25" Text="2 - Недостаточный объем исследований"/>
+      <CheckBoxObject Name="CheckBox73" Left="321.3" Top="510.3" Width="18.9" Height="18.9" Border.Lines="All" Checked="false"/>
+      <TextObject Name="Text135" Left="340.2" Top="510.3" Width="141.75" Height="47.25" Text="3 - Неправильная тактика лечения "/>
+      <CheckBoxObject Name="CheckBox74" Left="481.95" Top="510.3" Width="18.9" Height="18.9" Border.Lines="All" Checked="false"/>
+      <TextObject Name="Text136" Left="500.85" Top="510.3" Width="132.3" Height="47.25" Text="4 - Несовпадение диагноза"/>
+      <TableObject Name="Table7" Top="585.9" Width="718.2" Height="349.65" Border.Lines="All">
+        <TableColumn Name="Column63" Width="47.25"/>
+        <TableColumn Name="Column64" Width="56.7"/>
+        <TableColumn Name="Column65" Width="47.25"/>
+        <TableColumn Name="Column66" Width="56.7"/>
+        <TableColumn Name="Column67" Width="47.25"/>
+        <TableColumn Name="Column68" Width="47.25"/>
+        <TableColumn Name="Column69" Width="47.25"/>
+        <TableColumn Name="Column70" Width="47.25"/>
+        <TableColumn Name="Column71" Width="56.7"/>
+        <TableColumn Name="Column72"/>
+        <TableColumn Name="Column73" Width="37.8"/>
+        <TableColumn Name="Column74" Width="47.25"/>
+        <TableColumn Name="Column75" Width="56.7"/>
+        <TableColumn Name="Column76" Width="56.7"/>
+        <TableRow Name="Row29" Height="66.15">
+          <TableCell Name="Cell238" Border.Lines="Left, Top, Bottom" Text="Дата&#13;&#10;опера-&#13;&#10;ции" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell239" Border.Lines="All" Text="Раздел&#13;&#10;хирур-&#13;&#10;гии" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell240" Border.Lines="Left, Top, Bottom" Text="Под&#13;&#10;раз-&#13;&#10;дел" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell241" Border.Lines="Left, Top, Bottom" Text="Код опера-&#13;&#10;ции" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell242" Border.Lines="Left, Top, Bottom" Text="Код &#13;&#10;хиру-&#13;&#10;рга" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell263" Border.Lines="Left, Top, Bottom" Text="Код &#13;&#10;АСС 1" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell264" Border.Lines="Left, Top, Bottom" Text="Код&#13;&#10;АСС 2" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell265" Border.Lines="Left, Top, Bottom" Text="Плано-&#13;&#10;вая/&#13;&#10;Экстр." HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell266" Border.Lines="Left, Top, Bottom" Text="П/О&#13;&#10;Осложн." HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell267" Border.Lines="Left, Top, Bottom" Text="Анесте&#13;&#10;зиолог" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell268" Border.Lines="Left, Top, Bottom" Text="Код&#13;&#10;нар-коза" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell269" Border.Lines="Left, Right, Bottom" Text="Длит.&#13;&#10;нар-&#13;&#10;коза" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell270" Border.Lines="Right, Bottom" Text="Ослож&#13;&#10;нение&#13;&#10;нар-&#13;&#10;коза" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell271" Border.Lines="Right, Bottom" Text="Сте-&#13;&#10;пень&#13;&#10;риска&#13;&#10;нар-&#13;&#10;коза" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+        </TableRow>
+        <TableRow Name="Row30" Height="28.35">
+          <TableCell Name="Cell272" Border.Lines="Left, Top, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell273" Border.Lines="Left, Top, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell274" Border.Lines="Left, Top, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell275" Border.Lines="Left, Top, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell276" Border.Lines="Left, Top, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell277" Border.Lines="Left, Top, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell278" Border.Lines="Left, Top, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell279" Border.Lines="Left, Top, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell280" Border.Lines="Left, Top, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell281" Border.Lines="Left, Top, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell282" Border.Lines="Left, Top, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell283" Border.Lines="Left, Right, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell284" Border.Lines="Right, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell285" Border.Lines="Right, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+        </TableRow>
+        <TableRow Name="Row31" Height="28.35">
+          <TableCell Name="Cell286" Border.Lines="Left, Top, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell287" Border.Lines="Left, Top, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell288" Border.Lines="Left, Top, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell289" Border.Lines="Left, Top, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell290" Border.Lines="Left, Top, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell291" Border.Lines="Left, Top, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell292" Border.Lines="Left, Top, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell293" Border.Lines="Left, Top, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell294" Border.Lines="Left, Top, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell295" Border.Lines="Left, Top, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell296" Border.Lines="Left, Top, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell297" Border.Lines="Left, Right, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell298" Border.Lines="Right, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell299" Border.Lines="Right, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+        </TableRow>
+        <TableRow Name="Row32" Height="28.35">
+          <TableCell Name="Cell300" Border.Lines="Left, Top, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell301" Border.Lines="Left, Top, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell302" Border.Lines="Left, Top, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell303" Border.Lines="Left, Top, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell304" Border.Lines="Left, Top, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell305" Border.Lines="Left, Top, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell306" Border.Lines="Left, Top, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell307" Border.Lines="Left, Top, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell308" Border.Lines="Left, Top, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell309" Border.Lines="Left, Top, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell310" Border.Lines="Left, Top, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell311" Border.Lines="Left, Right, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell312" Border.Lines="Right, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell313" Border.Lines="Right, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+        </TableRow>
+        <TableRow Name="Row33" Height="28.35">
+          <TableCell Name="Cell314" Border.Lines="Left, Top, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell315" Border.Lines="Left, Top, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell316" Border.Lines="Left, Top, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell317" Border.Lines="Left, Top, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell318" Border.Lines="Left, Top, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell319" Border.Lines="Left, Top, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell320" Border.Lines="Left, Top, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell321" Border.Lines="Left, Top, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell322" Border.Lines="Left, Top, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell323" Border.Lines="Left, Top, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell324" Border.Lines="Left, Top, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell325" Border.Lines="Left, Right, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell326" Border.Lines="Right, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell327" Border.Lines="Right, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+        </TableRow>
+        <TableRow Name="Row34" Height="28.35">
+          <TableCell Name="Cell328" Border.Lines="Left, Top, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell329" Border.Lines="Left, Top, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell330" Border.Lines="Left, Top, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell331" Border.Lines="Left, Top, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell332" Border.Lines="Left, Top, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell333" Border.Lines="Left, Top, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell334" Border.Lines="Left, Top, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell335" Border.Lines="Left, Top, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell336" Border.Lines="Left, Top, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell337" Border.Lines="Left, Top, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell338" Border.Lines="Left, Top, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell339" Border.Lines="Left, Right, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell340" Border.Lines="Right, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell341" Border.Lines="Right, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+        </TableRow>
+        <TableRow Name="Row35" Height="28.35">
+          <TableCell Name="Cell342" Border.Lines="Left, Top, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell343" Border.Lines="Left, Top, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell344" Border.Lines="Left, Top, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell345" Border.Lines="Left, Top, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell346" Border.Lines="Left, Top, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell347" Border.Lines="Left, Top, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell348" Border.Lines="Left, Top, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell349" Border.Lines="Left, Top, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell350" Border.Lines="Left, Top, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell351" Border.Lines="Left, Top, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell352" Border.Lines="Left, Top, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell353" Border.Lines="Left, Right, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell354" Border.Lines="Right, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell355" Border.Lines="Right, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+        </TableRow>
+        <TableRow Name="Row36" Height="28.35">
+          <TableCell Name="Cell356" Border.Lines="Left, Top, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell357" Border.Lines="Left, Top, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell358" Border.Lines="Left, Top, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell359" Border.Lines="Left, Top, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell360" Border.Lines="Left, Top, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell361" Border.Lines="Left, Top, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell362" Border.Lines="Left, Top, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell363" Border.Lines="Left, Top, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell364" Border.Lines="Left, Top, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell365" Border.Lines="Left, Top, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell366" Border.Lines="Left, Top, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell367" Border.Lines="Left, Right, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell368" Border.Lines="Right, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell369" Border.Lines="Right, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+        </TableRow>
+        <TableRow Name="Row37" Height="28.35">
+          <TableCell Name="Cell370" Border.Lines="Left, Top, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell371" Border.Lines="Left, Top, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell372" Border.Lines="Left, Top, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell373" Border.Lines="Left, Top, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell374" Border.Lines="Left, Top, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell375" Border.Lines="Left, Top, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell376" Border.Lines="Left, Top, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell377" Border.Lines="Left, Top, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell378" Border.Lines="Left, Top, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell379" Border.Lines="Left, Top, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell380" Border.Lines="Left, Top, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell381" Border.Lines="Left, Right, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell382" Border.Lines="Right, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell383" Border.Lines="Right, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+        </TableRow>
+        <TableRow Name="Row38" Height="28.35">
+          <TableCell Name="Cell384" Border.Lines="Left, Top, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell385" Border.Lines="Left, Top, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell386" Border.Lines="Left, Top, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell387" Border.Lines="Left, Top, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell388" Border.Lines="Left, Top, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell389" Border.Lines="Left, Top, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell390" Border.Lines="Left, Top, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell391" Border.Lines="Left, Top, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell392" Border.Lines="Left, Top, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell393" Border.Lines="Left, Top, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell394" Border.Lines="Left, Top, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell395" Border.Lines="Left, Right, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell396" Border.Lines="Right, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell397" Border.Lines="Right, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+        </TableRow>
+        <TableRow Name="Row39" Height="28.35">
+          <TableCell Name="Cell398" Border.Lines="Left, Top, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell399" Border.Lines="Left, Top, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell400" Border.Lines="Left, Top, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell401" Border.Lines="Left, Top, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell402" Border.Lines="Left, Top, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell403" Border.Lines="Left, Top, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell404" Border.Lines="Left, Top, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell405" Border.Lines="Left, Top, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell406" Border.Lines="Left, Top, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell407" Border.Lines="Left, Top, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell408" Border.Lines="Left, Top, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell409" Border.Lines="Left, Right, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell410" Border.Lines="Right, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell411" Border.Lines="Right, Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+        </TableRow>
+      </TableObject>
+      <TextObject Name="Text137" Top="567" Width="189" Height="18.9" Text="Хирургические операции" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text141" Top="973.35" Width="718.2" Height="18.9" Text="Подписи_____________________________________________________________________________________" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text138" Top="945" Width="189" Height="18.9" Text="ФИО лечащего врача(код)" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text139" Left="189" Top="945" Width="179.55" Height="18.9" Text="код врача" VertAlign="Center" Font="Arial, 10pt, style=Bold, Underline"/>
+      <TextObject Name="Text140" Left="368.55" Top="945" Width="160.65" Height="18.9" Text="Зав. отделением(код)" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text143" Left="529.2" Top="945" Width="189" Height="18.9" Text="код зав. отделения" VertAlign="Center" Font="Arial, 10pt, style=Bold, Underline"/>
+    </ReportTitleBand>
+  </ReportPage>
+</Report>

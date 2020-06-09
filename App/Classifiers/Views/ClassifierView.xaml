@@ -1,0 +1,133 @@
+﻿<UserControl
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol"
+        xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid" 
+        x:Class="Medical.AppLayer.Classifiers.Views.ClassifierView"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:dxn="http://schemas.devexpress.com/winfx/2008/xaml/navbar"
+        xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns:editors="clr-namespace:Medical.AppLayer.Editors"
+        xmlns:converters="clr-namespace:Medical.AppLayer.Converters"
+        mc:Ignorable="d" 
+        d:DesignHeight="600" 
+        d:DesignWidth="800" 
+        Height="Auto" 
+        x:Name="ClassifierViewControl">
+
+    <UserControl.Resources>
+        <converters:HalfConverter x:Key="HalfConverter"/>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+    </UserControl.Resources>
+
+    
+    <Grid Background="White">
+        <dx:PLinqInstantFeedbackDataSource Name="pLinqInstantDataSource" ListSource="{Binding Path=DataListSource}" />
+        <Grid>
+            <dxlc:LayoutControl Orientation="Horizontal" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                <dxlc:LayoutGroup Orientation="Vertical" dxlc:LayoutControl.AllowHorizontalSizing="True" HorizontalAlignment="Left">
+                    <dxlc:LayoutItem Label="Справочники" FontWeight="Bold">
+                        <Separator/>
+                    </dxlc:LayoutItem>
+                    <dxlc:LayoutItem VerticalAlignment="Stretch"  MinHeight="300" MinWidth="300">
+                        <dxn:NavBarControl ItemsSource="{Binding ClassifiersList}" 
+                                       GroupDescription="GroupName"
+                                       SelectedItem="{Binding Path=SelectedClassifier, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                       HorizontalAlignment="Stretch">
+                            <dxn:NavBarControl.Resources>
+                                <Style TargetType="dxn:NavBarGroup">
+                                    <Setter Property="Header" Value="{Binding}"/>
+                                </Style>
+                                <Style TargetType="dxn:NavBarItem">
+                                    <Setter Property="Content" Value="{Binding Path=Name}"/>
+                                </Style>
+                            </dxn:NavBarControl.Resources>
+                            <dxn:NavBarControl.View>
+                                <dxn:ExplorerBarView/>
+                            </dxn:NavBarControl.View>
+                        </dxn:NavBarControl>
+
+                    </dxlc:LayoutItem>
+                </dxlc:LayoutGroup>
+                <dxlc:LayoutGroup Orientation="Vertical">
+                    <dxlc:LayoutItem FontWeight="Bold" Label="Данные">
+                        <Separator/>
+                    </dxlc:LayoutItem>
+                    <dxlc:LayoutGroup Orientation="Vertical">
+                        <dxlc:LayoutItem VerticalAlignment="Stretch">
+                            <dxg:GridControl ShowBorder="False" 
+                                         AutoPopulateColumns="True"
+                                         AutoGenerateColumns="RemoveOld"
+                                         EnableSmartColumnsGeneration="True"
+                                         ItemsSource="{Binding ElementName=pLinqInstantDataSource, Path=Data}"
+                                         SelectionMode="Row" 
+                                         AutoGeneratingColumn="GridControl_AutoGeneratingColumn">
+                                <dxg:GridControl.View>
+                                    <dxg:TableView 
+                                        Name="View"        
+                                        AllowPerPixelScrolling="True" 
+                                               ShowGroupPanel="False" 
+                                               ShowIndicator="True"
+                                               AllowCascadeUpdate="True"        
+                                               WaitIndicatorType="Panel"
+                                               ShowTotalSummary="True"
+                                               RowAnimationKind="None"
+                                               HeaderPanelMinHeight="35"
+                                               AutoWidth="True"
+                                               AllowEditing="False"
+                                               NavigationStyle="Row" 
+                                               FocusedRow="{Binding CurrentRow, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                </dxg:GridControl.View>
+                            </dxg:GridControl>
+                        </dxlc:LayoutItem>
+                        <dxlc:LayoutItem VerticalAlignment="Stretch" Visibility="{Binding IsDetailsExist, Converter={StaticResource BooleanToVisibilityConverter}}">
+                            <dxg:GridControl ShowBorder="False" 
+                                         AutoPopulateColumns="True"
+                                         AutoGenerateColumns="RemoveOld"
+                                         EnableSmartColumnsGeneration="True"
+                                         ItemsSource="{Binding CurrentRow.Details, UpdateSourceTrigger=PropertyChanged}"
+                                         SelectionMode="Row" 
+                                         AutoGeneratingColumn="GridControl_AutoGeneratingColumn">
+                                <dxg:GridControl.View>
+                                    <dxg:TableView 
+                                        Name="ViewDetails"        
+                                        AllowPerPixelScrolling="True" 
+                                               ShowGroupPanel="False" 
+                                               ShowIndicator="True"
+                                               AllowCascadeUpdate="True"        
+                                               WaitIndicatorType="Panel"
+                                               ShowTotalSummary="True"
+                                               RowAnimationKind="None"
+                                               HeaderPanelMinHeight="35"
+                                               AutoWidth="True"
+                                               AllowEditing="False"
+                                               NavigationStyle="Row"/>
+                                </dxg:GridControl.View>
+                            </dxg:GridControl>
+                        </dxlc:LayoutItem>
+                    </dxlc:LayoutGroup>
+                    <dxlc:LayoutGroup Orientation="Horizontal" VerticalAlignment="Bottom"/>
+                </dxlc:LayoutGroup>
+            </dxlc:LayoutControl>
+        </Grid>
+        <Grid Grid.ZIndex="1000">
+            <controls:Flyout IsOpen="{Binding IsEditDataOpen}"
+                                Header="Создание/редактирование записи"
+                                Position="Right"
+                                Width="{Binding ElementName=ClassifierViewControl, Path=ActualWidth, Mode=OneWay, Converter={StaticResource HalfConverter}}">
+                <Grid Margin="10" HorizontalAlignment="Stretch" >
+                    <editors:DataControl DataContext="{Binding DataModel}"/>
+                </Grid>
+            </controls:Flyout>
+        </Grid>
+        
+        <i:Interaction.Triggers>
+            <i:EventTrigger EventName="Closed">
+                <i:InvokeCommandAction Command="{Binding ElementName=pLinqInstantDataSource, Path=DisposeCommand}" />
+            </i:EventTrigger>
+        </i:Interaction.Triggers>
+    </Grid>
+</UserControl>

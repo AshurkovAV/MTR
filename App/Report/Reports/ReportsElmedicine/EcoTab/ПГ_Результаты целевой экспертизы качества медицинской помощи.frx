@@ -1,0 +1,504 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report ScriptLanguage="CSharp" ReportInfo.Created="04/10/2013 23:47:48" ReportInfo.Modified="07/21/2014 12:18:40" ReportInfo.CreatorVersion="2013.2.13.0">
+  <Dictionary>
+    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqr2sEgbyd/XFgYBeuRgqcA5zt9JXHJfT5fjgDibxBQPpcjFjRPBzWgZ9XB+j7gTiCvu+kbyiwINr+0FFfcMZ2P6DtBCgUjq61T+wS2RRi9GtAfn98DSSVQdTrLJoEu0JqEHqWyINGG+kMaSlud5OBnHxymePyrRasW2+FKdRu30bH0x8maFuvmDWQkzskBGcX">
+      <TableDataSource Name="Table" DataType="System.Int32" Enabled="true" SelectCommand="select sum(kol2_ambul)kol2_ambul,sum(kol2_stacion)kol2_stacion, sum(kol2_d_stacion)kol2_d_stacion, sum(kol2_skoraya)kol2_skoraya, &#13;&#10;sum([kol2.1_ambul])[kol2.1_ambul], sum([kol2.1_stacion])[kol2.1_stacion], sum([kol2.1_d_stacion]) [kol2.1_d_stacion], sum([kol2.1_skoraya])[kol2.1_skoraya],&#13;&#10;sum([kol4.2_ambul])[kol4.2_ambul],sum([kol4.2_stacion])[kol4.2_stacion], sum([kol4.2_d_stacion])[kol4.2_d_stacion], sum([kol4.2_skoraya])[kol4.2_skoraya],&#13;&#10;sum([kol4.3_ambul])[kol4.3_ambul],&#13;&#10;sum([kol4.3_stacion])[kol4.3_stacion], sum([kol4.3_d_stacion])[kol4.3_d_stacion], sum([kol4.3_skoraya])[kol4.3_skoraya],&#13;&#10;sum([kol5.1_ambul])[kol5.1_ambul],&#13;&#10;sum([kol5.1_stacion])[kol5.1_stacion], sum([kol5.1_d_stacion])[kol5.1_d_stacion], sum([kol5.1_skoraya])[kol5.1_skoraya],&#13;&#10;sum([kol5.2_ambul])[kol5.2_ambul],&#13;&#10;sum([kol5.2_stacion])[kol5.2_stacion], sum([kol5.2_d_stacion])[kol5.2_d_stacion], sum([kol5.2_skoraya])[kol5.2_skoraya],&#13;&#10;sum([kol5.3_ambul])[kol5.3_ambul],sum([kol5.3_stacion])[kol5.3_stacion],sum([kol5.3_d_stacion])[kol5.3_d_stacion],sum([kol5.3_skoraya])[kol5.3_skoraya],&#13;&#10;sum([kol5.4_ambul])[kol5.4_ambul],&#13;&#10;sum([kol5.4_stacion])[kol5.4_stacion], sum([kol5.4_d_stacion])[kol5.4_d_stacion], sum([kol5.4_skoraya])[kol5.4_skoraya],&#13;&#10;sum([kol6_ambul])[kol6_ambul],&#13;&#10;sum([kol6_stacion])[kol6_stacion], sum([kol6_d_stacion])[kol6_d_stacion], sum([kol6_skoraya])[kol6_skoraya],&#13;&#10;sum([kol9_ambul])[kol9_ambul],&#13;&#10;sum([kol9_stacion])[kol9_stacion], sum([kol9_d_stacion])[kol9_d_stacion], sum([kol9_skoraya])[kol9_skoraya]&#13;&#10;from(&#13;&#10;select &#13;&#10;1 as pol,&#13;&#10;sum(CASE WHEN kol2_ambul != 0 then 1 else 0 end) as kol2_ambul,&#13;&#10;0 as kol2_stacion, 0 as kol2_d_stacion, 0 as kol2_skoraya, &#13;&#10;sum(CASE WHEN [kol2.1_ambul] != 0 then 1 else 0 end) as [kol2.1_ambul],&#13;&#10;0 as [kol2.1_stacion], 0 as [kol2.1_d_stacion], 0 as [kol2.1_skoraya],&#13;&#10;sum(CASE WHEN [kol4.2_ambul] != 0 then 1 else 0 end) as [kol4.2_ambul],&#13;&#10;0 as [kol4.2_stacion], 0 as [kol4.2_d_stacion], 0 as [kol4.2_skoraya],&#13;&#10;sum(CASE WHEN [kol4.3_ambul] != 0 then 1 else 0 end) as [kol4.3_ambul],&#13;&#10;0 as [kol4.3_stacion], 0 as [kol4.3_d_stacion], 0 as [kol4.3_skoraya],&#13;&#10;sum(CASE WHEN [kol5.1_ambul] != 0 then 1 else 0 end) as [kol5.1_ambul],&#13;&#10;0 as [kol5.1_stacion], 0 as [kol5.1_d_stacion], 0 as [kol5.1_skoraya],&#13;&#10;sum(CASE WHEN [kol5.2_ambul] != 0 then 1 else 0 end) as [kol5.2_ambul],&#13;&#10;0 as [kol5.2_stacion], 0 as [kol5.2_d_stacion], 0 as [kol5.2_skoraya],&#13;&#10;0 as[kol5.3_ambul],0 as [kol5.3_stacion],0 as [kol5.3_d_stacion],0 as [kol5.3_skoraya],&#13;&#10;sum(CASE WHEN [kol5.4_ambul] != 0 then 1 else 0 end) as [kol5.4_ambul],&#13;&#10;0 as [kol5.4_stacion], 0 as [kol5.4_d_stacion], 0 as [kol5.4_skoraya],&#13;&#10;sum(CASE WHEN [kol6_ambul] != 0 then 1 else 0 end) as [kol6_ambul],&#13;&#10;0 as [kol6_stacion], 0 as [kol6_d_stacion], 0 as [kol6_skoraya],&#13;&#10;sum(CASE WHEN [kol9_ambul] != 0 then 1 else 0 end) as [kol9_ambul],&#13;&#10;0 as [kol9_stacion], 0 as [kol9_d_stacion], 0 as [kol9_skoraya]&#13;&#10;from(&#13;&#10;select &#13;&#10;--2&#13;&#10;sum(CASE WHEN usl_ok = 3 then 1 else 0 end) as kol2_ambul,&#13;&#10;0 as kol2_stacion,&#13;&#10;0 as kol2_d_stacion,&#13;&#10;0 as kol2_skoraya,&#13;&#10;--2.1&#13;&#10;sum(CASE WHEN usl_ok = 3 and (S_OSN is not NULL or (S_OSN IS null and S_SUM is not null and S_COM != 'Неотложная помощь')) THEN 1 ELSE 0 END) as [kol2.1_ambul],&#13;&#10;0 as [kol2.1_stacion],&#13;&#10;0 as [kol2.1_d_stacion],&#13;&#10;0 as [kol2.1_skoraya],&#13;&#10;--4.2&#13;&#10;sum(CASE WHEN usl_ok = 3 and S_OSN is not NULL and s_osn in ('4.2.', '4.4.') then 1 else 0 end) as [kol4.2_ambul],&#13;&#10;0 as [kol4.2_stacion],&#13;&#10;0 as [kol4.2_d_stacion],&#13;&#10;0 as [kol4.2_skoraya],&#13;&#10;--4.3&#13;&#10;sum(CASE WHEN usl_ok = 3 and S_OSN is not NULL and s_osn in ('4.6.1.') then 1 else 0 end) as [kol4.3_ambul],&#13;&#10;0 as [kol4.3_stacion],&#13;&#10;0 as [kol4.3_d_stacion],&#13;&#10;0 as [kol4.3_skoraya],&#13;&#10;--5.1&#13;&#10;sum(CASE WHEN usl_ok = 3 and S_OSN is not NULL and s_osn in ('3.12.', '3.13.', '3.13.2.', '3.2.', '3.2.1.', '3.2.2.', '3.2.3.', '3.3.', '3.3.1.', '3.3.2.', '3.4.') then 1 else 0 end) as [kol5.1_ambul],&#13;&#10;0 as [kol5.1_stacion],&#13;&#10;0 as [kol5.1_d_stacion],&#13;&#10;0 as [kol5.1_skoraya],&#13;&#10;--5.2&#13;&#10;sum(CASE WHEN usl_ok = 3 and S_OSN is not NULL and s_osn in ('3.9.') then 1 else 0 end) as [kol5.2_ambul],&#13;&#10;0 as [kol5.2_stacion],&#13;&#10;0 as [kol5.2_d_stacion],&#13;&#10;0 as [kol5.2_skoraya],&#13;&#10;--5.3&#13;&#10;0 as [kol5.3_ambul],&#13;&#10;0 as [kol5.3_stacion],&#13;&#10;0 as [kol5.3_d_stacion],&#13;&#10;0 as [kol5.3_skoraya],&#13;&#10;--5.4&#13;&#10;sum(CASE WHEN usl_ok = 3 and S_OSN is not NULL and s_osn in ('3.6.', '3.6.1.', '3.7.', '3.7.1.') then 1 else 0 end) as [kol5.4_ambul],&#13;&#10;0 as [kol5.4_stacion],&#13;&#10;0 as [kol5.4_d_stacion],&#13;&#10;0 as [kol5.4_skoraya],&#13;&#10;--6&#13;&#10;sum(CASE WHEN usl_ok = 3 and S_OSN is not NULL and s_osn in ('4.3.') then 1 else 0 end) as [kol6_ambul],&#13;&#10;0 as [kol6_stacion],&#13;&#10;0 as [kol6_d_stacion],&#13;&#10;0 as [kol6_skoraya],&#13;&#10;--9&#13;&#10;sum(CASE WHEN usl_ok = 3 and S_OSN is not NULL and s_osn in ('5.6.') then 1 else 0 end) as [kol9_ambul],&#13;&#10;0 as [kol9_stacion],&#13;&#10;0 as [kol9_d_stacion],&#13;&#10;0 as [kol9_skoraya]&#13;&#10;&#13;&#10;	FROM [SLUCH] as sl&#13;&#10;	join PACIENT pa on sl.PID = pa.ID and (pa.SMO is null or pa.SMO not like '46%')&#13;&#10;	inner join SCHET sc on sl.SCHET_ID = sc.ID &#13;&#10;	inner join SANK s on sl.ID = s.SLID and s.S_TIP = 3 &#13;&#10;	inner join AKT_EKMP_TBL ek on s.ID = ek.SANKID&#13;&#10;	where usl_ok = 3 and MEE_TYPE not in (8, 9)  and s.S_DATE in ('__date__')&#13;&#10;	group by FAM, IM, OT, DR, S_OSN) as tab1&#13;&#10;	&#13;&#10;union&#13;&#10;&#13;&#10;select &#13;&#10;1 as pol,&#13;&#10;--2&#13;&#10;0 as kol2_ambul,&#13;&#10;sum(CASE WHEN usl_ok = 1 then 1 else 0 end) as kol2_stacion,&#13;&#10;sum(CASE WHEN usl_ok = 2 then 1 else 0 end) as kol2_d_stacion,&#13;&#10;sum(CASE WHEN usl_ok = 4 then 1 else 0 end) as kol2_skoraya,&#13;&#10;--2.1&#13;&#10;0 as [kol2.1_ambul],&#13;&#10;sum(CASE WHEN usl_ok = 1 and (S_OSN is not NULL or (S_OSN IS null and S_SUM is not null and S_COM != 'Неотложная помощь')) THEN 1 ELSE 0 END) as [kol2.1_stacion],&#13;&#10;sum(CASE WHEN usl_ok = 2 and (S_OSN is not NULL or (S_OSN IS null and S_SUM is not null and S_COM != 'Неотложная помощь')) THEN 1 ELSE 0 END) as [kol2.1_d_stacion],&#13;&#10;sum(CASE WHEN usl_ok = 4 and (S_OSN is not NULL or (S_OSN IS null and S_SUM is not null and S_COM != 'Неотложная помощь')) THEN 1 ELSE 0 END) as [kol2.1_skoraya],&#13;&#10;--4.2&#13;&#10;0 as [kol4.2_ambul],&#13;&#10;sum(CASE WHEN usl_ok = 1 and S_OSN is not NULL and s_osn in ('4.2.', '4.4.') then 1 else 0 end) as [kol4.2_stacion],&#13;&#10;sum(CASE WHEN usl_ok = 2 and S_OSN is not NULL and s_osn in ('4.2.', '4.4.') then 1 else 0 end) as [kol4.2_d_stacion],&#13;&#10;sum(CASE WHEN usl_ok = 4 and S_OSN is not NULL and s_osn in ('4.2.', '4.4.', '6.15.1.') then 1 else 0 end) as [kol4.2_skoraya],&#13;&#10;--4.3&#13;&#10;0 as [kol4.3_ambul],&#13;&#10;sum(CASE WHEN usl_ok = 1 and S_OSN is not NULL and s_osn in ('4.6.1.') then 1 else 0 end) as [kol4.3_stacion],&#13;&#10;sum(CASE WHEN usl_ok = 2 and S_OSN is not NULL and s_osn in ('4.6.1.') then 1 else 0 end) as [kol4.3_d_stacion],&#13;&#10;sum(CASE WHEN usl_ok = 4 and S_OSN is not NULL and s_osn in ('4.6.1.', '6.20.') then 1 else 0 end) as [kol4.3_skoraya],&#13;&#10;--5.1&#13;&#10;0 as [kol5.1_ambul],&#13;&#10;sum(CASE WHEN usl_ok = 1 and S_OSN is not NULL and s_osn in ('3.12.', '3.13.', '3.13.2.', '3.2.', '3.2.1.', '3.2.2.', '3.2.3.', '3.3.', '3.3.1.', '3.3.2.', '3.4.') then 1 else 0 end) as [kol5.1_stacion],&#13;&#10;sum(CASE WHEN usl_ok = 2 and S_OSN is not NULL and s_osn in ('3.12.', '3.13.', '3.13.2.', '3.2.', '3.2.1.', '3.2.2.', '3.2.3.', '3.3.', '3.3.1.', '3.3.2.', '3.4.') then 1 else 0 end) as [kol5.1_d_stacion],&#13;&#10;sum(CASE WHEN usl_ok = 4 and S_OSN is not NULL and s_osn in ('3.12.', '3.13.', '3.13.2.', '3.2.', '3.2.1.', '3.2.2.', '3.2.3.', '3.3.', '3.3.1.', '3.3.2.', '3.4.', '6.12.', '6.7.1.') then 1 else 0 end) as [kol5.1_skoraya],&#13;&#10;--5.2&#13;&#10;0 as [kol5.2_ambul],&#13;&#10;sum(CASE WHEN usl_ok = 1 and S_OSN is not NULL and s_osn in ('3.9.') then 1 else 0 end) as [kol5.2_stacion],&#13;&#10;sum(CASE WHEN usl_ok = 2 and S_OSN is not NULL and s_osn in ('3.9.') then 1 else 0 end) as [kol5.2_d_stacion],&#13;&#10;sum(CASE WHEN usl_ok = 4 and S_OSN is not NULL and s_osn in ('3.9.') then 1 else 0 end) as [kol5.2_skoraya],&#13;&#10;--5.3&#13;&#10;0 as [kol5.3_ambul],&#13;&#10;0 as [kol5.3_stacion],&#13;&#10;0 as [kol5.3_d_stacion],&#13;&#10;0 as [kol5.3_skoraya],&#13;&#10;--5.4&#13;&#10;0 as [kol5.4_ambul],&#13;&#10;sum(CASE WHEN usl_ok = 1 and S_OSN is not NULL and s_osn in ('3.6.', '3.6.1.', '3.7.', '3.7.1.') then 1 else 0 end) as [kol5.4_stacion],&#13;&#10;sum(CASE WHEN usl_ok = 2 and S_OSN is not NULL and s_osn in ('3.6.', '3.6.1.', '3.7.', '3.7.1.') then 1 else 0 end) as [kol5.4_d_stacion],&#13;&#10;sum(CASE WHEN usl_ok = 4 and S_OSN is not NULL and s_osn in ('3.6.', '3.6.1.', '3.7.', '3.7.1.') then 1 else 0 end) as [kol5.4_skoraya],&#13;&#10;--6&#13;&#10;0 as [kol6_ambul],&#13;&#10;sum(CASE WHEN usl_ok = 1 and S_OSN is not NULL and s_osn in ('4.3.') then 1 else 0 end) as [kol6_stacion],&#13;&#10;sum(CASE WHEN usl_ok = 2 and S_OSN is not NULL and s_osn in ('4.3.') then 1 else 0 end) as [kol6_d_stacion],&#13;&#10;sum(CASE WHEN usl_ok = 4 and S_OSN is not NULL and s_osn in ('4.3.') then 1 else 0 end) as [kol6_skoraya],&#13;&#10;--9&#13;&#10;0 as [kol9_ambul],&#13;&#10;sum(CASE WHEN usl_ok = 1 and S_OSN is not NULL and s_osn in ('5.6.') then 1 else 0 end) as [kol9_stacion],&#13;&#10;sum(CASE WHEN usl_ok = 2 and S_OSN is not NULL and s_osn in ('5.6.') then 1 else 0 end) as [kol9_d_stacion],&#13;&#10;sum(CASE WHEN usl_ok = 4 and S_OSN is not NULL and s_osn in ('5.6.') then 1 else 0 end) as [kol9_skoraya]&#13;&#10;&#13;&#10;	FROM [SLUCH] as sl&#13;&#10;	join PACIENT pa on sl.PID = pa.ID and (pa.SMO is null or pa.SMO not like '46%')&#13;&#10;	inner join SCHET sc on sl.SCHET_ID = sc.ID &#13;&#10;	inner join SANK s on sl.ID = s.SLID and s.S_TIP = 3 &#13;&#10;	inner join AKT_EKMP_TBL ek on s.ID = ek.SANKID&#13;&#10;	where usl_ok != 3 and MEE_TYPE not in (8, 9)  and s.S_DATE in ('__date__')) as tab&#13;&#10;group by pol">
+        <Column Name="kol2_ambul" DataType="System.Int32"/>
+        <Column Name="kol2_stacion" DataType="System.Int32"/>
+        <Column Name="kol2_skoraya" DataType="System.Int32"/>
+        <Column Name="kol2_d_stacion" DataType="System.Int32"/>
+        <Column Name="kol2.1_ambul" DataType="System.Int32"/>
+        <Column Name="kol2.1_stacion" DataType="System.Int32"/>
+        <Column Name="kol2.1_d_stacion" DataType="System.Int32"/>
+        <Column Name="kol2.1_skoraya" DataType="System.Int32"/>
+        <Column Name="kol4.2_ambul" DataType="System.Int32"/>
+        <Column Name="kol4.2_stacion" DataType="System.Int32"/>
+        <Column Name="kol4.2_d_stacion" DataType="System.Int32"/>
+        <Column Name="kol4.2_skoraya" DataType="System.Int32"/>
+        <Column Name="kol4.3_ambul" DataType="System.Int32"/>
+        <Column Name="kol4.3_stacion" DataType="System.Int32"/>
+        <Column Name="kol4.3_d_stacion" DataType="System.Int32"/>
+        <Column Name="kol4.3_skoraya" DataType="System.Int32"/>
+        <Column Name="kol5.1_ambul" DataType="System.Int32"/>
+        <Column Name="kol5.1_stacion" DataType="System.Int32"/>
+        <Column Name="kol5.1_d_stacion" DataType="System.Int32"/>
+        <Column Name="kol5.1_skoraya" DataType="System.Int32"/>
+        <Column Name="kol6_ambul" DataType="System.Int32"/>
+        <Column Name="kol6_stacion" DataType="System.Int32"/>
+        <Column Name="kol6_d_stacion" DataType="System.Int32"/>
+        <Column Name="kol6_skoraya" DataType="System.Int32"/>
+        <Column Name="kol9_ambul" DataType="System.Int32"/>
+        <Column Name="kol9_stacion" DataType="System.Int32"/>
+        <Column Name="kol9_d_stacion" DataType="System.Int32"/>
+        <Column Name="kol9_skoraya" DataType="System.Int32"/>
+        <Column Name="kol5.2_ambul" DataType="System.Int32"/>
+        <Column Name="kol5.2_stacion" DataType="System.Int32"/>
+        <Column Name="kol5.2_d_stacion" DataType="System.Int32"/>
+        <Column Name="kol5.2_skoraya" DataType="System.Int32"/>
+        <Column Name="kol5.3_ambul" DataType="System.Int32"/>
+        <Column Name="kol5.3_stacion" DataType="System.Int32"/>
+        <Column Name="kol5.3_d_stacion" DataType="System.Int32"/>
+        <Column Name="kol5.3_skoraya" DataType="System.Int32"/>
+        <Column Name="kol5.4_ambul" DataType="System.Int32"/>
+        <Column Name="kol5.4_stacion" DataType="System.Int32"/>
+        <Column Name="kol5.4_d_stacion" DataType="System.Int32"/>
+        <Column Name="kol5.4_skoraya" DataType="System.Int32"/>
+        <CommandParameter Name="@M1" DataType="8" Expression="[@M1]" DefaultValue="1"/>
+        <CommandParameter Name="@M2" DataType="8" Expression="[@M2]" DefaultValue="2"/>
+        <CommandParameter Name="@Y1" DataType="8" Expression="[@Y1]" DefaultValue="2014"/>
+        <CommandParameter Name="@Y2" DataType="8" Expression="[@Y2]" DefaultValue="2014"/>
+      </TableDataSource>
+      <TableDataSource Name="Table3" Alias="mon" DataType="System.Int32" Enabled="true" SelectCommand="select (case min(MONTH([DSCHET]))&#13;&#10;		when 1 then 'Январь'&#13;&#10;		when 2 then 'Февраль'&#13;&#10;		when 3 then 'Март'&#13;&#10;		when 4 then 'Апрель'&#13;&#10;		when 5 then 'Май'&#13;&#10;		when 6 then 'Июнь'&#13;&#10;		when 7 then 'Июль'&#13;&#10;		when 8 then 'Август'&#13;&#10;		when 9 then 'Сентябрь'&#13;&#10;		when 10 then 'Октябрь'&#13;&#10;		when 11 then 'Ноябрь'&#13;&#10;	    when 12 then 'Декабрь'&#13;&#10;	    else 'Не верно задан месяц'&#13;&#10;	   end) + ' ' + cast(min(year([DSCHET])) as varchar) + ' - ' +&#13;&#10;	   (case  max(MONTH([DSCHET]))&#13;&#10;		when 1 then 'Январь'&#13;&#10;		when 2 then 'Февраль'&#13;&#10;		when 3 then 'Март'&#13;&#10;		when 4 then 'Апрель'&#13;&#10;		when 5 then 'Май'&#13;&#10;		when 6 then 'Июнь'&#13;&#10;		when 7 then 'Июль'&#13;&#10;		when 8 then 'Август'&#13;&#10;		when 9 then 'Сентябрь'&#13;&#10;		when 10 then 'Октябрь'&#13;&#10;		when 11 then 'Ноябрь'&#13;&#10;	    when 12 then 'Декабрь'&#13;&#10;	    else 'Не верно задан месяц'&#13;&#10;	   end) + ' ' + cast(max(year([DSCHET])) as varchar) as m_y&#13;&#10;&#13;&#10;&#13;&#10;FROM [SLUCH] as sl&#13;&#10;inner join SCHET sc on sl.SCHET_ID = sc.ID &#13;&#10;inner join SANK s on sl.ID = s.SLID and s.S_TIP = 2  and s.S_DATE in ('__date__')">
+        <Column Name="m_y" DataType="System.String"/>
+        <CommandParameter Name="@M1" DataType="8" Expression="[@M1]" DefaultValue="1"/>
+        <CommandParameter Name="@Y1" DataType="8" Expression="[@Y1]" DefaultValue="2014"/>
+        <CommandParameter Name="@M2" DataType="8" Expression="[@M2]" DefaultValue="2"/>
+        <CommandParameter Name="@Y2" DataType="8" Expression="[@Y2]" DefaultValue="2014"/>
+      </TableDataSource>
+      <TableDataSource Name="Table4" Alias="Table1" DataType="System.Int32" Enabled="true" SelectCommand="select &#13;&#10;SUM(kol1_ambul)kol1_ambul, SUM(kol1_stacion)kol1_stacion, SUM(kol1_d_stacion)kol1_d_stacion, SUM(kol1_skoraya)kol1_skoraya,&#13;&#10;SUM(kol1_ambul1_1)kol1_ambul1_1, SUM(kol1_stacion1_1)kol1_stacion1_1, SUM(kol1_d_stacion1_1)kol1_d_stacion1_1, SUM(kol1_skoraya1_1) kol1_skoraya1_1,&#13;&#10;SUM(kol1_ambul1_2)kol1_ambul1_2, SUM(kol1_stacion1_2)kol1_stacion1_2, SUM(kol1_d_stacion1_2)kol1_d_stacion1_2, SUM(kol1_skoraya1_2) kol1_skoraya1_2,&#13;&#10;SUM(kol1_ambul1_3)kol1_ambul1_3, SUM(kol1_stacion1_3)kol1_stacion1_3, SUM(kol1_d_stacion1_3)kol1_d_stacion1_3, SUM(kol1_skoraya1_3) kol1_skoraya1_3,&#13;&#10;SUM(kol1_ambul1_4)kol1_ambul1_4, SUM(kol1_stacion1_4)kol1_stacion1_4, SUM(kol1_d_stacion1_4)kol1_d_stacion1_4, SUM(kol1_skoraya1_4) kol1_skoraya1_4,&#13;&#10;SUM(kol1_ambul1_5)kol1_ambul1_5, SUM(kol1_stacion1_5)kol1_stacion1_5, SUM(kol1_d_stacion1_5)kol1_d_stacion1_5, SUM(kol1_skoraya1_5) kol1_skoraya1_5,&#13;&#10;SUM(kol1_ambul1_6)kol1_ambul1_6, SUM(kol1_stacion1_6)kol1_stacion1_6, SUM(kol1_d_stacion1_6)kol1_d_stacion1_6, SUM(kol1_skoraya1_6) kol1_skoraya1_6,&#13;&#10;SUM(kol1_ambul1_7)kol1_ambul1_7, SUM(kol1_stacion1_7)kol1_stacion1_7, SUM(kol1_d_stacion1_7)kol1_d_stacion1_7, SUM(kol1_skoraya1_7) kol1_skoraya1_7&#13;&#10;&#13;&#10;from(&#13;&#10;select &#13;&#10;1 as pol,&#13;&#10;sum(CASE WHEN kol1_ambul != 0 then 1 else 0 end) as kol1_ambul,&#13;&#10;0 as kol1_stacion, 0 as kol1_d_stacion, 0 as kol1_skoraya, &#13;&#10;--получение жалоб от застрахованного лица или его представителя&#13;&#10;sum(CASE WHEN kol1_ambul1_1 != 0 then 1 else 0 end) as kol1_ambul1_1,&#13;&#10;0 as kol1_stacion1_1, 0 as kol1_d_stacion1_1, 0 as kol1_skoraya1_1,&#13;&#10;--летальным исходом при оказании медицинской помощи&#13;&#10;sum(CASE WHEN kol1_ambul1_2 != 0 then 1 else 0 end) as kol1_ambul1_2,&#13;&#10;0 as kol1_stacion1_2, 0 as kol1_d_stacion1_2, 0 as kol1_skoraya1_2,	&#13;&#10;--внутрибольничным инфицированием и осложнением заболевания&#13;&#10;sum(CASE WHEN kol1_ambul1_3 != 0 then 1 else 0 end) as kol1_ambul1_3,&#13;&#10;0 as kol1_stacion1_3, 0 as kol1_d_stacion1_3, 0 as kol1_skoraya1_3,&#13;&#10;--первичным выходом на инвалидность лиц трудоспособного возраста и детей&#13;&#10;sum(CASE WHEN kol1_ambul1_4 != 0 then 1 else 0 end) as kol1_ambul1_4,&#13;&#10;0 as kol1_stacion1_4, 0 as kol1_d_stacion1_4, 0 as kol1_skoraya1_4,&#13;&#10;--повторным обоснованным обращением по поводу одного и того же заболевания&#13;&#10;sum(CASE WHEN kol1_ambul1_5 != 0 then 1 else 0 end) as kol1_ambul1_5,&#13;&#10;0 as kol1_stacion1_5, 0 as kol1_d_stacion1_5, 0 as kol1_skoraya1_5,&#13;&#10;--заболеванием с удлиненным или укороченным сроком лечения&#13;&#10;sum(CASE WHEN kol1_ambul1_6 != 0 then 1 else 0 end) as kol1_ambul1_6,&#13;&#10;0 as kol1_stacion1_6, 0 as kol1_d_stacion1_6, 0 as kol1_skoraya1_6,&#13;&#10;--очных&#13;&#10;sum(CASE WHEN kol1_ambul1_7 != 0 then 1 else 0 end) as kol1_ambul1_7,&#13;&#10;0 as kol1_stacion1_7, 0 as kol1_d_stacion1_7, 0 as kol1_skoraya1_7&#13;&#10;from(&#13;&#10;	select &#13;&#10;	sum(CASE WHEN usl_ok = 3 then 1 else 0 end) as kol1_ambul,&#13;&#10;	0 as kol1_stacion, 0 as kol1_d_stacion, 0 as kol1_skoraya, &#13;&#10;	--получение жалоб от застрахованного лица или его представителя&#13;&#10;	sum(CASE WHEN usl_ok = 3 and MEE_TYPE = 4 then 1 else 0 end) as kol1_ambul1_1,&#13;&#10;	0 as kol1_stacion1_1, 0 as kol1_d_stacion1_1, 0 as kol1_skoraya1_1,&#13;&#10;	--летальным исходом при оказании медицинской помощи&#13;&#10;	sum(CASE WHEN usl_ok = 3 and MEE_TYPE = 2 then 1 else 0 end) as kol1_ambul1_2,&#13;&#10;	0 as kol1_stacion1_2, 0 as kol1_d_stacion1_2, 0 as kol1_skoraya1_2,	&#13;&#10;	--внутрибольничным инфицированием и осложнением заболевания&#13;&#10;	sum(CASE WHEN usl_ok = 3 and MEE_TYPE = 5 then 1 else 0 end) as kol1_ambul1_3,&#13;&#10;	0 as kol1_stacion1_3, 0 as kol1_d_stacion1_3, 0 as kol1_skoraya1_3,&#13;&#10;	--первичным выходом на инвалидность лиц трудоспособного возраста и детей&#13;&#10;	sum(CASE WHEN usl_ok = 3 and MEE_TYPE = 6 then 1 else 0 end) as kol1_ambul1_4,&#13;&#10;	0 as kol1_stacion1_4, 0 as kol1_d_stacion1_4, 0 as kol1_skoraya1_4,&#13;&#10;	--повторным обоснованным обращением по поводу одного и того же заболевания&#13;&#10;	sum(CASE WHEN usl_ok = 3 and MEE_TYPE = 1 then 1 else 0 end) as kol1_ambul1_5,&#13;&#10;	0 as kol1_stacion1_5, 0 as kol1_d_stacion1_5, 0 as kol1_skoraya1_5,&#13;&#10;	--заболеванием с удлиненным или укороченным сроком лечения&#13;&#10;	sum(CASE WHEN usl_ok = 3 and MEE_TYPE = 3 then 1 else 0 end) as kol1_ambul1_6,&#13;&#10;	0 as kol1_stacion1_6, 0 as kol1_d_stacion1_6, 0 as kol1_skoraya1_6,&#13;&#10;	--очных&#13;&#10;	sum(CASE WHEN usl_ok = 3 and MEE_TYPE = 7 then 1 else 0 end) as kol1_ambul1_7,&#13;&#10;	0 as kol1_stacion1_7, 0 as kol1_d_stacion1_7, 0 as kol1_skoraya1_7&#13;&#10;	FROM [SLUCH] as sl&#13;&#10;	join PACIENT pa on sl.PID = pa.ID and (pa.SMO is null or pa.SMO not like '46%')&#13;&#10;	inner join SCHET sc on sl.SCHET_ID = sc.ID &#13;&#10;	inner join SANK s on sl.ID = s.SLID and s.S_TIP = 3 &#13;&#10;	--inner join AKT_EKMP_TBL ek on s.ID = ek.SANKID&#13;&#10;	where usl_ok = 3 and MEE_TYPE not in (8, 9)  and s.S_DATE in ('__date__')&#13;&#10;	group by FAM, IM, OT, DR, S_OSN) as tab1&#13;&#10;	&#13;&#10;union&#13;&#10;&#13;&#10;select &#13;&#10;1 as pol,&#13;&#10;	0 as kol1_ambul,&#13;&#10;	sum(CASE WHEN usl_ok = 1 then 1 else 0 end) as kol1_stacion, &#13;&#10;	sum(CASE WHEN usl_ok = 2 then 1 else 0 end) as kol1_d_stacion, &#13;&#10;	sum(CASE WHEN usl_ok = 4 then 1 else 0 end) as kol1_skoraya, &#13;&#10;	--получение жалоб от застрахованного лица или его представителя&#13;&#10;	0 as kol1_ambul1_1,	&#13;&#10;	sum(CASE WHEN usl_ok = 1 and MEE_TYPE = 4 then 1 else 0 end) as kol1_stacion1_1, &#13;&#10;	sum(CASE WHEN usl_ok = 2 and MEE_TYPE = 4 then 1 else 0 end) as kol1_d_stacion1_1, &#13;&#10;	sum(CASE WHEN usl_ok = 4 and MEE_TYPE = 4 then 1 else 0 end) as kol1_skoraya1_1,&#13;&#10;	--летальным исходом при оказании медицинской помощи&#13;&#10;	0 as kol1_ambul1_2,	&#13;&#10;	sum(CASE WHEN usl_ok = 1 and MEE_TYPE = 2 then 1 else 0 end) as kol1_stacion1_2, &#13;&#10;	sum(CASE WHEN usl_ok = 2 and MEE_TYPE = 2 then 1 else 0 end) as kol1_d_stacion1_2, &#13;&#10;	sum(CASE WHEN usl_ok = 4 and MEE_TYPE = 2 then 1 else 0 end) as kol1_skoraya1_2,&#13;&#10;	--внутрибольничным инфицированием и осложнением заболевания&#13;&#10;	0 as kol1_ambul1_3,	&#13;&#10;	sum(CASE WHEN usl_ok = 1 and MEE_TYPE = 5 then 1 else 0 end) as kol1_stacion1_3, &#13;&#10;	sum(CASE WHEN usl_ok = 2 and MEE_TYPE = 5 then 1 else 0 end) as kol1_d_stacion1_3, &#13;&#10;	sum(CASE WHEN usl_ok = 4 and MEE_TYPE = 5 then 1 else 0 end) as kol1_skoraya1_3,&#13;&#10;	--первичным выходом на инвалидность лиц трудоспособного возраста и детей&#13;&#10;	0 as kol1_ambul1_4,	&#13;&#10;	sum(CASE WHEN usl_ok = 1 and MEE_TYPE = 6 then 1 else 0 end) as kol1_stacion1_4, &#13;&#10;	sum(CASE WHEN usl_ok = 2 and MEE_TYPE = 6 then 1 else 0 end) as kol1_d_stacion1_4, &#13;&#10;	sum(CASE WHEN usl_ok = 4 and MEE_TYPE = 6 then 1 else 0 end) as kol1_skoraya1_4,&#13;&#10;	--повторным обоснованным обращением по поводу одного и того же заболевания&#13;&#10;	0 as kol1_ambul1_5,	&#13;&#10;	sum(CASE WHEN usl_ok = 1 and MEE_TYPE = 1 then 1 else 0 end) as kol1_stacion1_5, &#13;&#10;	sum(CASE WHEN usl_ok = 2 and MEE_TYPE = 1 then 1 else 0 end) as kol1_d_stacion1_5, &#13;&#10;	sum(CASE WHEN usl_ok = 4 and MEE_TYPE = 1 then 1 else 0 end) as kol1_skoraya1_5, &#13;&#10;	--заболеванием с удлиненным или укороченным сроком лечения&#13;&#10;	0 as kol1_ambul1_6,	&#13;&#10;	sum(CASE WHEN usl_ok = 1 and MEE_TYPE = 3 then 1 else 0 end) as kol1_stacion1_6, &#13;&#10;	sum(CASE WHEN usl_ok = 2 and MEE_TYPE = 3 then 1 else 0 end) as kol1_d_stacion1_6, &#13;&#10;	sum(CASE WHEN usl_ok = 4 and MEE_TYPE = 3 then 1 else 0 end) as kol1_skoraya1_6,&#13;&#10;	--очных&#13;&#10;	0 as kol1_ambul1_7,	&#13;&#10;	sum(CASE WHEN usl_ok = 1 and MEE_TYPE = 7 then 1 else 0 end) as kol1_stacion1_7, &#13;&#10;	sum(CASE WHEN usl_ok = 2 and MEE_TYPE = 7 then 1 else 0 end) as kol1_d_stacion1_7, &#13;&#10;	sum(CASE WHEN usl_ok = 4 and MEE_TYPE = 7 then 1 else 0 end) as kol1_skoraya1_7&#13;&#10;	FROM [SLUCH] as sl&#13;&#10;	join PACIENT pa on sl.PID = pa.ID and (pa.SMO is null or pa.SMO not like '46%')&#13;&#10;	inner join SCHET sc on sl.SCHET_ID = sc.ID  &#13;&#10;	inner join SANK s on sl.ID = s.SLID and s.S_TIP = 3 &#13;&#10;	--inner join AKT_EKMP_TBL ek on s.ID = ek.SANKID&#13;&#10;	where usl_ok != 3 and MEE_TYPE not in (8, 9)  and s.S_DATE in ('__date__'))  as tab&#13;&#10;group by pol">
+        <Column Name="kol1_ambul" DataType="System.Int32"/>
+        <Column Name="kol1_stacion" DataType="System.Int32"/>
+        <Column Name="kol1_d_stacion" DataType="System.Int32"/>
+        <Column Name="kol1_skoraya" DataType="System.Int32"/>
+        <Column Name="kol1_ambul1_1" DataType="System.Int32"/>
+        <Column Name="kol1_stacion1_1" DataType="System.Int32"/>
+        <Column Name="kol1_d_stacion1_1" DataType="System.Int32"/>
+        <Column Name="kol1_skoraya1_1" DataType="System.Int32"/>
+        <Column Name="kol1_ambul1_2" DataType="System.Int32"/>
+        <Column Name="kol1_stacion1_2" DataType="System.Int32"/>
+        <Column Name="kol1_d_stacion1_2" DataType="System.Int32"/>
+        <Column Name="kol1_skoraya1_2" DataType="System.Int32"/>
+        <Column Name="kol1_ambul1_3" DataType="System.Int32"/>
+        <Column Name="kol1_stacion1_3" DataType="System.Int32"/>
+        <Column Name="kol1_d_stacion1_3" DataType="System.Int32"/>
+        <Column Name="kol1_skoraya1_3" DataType="System.Int32"/>
+        <Column Name="kol1_ambul1_4" DataType="System.Int32"/>
+        <Column Name="kol1_stacion1_4" DataType="System.Int32"/>
+        <Column Name="kol1_d_stacion1_4" DataType="System.Int32"/>
+        <Column Name="kol1_skoraya1_4" DataType="System.Int32"/>
+        <Column Name="kol1_ambul1_5" DataType="System.Int32"/>
+        <Column Name="kol1_stacion1_5" DataType="System.Int32"/>
+        <Column Name="kol1_d_stacion1_5" DataType="System.Int32"/>
+        <Column Name="kol1_skoraya1_5" DataType="System.Int32"/>
+        <Column Name="kol1_ambul1_6" DataType="System.Int32"/>
+        <Column Name="kol1_stacion1_6" DataType="System.Int32"/>
+        <Column Name="kol1_d_stacion1_6" DataType="System.Int32"/>
+        <Column Name="kol1_skoraya1_6" DataType="System.Int32"/>
+        <Column Name="kol1_ambul1_7" DataType="System.Int32"/>
+        <Column Name="kol1_stacion1_7" DataType="System.Int32"/>
+        <Column Name="kol1_d_stacion1_7" DataType="System.Int32"/>
+        <Column Name="kol1_skoraya1_7" DataType="System.Int32"/>
+        <CommandParameter Name="@M1" DataType="8" Expression="[@M1]" DefaultValue="1"/>
+        <CommandParameter Name="@M2" DataType="8" Expression="[@M2]" DefaultValue="2"/>
+        <CommandParameter Name="@Y1" DataType="8" Expression="[@Y1]" DefaultValue="2014"/>
+        <CommandParameter Name="@Y2" DataType="8" Expression="[@Y2]" DefaultValue="2014"/>
+      </TableDataSource>
+    </MsSqlDataConnection>
+    <Parameter Name="@M1" DataType="System.Int32"/>
+    <Parameter Name="@M2" DataType="System.Int32"/>
+    <Parameter Name="@Y1" DataType="System.Int32"/>
+    <Parameter Name="@Y2" DataType="System.Int32"/>
+    <Total Name="Total4a" Expression="[Table.kol4.2_ambul]+[Table.kol4.3_ambul]" Evaluator="Data1"/>
+    <Total Name="Total4_2" Expression="[Table.kol4.2_ambul]+[Table.kol4.2_stacion]+[Table.kol4.2_d_stacion]+[Table.kol4.2_skoraya]" Evaluator="Data1"/>
+    <Total Name="Total4_3" Expression="[Table.kol4.3_ambul]+[Table.kol4.3_stacion]+[Table.kol4.3_d_stacion]+[Table.kol4.3_skoraya]" Evaluator="Data1"/>
+    <Total Name="Total5a" Expression="[Table.kol5.1_ambul]+[Table.kol5.2_ambul]+[Table.kol5.3_ambul]+[Table.kol5.4_ambul]" Evaluator="Data1"/>
+    <Total Name="Total6" Expression="[Table.kol6_ambul]+[Table.kol6_stacion]+[Table.kol6_d_stacion]+[Table.kol6_skoraya]" Evaluator="Data1"/>
+    <Total Name="Total9" Expression="[Table.kol9_ambul]+[Table.kol9_stacion]+[Table.kol9_d_stacion]+[Table.kol9_skoraya]" Evaluator="Data1"/>
+    <Total Name="Total2" Expression="[Table.kol2_ambul]+[Table.kol2_stacion]+[Table.kol2_skoraya]+[Table.kol2_d_stacion]" Evaluator="Data1"/>
+    <Total Name="Total2_1" Expression="[Table.kol2.1_ambul]+[Table.kol2.1_stacion]+[Table.kol2.1_d_stacion]+[Table.kol2.1_skoraya]" Evaluator="Data1"/>
+    <Total Name="Total1" Expression="[Table1.kol1_ambul]+[Table1.kol1_stacion]+[Table1.kol1_d_stacion]+[Table1.kol1_skoraya]" Evaluator="Data1"/>
+    <Total Name="Total1_1" Expression="[Table1.kol1_ambul1_1]+[Table1.kol1_stacion1_1]+[Table1.kol1_d_stacion1_1]+[Table1.kol1_skoraya1_1]" Evaluator="Data1"/>
+    <Total Name="Total1_2" Expression="[Table1.kol1_ambul1_2]+[Table1.kol1_stacion1_2]+[Table1.kol1_d_stacion1_2]+[Table1.kol1_skoraya1_2]" Evaluator="Data1"/>
+    <Total Name="Total5s" Expression="[Table.kol5.1_stacion]+[Table.kol5.2_stacion]+[Table.kol5.3_stacion]+[Table.kol5.4_stacion]" Evaluator="Data1"/>
+    <Total Name="Total5ds" Expression="[Table.kol5.1_d_stacion]+[Table.kol5.2_d_stacion]+[Table.kol5.3_d_stacion]+[Table.kol5.4_d_stacion]" Evaluator="Data1"/>
+    <Total Name="Total5sk" Expression="[Table.kol5.1_skoraya]+[Table.kol5.2_skoraya]+[Table.kol5.3_skoraya]+[Table.kol5.4_skoraya]" Evaluator="Data1"/>
+    <Total Name="Total5_1" Expression="[Table.kol5.1_ambul]+[Table.kol5.1_stacion]+[Table.kol5.1_d_stacion]+[Table.kol5.1_skoraya]" Evaluator="Data1"/>
+    <Total Name="Total5_2" Expression="[Table.kol5.2_ambul]+[Table.kol5.2_stacion]+[Table.kol5.2_d_stacion]+[Table.kol5.2_skoraya]" Evaluator="Data1"/>
+    <Total Name="Total5_3" Expression="[Table.kol5.3_ambul]+[Table.kol5.3_stacion]+[Table.kol5.3_d_stacion]+[Table.kol5.3_skoraya]" Evaluator="Data1"/>
+    <Total Name="Total5_4" Expression="[Table.kol5.4_ambul]+[Table.kol5.4_stacion]+[Table.kol5.4_d_stacion]+[Table.kol5.4_skoraya]" Evaluator="Data1"/>
+    <Total Name="Total5" Expression="[Total5s]+[Total5ds]+[Total5sk]+[Total5a]" Evaluator="Data1"/>
+    <Total Name="Total4s" Expression="[Table.kol4.2_stacion]+[Table.kol4.3_stacion]" Evaluator="Data1"/>
+    <Total Name="Total4ds" Expression="[Table.kol4.2_d_stacion]+[Table.kol4.3_d_stacion]" Evaluator="Data1"/>
+    <Total Name="Total4sk" Expression="[Table.kol4.2_skoraya]+[Table.kol4.3_skoraya]" Evaluator="Data1"/>
+    <Total Name="Total4" Expression="[Total4a]+[Total4s]+[Total4ds]+[Total4sk]" Evaluator="Data1"/>
+    <Total Name="Total1_3" Expression="[Table1.kol1_ambul1_3]+[Table1.kol1_stacion1_3]+[Table1.kol1_d_stacion1_3]+[Table1.kol1_skoraya1_3]" Evaluator="Data1"/>
+    <Total Name="Total1_4" Expression="[Table1.kol1_ambul1_4]+[Table1.kol1_stacion1_4]+[Table1.kol1_d_stacion1_4]+[Table1.kol1_skoraya1_4]" Evaluator="Data1"/>
+    <Total Name="Total1_5" Expression="[Table1.kol1_ambul1_5]+[Table1.kol1_stacion1_5]+[Table1.kol1_d_stacion1_5]+[Table1.kol1_skoraya1_5]" Evaluator="Data1"/>
+    <Total Name="Total1_6" Expression="[Table1.kol1_ambul1_6]+[Table1.kol1_stacion1_6]+[Table1.kol1_d_stacion1_6]+[Table1.kol1_skoraya1_6]" Evaluator="Data1"/>
+    <Total Name="Total1_7" Expression="[Table1.kol1_ambul1_7]+[Table1.kol1_stacion1_7]+[Table1.kol1_d_stacion1_7]+[Table1.kol1_skoraya1_7]" Evaluator="Data1"/>
+  </Dictionary>
+  <ReportPage Name="Page1" Landscape="true" PaperWidth="297" PaperHeight="210" RawPaperSize="9" Guides="37.8,680.4">
+    <ReportTitleBand Name="ReportTitle1" Width="1047.06" Height="179.55">
+      <TextObject Name="Text1" Left="198.45" Top="37.8" Width="642.6" Height="18.9" Text="РЕЗУЛЬТАТЫ ЦЕЛЕВОЙ ЭКСПЕРТИЗЫ КАЧЕСТВА МЕДИЦИНСКОЙ ПОМОЩИ" HorzAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TableObject Name="Table1" Top="94.5" Width="1039.5" Height="85.05">
+        <TableColumn Name="Column153" Width="444.15"/>
+        <TableColumn Name="Column154" Width="47.25"/>
+        <TableColumn Name="Column155" Width="94.5"/>
+        <TableColumn Name="Column156" Width="94.5"/>
+        <TableColumn Name="Column157" Width="94.5"/>
+        <TableColumn Name="Column158" Width="103.95"/>
+        <TableColumn Name="Column159" Width="75.6"/>
+        <TableColumn Name="Column161" Width="85.05"/>
+        <TableRow Name="Row54">
+          <TableCell Name="Cell946" Border.Lines="All" Text="Таблица 3.7" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold" RowSpan="2"/>
+          <TableCell Name="Cell947" Border.Lines="All" Text="№" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt" RowSpan="2"/>
+          <TableCell Name="Cell948" Border.Lines="All" Text="СМО&#13;&#10;" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt" ColSpan="5"/>
+          <TableCell Name="Cell949" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt"/>
+          <TableCell Name="Cell950" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt"/>
+          <TableCell Name="Cell961" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt"/>
+          <TableCell Name="Cell962" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt"/>
+          <TableCell Name="Cell1186" Border.Lines="All" Text="Итого&#13;&#10;" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt" RowSpan="2"/>
+        </TableRow>
+        <TableRow Name="Row55" Height="47.25">
+          <TableCell Name="Cell951" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt"/>
+          <TableCell Name="Cell952" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt"/>
+          <TableCell Name="Cell953" Border.Lines="All" Text="амбулаторно-поликлинической медицинской помощи" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt"/>
+          <TableCell Name="Cell954" Border.Lines="All" Text="стационарной медицинской помощи" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt"/>
+          <TableCell Name="Cell955" Border.Lines="All" Text="стационарозамещающей медицинской помощи" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt"/>
+          <TableCell Name="Cell969" Border.Lines="All" Text="Скорой медицинской помощи вне медицинской организации" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt"/>
+          <TableCell Name="Cell970" Border.Lines="All" Text="всего" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt"/>
+          <TableCell Name="Cell1188" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt"/>
+        </TableRow>
+        <TableRow Name="Row56">
+          <TableCell Name="Cell956" Border.Lines="All" Text="1" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt, style=Bold"/>
+          <TableCell Name="Cell957" Border.Lines="All" Text="2" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt, style=Bold"/>
+          <TableCell Name="Cell958" Border.Lines="All" Text="3" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt, style=Bold"/>
+          <TableCell Name="Cell959" Border.Lines="All" Text="4" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt, style=Bold"/>
+          <TableCell Name="Cell960" Border.Lines="All" Text="5" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt, style=Bold"/>
+          <TableCell Name="Cell977" Border.Lines="All" Text="5.1" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt, style=Bold"/>
+          <TableCell Name="Cell978" Border.Lines="All" Text="6" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt, style=Bold"/>
+          <TableCell Name="Cell1190" Border.Lines="All" Text="7" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt, style=Bold"/>
+        </TableRow>
+      </TableObject>
+      <TextObject Name="Text28" Left="170.1" Width="689.85" Height="18.9" Text="Территориальный фонд обязательного медицинского страхования Курской области" HorzAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text4" Left="170.1" Top="9.45" Width="689.85" Height="28.35" Text="(наименование СМО)" HorzAlign="Center" VertAlign="Center" Font="Arial, 9pt"/>
+      <TextObject Name="Text9" Left="170.1" Width="689.85" Height="18.9" Text="__________________________________________________________________________________" HorzAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text26" Left="378" Top="56.7" Width="236.25" Height="18.9" Text="за [Table2.m_y]" HorzAlign="Center"/>
+      <TextObject Name="Text2" Left="378" Top="56.7" Width="236.25" Height="18.9" Text="_____________________________"/>
+      <TextObject Name="Text27" Left="378" Top="75.6" Width="236.25" Height="18.9" Text="(месяц)" HorzAlign="Center" Font="Arial, 7pt"/>
+    </ReportTitleBand>
+    <DataBand Name="Data1" Top="183.55" Width="1047.06" Height="642.6">
+      <TableObject Name="Table2" Width="1039.5" Height="642.6" Border.Lines="All">
+        <TableColumn Name="Column166" Width="444.15"/>
+        <TableColumn Name="Column167" Width="47.25"/>
+        <TableColumn Name="Column168" Width="94.5"/>
+        <TableColumn Name="Column169" Width="94.5"/>
+        <TableColumn Name="Column170" Width="94.5"/>
+        <TableColumn Name="Column171" Width="103.95"/>
+        <TableColumn Name="Column172" Width="75.6"/>
+        <TableColumn Name="Column173" Width="85.05"/>
+        <TableRow Name="Row57" Height="28.35">
+          <TableCell Name="Cell985" Border.Lines="All" Text="Количество проведенных целевых экспертиз качества медицинской помощи, в т.ч. в связи с:" Font="Arial, 8pt"/>
+          <TableCell Name="Cell986" Border.Lines="All" Text="1" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell987" Border.Lines="All" Text="[Table1.kol1_ambul]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell988" Border.Lines="All" Text="[Table1.kol1_stacion]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell989" Border.Lines="All" Text="[Table1.kol1_d_stacion]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1055" Border.Lines="All" Text="[Table1.kol1_skoraya]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1056" Border.Lines="All" Text="[Total1]" ProcessAt="ReportFinished" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1057" Border.Lines="All" Text="[Total1]" ProcessAt="ReportFinished" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+        </TableRow>
+        <TableRow Name="Row58">
+          <TableCell Name="Cell990" Border.Lines="All" Text="	получение жалоб от застрахованного лица или его представителя" Font="Arial, 8pt"/>
+          <TableCell Name="Cell991" Border.Lines="All" Text="1.1&#13;&#10;" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell992" Border.Lines="All" Text="[Table1.kol1_ambul1_1]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell993" Border.Lines="All" Text="[Table1.kol1_stacion1_1]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell994" Border.Lines="All" Text="[Table1.kol1_d_stacion1_1]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1063" Border.Lines="All" Text="[Table1.kol1_skoraya1_1]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1064" Border.Lines="All" Text="[Total1_1]" ProcessAt="ReportFinished" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1065" Border.Lines="All" Text="[Total1_1]" ProcessAt="ReportFinished" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+        </TableRow>
+        <TableRow Name="Row76">
+          <TableCell Name="Cell1231" Border.Lines="All" Text="	летальным исходом при оказании медицинской помощи" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1232" Border.Lines="All" Text="1.2" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1233" Border.Lines="All" Text="[Table1.kol1_ambul1_2]" ProcessAt="ReportFinished" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1234" Border.Lines="All" Text="[Table1.kol1_stacion1_2]" ProcessAt="ReportFinished" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1235" Border.Lines="All" Text="[Table1.kol1_d_stacion1_2]" ProcessAt="ReportFinished" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1236" Border.Lines="All" Text="[Table1.kol1_skoraya1_2]" ProcessAt="ReportFinished" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1237" Border.Lines="All" Text="[Total1_2]" ProcessAt="ReportFinished" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1238" Border.Lines="All" Text="[Total1_2]" ProcessAt="ReportFinished" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+        </TableRow>
+        <TableRow Name="Row87">
+          <TableCell Name="Cell1319" Border.Lines="All" Text="	внутрибольничным инфицированием и осложнением заболевания" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1320" Border.Lines="All" Text="1.3" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1321" Border.Lines="All" Text="[Table1.kol1_ambul1_3]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1322" Border.Lines="All" Text="[Table1.kol1_stacion1_3]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1323" Border.Lines="All" Text="[Table1.kol1_d_stacion1_3]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1324" Border.Lines="All" Text="[Table1.kol1_skoraya1_3]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1325" Border.Lines="All" Text="[Total1_3]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1326" Border.Lines="All" Text="[Total1_3]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+        </TableRow>
+        <TableRow Name="Row86" Height="28.35">
+          <TableCell Name="Cell1311" Border.Lines="All" Text="	первичным выходом на инвалидность лиц трудоспособного возраста и детей" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1312" Border.Lines="All" Text="1.4" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1313" Border.Lines="All" Text="[Table1.kol1_ambul1_4]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1314" Border.Lines="All" Text="[Table1.kol1_stacion1_4]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1315" Border.Lines="All" Text="[Table1.kol1_d_stacion1_4]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1316" Border.Lines="All" Text="[Table1.kol1_skoraya1_4]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1317" Border.Lines="All" Text="[Total1_4]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1318" Border.Lines="All" Text="[Total1_4]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+        </TableRow>
+        <TableRow Name="Row85" Height="28.35">
+          <TableCell Name="Cell1303" Border.Lines="All" Text="	повторным обоснованным обращением по поводу одного и того же заболевания" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1304" Border.Lines="All" Text="1.5" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1305" Border.Lines="All" Text="[Table1.kol1_ambul1_5]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1306" Border.Lines="All" Text="[Table1.kol1_stacion1_5]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1307" Border.Lines="All" Text="[Table1.kol1_d_stacion1_5]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1308" Border.Lines="All" Text="[Table1.kol1_skoraya1_5]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1309" Border.Lines="All" Text="[Total1_5]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1310" Border.Lines="All" Text="[Total1_5]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+        </TableRow>
+        <TableRow Name="Row84">
+          <TableCell Name="Cell1295" Border.Lines="All" Text="	заболеванием с удлиненным или укороченным сроком лечения" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1296" Border.Lines="All" Text="1.6" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1297" Border.Lines="All" Text="[Table1.kol1_ambul1_6]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1298" Border.Lines="All" Text="[Table1.kol1_stacion1_6]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1299" Border.Lines="All" Text="[Table1.kol1_d_stacion1_6]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1300" Border.Lines="All" Text="[Table1.kol1_skoraya1_6]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1301" Border.Lines="All" Text="[Total1_6]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1302" Border.Lines="All" Text="[Total1_6]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+        </TableRow>
+        <TableRow Name="Row83">
+          <TableCell Name="Cell1287" Border.Lines="All" Text="	очных" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1288" Border.Lines="All" Text="1.7" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1289" Border.Lines="All" Text="[Table1.kol1_ambul1_7]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1290" Border.Lines="All" Text="[Table1.kol1_stacion1_7]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1291" Border.Lines="All" Text="[Table1.kol1_d_stacion1_7]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1292" Border.Lines="All" Text="[Table1.kol1_skoraya1_7]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1293" Border.Lines="All" Text="[Total1_7]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1294" Border.Lines="All" Text="[Total1_7]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+        </TableRow>
+        <TableRow Name="Row59" Height="28.35">
+          <TableCell Name="Cell995" Border.Lines="All" Text="Всего рассмотренно страховых случаев при проведении плановых экспертиз качества медицинской помощи, из них" Font="Arial, 8pt"/>
+          <TableCell Name="Cell996" Border.Lines="All" Text="2" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell997" Border.Lines="All" Text="[Table.kol2_ambul]" ProcessAt="ReportFinished" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell998" Border.Lines="All" Text="[Table.kol2_stacion]" ProcessAt="ReportFinished" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell999" Border.Lines="All" Text="[Table.kol2_d_stacion]" ProcessAt="ReportFinished" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1071" Border.Lines="All" Text="[Table.kol2_skoraya]" ProcessAt="ReportFinished" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1072" Border.Lines="All" Text="[Total2]" ProcessAt="ReportFinished" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1073" Border.Lines="All" Text="[Total2]" ProcessAt="ReportFinished" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+        </TableRow>
+        <TableRow Name="Row60">
+          <TableCell Name="Cell1000" Border.Lines="All" Text="	выявлено страховых случаев, содержащих нарушения" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1001" Border.Lines="All" Text="2.1" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1002" Border.Lines="All" Text="[Table.kol2.1_ambul]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1003" Border.Lines="All" Text="[Table.kol2.1_stacion]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1004" Border.Lines="All" Text="[Table.kol2.1_d_stacion]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1079" Border.Lines="All" Text="[Table.kol2.1_skoraya]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1080" Border.Lines="All" Text="[Total2_1]" ProcessAt="ReportFinished" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1081" Border.Lines="All" Text="[Total2_1]" ProcessAt="ReportFinished" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+        </TableRow>
+        <TableRow Name="Row61">
+          <TableCell Name="Cell1005" Border.Lines="All" Text="Выявлено нарушений, всего, в т.ч." Font="Arial, 8pt"/>
+          <TableCell Name="Cell1006" Border.Lines="All" Text="3" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1007" Border.Lines="All" Text="[Table.kol2.1_ambul]" ProcessAt="ReportFinished" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1008" Border.Lines="All" Text="[Table.kol2.1_stacion]" ProcessAt="ReportFinished" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1009" Border.Lines="All" Text="[Table.kol2.1_d_stacion]" ProcessAt="ReportFinished" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1087" Border.Lines="All" Text="[Table.kol2.1_skoraya]" ProcessAt="ReportFinished" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1088" Border.Lines="All" Text="[Total2_1]" ProcessAt="ReportFinished" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1089" Border.Lines="All" Text="[Total2_1]" ProcessAt="ReportFinished" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+        </TableRow>
+        <TableRow Name="Row62">
+          <TableCell Name="Cell1010" Border.Lines="All" Text="дефекты оформления первичной медицинской документации, всего в т.ч." Font="Arial, 8pt"/>
+          <TableCell Name="Cell1011" Border.Lines="All" Text="4" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1012" Border.Lines="All" Text="[Total4a]" ProcessAt="ReportFinished" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1013" Border.Lines="All" Text="[Total4s]" ProcessAt="ReportFinished" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1014" Border.Lines="All" Text="[Total4ds]" ProcessAt="ReportFinished" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1095" Border.Lines="All" Text="[Total4sk]" ProcessAt="ReportFinished" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1096" Border.Lines="All" Text="[Total4]" ProcessAt="ReportFinished" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1097" Border.Lines="All" Text="[Total4]" ProcessAt="ReportFinished" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+        </TableRow>
+        <TableRow Name="Row63">
+          <TableCell Name="Cell1015" Border.Lines="All" Text="непредставление первичной медицинской документации без уважительных причин" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1016" Border.Lines="All" Text="4.1" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1017" Border.Lines="All" Text="0" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1018" Border.Lines="All" Text="0" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1019" Border.Lines="All" Text="0" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1103" Border.Lines="All" Text="0" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1104" Border.Lines="All" Text="0" ProcessAt="ReportFinished" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1105" Border.Lines="All" Text="0" ProcessAt="ReportFinished" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+        </TableRow>
+        <TableRow Name="Row64">
+          <TableCell Name="Cell1020" Border.Lines="All" Text="дефекты оформления и ведения первичной документации" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1021" Border.Lines="All" Text="4.2" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1022" Border.Lines="All" Text="[Table.kol4.2_ambul]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1023" Border.Lines="All" Text="[Table.kol4.2_stacion]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1024" Border.Lines="All" Text="[Table.kol4.2_d_stacion]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1111" Border.Lines="All" Text="[Table.kol4.2_skoraya]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1112" Border.Lines="All" Text="[Total4_2]" ProcessAt="ReportFinished" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1113" Border.Lines="All" Text="[Total4_2]" ProcessAt="ReportFinished" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+        </TableRow>
+        <TableRow Name="Row65">
+          <TableCell Name="Cell1025" Border.Lines="All" Text="несоответствие данных первичной документации данным счетов (реестра счетов)" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1026" Border.Lines="All" Text="4.3" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1027" Border.Lines="All" Text="[Table.kol4.3_ambul]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1028" Border.Lines="All" Text="[Table.kol4.3_stacion]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1029" Border.Lines="All" Text="[Table.kol4.3_d_stacion]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1119" Border.Lines="All" Text="[Table.kol4.3_skoraya]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1120" Border.Lines="All" Text="[Total4_3]" ProcessAt="ReportFinished" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1121" Border.Lines="All" Text="[Total4_3]" ProcessAt="ReportFinished" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+        </TableRow>
+        <TableRow Name="Row66">
+          <TableCell Name="Cell1030" Border.Lines="All" Text="нарушения при оказании медицинской помощи, всего, в т.ч." Font="Arial, 8pt"/>
+          <TableCell Name="Cell1031" Border.Lines="All" Text="5" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1032" Border.Lines="All" Text="[Total5a]" ProcessAt="ReportFinished" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1033" Border.Lines="All" Text="[Total5s]" ProcessAt="ReportFinished" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1034" Border.Lines="All" Text="[Total5ds]" ProcessAt="ReportFinished" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1127" Border.Lines="All" Text="[Total5sk]" ProcessAt="ReportFinished" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1128" Border.Lines="All" Text="[Total5]" ProcessAt="ReportFinished" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1129" Border.Lines="All" Text="[Total5]" ProcessAt="ReportFinished" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+        </TableRow>
+        <TableRow Name="Row67" Height="28.35">
+          <TableCell Name="Cell1035" Border.Lines="All" Text="нарушения в выполнении необходимых мероприятий в соответствии с порядком и (или) стандартами медицинской помощи" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1036" Border.Lines="All" Text="5.1" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1037" Border.Lines="All" Text="[Table.kol5.1_ambul]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1038" Border.Lines="All" Text="[Table.kol5.1_stacion]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1039" Border.Lines="All" Text="[Table.kol5.1_d_stacion]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1135" Border.Lines="All" Text="[Table.kol5.1_skoraya]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1136" Border.Lines="All" Text="[Total5_1]" ProcessAt="ReportFinished" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1137" Border.Lines="All" Text="[Total5_1]" ProcessAt="ReportFinished" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+        </TableRow>
+        <TableRow Name="Row68">
+          <TableCell Name="Cell1040" Border.Lines="All" Text="необоснованное несоблюдение сроков оказания медицинской помощи" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1041" Border.Lines="All" Text="5.2" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1042" Border.Lines="All" Text="[Table.kol5.2_ambul]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1043" Border.Lines="All" Text="[Table.kol5.2_stacion]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1044" Border.Lines="All" Text="[Table.kol5.2_d_stacion]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1143" Border.Lines="All" Text="[Table.kol5.2_skoraya]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1144" Border.Lines="All" Text="[Total5_2]" ProcessAt="ReportFinished" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1145" Border.Lines="All" Text="[Total5_2]" ProcessAt="ReportFinished" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+        </TableRow>
+        <TableRow Name="Row69">
+          <TableCell Name="Cell1045" Border.Lines="All" Text="нарушения, связанные с госпитализацией застрахованного лица " Font="Arial, 8pt"/>
+          <TableCell Name="Cell1046" Border.Lines="All" Text="5.3" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1047" Border.Lines="All" Text="[Table.kol5.3_ambul]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1048" Border.Lines="All" Text="[Table.kol5.3_stacion]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1049" Border.Lines="All" Text="[Table.kol5.3_d_stacion]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1151" Border.Lines="All" Text="[Table.kol5.3_skoraya]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1152" Border.Lines="All" Text="[Total5_3]" ProcessAt="ReportFinished" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1153" Border.Lines="All" Text="[Total5_3]" ProcessAt="ReportFinished" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+        </TableRow>
+        <TableRow Name="Row77">
+          <TableCell Name="Cell1239" Border.Lines="All" Text="прочие нарушения, при оказании медицинской помощи" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1240" Border.Lines="All" Text="5.4" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1241" Border.Lines="All" Text="[Table.kol5.4_ambul]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1242" Border.Lines="All" Text="[Table.kol5.4_stacion]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1243" Border.Lines="All" Text="[Table.kol5.4_d_stacion]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1244" Border.Lines="All" Text="[Table.kol5.4_skoraya]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1245" Border.Lines="All" Text="[Total5_4]" ProcessAt="ReportFinished" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1246" Border.Lines="All" Text="[Total5_4]" ProcessAt="ReportFinished" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+        </TableRow>
+        <TableRow Name="Row70">
+          <TableCell Name="Cell1050" Border.Lines="All" Text="нарушения информированности застрахованного лица" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1051" Border.Lines="All" Text="6" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1052" Border.Lines="All" Text="[Table.kol6_ambul]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1053" Border.Lines="All" Text="[Table.kol6_stacion]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1054" Border.Lines="All" Text="[Table.kol6_d_stacion]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1159" Border.Lines="All" Text="[Table.kol6_skoraya]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1160" Border.Lines="All" Text="[Total6]" ProcessAt="ReportFinished" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1161" Border.Lines="All" Text="[Total6]" ProcessAt="ReportFinished" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+        </TableRow>
+        <TableRow Name="Row71" Height="28.35">
+          <TableCell Name="Cell1191" Border.Lines="All" Text="нарушения, ограничивающие доступность медицинской помощи для застрахованных лиц, всего, в т.ч." Font="Arial, 8pt"/>
+          <TableCell Name="Cell1192" Border.Lines="All" Text="7" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1193" Border.Lines="All" Text="0" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1194" Border.Lines="All" Text="0" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1195" Border.Lines="All" Text="0" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1196" Border.Lines="All" Text="0" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1197" Border.Lines="All" Text="0" ProcessAt="ReportFinished" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1198" Border.Lines="All" Text="0" ProcessAt="ReportFinished" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+        </TableRow>
+        <TableRow Name="Row72" Height="28.35">
+          <TableCell Name="Cell1199" Border.Lines="All" Text="нарушения условий оказания медицинской помощи, в том числе сроков ожидания медицинкой помощи, предоставляемой в плановом порядке" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1200" Border.Lines="All" Text="7.1" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1201" Border.Lines="All" Text="0" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1202" Border.Lines="All" Text="0" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1203" Border.Lines="All" Text="0" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1204" Border.Lines="All" Text="0" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1205" Border.Lines="All" Text="0" ProcessAt="ReportFinished" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1206" Border.Lines="All" Text="0" ProcessAt="ReportFinished" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+        </TableRow>
+        <TableRow Name="Row78" Height="28.35">
+          <TableCell Name="Cell1247" Border.Lines="All" Text="необоснованный отказ в получении медицинской помощи, включенной в территориальную программу ОМС, в т.ч.:" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1248" Border.Lines="All" Text="7.2" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1249" Border.Lines="All" Text="0" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1250" Border.Lines="All" Text="0" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1251" Border.Lines="All" Text="0" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1252" Border.Lines="All" Text="0" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1253" Border.Lines="All" Text="0" ProcessAt="ReportFinished" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1254" Border.Lines="All" Text="0" ProcessAt="ReportFinished" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+        </TableRow>
+        <TableRow Name="Row79">
+          <TableCell Name="Cell1255" Border.Lines="All" Text="гражданам, находящимся за пределами территории страхования" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1256" Border.Lines="All" Text="7.2.1" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1257" Border.Lines="All" Text="0" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1258" Border.Lines="All" Text="0" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1259" Border.Lines="All" Text="0" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1260" Border.Lines="All" Text="0" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1261" Border.Lines="All" Text="0" ProcessAt="ReportFinished" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1262" Border.Lines="All" Text="0" ProcessAt="ReportFinished" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+        </TableRow>
+        <TableRow Name="Row80">
+          <TableCell Name="Cell1263" Border.Lines="All" Text="взимание платы с застрахованных лиц за медицинскую помощь" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1264" Border.Lines="All" Text="7.3" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1265" Border.Lines="All" Text="0" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1266" Border.Lines="All" Text="0" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1267" Border.Lines="All" Text="0" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1268" Border.Lines="All" Text="0" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1269" Border.Lines="All" Text="0" ProcessAt="ReportFinished" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1270" Border.Lines="All" Text="0" ProcessAt="ReportFinished" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+        </TableRow>
+        <TableRow Name="Row81">
+          <TableCell Name="Cell1271" Border.Lines="All" Text="приобретение застрахованным лицом ЛП в период пребывания в стационаре" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1272" Border.Lines="All" Text="7.4" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1273" Border.Lines="All" Text="0" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1274" Border.Lines="All" Text="0" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1275" Border.Lines="All" Text="0" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1276" Border.Lines="All" Text="0" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1277" Border.Lines="All" Text="0" ProcessAt="ReportFinished" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1278" Border.Lines="All" Text="0" ProcessAt="ReportFinished" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+        </TableRow>
+        <TableRow Name="Row82">
+          <TableCell Name="Cell1279" Border.Lines="All" Text="нарушение прав застрахованных лиц на выбор медицинской организации и врача" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1280" Border.Lines="All" Text="7.5" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1281" Border.Lines="All" Text="0" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1282" Border.Lines="All" Text="0" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1283" Border.Lines="All" Text="0" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1284" Border.Lines="All" Text="0" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1285" Border.Lines="All" Text="0" ProcessAt="ReportFinished" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1286" Border.Lines="All" Text="0" ProcessAt="ReportFinished" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+        </TableRow>
+        <TableRow Name="Row73">
+          <TableCell Name="Cell1207" Border.Lines="All" Text="нарушение врачебной этики и деонтологии" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1208" Border.Lines="All" Text="8" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1209" Border.Lines="All" Text="0" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1210" Border.Lines="All" Text="0" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1211" Border.Lines="All" Text="0" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1212" Border.Lines="All" Text="0" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1213" Border.Lines="All" Text="0" ProcessAt="ReportFinished" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1214" Border.Lines="All" Text="0" ProcessAt="ReportFinished" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+        </TableRow>
+        <TableRow Name="Row74">
+          <TableCell Name="Cell1215" Border.Lines="All" Text="прочие нарушения в соответствии с Перечнем" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1216" Border.Lines="All" Text="9" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1217" Border.Lines="All" Text="[Table.kol9_ambul]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1218" Border.Lines="All" Text="[Table.kol9_stacion]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1219" Border.Lines="All" Text="[Table.kol9_d_stacion]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1220" Border.Lines="All" Text="[Table.kol9_skoraya]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1221" Border.Lines="All" Text="[Total9]" ProcessAt="ReportFinished" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1222" Border.Lines="All" Text="[Total9]" ProcessAt="ReportFinished" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+        </TableRow>
+      </TableObject>
+    </DataBand>
+    <ReportSummaryBand Name="ReportSummary1" Top="830.15" Width="1047.06" Height="113.4">
+      <TextObject Name="Text31" Left="37.8" Width="179.55" Height="28.35" Text="Директор СМО" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text32" Left="510.3" Width="179.55" Height="28.35" Text="Карманова И.А." VertAlign="Center" Font="Arial, 10pt, style=Bold, Italic"/>
+      <TextObject Name="Text3" Left="453.6" Top="9.45" Width="245.7" Height="18.9" Text="_____________________________" HorzAlign="Center" VertAlign="Center" Font="Arial, 9pt"/>
+      <TextObject Name="Text38" Left="481.95" Top="25.35" Width="179.55" Height="18.9" Text="(расшифровка подписи)" HorzAlign="Center" VertAlign="Center" Font="Arial, 9pt"/>
+      <TextObject Name="Text34" Left="37.8" Top="47.25" Width="179.55" Height="28.35" Text="Главный бухгалтер СМО" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text35" Left="510.3" Top="47.25" Width="179.55" Height="28.35" Text="Хмелевская Т.В." VertAlign="Center" Font="Arial, 10pt, style=Bold, Italic"/>
+      <TextObject Name="Text36" Left="453.6" Top="56.7" Width="245.7" Height="18.9" Text="_____________________________" HorzAlign="Center" VertAlign="Center" Font="Arial, 9pt"/>
+      <TextObject Name="Text37" Left="481.95" Top="72.6" Width="179.55" Height="18.9" Text="(расшифровка подписи)" HorzAlign="Center" VertAlign="Center" Font="Arial, 9pt"/>
+      <TextObject Name="Text33" Left="37.8" Top="75.6" Width="434.7" Height="37.8" Text="Исполнитель Воронина Анжелика Николаевна тел. 39-36-18" VertAlign="Center" Font="Arial, 10pt, style=Italic"/>
+    </ReportSummaryBand>
+  </ReportPage>
+</Report>

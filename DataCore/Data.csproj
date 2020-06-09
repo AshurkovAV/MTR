@@ -1,0 +1,407 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{680D983E-450D-419A-A9B2-48AC15A976F0}</ProjectGuid>
+    <OutputType>library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Medical.DataCore</RootNamespace>
+    <AssemblyName>DataCore</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
+    <Prefer32Bit>false</Prefer32Bit>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <GenerateSerializationAssemblies>On</GenerateSerializationAssemblies>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Autofac, Version=4.0.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.4.0.0\lib\net451\Autofac.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="BLToolkit.4, Version=4.3.4.0, Culture=neutral, PublicKeyToken=b1d3f6ab3aadaca3, processorArchitecture=MSIL">
+      <HintPath>..\packages\BLToolkit.4.3.4\lib\net40\BLToolkit.4.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Xml">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Core">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Xml.Linq">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="WindowsBase">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="PresentationCore">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="PresentationFramework">
+      <Private>False</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Auto.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Auto.tt</DependentUpon>
+    </Compile>
+    <None Include="app.config" />
+    <None Include="Auto.tt.log">
+      <DependentUpon>Auto.tt</DependentUpon>
+    </None>
+    <Compile Include="ffoms\MedicalAssistancePatient.cs" />
+    <Compile Include="ffoms\MedicalAssistanceEvent.cs" />
+    <Compile Include="ffoms\MedicalAssistanceDetails.cs" />
+    <Compile Include="ffoms\MedicalAssistanceCommonInfo.cs" />
+    <Compile Include="ffoms\MedicalAssistanceHeader.cs" />
+    <Compile Include="ffoms\MedicalAssistanceRecords.cs" />
+    <Compile Include="ffoms\MedicalAssistanceProfiles.cs" />
+    <Compile Include="ffoms\MedicalAssistanceIndicators.cs" />
+    <Compile Include="ffoms\MedicalAssistanceCompleted.cs" />
+    <Compile Include="ffoms\MedicalAssistancePlanned.cs" />
+    <Compile Include="Interface\IAccountD.cs" />
+    <Compile Include="Interface\IAccountRegister.cs" />
+    <Compile Include="Interface\IAnticancerDrugOnk.cs" />
+    <Compile Include="Interface\IConsultationsOnk.cs" />
+    <Compile Include="Interface\IContraindicationsOnk.cs" />
+    <Compile Include="Interface\IDiagBlokOnk.cs" />
+    <Compile Include="Interface\IDirectionOnkE.cs" />
+    <Compile Include="Interface\IEventOnk.cs" />
+    <Compile Include="Interface\IHeaderD.cs" />
+    <Compile Include="Interface\IKsgKpg.cs" />
+    <Compile Include="Interface\IPersonalRegisterD.cs" />
+    <Compile Include="Interface\IRecordsCollectionD.cs" />
+    <Compile Include="Interface\IRefusal.cs" />
+    <Compile Include="Interface\IDs.cs" />
+    <Compile Include="Interface\IServiceOnk.cs" />
+    <Compile Include="Interface\IZRegisterAnswer.cs" />
+    <Compile Include="Interface\IZRecordAnswer.cs" />
+    <Compile Include="Interface\IZMeventAnswer.cs" />
+    <Compile Include="Interface\IZslMeventAnswer.cs" />
+    <Compile Include="Interface\IZRegister.cs" />
+    <Compile Include="Interface\IZRecord.cs" />
+    <Compile Include="Interface\ISlKoef.cs" />
+    <Compile Include="Interface\IZEvent.cs" />
+    <Compile Include="Interface\IZslEvent.cs" />
+    <Compile Include="partial\Header.cs" />
+    <Compile Include="Interface\IAccountAnswer.cs" />
+    <Compile Include="Interface\IHeaderAnswer.cs" />
+    <Compile Include="Interface\IMEventAnswer.cs" />
+    <Compile Include="Interface\IPatientAnswer.cs" />
+    <Compile Include="Interface\IRecordAnswer.cs" />
+    <Compile Include="Interface\IRegisterAnswer.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Interface\IAccount.cs" />
+    <Compile Include="Interface\IHeader.cs" />
+    <Compile Include="Interface\IMEvent.cs" />
+    <Compile Include="Interface\IPatient.cs" />
+    <Compile Include="Interface\IRecord.cs" />
+    <Compile Include="Interface\IRegister.cs" />
+    <Compile Include="Interface\IService.cs" />
+    <Compile Include="v10PL\PL\IAccountPlAnswer.cs" />
+    <Compile Include="v10PL\PL\IInformationPlAnswer.cs" />
+    <Compile Include="v10PL\PL\IPayerInformationPlAnswer.cs" />
+    <Compile Include="v10PL\PL\IRecipientInformationPlAnswer.cs" />
+    <Compile Include="v10PL\PL\IRegisterPlAnswer.cs" />
+    <Compile Include="v10PL\PL\RegisterPlAnswer.cs" />
+    <Compile Include="v21K2\D\AccountRegisterD.cs" />
+    <Compile Include="v21K2\D\EventD.cs" />
+    <Compile Include="v21K2\D\LoaderD.cs" />
+    <Compile Include="v21K2\D\LoaderPersonalD.cs" />
+    <Compile Include="v21K2\D\PatientD.cs" />
+    <Compile Include="v21K2\D\PersonalD.cs" />
+    <Compile Include="v21K2\D\PersonalRegisterD.cs" />
+    <Compile Include="v21K2\D\RefusalD.cs" />
+    <Compile Include="v21K2\D\ServiceD.cs" />
+    <Compile Include="v21\EAnswer\EventEAnswer.cs" />
+    <Compile Include="v21\EAnswer\LoaderEAnswer.cs" />
+    <Compile Include="v21\EAnswer\PatientEAnswer.cs" />
+    <Compile Include="v21\EAnswer\RegisterEAnswer.cs" />
+    <Compile Include="v21\E\RefusalE.cs" />
+    <Compile Include="v21\E\EventE.cs" />
+    <Compile Include="v21\E\LoaderE.cs" />
+    <Compile Include="v21\E\PatientE.cs" />
+    <Compile Include="v21\E\RegisterE.cs" />
+    <Compile Include="v21\E\ServiceE.cs" />
+    <Compile Include="v30K1\D\AccountRegisterD.cs" />
+    <Compile Include="v30K1\D\DiagnosisSecondaryD.cs" />
+    <Compile Include="v30K1\D\EventD.cs" />
+    <Compile Include="v30K1\D\SlKoefD.cs" />
+    <Compile Include="v30K1\D\KsgKpgD.cs" />
+    <Compile Include="v30K1\D\PatientD.cs" />
+    <Compile Include="v30K1\D\PersonalD.cs" />
+    <Compile Include="v30K1\D\PersonalRegisterD.cs" />
+    <Compile Include="v30K1\D\RefusalD.cs" />
+    <Compile Include="v30K1\D\ServiceD.cs" />
+    <Compile Include="v30K1\D\ZslEventD.cs" />
+    <Compile Include="v30K1\D\LoaderD.cs" />
+    <Compile Include="v30\EAnswer\EventEAnswer.cs" />
+    <Compile Include="v30\EAnswer\ZslEventEAnswer.cs" />
+    <Compile Include="v30\EAnswer\LoaderEAnswer.cs" />
+    <Compile Include="v30\EAnswer\PatientEAnswer.cs" />
+    <Compile Include="v30\EAnswer\RegisterEAnswer.cs" />
+    <Compile Include="v30\E\EventE.cs" />
+    <Compile Include="v30\E\KsgKpgE.cs" />
+    <Compile Include="v30\E\LoaderE.cs" />
+    <Compile Include="v30\E\PatientE.cs" />
+    <Compile Include="v30\E\RefusalE.cs" />
+    <Compile Include="v30\E\RegisterE.cs" />
+    <Compile Include="v30\E\ServiceE.cs" />
+    <Compile Include="v30\E\SlKoefE.cs" />
+    <Compile Include="v30\E\ZslEventE.cs" />
+    <Compile Include="v31K1\DV\AccountRegisterD.cs" />
+    <Compile Include="v31K1\DV\AnticancerDrugOnkD.cs" />
+    <Compile Include="v31K1\DV\ConsultationsOnkD.cs" />
+    <Compile Include="v31K1\DV\ContraindicationsOnkD.cs" />
+    <Compile Include="v31K1\DV\DiagBlokOnkD.cs" />
+    <Compile Include="v31K1\DV\DiagnosisSecondaryD.cs" />
+    <Compile Include="v31K1\DV\DirectionOnkD.cs" />
+    <Compile Include="v31K1\DV\EventD.cs" />
+    <Compile Include="v31K1\DV\EventOnkD.cs" />
+    <Compile Include="v31K1\DV\KsgKpgD.cs" />
+    <Compile Include="v31K1\DV\LoaderD.cs" />
+    <Compile Include="v31K1\DV\PatientD.cs" />
+    <Compile Include="v31K1\DV\PersonalD.cs" />
+    <Compile Include="v31K1\DV\PersonalRegisterD.cs" />
+    <Compile Include="v31K1\DV\RefusalD.cs" />
+    <Compile Include="v31K1\DV\ServiceD.cs" />
+    <Compile Include="v31K1\DV\ServiceOnkD.cs" />
+    <Compile Include="v31K1\DV\DsD.cs" />
+    <Compile Include="v31K1\DV\SlKoefD.cs" />
+    <Compile Include="v31K1\DV\ZslEventD.cs" />
+    <Compile Include="v32K1\D\AccountRegisterD.cs" />
+    <Compile Include="v32K1\D\AnticancerDrugOnkD.cs" />
+    <Compile Include="v32K1\D\ConsultationsOnkD.cs" />
+    <Compile Include="v32K1\D\ContraindicationsOnkD.cs" />
+    <Compile Include="v32K1\D\DiagBlokOnkD.cs" />
+    <Compile Include="v32K1\D\DiagnosisSecondaryD.cs" />
+    <Compile Include="v32K1\D\DirectionOnkD.cs" />
+    <Compile Include="v32K1\D\EventD.cs" />
+    <Compile Include="v32K1\D\EventOnkD.cs" />
+    <Compile Include="v32K1\D\KsgKpgD.cs" />
+    <Compile Include="v32K1\D\LoaderD.cs" />
+    <Compile Include="v32K1\D\PatientD.cs" />
+    <Compile Include="v32K1\D\PersonalD.cs" />
+    <Compile Include="v32K1\D\PersonalRegisterD.cs" />
+    <Compile Include="v32K1\D\RefusalD.cs" />
+    <Compile Include="v32K1\D\ServiceD.cs" />
+    <Compile Include="v32K1\D\ServiceOnkD.cs" />
+    <Compile Include="v32K1\D\SlKoefD.cs" />
+    <Compile Include="v32K1\D\ZslEventD.cs" />
+    <Compile Include="v32\EAnswer\EventEAnswer.cs" />
+    <Compile Include="v32\EAnswer\LoaderEAnswer.cs" />
+    <Compile Include="v32\EAnswer\PatientEAnswer.cs" />
+    <Compile Include="v32\EAnswer\RegisterEAnswer.cs" />
+    <Compile Include="v32\EAnswer\ZslEventEAnswer.cs" />
+    <Compile Include="v32\E\AnticancerDrugOnkE.cs" />
+    <Compile Include="v32\E\ConsultationsOnkE.cs" />
+    <Compile Include="v32\E\ContraindicationsOnkE.cs" />
+    <Compile Include="v32\E\DiagBlokOnkE.cs" />
+    <Compile Include="v32\E\DirectionOnkE.cs" />
+    <Compile Include="v32\E\EventE.cs" />
+    <Compile Include="v32\E\EventOnkE.cs" />
+    <Compile Include="v32\E\KsgKpgE.cs" />
+    <Compile Include="v32\E\LoaderE.cs" />
+    <Compile Include="v32\E\PatientE.cs" />
+    <Compile Include="v32\E\RefusalE.cs" />
+    <Compile Include="v32\E\RegisterE.cs" />
+    <Compile Include="v32\E\DsE.cs" />
+    <Compile Include="v32\E\ServiceE.cs" />
+    <Compile Include="v32\E\ServiceOnkE.cs" />
+    <Compile Include="v32\E\SlKoefE.cs" />
+    <Compile Include="v32\E\ZslEventE.cs" />
+    <Compile Include="v31K1\D\AccountRegisterD.cs" />
+    <Compile Include="v31K1\D\ConsultationsOnkD.cs" />
+    <Compile Include="v31K1\D\AnticancerDrugOnkD.cs" />
+    <Compile Include="v31K1\D\DirectionOnkD.cs" />
+    <Compile Include="v31K1\D\ServiceOnkD.cs" />
+    <Compile Include="v31K1\D\DiagBlokOnkD.cs" />
+    <Compile Include="v31K1\D\DiagnosisSecondaryD.cs" />
+    <Compile Include="v31K1\D\EventD.cs" />
+    <Compile Include="v31K1\D\ContraindicationsOnkD.cs" />
+    <Compile Include="v31K1\D\KsgKpgD.cs" />
+    <Compile Include="v31K1\D\LoaderD.cs" />
+    <Compile Include="v31K1\D\PatientD.cs" />
+    <Compile Include="v31K1\D\PersonalD.cs" />
+    <Compile Include="v31K1\D\PersonalRegisterD.cs" />
+    <Compile Include="v31K1\D\EventOnkD.cs" />
+    <Compile Include="v31K1\D\RefusalD.cs" />
+    <Compile Include="v31K1\D\ServiceD.cs" />
+    <Compile Include="v31K1\D\SlKoefD.cs" />
+    <Compile Include="v31K1\D\ZslEventD.cs" />
+    <Compile Include="v31\EAnswer\EventEAnswer.cs" />
+    <Compile Include="v31\EAnswer\LoaderEAnswer.cs" />
+    <Compile Include="v31\EAnswer\PatientEAnswer.cs" />
+    <Compile Include="v31\EAnswer\RegisterEAnswer.cs" />
+    <Compile Include="v31\EAnswer\ZslEventEAnswer.cs" />
+    <Compile Include="v31\E\AnticancerDrugOnkE.cs" />
+    <Compile Include="v31\E\ConsultationsOnkE.cs" />
+    <Compile Include="v31\E\DiagBlokOnkE.cs" />
+    <Compile Include="v31\E\DirectionOnkE.cs" />
+    <Compile Include="v31\E\EventE.cs" />
+    <Compile Include="v31\E\EventOnkE.cs" />
+    <Compile Include="v31\E\KsgKpgE.cs" />
+    <Compile Include="v31\E\LoaderE.cs" />
+    <Compile Include="v31\E\PatientE.cs" />
+    <Compile Include="v31\E\RefusalE.cs" />
+    <Compile Include="v31\E\RegisterE.cs" />
+    <Compile Include="v31\E\ServiceE.cs" />
+    <Compile Include="v31\E\ServiceOnkE.cs" />
+    <Compile Include="v31\E\SlKoefE.cs" />
+    <Compile Include="v31\E\ZslEventE.cs" />
+    <Compile Include="v31\E\ContraindicationsOnkE.cs" />
+    <Compile Include="Validate\SchemaValidateLambda.cs" />
+    <Compile Include="Validate\ISchemaValidate.cs" />
+    <Compile Include="v10\EAnswer\EventEAnswer.cs" />
+    <Compile Include="v10\EAnswer\LoaderEAnswer.cs" />
+    <Compile Include="v10\EAnswer\PatientEAnswer.cs" />
+    <Compile Include="v10\EAnswer\RegisterEAnswer.cs" />
+    <Compile Include="v10\E\EventE.cs" />
+    <Compile Include="v10\E\LoaderE.cs" />
+    <Compile Include="LoaderBase.cs" />
+    <Compile Include="Validate\SchemaValidateHandler.cs" />
+    <Compile Include="v10\E\PatientE.cs" />
+    <Compile Include="v10\E\RegisterE.cs" />
+    <Compile Include="v10\E\ServiceE.cs" />
+    <Compile Include="InitCommand.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="Auto.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Auto.cs</LastGenOutput>
+      <LastOutputs>.\Properties\AssemblyInfo.cs</LastOutputs>
+    </None>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <AppDesigner Include="Properties\" />
+    <EmbeddedResource Include="v10\Xsd\E2.xsd">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="v10\Xsd\E3.xsd">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="v21\Xsd\E2.xsd">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="v21\Xsd\E3.xsd">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="v21K2\Xsd\D1.xsd">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="v21K2\Xsd\D2.xsd">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="v21K2\Xsd\D3.xsd">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="v30K1\Xsd\D1.xsd">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="v30K1\Xsd\D2.xsd">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="v30\Xsd\E2.xsd" />
+    <EmbeddedResource Include="v32\Xsd\E2.xsd">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="v32K1\Xsd\D1.xsd">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="v32K1\Xsd\D2.xsd">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <None Include="v31K1\Xsd\D1 новый версия 3.0.rar" />
+    <EmbeddedResource Include="v31K1\Xsd\D1.xsd">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="v31K1\Xsd\D2.xsd">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="v31\Xsd\E2.xsd">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Core\Core.csproj">
+      <Project>{3d0ad1d2-d4f2-40fb-8ed4-f9ef3a48de2a}</Project>
+      <Name>Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Database\Database.csproj">
+      <Project>{7c69d4fb-3db0-4b3d-9c9a-35eb8ddca4a9}</Project>
+      <Name>Database</Name>
+      <Private>False</Private>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" />
+</Project>

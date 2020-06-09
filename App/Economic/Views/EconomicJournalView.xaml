@@ -1,0 +1,255 @@
+﻿<UserControl x:Class="Medical.AppLayer.Economic.Views.EconomicJournalView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+             xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+             xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
+             xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core" 
+             mc:Ignorable="d" 
+             d:DesignHeight="661" 
+             d:DesignWidth="800" 
+             xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol"
+             xmlns:converters="clr-namespace:Medical.AppLayer.Converters">
+    <UserControl.Resources>
+        <converters:AccountStatusConverter x:Key="AccountStatusConverter"/>
+        <converters:TerritoryConverter x:Key="TerritoryConverter"/>
+    </UserControl.Resources>
+    
+    <dxb:BarManager CreateStandardLayout="False">
+        <Grid>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <dxlc:LayoutControl Grid.Row="0" >
+                    <dxlc:LayoutItem Label="Период с" >
+                        <dxe:DateEdit EditValue="{Binding SelectedDateBegin,
+                                UpdateSourceTrigger=PropertyChanged}">
+                        </dxe:DateEdit>
+                    </dxlc:LayoutItem>
+
+                    <dxlc:LayoutItem Label="по" >
+                        <dxe:DateEdit EditValue="{Binding SelectedDateEnd,
+                                UpdateSourceTrigger=PropertyChanged}">
+                        </dxe:DateEdit>
+                    </dxlc:LayoutItem>
+
+                    <dxlc:LayoutItem Label="Территория" >
+                        <dxe:ComboBoxEdit ItemsSource="{Binding TerritoryList}" 
+                                          EditValue="{Binding SelectedTerritory,
+                                            UpdateSourceTrigger=PropertyChanged}" 
+                                          Name="TerritoryComboBox" 
+                                          DisplayMember="DisplayName" 
+                                          ValueMember="Value" 
+                                          NullText="Отсутствует"
+                                          AutoComplete="True" >
+                            <dxe:ComboBoxEdit.Buttons>
+                                <dxe:ButtonInfo GlyphKind="Cancel" Command="{Binding ResetTerritoryCommand}" />
+                            </dxe:ComboBoxEdit.Buttons>
+                        </dxe:ComboBoxEdit>
+                    </dxlc:LayoutItem>
+
+                    <dxlc:LayoutItem Label="Статус счета" >
+                        <dxe:ComboBoxEdit SelectedIndex="{Binding SelectedStatus}" NullText="Выберете статус">
+                            <dxe:ComboBoxEdit.Buttons>
+                                <dxe:ButtonInfo GlyphKind="Cancel" Command="{Binding ResetStatusCommand}"/>
+                            </dxe:ComboBoxEdit.Buttons>
+                            <dxe:ComboBoxEditItem Content="Не отработан"/>
+                            <dxe:ComboBoxEditItem Content="Отработан"/>
+                            <dxe:ComboBoxEditItem Content="Отправлен"/>
+                            <dxe:ComboBoxEditItem Content="Не оплачен"/>
+                            <dxe:ComboBoxEditItem Content="Частично оплачен"/>
+                            <dxe:ComboBoxEditItem Content="Оплачен"/>
+                        </dxe:ComboBoxEdit>
+                    </dxlc:LayoutItem>
+
+                    <dxlc:LayoutItem Label="Вх./Исх." >
+                        <dxe:ComboBoxEdit SelectedIndex="{Binding SelectedDirection}" NullText="Выберете тип">
+                            <dxe:ComboBoxEdit.Buttons>
+                                <dxe:ButtonInfo GlyphKind="Cancel" Command="{Binding ResetDirectionCommand}"/>
+                            </dxe:ComboBoxEdit.Buttons>
+                            <dxe:ComboBoxEditItem Content="Исходящие"/>
+                            <dxe:ComboBoxEditItem Content="Входящие"/>
+                        </dxe:ComboBoxEdit>
+                    </dxlc:LayoutItem>
+
+                </dxlc:LayoutControl>
+                <dx:PLinqInstantFeedbackDataSource Name="pLinqAccountDataSource" ListSource="{Binding Path=AccountListSource}" />
+                <dxlc:LayoutControl Grid.Row="1" Padding="0" Orientation="Vertical">
+
+                    <dxlc:LayoutItem VerticalAlignment="Stretch">
+                        <dxg:GridControl Name="Grid" 
+                             
+                                 ItemsSource="{Binding ElementName=pLinqAccountDataSource, Path=Data}"
+                                 ShowBorder="False"
+                                 AutoExpandAllGroups="True"
+                                 UseLayoutRounding="True"
+                                 GroupRowCollapsing="gridControl1_GroupRowCollapsing" >
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="DataContextChanged">
+                                    <ei:CallMethodAction TargetObject="{Binding ElementName=tableView}" MethodName="BestFitColumns"/>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+
+                            <dxg:GridControl.Resources>
+
+                            </dxg:GridControl.Resources>
+
+                            <dxg:GridControl.Columns>
+                                <dxg:GridColumn FieldName="TerritoryAccount.AccountNumber" Header="Номер счета" x:Name="_colAccountNumber" GroupIndex="0"/>
+                                <dxg:GridColumn FieldName="TerritoryAccount.AccountDate" Header="Дата счета"/>
+
+                                <dxg:GridColumn FieldName="TerritoryAccount.Source" Header="Территория выставившая счет" ReadOnly="True">
+                                    <dxg:GridColumn.EditSettings>
+                                        <dxe:TextEditSettings DisplayTextConverter="{StaticResource TerritoryConverter}"/>
+                                    </dxg:GridColumn.EditSettings>
+                                </dxg:GridColumn>
+                                <dxg:GridColumn FieldName="TerritoryAccount.Date" Header="Отчетный год" >
+                                    <dxg:GridColumn.EditSettings>
+                                        <dxe:TextEditSettings DisplayFormat="yyyy" MaskType="DateTime"  Mask="yyyy"  TextWrapping="WrapWithOverflow"/>
+                                    </dxg:GridColumn.EditSettings>
+                                </dxg:GridColumn>
+                                <dxg:GridColumn FieldName="TerritoryAccount.Date" Header="Отчетный месяц">
+                                    <dxg:GridColumn.EditSettings>
+                                        <dxe:TextEditSettings DisplayFormat="MMMM" MaskType="DateTime"  Mask="MMMM"  TextWrapping="WrapWithOverflow"/>
+                                    </dxg:GridColumn.EditSettings>
+                                </dxg:GridColumn>
+
+                                <dxg:GridColumn FieldName="PolyclinicAmountPayable" Header="Поликлиника к оплате">
+                                    <dxg:GridColumn.EditSettings>
+                                        <dxe:TextEditSettings DisplayFormat="c2" MaskType="Numeric"  Mask="c2"  TextWrapping="WrapWithOverflow"  />
+                                    </dxg:GridColumn.EditSettings>
+                                </dxg:GridColumn>
+                                <dxg:GridColumn FieldName="PolyclinicAmountRefuse" Header="Поликлиника отказ">
+                                    <dxg:GridColumn.EditSettings>
+                                        <dxe:TextEditSettings DisplayFormat="c2" MaskType="Numeric"  Mask="c2"  TextWrapping="WrapWithOverflow"  />
+                                    </dxg:GridColumn.EditSettings>
+                                </dxg:GridColumn>
+                                <dxg:GridColumn FieldName="PolyclinicAmountFact" Header="Поликлиника факт">
+                                    <dxg:GridColumn.EditSettings>
+                                        <dxe:TextEditSettings DisplayFormat="c2" MaskType="Numeric"  Mask="c2"  TextWrapping="WrapWithOverflow"  />
+                                    </dxg:GridColumn.EditSettings>
+                                </dxg:GridColumn>
+
+                                <dxg:GridColumn FieldName="HospitalAmountPayable" Header="Стационар к оплате">
+                                    <dxg:GridColumn.EditSettings>
+                                        <dxe:TextEditSettings DisplayFormat="c2" MaskType="Numeric"  Mask="c2"  TextWrapping="WrapWithOverflow"  />
+                                    </dxg:GridColumn.EditSettings>
+                                </dxg:GridColumn>
+
+                                <dxg:GridColumn FieldName="HospitalAmountRefuse" Header="Стационар отказ">
+                                    <dxg:GridColumn.EditSettings>
+                                        <dxe:TextEditSettings DisplayFormat="c2" MaskType="Numeric"  Mask="c2"  TextWrapping="WrapWithOverflow"  />
+                                    </dxg:GridColumn.EditSettings>
+                                </dxg:GridColumn>
+
+                                <dxg:GridColumn FieldName="HospitalAmountFact" Header="Стационар факт">
+                                    <dxg:GridColumn.EditSettings>
+                                        <dxe:TextEditSettings DisplayFormat="c2" MaskType="Numeric"  Mask="c2"  TextWrapping="WrapWithOverflow"  />
+                                    </dxg:GridColumn.EditSettings>
+                                </dxg:GridColumn>
+
+                                <dxg:GridColumn FieldName="DayHospitalAmountPayable" Header="Дневной стационар к оплате">
+                                    <dxg:GridColumn.EditSettings>
+                                        <dxe:TextEditSettings DisplayFormat="c2" MaskType="Numeric"  Mask="c2"  TextWrapping="WrapWithOverflow"  />
+                                    </dxg:GridColumn.EditSettings>
+                                </dxg:GridColumn>
+
+                                <dxg:GridColumn FieldName="DayHospitalAmountRefuse" Header="Дневной стационар отказ">
+                                    <dxg:GridColumn.EditSettings>
+                                        <dxe:TextEditSettings DisplayFormat="c2" MaskType="Numeric"  Mask="c2"  TextWrapping="WrapWithOverflow"  />
+                                    </dxg:GridColumn.EditSettings>
+                                </dxg:GridColumn>
+
+                                <dxg:GridColumn FieldName="DayHospitalAmountFact" Header="Дневной стационар факт">
+                                    <dxg:GridColumn.EditSettings>
+                                        <dxe:TextEditSettings DisplayFormat="c2" MaskType="Numeric"  Mask="c2"  TextWrapping="WrapWithOverflow"  />
+                                    </dxg:GridColumn.EditSettings>
+                                </dxg:GridColumn>
+
+                                <dxg:GridColumn FieldName="AmbulanceAmountPayable" Header="Скорая помощь к оплате">
+                                    <dxg:GridColumn.EditSettings>
+                                        <dxe:TextEditSettings DisplayFormat="c2" MaskType="Numeric"  Mask="c2"  TextWrapping="WrapWithOverflow"  />
+                                    </dxg:GridColumn.EditSettings>
+                                </dxg:GridColumn>
+
+                                <dxg:GridColumn FieldName="AmbulanceAmountRefuse" Header="Скорая помощь отказ">
+                                    <dxg:GridColumn.EditSettings>
+                                        <dxe:TextEditSettings DisplayFormat="c2" MaskType="Numeric"  Mask="c2"  TextWrapping="WrapWithOverflow"  />
+                                    </dxg:GridColumn.EditSettings>
+                                </dxg:GridColumn>
+
+                                <dxg:GridColumn FieldName="AmbulanceAmountFact" Header="Скорая помощь факт">
+                                    <dxg:GridColumn.EditSettings>
+                                        <dxe:TextEditSettings DisplayFormat="c2" MaskType="Numeric"  Mask="c2"  TextWrapping="WrapWithOverflow"  />
+                                    </dxg:GridColumn.EditSettings>
+                                </dxg:GridColumn>
+
+                                <dxg:GridColumn FieldName="TotalAmountPayable" Header="Сумма к оплате">
+                                    <dxg:GridColumn.EditSettings>
+                                        <dxe:TextEditSettings DisplayFormat="c2" MaskType="Numeric"  Mask="c2"  TextWrapping="WrapWithOverflow"  />
+                                    </dxg:GridColumn.EditSettings>
+                                </dxg:GridColumn>
+
+                                <dxg:GridColumn FieldName="TotalAmountRefuse" Header="Сумма отказов">
+                                    <dxg:GridColumn.EditSettings>
+                                        <dxe:TextEditSettings DisplayFormat="c2" MaskType="Numeric"  Mask="c2"  TextWrapping="WrapWithOverflow"  />
+                                    </dxg:GridColumn.EditSettings>
+                                </dxg:GridColumn>
+
+                                <dxg:GridColumn FieldName="Account.TotalAmount" Header="Фактически оплаченная сумма">
+                                    <dxg:GridColumn.EditSettings>
+                                        <dxe:TextEditSettings DisplayFormat="c2" MaskType="Numeric"  Mask="c2"  TextWrapping="WrapWithOverflow"  />
+                                    </dxg:GridColumn.EditSettings>
+                                </dxg:GridColumn>
+
+                                <dxg:GridColumn FieldName="TerritoryAccount.Status" Header="Статус счета" >
+                                    <dxg:GridColumn.EditSettings>
+                                        <dxe:TextEditSettings DisplayTextConverter="{StaticResource AccountStatusConverter}"/>
+                                    </dxg:GridColumn.EditSettings>
+                                </dxg:GridColumn>
+
+                                <dxg:GridColumn FieldName="Account.EconomicAccountId" Header="ID информации об оплате" />
+
+                            </dxg:GridControl.Columns>
+                            <dxg:GridControl.TotalSummary>
+                                <dxg:GridSummaryItem FieldName="Account.EconomicAccountId" SummaryType="Count" DisplayFormat="Всего счетов: {0}"/>
+                            </dxg:GridControl.TotalSummary>
+
+                            <dxg:GridControl.View>
+                                <dxg:TableView Name="tableView"  
+                                       AllowEditing="False" 
+                                       ShowIndicator="True"
+                                       AllowCascadeUpdate="True"        
+                                       ShowGroupPanel="False" 
+                                       ShowAutoFilterRow="True" 
+                                       NavigationStyle="Row"
+                                       WaitIndicatorType="Panel"
+                                       ShowTotalSummary="True"
+                                       RowAnimationKind="None"
+                                       HeaderPanelMinHeight="35"          
+                                    />
+                            </dxg:GridControl.View>
+                            <dxg:GridControl.GroupSummary>
+                                <dxg:GridSummaryItem FieldName="AccountNumber" SummaryType="Count"/>
+                            </dxg:GridControl.GroupSummary>
+                        </dxg:GridControl>
+                    </dxlc:LayoutItem>
+
+                </dxlc:LayoutControl>
+            </Grid>
+        </Grid>
+
+        <i:Interaction.Triggers>
+            <i:EventTrigger EventName="Closed">
+                <i:InvokeCommandAction Command="{Binding ElementName=pLinqAccountDataSource, Path=DisposeCommand}" />
+            </i:EventTrigger>
+        </i:Interaction.Triggers>
+        
+    </dxb:BarManager>
+</UserControl>

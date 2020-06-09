@@ -1,0 +1,56 @@
+﻿<#@ template language="C#" hostspecific="True" debug="True"#>
+<#@ include file="T4Toolbox.tt" #>
+<#@ assembly name="System.Xml" #>
+<#@ assembly name="System.Xml.Linq" #>
+<#@ import namespace="System.Xml" #>
+<#@ import namespace="System.Xml.Linq" #>
+<#@ import namespace="System.Xml.Schema" #>
+<#@ import namespace="System.Text" #>
+ 
+
+<# 
+	AssemblyTemplate template = new AssemblyTemplate();
+    template.Output.File = @"Properties\AssemblyInfo.cs";
+	template.Output.Project = @"CoreLayer.csproj";
+    template.Render();
+
+#>	
+
+<#+ 
+    public class AssemblyTemplate : Template
+    {
+		public static int  RevisionNumber = (int)(DateTime.UtcNow - new DateTime(2010,1,1)).TotalDays; 
+		public static string  Name = "CoreApp"; 
+		public static string  Author = "Andrew Gritsenko";
+		public static string  Description = "Библиотека ядра приложения";
+		public static string  Url = "http://";
+		public static string  Copyright = "Copyright 2011-2014 Andrew Gritsenko";
+		public static string  Company = "TFOMS of Kursk region"; 
+		 
+        public override string TransformText()
+        {
+			this.WriteLine("using System.Reflection;");
+			this.WriteLine("using System.Runtime.InteropServices;");
+			this.WriteLine("using System.Windows;");
+			
+
+			this.WriteLine("[assembly: AssemblyTitle(\"" + Name + "\")]");
+			this.WriteLine("[assembly: AssemblyDescription(\"" + Description + "\")]");
+			this.WriteLine("[assembly: AssemblyConfiguration(\"\")]");
+			this.WriteLine("[assembly: AssemblyCompany(\"\")]");
+			this.WriteLine("[assembly: AssemblyProduct(\"" + Name + "\")]");
+			this.WriteLine("[assembly: AssemblyCopyright(\"Copyright  2011-2012 SWSU\")]");
+			this.WriteLine("[assembly: AssemblyTrademark(\"\")]");
+			this.WriteLine("[assembly: AssemblyCulture(\"\")]");
+
+			this.WriteLine("[assembly: ComVisible(false)]");
+
+			this.WriteLine("[assembly: AssemblyVersion(\"1.0.0." + RevisionNumber + "\")]");
+			this.WriteLine("[assembly: AssemblyFileVersion(\"1.0.0." + RevisionNumber + "\")]");
+
+            return this.GenerationEnvironment.ToString();
+        }
+    }
+
+#>
+

@@ -1,0 +1,26 @@
+﻿<UserControl x:Class="Medical.AppLayer.Editors.ReportControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors" mc:Ignorable="d" 
+             d:DesignHeight="25" d:DesignWidth="300">
+    <Grid>
+        <dxe:MemoEdit x:Name="Editor"
+                      EditValue="{Binding ValueText,ElementName=_uc}"
+                      ShowBorder="False" 
+                      Height="20" 
+                      NullText="Отсутствует" 
+                      AcceptsReturn="True" 
+                      AllowDefaultButton="False" 
+                      IsReadOnly="True" 
+                      PopupFooterButtons="{x:Null}">
+            
+            <dxe:ButtonInfo GlyphKind="Regular" Click="SelectFile"/>
+            <dxe:ButtonInfo GlyphKind="Edit" Click="ShowDesigner"/>
+            <dxe:ButtonInfo GlyphKind="Search" Click="PreviewReport"/>
+            <dxe:ButtonInfo GlyphKind="Apply" Click="SaveReportFile"/>
+            <dxe:ButtonInfo GlyphKind="Cancel" Click="ResetValue"/>
+        </dxe:MemoEdit>
+    </Grid>
+</UserControl>

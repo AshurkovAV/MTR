@@ -1,0 +1,20 @@
+﻿вкючение миграций
+enable-migrations  -ProjectName Database -StartUpProjectName Database
+
+добавление начальной миграции на существующую базу данных
+Add-Migration InitialCreate –IgnoreChanges -ProjectName Database -StartUpProjectName Database -ConnectionString "data source=.\SQLEXPRESS;initial catalog=medicine_ins;integrated security=True;MultipleActiveResultSets=True;App=EntityFramework" -ConnectionProviderName "System.Data.SqlClient"
+обновление базы данных
+Update-Database -ProjectName Database -StartUpProjectName Database -ConnectionString "data source=.\SQLEXPRESS;initial catalog=medicine_ins;integrated security=True;MultipleActiveResultSets=True;App=EntityFramework" -ConnectionProviderName "System.Data.SqlClient" 
+добавление новой миграции
+Add-Migration AddLocalUserProfile -ProjectName Database -StartUpProjectName Database -ConnectionString "data source=.\SQLEXPRESS;initial catalog=medicine_ins;integrated security=True;MultipleActiveResultSets=True;App=EntityFramework" -ConnectionProviderName "System.Data.SqlClient" -Force
+
+откат на начальную миграцию
+Update-Database -TargetMigration $InitialDatabase -ProjectName Database -ConnectionString "data source=.\SQLEXPRESS;initial catalog=medicine_ins;integrated security=True;MultipleActiveResultSets=True;App=EntityFramework" -ConnectionProviderName "System.Data.SqlClient"
+
+FAQ
+Если не указать целевую миграцию, то в качестве целевого объекта будет взята самая последняя миграция. 
+Если не указать источник, то за источник принимается текущее состояние базы данных.
+Update-Database -Script -SourceMigration: $InitialDatabase -TargetMigration: AddPostAbstract
+
+
+Add-Migration AddElmedicineFields -ProjectName Database -StartUpProjectName Database -ConnectionString "data source=tfoms-2012;initial catalog=medicine_ins_new;User Id=sa;Password=nfyjnjvjh;MultipleActiveResultSets=True;App=EntityFramework" -ConnectionProviderName "System.Data.SqlClient" -Force

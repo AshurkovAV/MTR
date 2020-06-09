@@ -1,0 +1,60 @@
+﻿<controls:MetroWindow
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol" 
+        xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+        xmlns:dxre="http://schemas.devexpress.com/winfx/2008/xaml/richedit"
+        xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+        x:Class="Medical.AppLayer.Operator.Views.CreateAccountView" 
+        Width="800"
+        Height="600"
+        ResizeMode="NoResize" 
+        Title="Создание счета"
+        WindowStartupLocation="CenterScreen"
+        BorderBrush="{DynamicResource AccentColorBrush}"
+        BorderThickness="1" 
+        WindowTransitionsEnabled="False"
+        >
+    <controls:MetroWindow.Resources>
+        <dxre:HtmlToContentConverter x:Key="HtmlToContentConverter"/>
+    </controls:MetroWindow.Resources>
+    
+    <Grid>
+
+        <dxlc:LayoutControl View="Tabs">
+            <dxlc:LayoutGroup Orientation="Vertical">
+                <dxlc:LayoutItem/>
+                <dxlc:LayoutItem Height="24" Label="Отчетная дата">
+                    <Separator/>
+                </dxlc:LayoutItem>
+                <dxlc:LayoutItem>
+                    <dxe:ComboBoxEdit DisplayMember="Name" ValueMember="Value" ItemsSource="{Binding YearCollection}" EditValue="{Binding SelectedYear, UpdateSourceTrigger=PropertyChanged}" AutoComplete="True" NullText="Выберите год"/>
+                </dxlc:LayoutItem>
+                <dxlc:LayoutItem>
+                    <dxe:ComboBoxEdit DisplayMember="Name" ValueMember="Value" ItemsSource="{Binding MonthCollection}" EditValue="{Binding SelectedMonth, UpdateSourceTrigger=PropertyChanged}" AutoComplete="True" NullText="Выберите месяц"/>
+                </dxlc:LayoutItem>
+                <dxlc:LayoutItem Height="24" Label="Детали">
+                    <Separator/>
+                </dxlc:LayoutItem>
+                <dxlc:LayoutItem VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                    <dxre:RichEditControl Name="LogControl" 
+                                          ShowCaretInReadOnly="True"
+                                          ReadOnly="True"
+                                          IsCaretVisible="True" 
+                                          ActiveViewType="Simple" 
+                                          HorizontalScrollBarVisibility="Collapsed" 
+                                          Content="{Binding Notes, Converter={StaticResource HtmlToContentConverter}, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"/>
+                </dxlc:LayoutItem>
+                <dxlc:LayoutItem Height="24">
+                    <Separator/>
+                </dxlc:LayoutItem>
+                <dxlc:LayoutGroup>
+                    <Button Content="Создать" Height="23" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="112" Command="{Binding CreateAccountCommand}" />
+                    <Button Content="Закрыть" Height="23" HorizontalAlignment="Right"  VerticalAlignment="Bottom" Width="100" IsCancel="True"/>
+                </dxlc:LayoutGroup>
+            </dxlc:LayoutGroup>
+
+        </dxlc:LayoutControl>
+
+    </Grid>
+</controls:MetroWindow>

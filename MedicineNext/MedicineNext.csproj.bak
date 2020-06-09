@@ -1,0 +1,526 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{6928AE12-7AE2-4CCA-B7D4-75897D7F47A3}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>MedicineNext</RootNamespace>
+    <AssemblyName>MedicineNext</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\Bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\Bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>physician_white.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Autofac, Version=4.0.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.4.0.0\lib\net451\Autofac.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="BLToolkit.4, Version=4.3.4.0, Culture=neutral, PublicKeyToken=b1d3f6ab3aadaca3, processorArchitecture=MSIL">
+      <HintPath>..\packages\BLToolkit.4.3.4\lib\net40\BLToolkit.4.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Charts.v16.1.Core, Version=16.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Data.v16.1, Version=16.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Images.v16.1, Version=16.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Mvvm.v16.1, Version=16.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Office.v16.1.Core, Version=16.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Printing.v16.1.Core, Version=16.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.RichEdit.v16.1.Core, Version=16.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Xpf.Charts.v16.1, Version=16.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Xpf.Controls.v16.1, Version=16.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Xpf.Core.v16.1, Version=16.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Xpf.Docking.v16.1, Version=16.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Xpf.Grid.v16.1, Version=16.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Xpf.Grid.v16.1.Core, Version=16.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Xpf.Layout.v16.1.Core, Version=16.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Xpf.LayoutControl.v16.1, Version=16.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Xpf.Printing.v16.1, Version=16.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Xpf.PropertyGrid.v16.1, Version=16.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Xpf.Ribbon.v16.1, Version=16.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Xpf.RichEdit.v16.1, Version=16.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Xpf.Themes.Office2013.v16.1, Version=16.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="GalaSoft.MvvmLight, Version=5.3.0.19026, Culture=neutral, PublicKeyToken=e7570ab207bcb616, processorArchitecture=MSIL">
+      <HintPath>..\packages\MvvmLightLibs.5.3.0.0\lib\net45\GalaSoft.MvvmLight.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="GalaSoft.MvvmLight.Extras, Version=5.3.0.19032, Culture=neutral, PublicKeyToken=669f0b5e8f868abf, processorArchitecture=MSIL">
+      <HintPath>..\packages\MvvmLightLibs.5.3.0.0\lib\net45\GalaSoft.MvvmLight.Extras.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="GalaSoft.MvvmLight.Platform, Version=5.3.0.19032, Culture=neutral, PublicKeyToken=5f873c45e98af8a1, processorArchitecture=MSIL">
+      <HintPath>..\packages\MvvmLightLibs.5.3.0.0\lib\net45\GalaSoft.MvvmLight.Platform.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib, Version=0.86.0.518, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
+      <HintPath>..\packages\SharpZipLib.0.86.0\lib\20\ICSharpCode.SharpZipLib.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MahApps.Metro, Version=1.2.4.0, Culture=neutral, PublicKeyToken=f4fb5a3c4d1e5b4f, processorArchitecture=MSIL">
+      <HintPath>..\packages\MahApps.Metro.1.2.4.0\lib\net45\MahApps.Metro.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Expression.Interactions">
+      <HintPath>..\NotNugetLibs\Microsoft.Expression.Interactions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\CommonServiceLocator.1.3\lib\portable-net4+sl5+netcore45+wpa81+wp8\Microsoft.Practices.ServiceLocation.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net" />
+    <Reference Include="System.Printing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\MvvmLightLibs.5.3.0.0\lib\net45\System.Windows.Interactivity.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="UIAutomationProvider" />
+    <Reference Include="UIAutomationTypes" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="Auto.cs">
+      <DependentUpon>Auto.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Internal\Bootstrapper.cs" />
+    <Compile Include="Internal\Extension.cs" />
+    <Compile Include="Internal\ISplashScreenEx.cs" />
+    <Compile Include="Internal\MedicineSplashScreen.cs" />
+    <Compile Include="Internal\MVVM\CategoryModel.cs" />
+    <Compile Include="Internal\MVVM\CommandModel.cs" />
+    <Compile Include="Internal\MVVM\ModelBase.cs" />
+    <Compile Include="Internal\MVVM\MyGroupCommand.cs" />
+    <Compile Include="Internal\MVVM\MyParentCommand.cs" />
+    <Compile Include="Internal\MVVM\PageGroupModel.cs" />
+    <Compile Include="Internal\MVVM\PageModel.cs" />
+    <Compile Include="Internal\MVVM\WaitIndicatorModel.cs" />
+    <Compile Include="Internal\Utils.cs" />
+    <Compile Include="Managers\OverlayManager.cs" />
+    <Compile Include="Managers\NotifyManager.cs" />
+    <Compile Include="Resources\IShellResourceCatalog.cs" />
+    <Compile Include="UI\DXSplashScreen\AppSplashScreen.xaml.cs">
+      <DependentUpon>AppSplashScreen.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Workbench\WpfWorkbench.cs" />
+    <Compile Include="ViewModel.cs" />
+    <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Page Include="UI\DXSplashScreen\AppSplashScreen.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\licenses.licx" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="app.config" />
+    <None Include="Auto.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Auto.cs</LastGenOutput>
+      <LastOutputs>.\Properties\AssemblyInfo.cs</LastOutputs>
+    </None>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\edit.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\App\AppLayer.csproj">
+      <Project>{9b4b4bcb-9c66-4fd4-8fd4-848baeeb98c7}</Project>
+      <Name>AppLayer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CoreLayer\CoreLayer.csproj">
+      <Project>{74298f56-160f-44cb-808f-077b69a3e53b}</Project>
+      <Name>CoreLayer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Core\Core.csproj">
+      <Project>{3d0ad1d2-d4f2-40fb-8ed4-f9ef3a48de2a}</Project>
+      <Name>Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Database\Database.csproj">
+      <Project>{7c69d4fb-3db0-4b3d-9c9a-35eb8ddca4a9}</Project>
+      <Name>Database</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DataCore\Data.csproj">
+      <Project>{680d983e-450d-419a-a9b2-48ac15a976f0}</Project>
+      <Name>Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Remote\Remote.csproj">
+      <Project>{0eb143b8-4f86-40dc-b30e-5b06593a809a}</Project>
+      <Name>Remote</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\cancel.png" />
+    <Resource Include="Resources\Icons\document-print.png" />
+    <Resource Include="Resources\Icons\document-save-all.png" />
+    <Resource Include="Resources\Icons\document-save-as.png" />
+    <Resource Include="Resources\Icons\document-save.png" />
+    <Resource Include="Resources\Icons\edit-delete.png" />
+    <Resource Include="Resources\Icons\folder-download.png" />
+    <Resource Include="Resources\Icons\folder.png" />
+    <Resource Include="Resources\Icons\ok.png" />
+    <Resource Include="Resources\Icons\system-settings.png" />
+    <Resource Include="Resources\Icons\text-xml.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\application-exit.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\view-refresh.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\text-x-log.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\16\key.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\document-new.png" />
+    <Resource Include="Resources\Icons\report-viewer.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\edit-copy.png" />
+    <Resource Include="Resources\Icons\excel.png" />
+    <Resource Include="Resources\Icons\mark.png" />
+    <Resource Include="Resources\Icons\run-build-clean.png" />
+    <Resource Include="Resources\Icons\run-build.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\text-x-texinfo.png" />
+    <Resource Include="Resources\Icons\view-refresh-2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\archive-remove.png" />
+    <Resource Include="Resources\Icons\bookmark-new.png" />
+    <Resource Include="Resources\Icons\bookmark.png" />
+    <Resource Include="Resources\Icons\printer.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\clinic.png" />
+    <Resource Include="Resources\Icons\document-revert.png" />
+    <Resource Include="Resources\Icons\edit-clear.png" />
+    <Resource Include="Resources\Icons\eqma.png" />
+    <Resource Include="Resources\Icons\help-faq.png" />
+    <Resource Include="Resources\Icons\help.png" />
+    <Resource Include="Resources\Icons\hospital.png" />
+    <Resource Include="Resources\Icons\hospitalday.png" />
+    <Resource Include="Resources\Icons\list-add-2.png" />
+    <Resource Include="Resources\Icons\list-add.png" />
+    <Resource Include="Resources\Icons\lock.png" />
+    <Resource Include="Resources\Icons\logo.png" />
+    <Resource Include="Resources\Icons\mec.png" />
+    <Resource Include="Resources\Icons\mee.png" />
+    <Resource Include="Resources\Icons\text-x-changelog.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\go-down-search.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\go-bottom-in.png" />
+    <Resource Include="Resources\Icons\go-bottom-out.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\document-export.png" />
+    <Resource Include="Resources\Icons\document-import.png" />
+    <Resource Include="Resources\Icons\document-save-2.png" />
+    <Resource Include="Resources\Icons\document-send.png" />
+    <Resource Include="Resources\Icons\documentation.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\report.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\view-statistics.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\bookmarks-organize.png" />
+    <Resource Include="Resources\Icons\share.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\bookmark-remove.png" />
+    <Resource Include="Resources\Icons\minus.png" />
+    <Resource Include="Resources\Icons\plus.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\physician_white.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\system-search.png" />
+    <Resource Include="Resources\Icons\system-users.png" />
+    <Resource Include="Resources\Icons\user-new.png" />
+    <Resource Include="Resources\Icons\user-online.png" />
+    <Resource Include="Resources\Icons\user-properties.png" />
+    <Resource Include="Resources\Icons\user-search.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\text-x-preview.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\text-x-search.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\text-x-script.png" />
+    <Resource Include="Resources\Icons\x-office-document.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\application-x-designer.png" />
+    <Resource Include="Resources\Icons\application-x-viewer.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\report-run.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="physician_white.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\dialog-clean.png" />
+    <Resource Include="Resources\Icons\dialog-error.png" />
+    <Resource Include="Resources\Icons\dialog-information.png" />
+    <Resource Include="Resources\Icons\dialog-warning.png" />
+    <Resource Include="Resources\Icons\emblem-important-red.png" />
+    <Resource Include="Resources\Icons\task-complete.png" />
+    <Resource Include="Resources\Icons\user-available.png" />
+    <Resource Include="Resources\Icons\user-busy.png" />
+    <Resource Include="Resources\Icons\user-offline.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\mail-send.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\view-filter.png" />
+    <Resource Include="Resources\Icons\view-history.png" />
+    <Resource Include="Resources\Icons\view-list-details.png" />
+    <Resource Include="Resources\Icons\view-list-text.png" />
+    <Resource Include="Resources\Icons\view-process-all-tree.png" />
+    <Resource Include="Resources\Icons\view-process-all.png" />
+    <Resource Include="Resources\Icons\view-process-own.png" />
+    <Resource Include="Resources\Icons\view-process-system.png" />
+    <Resource Include="Resources\Icons\view-process-users.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\edit-destroy.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\folder-print.png" />
+    <Resource Include="Resources\Icons\folder-sync.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\payments.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\edit-group.png" />
+    <Resource Include="Resources\Icons\view-filter-error.png" />
+    <Resource Include="Resources\Icons\view-filter-people.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\eye.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\tortoise.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\list-remove.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\tools-wizard.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\document-open.png" />
+    <Resource Include="Resources\Icons\document-sign.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\start.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\stop.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\emblem-web.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\favorites.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\run-build-install.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\format-indent.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\utilities-log_viewer.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\run-build2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\go-jump.png" />
+    <Resource Include="Resources\Icons\go-jump2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\user-delete.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\drive-harddisk.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\processing.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\system-run.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\edit-destroy-many.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\acts.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\applications-office.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\import-export.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\db_in.png" />
+    <Resource Include="Resources\Icons\db_out.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.0">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.4.5">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 4.5</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

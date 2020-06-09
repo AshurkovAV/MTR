@@ -1,0 +1,73 @@
+﻿<Window
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors" 
+    xmlns:System="clr-namespace:System;assembly=mscorlib" 
+    x:Class="Medical.CoreLayer.Gui.Dialogs.ExceptionDialog" 
+
+    mc:Ignorable="d" x:Name="exceptionDialog"
+    WindowStyle="None" ResizeMode="NoResize" Width="800" Height="600" WindowStartupLocation="CenterScreen"
+    AllowsTransparency="True" 
+    Background="Transparent" 
+    ShowInTaskbar="False" 
+    Topmost="True">
+    <Window.Resources>
+        <SolidColorBrush x:Key="MetroBackgroundBrush">
+            <SolidColorBrush.Color>
+                <Color A="255" R="255" G="255" B="255"/>
+            </SolidColorBrush.Color>
+        </SolidColorBrush>
+        <SolidColorBrush x:Key="metroThemeOrangeBrush" Color="#F78A09"/>
+    </Window.Resources>
+    <Window.Triggers>
+        <EventTrigger RoutedEvent="FrameworkElement.Unloaded">
+            <BeginStoryboard>
+                <Storyboard x:Name="board">
+                    <DoubleAnimation Storyboard.TargetName="exceptionDialog" Storyboard.TargetProperty="Opacity" From="1.0" To="0" Duration="0:0:1.5" />
+                </Storyboard>
+            </BeginStoryboard>
+        </EventTrigger>
+    </Window.Triggers>
+
+    <Grid x:Name="LayoutRoot">
+        <Grid x:Name="Splash" Width="550" Height="600" HorizontalAlignment="Center" VerticalAlignment="Top">
+            <Grid x:Name="Back">
+                <Grid.Effect>
+                    <DropShadowEffect ShadowDepth="1" Direction="-90" BlurRadius="10" Opacity="0.25"/>
+                </Grid.Effect>
+                <Border Background="Black" CornerRadius="3" Opacity="0.15"/>
+                <Border CornerRadius="2" Margin="1" Background="{StaticResource MetroBackgroundBrush}"/>
+            </Grid>
+            <Grid x:Name="Content_Area" Margin="12">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="30"/>
+                </Grid.RowDefinitions>
+                <Image x:Name="Image" Source="/CoreAddIn;component/Resource/bug.png" Stretch="None"/>
+                <StackPanel x:Name="Footer" Grid.Row="1" Margin="12">
+                    <TextBlock x:Name="Reason" TextWrapping="Wrap" Text="Reason" Foreground="Black" VerticalAlignment="Center" FontWeight="Bold"/>
+                    <TextBlock x:Name="Please" TextWrapping="Wrap" Text="Пожалуйста, нажмите продолжить или выход. Сохраните в текстовом файле данные (вставить Ctrl+V) и передайте разработчикам. Спасибо!"  Foreground="Black"/>
+                </StackPanel>
+
+                <TextBox Grid.Row="2" x:Name="Info" TextWrapping="Wrap" Margin="12,0,12,0" Foreground="Black" Opacity="0.75"
+					ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+					ScrollViewer.VerticalScrollBarVisibility="Auto"
+					ScrollViewer.CanContentScroll="True"/>
+                <Separator Grid.Row="3" Margin="0,10,0,0"/>
+                <dxe:CheckEdit Content="Скопировать в буфер обмена" Width="195" Grid.Row="4" HorizontalAlignment="Left" Name="IsCopyToClipboard">
+                    <dxe:CheckEdit.EditValue>
+                        <System:Boolean>True</System:Boolean>
+                    </dxe:CheckEdit.EditValue>
+                </dxe:CheckEdit>
+                <Button Content="Закрыть" Grid.Row="4" Margin="0,2,105,0" HorizontalAlignment="Right" x:Name="ExitButton" VerticalAlignment="Top" Height="26" Width="100" Click="ExitButton_Click" />
+                <Button Content="Продолжить" Grid.Row="4" Margin="0,2,0,0" HorizontalAlignment="Right" x:Name="CloseButton" VerticalAlignment="Top" Height="26" Width="100" IsCancel="True" Click="CloseButton_Click" />
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>
+    

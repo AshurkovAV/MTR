@@ -1,0 +1,58 @@
+﻿<UserControl
+    x:Class="Medical.AppLayer.Economic.Views.EcoReportRevisePrefilterView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol" 
+    xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+    xmlns:dxwui="http://schemas.devexpress.com/winfx/2008/xaml/windowsui"
+    x:Name="EcoReportRevisePrefilterControl"
+    Height="Auto" 
+    Width="Auto">
+
+    <Grid>
+        <dxwui:PageAdornerControl Header="Акт сверки счетов - префильтр">
+            <Border>
+                <dxlc:LayoutControl StretchContentHorizontally="True" Orientation="Vertical">
+                    <dxlc:LayoutItem Label="Территория" FontSize="16" >
+                        <dxe:ComboBoxEdit Name="_territoryComboBox"  
+                                          EditValue="{Binding SelectedTerritory,
+                                            UpdateSourceTrigger=PropertyChanged,
+                                            ValidatesOnExceptions=true, 
+                                            ValidatesOnDataErrors=true, 
+                                            NotifyOnValidationError=true}" 
+                                          DisplayMember="DisplayName" 
+                                          ValueMember="Value" 
+                                          NullText="Отсутствует"
+                                          AutoComplete="True" 
+                                          IsTextEditable="False"
+                                          IncrementalFiltering="True" 
+                                          ImmediatePopup="True"
+                                          FontSize="16" >
+                        </dxe:ComboBoxEdit>
+                    </dxlc:LayoutItem>
+                    <dxlc:LayoutItem Label="Отчетный период: Начало" FontSize="16">
+                        <dxe:DateNavigator HorizontalAlignment="Left" VerticalAlignment="Top" 
+                                           IsMultiSelect="False" 
+            		    FocusedDate="{Binding BeginDate, NotifyOnValidationError=true, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, ValidatesOnExceptions=true}" FontSize="16" ShowTodayButton="False"/>
+                    </dxlc:LayoutItem>
+                    <dxlc:LayoutItem Label="Отчетный период: Конец" FontSize="16">
+                        <dxe:DateNavigator HorizontalAlignment="Left" VerticalAlignment="Top"
+                                           IsMultiSelect="False" 
+            		    FocusedDate="{Binding EndDate, NotifyOnValidationError=true, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, ValidatesOnExceptions=true}" FontSize="16" ShowTodayButton="False"/>
+                    </dxlc:LayoutItem>
+                    <dxlc:LayoutItem Height="16" FontSize="16">
+                        <Separator FontSize="16"/>
+                    </dxlc:LayoutItem>
+                    <dxlc:LayoutGroup>
+                        <dxlc:LayoutItem Label="Редактирование отчета" FontSize="16" HorizontalAlignment="Left">
+                            <dxe:CheckEdit EditValue="{Binding IsDesign, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="16"/>
+                        </dxlc:LayoutItem>
+                        <Button Content="Открыть" Height="23" HorizontalAlignment="Right" VerticalAlignment="Top" Width="75"  Command="{Binding CreateReportCommand}" FontSize="12"/>
+                    </dxlc:LayoutGroup>
+                </dxlc:LayoutControl>
+            </Border>
+        </dxwui:PageAdornerControl>
+
+
+    </Grid>
+</UserControl>

@@ -1,0 +1,174 @@
+﻿<UserControl xmlns:dxpg="http://schemas.devexpress.com/winfx/2008/xaml/pivotgrid"  x:Class="Medical.Economic.Views.EconomicAccountStatisticsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+             xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
+             mc:Ignorable="d" 
+             d:DesignHeight="661" d:DesignWidth="800" 
+             xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol"
+             >
+    <UserControl.Resources>
+
+    </UserControl.Resources>
+    
+    <dxb:BarManager x:Name="barManager" CreateStandardLayout="False">
+        <dxb:BarManager.Items>
+            <dxb:BarButtonItem Name="_bRefresh" ItemClick="_bRefresh_OnItemClick" Content="Обновить" KeyGesture="Ctrl+R"   CommandParameter="{Binding ElementName=tableView, Path=FocusedRow}" GlyphAlignment="Top" BarItemDisplayMode="ContentAndGlyph" Glyph="../Resource/view-refresh-4.png" LargeGlyph="../Resource/view-refresh-4.png"/>
+            <dxb:BarButtonItem Name="_bPrint" ItemClick="BPrint_OnItemClick" GlyphAlignment="Top" BarItemDisplayMode="ContentAndGlyph"  Content="Экспорт"  ToolTip="Печать счетов" Glyph="../Resource/aqua_excel32.png" LargeGlyph="../Resource/aqua_excel32.png"/>
+
+        </dxb:BarManager.Items>
+        <dxb:BarManager.Bars>
+            <dxb:Bar x:Name="bar1" Caption="Главная" UseWholeRow="True" IsMainMenu="False">
+                <dxb:Bar.DockInfo>
+                    <dxb:BarDockInfo ContainerName="Top_Container" ContainerType="Top"/>
+                </dxb:Bar.DockInfo>
+                <dxb:Bar.ItemLinks>
+                    <dxb:BarButtonItemLink BarItemName="_bRefresh"/>
+                    <dxb:BarItemLinkSeparator />
+                    <dxb:BarButtonItemLink BarItemName="_bPrint"/>
+                </dxb:Bar.ItemLinks>
+            </dxb:Bar>
+        </dxb:BarManager.Bars>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="550*"/>
+            </Grid.RowDefinitions>
+            <dxb:BarContainerControl Name="Top_Container" />
+            
+            <dxlc:LayoutControl Grid.Row="1" >
+                <dxlc:LayoutItem Label="Дата счета с" >
+                    <dxe:DateEdit EditValue="{Binding SelectedAccountDateBegin,UpdateSourceTrigger=PropertyChanged}">
+                        <dxe:DateEdit.Buttons>
+                            <dxe:ButtonInfo GlyphKind="Cancel" Command="{Binding ResetAccountDateBeginCommand}"/>
+                        </dxe:DateEdit.Buttons>
+                    </dxe:DateEdit>
+                </dxlc:LayoutItem>
+
+                <dxlc:LayoutItem Label="по" >
+                    <dxe:DateEdit EditValue="{Binding SelectedAccountDateEnd,UpdateSourceTrigger=PropertyChanged}">
+                        <dxe:DateEdit.Buttons>
+                            <dxe:ButtonInfo GlyphKind="Cancel" Command="{Binding ResetAccountDateEndCommand}"/>
+                        </dxe:DateEdit.Buttons>
+                    </dxe:DateEdit>
+                </dxlc:LayoutItem>
+                
+                <dxlc:LayoutItem Label="Период с" >
+                    <dxe:DateEdit EditValue="{Binding SelectedDateBegin,UpdateSourceTrigger=PropertyChanged}">
+                        <dxe:DateEdit.Buttons>
+                            <dxe:ButtonInfo GlyphKind="Cancel" Command="{Binding ResetDateBeginCommand}"/>
+                        </dxe:DateEdit.Buttons>
+                    </dxe:DateEdit>
+                </dxlc:LayoutItem>
+
+                <dxlc:LayoutItem Label="по" >
+                    <dxe:DateEdit EditValue="{Binding SelectedDateEnd,UpdateSourceTrigger=PropertyChanged}">
+                        <dxe:DateEdit.Buttons>
+                            <dxe:ButtonInfo GlyphKind="Cancel" Command="{Binding ResetDateEndCommand}"/>
+                        </dxe:DateEdit.Buttons>
+                    </dxe:DateEdit>
+                </dxlc:LayoutItem>
+
+                <dxlc:LayoutItem Label="Территория" >
+                    <dxe:ComboBoxEdit ItemsSource="{Binding TerritoryList}" 
+                                      EditValue="{Binding SelectedTerritory,UpdateSourceTrigger=PropertyChanged}" 
+                                      Name="_territoryComboBox" 
+                                      DisplayMember="SUBNAME" 
+                                      ValueMember="KOD_OKATO" 
+                                      NullText="Отсутствует"
+                                      AutoComplete="True" >
+                        <dxe:ComboBoxEdit.Buttons>
+                            <dxe:ButtonInfo GlyphKind="Cancel" Command="{Binding ResetTerritoryCommand}" />
+                        </dxe:ComboBoxEdit.Buttons>
+                    </dxe:ComboBoxEdit>
+                </dxlc:LayoutItem>
+
+                <dxlc:LayoutItem Label="Статус счета" >
+                    <dxe:ComboBoxEdit SelectedIndex="{Binding SelectedStatus, UpdateSourceTrigger=PropertyChanged}" NullText="Выберете статус">
+                        <dxe:ComboBoxEdit.Buttons>
+                            <dxe:ButtonInfo GlyphKind="Cancel" Command="{Binding ResetStatusCommand}"/>
+                        </dxe:ComboBoxEdit.Buttons>
+                        <dxe:ComboBoxEditItem Content="Не отработан"/>
+                        <dxe:ComboBoxEditItem Content="Отработан"/>
+                        <dxe:ComboBoxEditItem Content="Отправлен"/>
+                        <dxe:ComboBoxEditItem Content="Не оплачен"/>
+                        <dxe:ComboBoxEditItem Content="Частично оплачен"/>
+                        <dxe:ComboBoxEditItem Content="Оплачен"/>
+                    </dxe:ComboBoxEdit>
+                </dxlc:LayoutItem>
+
+            <dxlc:LayoutItem Label="Вх./Исх." >
+                    <dxe:ComboBoxEdit x:Name="_directionComboBoxEdit" SelectedIndex="{Binding SelectedDirection, UpdateSourceTrigger=PropertyChanged}" SelectedIndexChanged="LookUpEditBase_OnSelectedIndexChanged">
+                        
+                        <dxe:ComboBoxEditItem Content="Исходящие"/>
+                        <dxe:ComboBoxEditItem Content="Входящие"/>
+                    </dxe:ComboBoxEdit>
+                </dxlc:LayoutItem>
+            </dxlc:LayoutControl>
+
+            <dxlc:LayoutControl Grid.Row="2" Padding="0" Orientation="Vertical">
+                
+                <dxlc:LayoutItem VerticalAlignment="Stretch">
+                    <dxpg:PivotGridControl 
+                        Name="Grid" 
+                        HorizontalAlignment="Left" 
+                        VerticalAlignment="Top" 
+                        ShowBorder="False" 
+                        UseLayoutRounding="True"
+                        DataSource="{Binding DataListSource}"
+                        DataContextChanged="Grid_OnDataContextChanged" 
+                        BestFitMode="AllRows" 
+                        BestFitArea="All" 
+                        FieldValueDisplayText="Grid_OnFieldValueDisplayText"
+                        UseAsyncMode="True"
+                        
+                        >
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="DataContextChanged">
+                                <ei:CallMethodAction TargetObject="{Binding ElementName=Grid}" MethodName="BestFit"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+
+                        <dxpg:PivotGridControl.Fields>
+                            <dxpg:PivotGridField Name="TerritoryS" 
+                                                 Caption="Территория выставившая счет" 
+                                                 FieldName="TerritoryAccount.Source" 
+                                                 Area="RowArea">    
+                            </dxpg:PivotGridField>
+
+                            <dxpg:PivotGridField Name="AssistanceCondition"   
+                                                 Caption="Условия оказания МП" 
+                                                 FieldName="Details.AssistanceConditionsId" 
+                                                 Area="RowArea">
+                            </dxpg:PivotGridField>
+
+
+                            <dxpg:PivotGridField Name="fieldYear" FieldName="TerritoryAccount.EconomicDate" Area="ColumnArea" Caption="Год" GroupInterval="DateYear" Group="{Binding ElementName=fieldGroupDate}" GroupIndex="0"/>
+                            <dxpg:PivotGridField Name="fieldQuarter" FieldName="TerritoryAccount.EconomicDate" Area="ColumnArea" Caption="Квартал" GroupInterval="DateQuarter" Group="{Binding ElementName=fieldGroupDate}" GroupIndex="1"/>
+                            <dxpg:PivotGridField Name="fieldMonth" FieldName="TerritoryAccount.EconomicDate" Area="ColumnArea" Caption="Месяц" GroupInterval="DateMonth" Group="{Binding ElementName=fieldGroupDate}" GroupIndex="2"/>
+
+                            <dxpg:PivotGridField Caption="Суммы, предъявленные к оплате" FieldName="Details.AmountPayable" Area="DataArea" CellFormat="c2">  
+                                
+                            </dxpg:PivotGridField>
+                            <dxpg:PivotGridField Caption="Суммы отказов" FieldName="AmountRefuse" Area="DataArea" CellFormat="c2"/>
+                            <dxpg:PivotGridField Caption="Суммы доплат" FieldName="AmountSurcharge" Area="DataArea" CellFormat="c2"/>
+
+                            <dxpg:PivotGridField Caption="Суммы, фактически оплаченные" FieldName="AmountFact" Area="DataArea" CellFormat="c2" />
+                            <dxpg:PivotGridField Caption="Задолжности" FieldName="Details.AmountDebt" Area="DataArea" CellFormat="c2" />
+                        </dxpg:PivotGridControl.Fields>
+
+                        <dxpg:PivotGridControl.Groups>
+                            <dxpg:PivotGridGroup Name="fieldGroupDate"/>
+                        </dxpg:PivotGridControl.Groups>
+                    </dxpg:PivotGridControl>
+                </dxlc:LayoutItem>
+            </dxlc:LayoutControl>
+        </Grid>
+
+    </dxb:BarManager>
+</UserControl>

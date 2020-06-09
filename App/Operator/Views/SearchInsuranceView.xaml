@@ -1,0 +1,61 @@
+﻿<UserControl x:Class="Medical.AppLayer.Operator.Views.SearchInsuranceView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol" 
+                xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+                xmlns:system="clr-namespace:System;assembly=mscorlib"
+            mc:Ignorable="d" 
+            d:DesignHeight="600" 
+            d:DesignWidth="800" 
+             Height="auto">
+    
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+    </UserControl.Resources>
+
+    <Grid Background="White">
+        
+        <dxlc:LayoutControl Header="Header" Orientation="Vertical" UseLayoutRounding="True" View="GroupBox">
+            <dxlc:LayoutItem HorizontalAlignment="Stretch">
+                <TextBlock TextWrapping="NoWrap" Text="{Binding SelectedText}" FontSize="16" Margin="5" TextTrimming="CharacterEllipsis" ToolTip="{Binding SelectedText}"/>
+            </dxlc:LayoutItem>
+            <dxlc:LayoutItem>
+                <dxe:SearchControl x:Name="SearchControl" Margin="10"
+                           HorizontalAlignment="Stretch" VerticalAlignment="Center"
+                           FilterCondition="Contains"
+                           FilterByColumnsMode="Custom">
+                    <dxe:SearchControl.ColumnProvider>
+                        <dxe:SelectorEditColumnProvider>
+                            <dxe:SelectorEditColumnProvider.CustomColumns>
+                                <system:String>DisplayField</system:String>
+                            </dxe:SelectorEditColumnProvider.CustomColumns>
+                        </dxe:SelectorEditColumnProvider>
+                    </dxe:SearchControl.ColumnProvider>
+                </dxe:SearchControl>
+            </dxlc:LayoutItem>
+            <dxlc:LayoutItem VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                <dxe:ListBoxEdit Name="InsuranceList" Margin="10"
+                        MinHeight="300"
+                        HorizontalAlignment="Stretch"
+                        DisplayMember="DisplayField" 
+                        ValueMember="ValueField"
+                        SelectionMode="Single"
+                        FilterCriteria="{Binding FilterCriteria, ElementName=SearchControl}"
+                        AllowItemHighlighting="True"
+                        SelectedItem="{Binding Selected, UpdateSourceTrigger=PropertyChanged}"
+                        EditValue="{Binding SelectedId, UpdateSourceTrigger=PropertyChanged}" 
+                        EditValueChanged="InsuranceList_EditValueChanged">
+                </dxe:ListBoxEdit>
+            </dxlc:LayoutItem>
+            <dxlc:LayoutItem>
+                <Separator VerticalAlignment="Bottom"/>
+            </dxlc:LayoutItem>
+            <dxlc:LayoutGroup Orientation="Horizontal">
+                <Button Content="Применить" Command="{Binding ApplyCommand}" HorizontalAlignment="Left" VerticalAlignment="Bottom" Visibility="{Binding IsApplyable, Converter={StaticResource BooleanToVisibilityConverter},Mode=OneWay}"/>
+                <Button Content="Закрыть" Command="{Binding CloseCommand}" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
+            </dxlc:LayoutGroup>
+        </dxlc:LayoutControl>
+    </Grid>
+</UserControl>

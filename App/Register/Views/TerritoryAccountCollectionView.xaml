@@ -1,0 +1,187 @@
+﻿<UserControl x:Class="Medical.AppLayer.Register.Views.TerritoryAccountCollectionView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:converters1="clr-namespace:Medical.AppLayer.Converters"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+             xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars"
+             xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+             xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+             xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol"
+             xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             Name="TerritoryAccountCollectionControl"
+             d:DesignHeight="661"
+             d:DesignWidth="800"
+             mc:Ignorable="d">
+  <UserControl.Resources>
+    <converters1:TerritoryConverter x:Key="TerritoryConverter" />
+    <converters1:TypeAccountConverter x:Key="TypeAccountConverter" />
+    <converters1:DirectionConverter x:Key="ImageConverter" />
+    <converters1:AccountStatusConverter x:Key="AccountStatusConverter" />
+    <ControlTemplate x:Key="territoryPopupContentTemplate">
+      <dxg:GridControl x:Name="PART_GridControl" AutoExpandAllGroups="True">
+        <dxg:GridControl.Columns>
+          <dxg:GridColumn FieldName="DisplayName" Header="Территория" />
+          <dxg:GridColumn Width="60"
+                          FieldName="Value"
+                          FixedWidth="True"
+                          Header="ОКАТО" />
+        </dxg:GridControl.Columns>
+        <dxg:GridControl.View>
+          <dxg:TableView Name="View"
+                         AllowPerPixelScrolling="True"
+                         AutoWidth="True"
+                         HeaderPanelMinHeight="35"
+                         IsSynchronizedWithCurrentItem="False"
+                         NewItemRowPosition="None"
+                         ScrollAnimationDuration="0"
+                         ShowAutoFilterRow="False"
+                         ShowGroupedColumns="False"
+                         ShowTotalSummary="False" />
+        </dxg:GridControl.View>
+      </dxg:GridControl>
+    </ControlTemplate>
+    <Style TargetType="dxe:FilterControl">
+      <Setter Property="Foreground" Value="Black" />
+      <Style.Resources>
+        <Style TargetType="dxe:TextEdit">
+          <Setter Property="Foreground" Value="Black" />
+        </Style>
+      </Style.Resources>
+    </Style>
+  </UserControl.Resources>
+
+  <Grid>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto" />
+      <RowDefinition Height="550*" />
+    </Grid.RowDefinitions>
+
+    <dx:PLinqInstantFeedbackDataSource Name="pLinqInstantDataSource" ListSource="{Binding Path=EventListSource}" />
+    <dx:PLinqInstantFeedbackDataSource Name="pLinqAccountDataSource" ListSource="{Binding Path=AccountListSource}" />
+
+    <dxb:BarContainerControl Grid.Row="0" DockPanel.Dock="Top">
+
+      <dxb:ToolBarControl AllowQuickCustomization="False" Caption="Просмотр">
+        <dxb:BarLinkContainerItem>
+          <dxb:BarSubItem Content="Просмотр позиций"
+                          Glyph="{dx:DXImage Image=Show_16x16.png}"
+                          LargeGlyph="{dx:DXImage Image=Show_32x32.png}">
+            <dxb:BarButtonItem Command="{Binding ViewAccountCommand}"
+                               Content="Просмотр позиций"
+                               Glyph="{dx:DXImage Image=Show_16x16.png}"
+                               LargeGlyph="{dx:DXImage Image=Show_32x32.png}" />
+            <dxb:BarButtonItem Command="{Binding ViewAccountListCommand}"
+                               Content="Просмотр списком"
+                               Glyph="{dx:DXImage Image=Show_16x16.png}"
+                               LargeGlyph="{dx:DXImage Image=Show_32x32.png}" />
+          </dxb:BarSubItem>
+
+          <dxb:BarItemLinkSeparator />
+          <dxb:BarButtonItem Command="{Binding ReloadCommand}"
+                             Content="Обновить"
+                             Glyph="{dx:DXImage Image=Refresh_16x16.png}"
+                             LargeGlyph="{dx:DXImage Image=Refresh_32x32.png}" />
+          <dxb:BarSubItem Content="Акты"
+                          Glyph="{dx:DXImage Image=BONote_16x16.png}"
+                          LargeGlyph="{dx:DXImage Image=BONote_32x32.png}">
+            <dxb:BarButtonItem Command="{Binding AddMeeCommand}"
+                               Content="Добавить акт МЭЭ"
+                               Glyph="{dx:DXImage Image=AddFile_16x16.png}"
+                               LargeGlyph="{dx:DXImage Image=AddFile_32x32.png}" />
+            <dxb:BarButtonItem Command="{Binding AddEqmaCommand}"
+                               Content="Добавить акт ЭКМП"
+                               Glyph="{dx:DXImage Image=AddItem_16x16.png}"
+                               LargeGlyph="{dx:DXImage Image=AddItem_32x32.png}" />
+            <dxb:BarButtonItem Command="{Binding ViewActCommand}"
+                               Content="Просмотр актов МЭЭ/ЭКМП"
+                               Glyph="{dx:DXImage Image=ServerMode_16x16.png}"
+                               LargeGlyph="{dx:DXImage Image=ServerMode_32x32.png}" />
+          </dxb:BarSubItem>
+        </dxb:BarLinkContainerItem>
+      </dxb:ToolBarControl>
+
+    </dxb:BarContainerControl>
+    <dxb:BarContainerControl Grid.Row="0"
+                             HorizontalAlignment="Right"
+                             DockPanel.Dock="Top">
+      <dxb:ToolBarControl AllowQuickCustomization="False" Caption="Шаблоны фильтров">
+        <dxb:BarLinkContainerItem>
+          <dxb:BarButtonItem Content="Сохранить фильтр"
+                             Glyph="{dx:DXImage Image=SavePageSetup_16x16.png}"
+                             ItemClick="SaveFiltr_OnItemClick"
+                             LargeGlyph="{dx:DXImage Image=SavePageSetup_32x32.png}" />
+          <dxb:BarButtonItem Content="Просмотр фильтров"
+                             Glyph="{dx:DXImage Image=Open2_16x16.png}"
+                             LargeGlyph="{dx:DXImage Image=Open2_32x32.png}" />
+        </dxb:BarLinkContainerItem>
+      </dxb:ToolBarControl>
+    </dxb:BarContainerControl>
+    <dxlc:LayoutControl Grid.Row="1"
+                        Orientation="Vertical"
+                        Padding="0">
+      <dxlc:LayoutGroup>
+        <dxlc:LayoutGroup Header="Детальные данные о случаях"
+                          Orientation="Vertical"
+                          View="GroupBox">
+          <dxg:GridControl Name="GridEvent"
+                           AutoPopulateColumns="True"
+                           EnableSmartColumnsGeneration="True"
+                           ItemsSource="{Binding ElementName=pLinqInstantDataSource,
+                                                 Path=Data}"
+                           SelectionMode="MultipleRow"
+                           ShowBorder="False">
+            <dxg:GridControl.TotalSummary>
+              <dxg:GridSummaryItem DisplayFormat="Всего случаев: {0}"
+                                   FieldName="ExternalId"
+                                   SummaryType="Count" />
+              <dxg:GridSummaryItem FieldName="ZslPrice" SummaryType="Sum" />
+              <dxg:GridSummaryItem FieldName="AcceptPrice" SummaryType="Sum" />
+              <dxg:GridSummaryItem FieldName="MoPrice" SummaryType="Sum" />
+              <dxg:GridSummaryItem FieldName="Price" SummaryType="Sum" />
+              <dxg:GridSummaryItem FieldName="MEC" SummaryType="Sum" />
+              <dxg:GridSummaryItem FieldName="MEE" SummaryType="Sum" />
+              <dxg:GridSummaryItem FieldName="EQMA" SummaryType="Sum" />
+            </dxg:GridControl.TotalSummary>
+            <dxg:GridControl.View>
+              <dxg:TableView Name="tableView2"
+                             AllowCascadeUpdate="True"
+                             AllowConditionalFormattingMenu="True"
+                             AllowEditing="False"
+                             FocusedRow="{Binding SelectedEventShortView,
+                                                  Mode=TwoWay,
+                                                  UpdateSourceTrigger=PropertyChanged}"
+                             HeaderPanelMinHeight="35"
+                             NavigationStyle="Row"
+                             ShowAutoFilterRow="True"
+                             ShowCheckBoxSelectorColumn="True"
+                             ShowGroupPanel="False"
+                             ShowTotalSummary="True"
+                             WaitIndicatorType="Panel">
+
+                <dxg:TableView.RowCellMenuCustomizations>
+                  <dxb:BarButtonItem Command="{Binding Path=View.DataContext.ViewContextMenuAccountCommand}" Content="Просмотр позиции" />
+                  <dxb:BarButtonItem Command="{Binding Path=View.DataContext.ViewContextMenuAccountCheckEventCommand}"
+                                     Content="Просмотр выбранных позиций"
+                                     ItemClick="EventCheck_OnItemClick" />
+                  <dxb:BarButtonItem Command="{Binding Path=View.DataContext.RefreshEventListCommand}" Content="Обновить" />
+                  <dxb:BarButtonItem Command="{Binding Path=View.DataContext.ExportExcelCommand}"
+                                     Content="Пред. просмотр"
+                                     ItemClick="ExportExcel_OnItemClick" />
+                </dxg:TableView.RowCellMenuCustomizations>
+              </dxg:TableView>
+            </dxg:GridControl.View>
+          </dxg:GridControl>
+        </dxlc:LayoutGroup>
+      </dxlc:LayoutGroup>
+    </dxlc:LayoutControl>
+  </Grid>
+  <i:Interaction.Triggers>
+    <i:EventTrigger EventName="Closed">
+      <i:InvokeCommandAction Command="{Binding ElementName=pLinqAccountDataSource, Path=DisposeCommand}" />
+      <i:InvokeCommandAction Command="{Binding ElementName=pLinqInstantDataSource, Path=DisposeCommand}" />
+    </i:EventTrigger>
+  </i:Interaction.Triggers>
+</UserControl>

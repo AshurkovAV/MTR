@@ -1,0 +1,47 @@
+﻿<dx:DXWindow x:Class="Medical.AppLayer.Register.Views.InfoView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
+        xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+        xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+        xmlns:extToolkit="http://schemas.microsoft.com/winfx/2006/xaml/presentation/toolkit/extended"
+        Title="Информация"
+        x:Name="InfoWindow"
+        Height="596" Width="640" 
+        WindowStartupLocation="CenterScreen" 
+        ResizeMode="NoResize">
+    <Window.Resources>
+
+    </Window.Resources>
+    <Grid>
+        <dxlc:LayoutControl Orientation="Vertical">
+            <dxlc:LayoutItem Label="Результат" />
+            <dxlc:LayoutItem>
+                <dxe:ButtonEdit AllowDefaultButton="False" ShowText="False" HorizontalAlignment="Right" >
+                    <dxe:ButtonInfo GlyphKind="Edit" Command="{Binding SaveLogCommand}" />
+                </dxe:ButtonEdit>
+            </dxlc:LayoutItem>
+            <extToolkit:RichTextBox x:Name="_richTextBox" BorderBrush="Gray" Padding="10"
+                                          Text="{Binding Notes}" 
+                                          ScrollViewer.VerticalScrollBarVisibility="Auto" IsReadOnly="True" />
+            <Separator Height="12" />
+            <dxe:CheckEdit HorizontalAlignment="Left" Height="16" VerticalAlignment="Top" Width="150" EditValue="{Binding IsTest, NotifyOnTargetUpdated=True}" Content="Тестовый режим"/>
+            <dxe:CheckEdit HorizontalAlignment="Left" Height="16" VerticalAlignment="Top" Width="150" EditValue="{Binding IsDebug, NotifyOnTargetUpdated=True}" Content="Отладка"/>
+            <dxlc:LayoutGroup>
+                <Button Content="Выполнить" Height="23" HorizontalAlignment="Right" IsDefault="False" VerticalAlignment="Top" Width="75" Command="{Binding ProcessCommand}"/>
+
+                <Button Content="Закрыть" Height="23" HorizontalAlignment="Right" IsDefault="False" VerticalAlignment="Top" Width="75">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <ei:ChangePropertyAction PropertyName="DialogResult" TargetObject="{Binding}" Value="True" />
+                            <ei:CallMethodAction MethodName="Close" TargetObject="{Binding ElementName=InfoWindow}" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Button>
+            </dxlc:LayoutGroup>
+        </dxlc:LayoutControl>
+
+    </Grid>
+</dx:DXWindow>

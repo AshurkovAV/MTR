@@ -1,0 +1,97 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report ScriptLanguage="CSharp" DoublePass="true" ReportInfo.Created="06/20/2009 22:40:42" ReportInfo.Modified="03/02/2020 09:47:55" ReportInfo.CreatorVersion="2014.2.7.0">
+  <ScriptText>using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Windows.Forms;
+using System.Drawing;
+using System.Data;
+using FastReport;
+using FastReport.Data;
+using FastReport.Dialog;
+using FastReport.Barcode;
+using FastReport.Table;
+using FastReport.Utils;
+
+namespace FastReport
+{
+  public class ReportScript
+  {
+   
+  }
+}
+</ScriptText>
+  <Dictionary>
+    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqGVEBw+bD1302HhodPOki0glxvdF3bhGDpXPZiZBmQH9F4dIe7eEb0ZL3qgm6SkDRxLguB61dqlfAgihx0K2gJubmVew0qnOCWGk/PhxLikxP8E2c+XdSPNsu0mc+BIC6u63M2QovrBmG+4QeISMrWeL7dEA51so4NOUk8XvHp8u6IpyA4ggH3jA5UP8/jhF3TsqKXjS9/tNjXIApv9Nwaw==">
+      <TableDataSource Name="Table" DataType="System.Int32" Enabled="true" SelectCommand="--DECLARE @region NVARCHAR (6) = '77'&#13;&#10;IF(@region = '79')&#13;&#10;BEGIN&#13;&#10;	&#13;&#10;SELECT   --ter.ShortName [территория],COUNT(ze.ZslMedicalEventId) [кол_во зак сл],  SUM(ze.Price) [сумма]                    &#13;&#10;DISTINCT --ze.ZslMedicalEventId            &#13;&#10;----,            &#13;&#10; p.AccountId,ter.ShortName [территория],a.AccountNumber,gat.TypeName,st.StatusName,cast(a.EconomicDate AS DATE) [экономическая дата],DATEDIFF(dd,a.EconomicDate, GETDATE())  [разность дней]  , DATEDIFF(dd,a.EconomicDate, GETDATE())-(SELECT COUNT(*) FROM Work_Day wd WHERE H_DATE BETWEEN a.EconomicDate AND GETDATE())[разность дней с учетом выходных],a.AcceptPrice        &#13;&#10;FROM FactTerritoryAccount a --счета            &#13;&#10;inner JOIN [FactPatient] p on a.TerritoryAccountId = p.AccountId             &#13;&#10;            --and a.Destination=38000&#13;&#10;            and a.Direction=1&#13;&#10;            --and  a.Date &gt;='20190101'&#13;&#10;            --AND a.type=1&#13;&#10;inner join localF001 ter on ter.OKATO = a.Source        &#13;&#10;left join   globalAccountStatus st ON st.StatusCode=a.[Status]          &#13;&#10;LEFT JOIN globalAccountType AS gat ON gat.AccountTypeId= a.type            &#13;&#10;WHERE  a.[Status] IN (1)  &#13;&#10;    AND  YEAR(a.EconomicDate)&gt;=2019 &#13;&#10;    and (DATEDIFF(dd,a.EconomicDate, GETDATE())-(SELECT COUNT(*) FROM Work_Day wd WHERE H_DATE BETWEEN a.EconomicDate AND GETDATE())&gt;=20 and a.type=1 &#13;&#10;    or DATEDIFF(dd,a.EconomicDate, GETDATE())-(SELECT COUNT(*) FROM Work_Day wd WHERE H_DATE BETWEEN a.EconomicDate AND GETDATE())&gt;=5 and a.type=2 )&#13;&#10;ORDER BY DATEDIFF(dd,a.EconomicDate, GETDATE()) DESC&#13;&#10;&#13;&#10;END&#13;&#10;ELSE&#13;&#10;	BEGIN&#13;&#10;		SELECT   --ter.ShortName [территория],COUNT(ze.ZslMedicalEventId) [кол_во зак сл],  SUM(ze.Price) [сумма]                    &#13;&#10;DISTINCT --ze.ZslMedicalEventId            &#13;&#10;----,            &#13;&#10; p.AccountId,ter.ShortName [территория],a.AccountNumber,gat.TypeName,st.StatusName,cast(a.EconomicDate AS DATE) [экономическая дата],DATEDIFF(dd,a.EconomicDate, GETDATE())  [разность дней]  , DATEDIFF(dd,a.EconomicDate, GETDATE())-(SELECT COUNT(*) FROM Work_Day wd WHERE H_DATE BETWEEN a.EconomicDate AND GETDATE())[разность дней с учетом выходных],a.AcceptPrice        &#13;&#10;FROM FactTerritoryAccount a --счета            &#13;&#10;inner JOIN [FactPatient] p on a.TerritoryAccountId = p.AccountId             &#13;&#10;            --and a.Destination=38000&#13;&#10;            and a.Direction=1&#13;&#10;            --and  a.Date &gt;='20190101'&#13;&#10;            --AND a.type=1&#13;&#10;inner join localF001 ter on ter.OKATO = a.Source        &#13;&#10;left join   globalAccountStatus st ON st.StatusCode=a.[Status]          &#13;&#10;LEFT JOIN globalAccountType AS gat ON gat.AccountTypeId= a.type            &#13;&#10;WHERE  a.[Status] IN (4)  &#13;&#10;    AND  YEAR(a.EconomicDate)&gt;=2019 &#13;&#10;    and (DATEDIFF(dd,a.EconomicDate, GETDATE())-(SELECT COUNT(*) FROM Work_Day wd WHERE H_DATE BETWEEN a.EconomicDate AND GETDATE())&gt;=20 and a.type=1 &#13;&#10;    or DATEDIFF(dd,a.EconomicDate, GETDATE())-(SELECT COUNT(*) FROM Work_Day wd WHERE H_DATE BETWEEN a.EconomicDate AND GETDATE())&gt;=5 and a.type=2 )&#13;&#10;ORDER BY DATEDIFF(dd,a.EconomicDate, GETDATE()) DESC&#13;&#10;	END">
+        <Column Name="AccountId" DataType="System.Int32"/>
+        <Column Name="территория" DataType="System.String"/>
+        <Column Name="AccountNumber" DataType="System.String"/>
+        <Column Name="TypeName" DataType="System.String"/>
+        <Column Name="StatusName" DataType="System.String"/>
+        <Column Name="экономическая дата" DataType="System.DateTime"/>
+        <Column Name="разность дней" DataType="System.Int32"/>
+        <Column Name="разность дней с учетом выходных" DataType="System.Int32"/>
+        <Column Name="AcceptPrice" DataType="System.Decimal"/>
+        <CommandParameter Name="@region " DataType="22" Expression="[@region]" DefaultValue="77"/>
+      </TableDataSource>
+    </MsSqlDataConnection>
+    <Parameter Name="@region" DataType="System.String"/>
+  </Dictionary>
+  <ReportPage Name="Page1" Landscape="true" PaperWidth="297" PaperHeight="210" RawPaperSize="9" FinishPageEvent="Page1_FinishPage">
+    <ReportTitleBand Name="ReportTitle1" Width="1047.06" Height="132.3">
+      <TextObject Name="Text1" Left="-28.35" Top="30.24" Width="1047.06" Height="45.36" Text="Задолженность по счетам свыше 25 рабочих дней" HorzAlign="Center" Font="Times New Roman, 14pt">
+        <Formats>
+          <GeneralFormat/>
+          <GeneralFormat/>
+          <DateFormat/>
+          <DateFormat/>
+        </Formats>
+      </TextObject>
+      <TableObject Name="Table1" Top="85.05" Width="1039.5" Height="47.25">
+        <TableColumn Name="Column94" Width="311.85"/>
+        <TableColumn Name="Column95"/>
+        <TableColumn Name="Column96" Width="122.85"/>
+        <TableColumn Name="Column97" Width="132.3"/>
+        <TableColumn Name="Column98" Width="94.5"/>
+        <TableColumn Name="Column99"/>
+        <TableColumn Name="Column100" Width="151.2"/>
+        <TableColumn Name="Column101" Width="94.5"/>
+        <TableRow Name="Row15" Height="47.25">
+          <TableCell Name="Cell232" Border.Lines="All" Text=" Территория" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 10pt, style=Bold"/>
+          <TableCell Name="Cell233" Border.Lines="All" Text="Номер счета" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 10pt, style=Bold"/>
+          <TableCell Name="Cell234" Border.Lines="All" Text="Тип счета" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 10pt, style=Bold"/>
+          <TableCell Name="Cell235" Border.Lines="All" Text="Статус счета" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 10pt, style=Bold"/>
+          <TableCell Name="Cell236" Border.Lines="All" Text="Экономическая дата" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 10pt, style=Bold"/>
+          <TableCell Name="Cell257" Border.Lines="All" Text="Разность дней" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 10pt, style=Bold"/>
+          <TableCell Name="Cell258" Border.Lines="All" Text="Разность дней с учетом выходных" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 10pt, style=Bold"/>
+          <TableCell Name="Cell259" Border.Lines="All" Text="Сумма счета" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 10pt, style=Bold"/>
+        </TableRow>
+      </TableObject>
+    </ReportTitleBand>
+    <DataBand Name="Data1" Top="136.42" Width="1047.06" Height="47.25" CanGrow="true" CanShrink="true" DataSource="Table" ParentIdColumn="data.RecordsCollection.RecordNumber">
+      <TableObject Name="Table5" Width="1039.5" Height="47.25">
+        <TableColumn Name="Column102" Width="311.85"/>
+        <TableColumn Name="Column103"/>
+        <TableColumn Name="Column104" Width="122.85"/>
+        <TableColumn Name="Column105" Width="132.3"/>
+        <TableColumn Name="Column106" Width="94.5"/>
+        <TableColumn Name="Column107"/>
+        <TableColumn Name="Column108" Width="151.2"/>
+        <TableColumn Name="Column109" Width="94.5"/>
+        <TableRow Name="Row16" Height="47.25">
+          <TableCell Name="Cell260" Border.Lines="All" Text="[Table.территория]" VertAlign="Center" Font="Times New Roman, 10pt"/>
+          <TableCell Name="Cell261" Border.Lines="All" Text="[Table.AccountNumber]" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 10pt"/>
+          <TableCell Name="Cell262" Border.Lines="All" Text="[Table.TypeName]" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 10pt"/>
+          <TableCell Name="Cell263" Border.Lines="All" Text="[Table.StatusName]" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 10pt"/>
+          <TableCell Name="Cell264" Border.Lines="All" Text="[Table.экономическая дата]" Format="Date" Format.Format="d" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 10pt"/>
+          <TableCell Name="Cell265" Border.Lines="All" Text="[Table.разность дней]" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 10pt"/>
+          <TableCell Name="Cell266" Border.Lines="All" Text="[Table.разность дней с учетом выходных]" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 10pt"/>
+          <TableCell Name="Cell267" Border.Lines="All" Text="[Table.AcceptPrice]" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 10pt"/>
+        </TableRow>
+      </TableObject>
+    </DataBand>
+    <ReportSummaryBand Name="ReportSummary1" Top="187.8" Width="1047.06" Height="35.91" PrintOnBottom="true"/>
+  </ReportPage>
+</Report>

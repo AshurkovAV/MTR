@@ -1,0 +1,120 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report ScriptLanguage="CSharp" DoublePass="true" StartReportEvent="_StartReport" ReportInfo.Created="06/20/2009 22:40:42" ReportInfo.Modified="03/29/2012 15:32:04" ReportInfo.CreatorVersion="1.8.1.0">
+  <ScriptText>using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Windows.Forms;
+using System.Drawing;
+using System.Data;
+using FastReport;
+using FastReport.Data;
+using FastReport.Dialog;
+using FastReport.Barcode;
+using FastReport.Table;
+using FastReport.Utils;
+
+namespace FastReport
+{
+  public class ReportScript
+  {
+
+  }
+}
+</ScriptText>
+  <Dictionary>
+    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqM3/HbiZANEYP3Y6oNtE7mhb00LswZpLPL1nHlNPE8Ttd/PYtJWZHa+Bi6VxY2kO/86yqC3dEAfSOFuAtVHPo27ltpeit54RmWfyB1HPJuDUSBNOELtEhifv9pd5xb8NjHezfLLxa7C+tQPiWNZSeikW9Bj9ALwHjMVaFSxXgQwM=">
+      <TableDataSource Name="localEmployee" DataType="System.Int32" Enabled="true" TableName="localEmployee" SelectCommand="SELECT L.Surname, L.EName, L.Patronymic, L.Position, L.Speciality, L.Phone, L.EmployeeId, L.ConfNumber&#13;&#10;FROM &quot;localEmployee&quot; L WHERE L.EmployeeId=@EmployeeIdParam&#13;&#10;">
+        <Column Name="Surname" DataType="System.String"/>
+        <Column Name="EName" DataType="System.String"/>
+        <Column Name="Patronymic" DataType="System.String"/>
+        <Column Name="Position" DataType="System.String"/>
+        <Column Name="Speciality" DataType="System.String"/>
+        <Column Name="Phone" DataType="System.String"/>
+        <Column Name="EmployeeId" DataType="System.Int32"/>
+        <Column Name="ConfNumber" DataType="System.String"/>
+        <Column Name="FullNameInitials" DataType="System.Int32" PropName="Column" Calculated="true" Expression="[localEmployee.Surname] + &quot; &quot;+Substring([localEmployee.EName],0,1) + &quot;.&quot; +Substring([localEmployee.Patronymic],0,1) + &quot;.&quot;"/>
+        <CommandParameter Name="EmployeeIdParam" DataType="8" DefaultValue="1"/>
+      </TableDataSource>
+      <TableDataSource Name="FactTerritoryAccount" DataType="System.Int32" Enabled="true" TableName="FactTerritoryAccount" SelectCommand="SELECT F.AccountNumber, F.TerritoryAccountId&#13;&#10;FROM &quot;FactTerritoryAccount&quot; F&#13;&#10;WHERE F.TerritoryAccountId=@AccountIdParam&#13;&#10;">
+        <Column Name="AccountNumber" DataType="System.String"/>
+        <Column Name="TerritoryAccountId" DataType="System.Int32"/>
+        <CommandParameter Name="AccountIdParam" DataType="8" Expression="[AccountId]" DefaultValue="1"/>
+      </TableDataSource>
+      <TableDataSource Name="FactMEC" DataType="System.Int32" Enabled="true" TableName="FactMEC" SelectCommand="SELECT F.MECId, F.Date, F.Amount, F.ReasonId, F.EmployeeId, F.Comments, F.PatientId, F.MedicalEventId, F.Type, F.IsLock, F1.AccountId&#13;&#10;FROM &quot;FactMEC&quot; F INNER JOIN &quot;FactPatient&quot; F1 ON F.PatientId = F1.PatientId &#13;&#10;&#13;&#10;WHERE F1.AccountId=@AccountIdParam&#13;&#10;">
+        <Column Name="MECId" DataType="System.Int32"/>
+        <Column Name="Date" DataType="System.DateTime"/>
+        <Column Name="Amount" DataType="System.Decimal"/>
+        <Column Name="ReasonId" DataType="System.Int32"/>
+        <Column Name="EmployeeId" DataType="System.Int32"/>
+        <Column Name="Comments" DataType="System.String"/>
+        <Column Name="PatientId" DataType="System.Int32"/>
+        <Column Name="MedicalEventId" DataType="System.Int32"/>
+        <Column Name="Type" DataType="System.Int32"/>
+        <Column Name="IsLock" DataType="System.Boolean" BindableControl="CheckBox"/>
+        <Column Name="AccountId" DataType="System.Int32"/>
+        <CommandParameter Name="AccountIdParam" DataType="22" DefaultValue="46"/>
+      </TableDataSource>
+      <TableDataSource Name="EventShortView" DataType="System.Int32" Enabled="true" TableName="EventShortView" SelectCommand="SELECT E.ExternalId, E.AccountId, E.EventId, E.PatientId, E.Surname, E.Name, E.Patronymic, E.Birthday, E.Sex, E.BirthPlace, E.DocSeries, E.DocNum, E.INP, E.InsuranceDocNumber, E.InsuranceDocSeries, E.Insurance, E.AssistanceConditions, E.Diagnosis, E.Price, E.Rate, E.Quantity, E.AcceptPrice, E.EventBegin, E.EventEnd, E.Profile, E.Speciality, E.Result, E.Outcome, E.PaymentStatus, E.MEC, E.MEE, E.EQMA, E.EventComments&#13;&#10;FROM &quot;EventShortView&quot; E&#13;&#10;WHERE E.AccountId=@AccountIdParam AND E.EventBegin &gt;= @PerionBegin AND  E.EventEnd &lt;= @PerionEnd AND (E.MEC &gt; 0 OR E.MEC IS NOT NULL)&#13;&#10;">
+        <Column Name="ExternalId" DataType="System.Int32"/>
+        <Column Name="AccountId" DataType="System.Int32"/>
+        <Column Name="EventId" DataType="System.Int32"/>
+        <Column Name="PatientId" DataType="System.Int32"/>
+        <Column Name="Surname" DataType="System.String"/>
+        <Column Name="Name" DataType="System.String"/>
+        <Column Name="Patronymic" DataType="System.String"/>
+        <Column Name="Birthday" DataType="System.DateTime"/>
+        <Column Name="Sex" DataType="System.String"/>
+        <Column Name="BirthPlace" DataType="System.String"/>
+        <Column Name="DocSeries" DataType="System.String"/>
+        <Column Name="DocNum" DataType="System.String"/>
+        <Column Name="INP" DataType="System.String"/>
+        <Column Name="InsuranceDocNumber" DataType="System.String"/>
+        <Column Name="InsuranceDocSeries" DataType="System.String"/>
+        <Column Name="Insurance" DataType="System.String"/>
+        <Column Name="AssistanceConditions" DataType="System.Decimal"/>
+        <Column Name="Diagnosis" DataType="System.String"/>
+        <Column Name="Price" DataType="System.Decimal"/>
+        <Column Name="Rate" DataType="System.Decimal"/>
+        <Column Name="Quantity" DataType="System.Decimal"/>
+        <Column Name="AcceptPrice" DataType="System.Decimal"/>
+        <Column Name="EventBegin" DataType="System.DateTime"/>
+        <Column Name="EventEnd" DataType="System.DateTime"/>
+        <Column Name="Profile" DataType="System.Decimal"/>
+        <Column Name="Speciality" DataType="System.Decimal"/>
+        <Column Name="Result" DataType="System.Decimal"/>
+        <Column Name="Outcome" DataType="System.Decimal"/>
+        <Column Name="PaymentStatus" DataType="System.String"/>
+        <Column Name="MEC" DataType="System.Decimal"/>
+        <Column Name="MEE" DataType="System.Decimal"/>
+        <Column Name="EQMA" DataType="System.Decimal"/>
+        <Column Name="EventComments" DataType="System.String"/>
+        <CommandParameter Name="AccountIdParam" DataType="8" Expression="[FactTerritoryAccount.TerritoryAccountId]" DefaultValue="1"/>
+        <CommandParameter Name="PerionBegin" DataType="4" Expression="[DataBegin]" DefaultValue="01.01.2012"/>
+        <CommandParameter Name="PerionEnd" DataType="4" Expression="[DateEnd]" DefaultValue="31.01.2012"/>
+      </TableDataSource>
+    </MsSqlDataConnection>
+    <Parameter Name="EmployeeId" DataType="System.Int32"/>
+    <Parameter Name="PatientId" DataType="System.Int32"/>
+    <Parameter Name="AccountId" DataType="System.Int32"/>
+    <Parameter Name="ChkPrintPrivacyMark" DataType="System.Boolean"/>
+    <Parameter Name="ActId" DataType="System.Int32"/>
+    <Parameter Name="DataBegin" DataType="System.DateTime"/>
+    <Parameter Name="DateEnd" DataType="System.DateTime"/>
+  </Dictionary>
+  <ReportPage Name="Page1" RawPaperSize="9" LeftMargin="20" TopMargin="20" BottomMargin="20">
+    <ReportTitleBand Name="ReportTitle1" Width="680.4" Height="56.7" CanGrow="true">
+      <TextObject Name="Text2" Left="1.89" Top="3.78" Width="672.84" Height="41.58" Text="РЕЗУЛЬТАТЫ МЕДИКО-ЭКОНОМИЧЕСКОГО КОНТРОЛЯ  ПРИ МЕЖТЕРРИТОРИАЛЬНЫХ ВЗАИМОРАСЧЕТАХ&#13;&#10;" HorzAlign="Center" Font="Times New Roman, 10pt, style=Bold"/>
+    </ReportTitleBand>
+    <DataBand Name="Data2" Top="60.7" Width="680.4" Height="723.87" CanGrow="true" Guides="931.77" KeepDetail="true"/>
+    <PageFooterBand Name="PageFooter1" Top="788.57" Width="680.4" Height="22.68"/>
+  </ReportPage>
+  <DialogPage Name="Form1" Width="502" Height="290" AcceptButton="btnOk" CancelButton="btnCancel">
+    <ButtonControl Name="btnOk" Left="330" Top="231" Anchor="Bottom, Right" Font="Tahoma, 8pt" TabIndex="0" Text="ОК" DialogResult="OK"/>
+    <ButtonControl Name="btnCancel" Left="413" Top="231" Anchor="Bottom, Right" Font="Tahoma, 8pt" TabIndex="1" Text="Отмена" DialogResult="Cancel"/>
+    <DateTimePickerControl Name="DateTimePicker1" Left="4" Top="16" Font="Tahoma, 8pt" TabIndex="2" ReportParameter="DataBegin" FilterOperation="GreaterThanOrEqual" Value="03/29/2012 15:25:23"/>
+    <LabelControl Name="Label1" Left="4" Width="118" Height="13" Font="Tahoma, 8pt" TabIndex="3" Text="Дата начала периода"/>
+    <DateTimePickerControl Name="DateTimePicker2" Left="4" Top="56" Font="Tahoma, 8pt" TabIndex="4" ReportParameter="DateEnd" FilterOperation="LessThanOrEqual" Value="03/29/2012 15:25:28"/>
+    <LabelControl Name="Label2" Left="4" Top="40" Width="136" Height="13" Font="Tahoma, 8pt" TabIndex="5" Text="Дата окончания периода"/>
+  </DialogPage>
+</Report>

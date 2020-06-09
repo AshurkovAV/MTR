@@ -1,0 +1,242 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report ScriptLanguage="CSharp" DoublePass="true" ReportInfo.Created="06/20/2009 22:40:42" ReportInfo.Modified="03/16/2012 09:06:28" ReportInfo.CreatorVersion="1.8.1.0">
+  <ScriptText>using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Windows.Forms;
+using System.Drawing;
+using System.Data;
+using FastReport;
+using FastReport.Data;
+using FastReport.Dialog;
+using FastReport.Barcode;
+using FastReport.Table;
+using FastReport.Utils;
+
+namespace FastReport
+{
+  public class ReportScript
+  {
+
+    
+  }
+}
+</ScriptText>
+  <Dictionary>
+    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqM3/HbiZANEYP3Y6oNtE7mhb00LswZpLPL1nHlNPE8Ttd/PYtJWZHa+Bi6VxY2kO/86yqC3dEAfSOFuAtVHPo27ltpeit54RmWfyB1HPJuDUSBNOELtEhifv9pd5xb8NjHezfLLxa7C+tQPiWNZSeikCcVM2Ywwuww0Kq2ril4qM=">
+      <TableDataSource Name="localEmployee" DataType="System.Int32" Enabled="true" TableName="localEmployee">
+        <Column Name="Surname" DataType="System.String"/>
+        <Column Name="EName" DataType="System.String"/>
+        <Column Name="Patronymic" DataType="System.String"/>
+        <Column Name="Position" DataType="System.String"/>
+        <Column Name="Speciality" DataType="System.String"/>
+        <Column Name="Phone" DataType="System.String"/>
+        <Column Name="EmployeeId" DataType="System.Int32"/>
+        <Column Name="FullNameInitials" DataType="System.String" PropName="Column" Calculated="true" Expression="[localEmployee.Surname] + &quot; &quot;+Substring([localEmployee.EName],0,1) + &quot;.&quot; +Substring([localEmployee.Patronymic],0,1) + &quot;.&quot;"/>
+        <Column Name="FullNamePos" DataType="System.String" PropName="Column" Calculated="true" Expression="LowerCase([localEmployee.Position])+&quot; &quot;+Substring([localEmployee.EName],0,1) + &quot;.&quot; +Substring([localEmployee.Patronymic],0,1) + &quot;. &quot; +[localEmployee.Surname]"/>
+      </TableDataSource>
+      <TableDataSource Name="TerritoryAccount" DataType="System.Int32" PropName="Table" Enabled="true" TableName="FactTerritoryAccount" SelectCommand="SELECT F.Date, F.AccountNumber, F.AccountDate, F.Price, F.AcceptPrice, F.MECPenalties, F.MEEPenalties, F.EQMAPenalties, F.Comments, F.Source, F.Destination, F.Status, F.TerritoryAccountId, F.ExternalId&#13;&#10;FROM &quot;FactTerritoryAccount&quot; F WHERE  F.TerritoryAccountId=@AccountParam&#13;&#10;">
+        <Column Name="Date" DataType="System.DateTime"/>
+        <Column Name="AccountNumber" DataType="System.String"/>
+        <Column Name="AccountDate" DataType="System.DateTime"/>
+        <Column Name="Price" DataType="System.Decimal"/>
+        <Column Name="AcceptPrice" DataType="System.Decimal"/>
+        <Column Name="MECPenalties" DataType="System.Decimal"/>
+        <Column Name="MEEPenalties" DataType="System.Decimal"/>
+        <Column Name="EQMAPenalties" DataType="System.Decimal"/>
+        <Column Name="Comments" DataType="System.String"/>
+        <Column Name="Source" DataType="System.String"/>
+        <Column Name="Destination" DataType="System.String"/>
+        <Column Name="Status" DataType="System.Int32"/>
+        <Column Name="TerritoryAccountId" DataType="System.Int32"/>
+        <Column Name="ExternalId" DataType="System.Int32"/>
+        <CommandParameter Name="AccountParam" DataType="22" Expression="[AccountId]" DefaultValue="3"/>
+      </TableDataSource>
+      <TableDataSource Name="EventShortView" DataType="System.Int32" PropName="Table4" Enabled="true" TableName="EventShortView" SelectCommand="SELECT E.ExternalId, E.AccountId, E.EventId, E.PatientId, E.Surname, E.Name, E.Patronymic, E.Birthday, E.Sex, E.BirthPlace, E.INP, E.InsuranceDocNumber, E.InsuranceDocSeries, E.Insurance, E.AssistanceConditions, E.Diagnosis, E.Price, E.Rate, E.Quantity, E.AcceptPrice, E.EventBegin, E.EventEnd, E.Profile, E.Speciality, E.Result, E.Outcome, E.PaymentStatus, E.MEC, E.MEE,E.DocSeries, E.DocNum, E.EQMA,E.EventComments,(SELECT MedicalEventId =&#13;&#10;(&#13;&#10;    SELECT CONVERT(nvarchar(30),F1.Osn) + ','	&#13;&#10;        FROM &quot;FactMEC&quot;&#13;&#10;				INNER JOIN &quot;F014&quot; F1 ON ReasonId = F1.Id &#13;&#10;				WHERE MedicalEventId =  E.EventId AND (IsLock &lt;&gt; 1 OR IsLock IS NULL)&#13;&#10;        ORDER BY ReasonId&#13;&#10;        FOR XML PATH(''), TYPE&#13;&#10;).value('.[1]', 'NVARCHAR(MAX)')) as MecRefusals&#13;&#10;FROM &quot;EventShortView&quot; E WHERE E.AccountId=@AccountParam&#13;&#10;">
+        <Column Name="ExternalId" DataType="System.Int32"/>
+        <Column Name="AccountId" DataType="System.Int32"/>
+        <Column Name="EventId" DataType="System.Int32"/>
+        <Column Name="PatientId" DataType="System.Int32"/>
+        <Column Name="Surname" DataType="System.String"/>
+        <Column Name="Name" DataType="System.String"/>
+        <Column Name="Patronymic" DataType="System.String"/>
+        <Column Name="Birthday" DataType="System.DateTime"/>
+        <Column Name="Sex" DataType="System.String"/>
+        <Column Name="BirthPlace" DataType="System.String"/>
+        <Column Name="INP" DataType="System.String"/>
+        <Column Name="InsuranceDocNumber" DataType="System.String"/>
+        <Column Name="InsuranceDocSeries" DataType="System.String"/>
+        <Column Name="Insurance" DataType="System.String"/>
+        <Column Name="AssistanceConditions" DataType="System.Decimal"/>
+        <Column Name="Diagnosis" DataType="System.String"/>
+        <Column Name="Price" DataType="System.Decimal"/>
+        <Column Name="Rate" DataType="System.Decimal"/>
+        <Column Name="Quantity" DataType="System.Decimal"/>
+        <Column Name="AcceptPrice" DataType="System.Decimal"/>
+        <Column Name="EventBegin" DataType="System.DateTime"/>
+        <Column Name="EventEnd" DataType="System.DateTime"/>
+        <Column Name="Profile" DataType="System.Decimal"/>
+        <Column Name="Speciality" DataType="System.Decimal"/>
+        <Column Name="Result" DataType="System.Decimal"/>
+        <Column Name="Outcome" DataType="System.Decimal"/>
+        <Column Name="PaymentStatus" DataType="System.String"/>
+        <Column Name="MEC" DataType="System.Decimal"/>
+        <Column Name="MEE" DataType="System.Decimal"/>
+        <Column Name="EQMA" DataType="System.Decimal"/>
+        <Column Name="RefusalPrice" DataType="System.Decimal" PropName="Column" Calculated="true" Expression="[EventShortView.Price]-[EventShortView.AcceptPrice]"/>
+        <Column Name="MecRefusals" DataType="System.String"/>
+        <Column Name="DocSeries" DataType="System.String"/>
+        <Column Name="DocNum" DataType="System.String"/>
+        <Column Name="EventComments" DataType="System.String"/>
+        <CommandParameter Name="AccountParam" DataType="8" Expression="[AccountId]" DefaultValue="3"/>
+      </TableDataSource>
+      <TableDataSource Name="localF001" Alias="localF001Source" DataType="System.Int32" Enabled="true" TableName="localF001" SelectCommand="SELECT L.LocalF001Id, L.ShortName, L.PositionName, L.Name, L.Surname, L.Patronymic, L.OKATO, L.Code&#13;&#10;FROM &quot;localF001&quot; L WHERE L.OKATO = @OkatoSource&#13;&#10;">
+        <Column Name="LocalF001Id" DataType="System.Int32"/>
+        <Column Name="ShortName" DataType="System.String"/>
+        <Column Name="PositionName" DataType="System.String"/>
+        <Column Name="Name" DataType="System.String"/>
+        <Column Name="Surname" DataType="System.String"/>
+        <Column Name="Patronymic" DataType="System.String"/>
+        <Column Name="OKATO" DataType="System.String"/>
+        <Column Name="Code" DataType="System.String"/>
+        <CommandParameter Name="OkatoSource" DataType="22" Expression="[TerritoryAccount.Source]"/>
+      </TableDataSource>
+      <TableDataSource Name="Table" Alias="SumEvents" DataType="System.Int32" Enabled="true" SelectCommand="SELECT SUM(E.Price) as Total_Price,SUM(E.AcceptPrice) as Total_AcceptPrice, &#13;&#10;COUNT(*) as TotalPositions,(SELECT &#13;&#10;COUNT(*)&#13;&#10;FROM &quot;EventShortView&quot; E WHERE E.AccountId=@AccountParam AND E.Price=E.AcceptPrice) as TotalAcceptPositions&#13;&#10;FROM &quot;EventShortView&quot; E WHERE E.AccountId=@AccountParam&#13;&#10;&#13;&#10;">
+        <Column Name="Total_Price" DataType="System.Decimal"/>
+        <Column Name="Total_AcceptPrice" DataType="System.Decimal"/>
+        <Column Name="TotalPositions" DataType="System.Int32"/>
+        <Column Name="TotalAcceptPositions" DataType="System.Int32"/>
+        <CommandParameter Name="AccountParam" DataType="8" Expression="[AccountId]" DefaultValue="3"/>
+      </TableDataSource>
+      <TableDataSource Name="FactPreparedReport" DataType="System.Int32" Enabled="true" TableName="FactPreparedReport" SelectCommand="SELECT F.ExternalId, F.Scope, F.Number, F.ReportId, F.Date&#13;&#10;FROM &quot;FactPreparedReport&quot; F WHERE F.ExternalId=@AccountIdParam AND  F.Scope=@ScopeParam AND F.ReportId=@ReportIdParam&#13;&#10;">
+        <Column Name="ExternalId" DataType="System.Int32"/>
+        <Column Name="Scope" DataType="System.Int32"/>
+        <Column Name="ReportId" DataType="System.Int32"/>
+        <Column Name="Date" DataType="System.DateTime"/>
+        <Column Name="Number" DataType="System.Int32"/>
+        <CommandParameter Name="AccountIdParam" DataType="8" Expression="[AccountId]" DefaultValue="1"/>
+        <CommandParameter Name="ScopeParam" DataType="8" Expression="[Scope]" DefaultValue="1"/>
+        <CommandParameter Name="ReportIdParam" DataType="8" Expression="[ReportId]" DefaultValue="1"/>
+      </TableDataSource>
+    </MsSqlDataConnection>
+    <Parameter Name="AccountId" DataType="System.Int32"/>
+    <Parameter Name="Scope" DataType="System.Int32"/>
+    <Parameter Name="ReportId" DataType="System.Int32"/>
+    <Total Name="TotalPrice" Expression="[EventShortView.Price]" Evaluator="Data2"/>
+    <Total Name="TotalRefusal" Expression="[EventShortView.RefusalPrice]" Evaluator="Data2" ResetAfterPrint="false"/>
+    <Total Name="TotalPosition" TotalType="Count" Evaluator="Data2"/>
+  </Dictionary>
+  <ReportPage Name="Page1" RawPaperSize="9">
+    <ReportTitleBand Name="ReportTitle1" Width="718.2" Height="236.25">
+      <TextObject Name="Text1" Top="160.65" Width="718.2" Height="75.6" Text="АКТ № [FactPreparedReport.Number] от [FactPreparedReport.Date]&#13;&#10;о причинах, требующих дополнительного рассмотрения&#13;&#10;по счету № [TerritoryAccount.AccountNumber]  от [TerritoryAccount.AccountDate], полученному&#13;&#10;от [localF001Source.ShortName]" HorzAlign="Center" Font="Times New Roman, 10pt">
+        <Formats>
+          <GeneralFormat/>
+          <DateFormat/>
+          <GeneralFormat/>
+          <DateFormat/>
+          <GeneralFormat/>
+        </Formats>
+      </TextObject>
+      <TextObject Name="Text2" Left="396.9" Top="-1.89" Width="321.3" Height="132.3" Text="УТВЕРЖДАЮ&#13;&#10;Директор&#13;&#10;ТФОМС Курской области&#13;&#10;&#13;&#10;______________________________А.В.Курцев&#13;&#10;(подпись, расшифровка подписи)&#13;&#10;&#13;&#10;&quot;__&quot; _____________ 20__г." Font="Times New Roman, 10pt"/>
+    </ReportTitleBand>
+    <DataBand Name="Data1" Top="263.15" Width="718.2" Height="113.4" CanGrow="true" CanShrink="true" DataSource="localEmployee" KeepTogether="true">
+      <TextObject Name="Text3" Width="718.2" Height="18.9" Text="[localEmployee.FullNamePos]," HorzAlign="Center" Font="Times New Roman, 10pt"/>
+      <DataHeaderBand Name="DataHeader1" Top="240.25" Width="718.2" Height="18.9">
+        <TextObject Name="Text7" Width="718.2" Height="18.9" Text="Мы, нижеподписавшиеся," HorzAlign="Center" Font="Times New Roman, 10pt"/>
+      </DataHeaderBand>
+      <DataFooterBand Name="DataFooter1" Top="380.55" Width="718.2" Height="196.56">
+        <TableObject Name="Table2" Top="122.85" Width="718.2" Height="73.71" Border.Lines="All">
+          <TableColumn Name="Column18" Width="47.25"/>
+          <TableColumn Name="Column19" Width="147.42"/>
+          <TableColumn Name="Column20" Width="111.51"/>
+          <TableColumn Name="Column21" Width="109.62"/>
+          <TableColumn Name="Column22" Width="143.64"/>
+          <TableColumn Name="Column36" Width="158.76"/>
+          <TableRow Name="Row4" Height="54.81">
+            <TableCell Name="Cell64" Border.Lines="All" Text="№ позиции счета" Font="Times New Roman, 8pt"/>
+            <TableCell Name="Cell65" Border.Lines="All" Text="Номер полиса обязательногомедицинского страхования &#13;&#10;" Font="Times New Roman, 8pt"/>
+            <TableCell Name="Cell66" Border.Lines="All" Text="Сумма по счету (руб.) &#13;&#10;" Font="Times New Roman, 8pt"/>
+            <TableCell Name="Cell67" Border.Lines="All" Text="Сумма, не  принятая к оплате  (руб.)   &#13;&#10;&#13;&#10;" Font="Times New Roman, 8pt"/>
+            <TableCell Name="Cell68" Border.Lines="All" Text="Дефект, нарушение в   соответствии с порядком организации и проведения контроля (код)          &#13;&#10;&#13;&#10;" Font="Times New Roman, 8pt"/>
+            <TableCell Name="Cell107" Border.Lines="All" Text="Примечание" Font="Times New Roman, 8pt"/>
+          </TableRow>
+          <TableRow Name="Row5">
+            <TableCell Name="Cell81" Border.Lines="All" Text="1" HorzAlign="Center" Font="Times New Roman, 8pt"/>
+            <TableCell Name="Cell82" Border.Lines="All" Text="2" HorzAlign="Center" Font="Times New Roman, 8pt"/>
+            <TableCell Name="Cell83" Border.Lines="All" Text="3" HorzAlign="Center" Font="Times New Roman, 8pt"/>
+            <TableCell Name="Cell84" Border.Lines="All" Text="4" HorzAlign="Center" Font="Times New Roman, 8pt"/>
+            <TableCell Name="Cell85" Border.Lines="All" Text="5" HorzAlign="Center" Font="Times New Roman, 8pt"/>
+            <TableCell Name="Cell108" Text="6" HorzAlign="Center" Font="Times New Roman, 8pt"/>
+          </TableRow>
+        </TableObject>
+        <TextObject Name="Text4" Width="718.2" Height="66.15" Text="на основании проведенного  медико-экономического  контроля  реестра  счета,&#13;&#10;представленного [localF001Source.ShortName]&#13;&#10;составили  настоящий  Акт  о  том, что дополнительного рассмотрения требуют&#13;&#10;следующие позиции реестра:" HorzAlign="Center" Font="Times New Roman, 10pt"/>
+        <TextObject Name="Text5" Top="66.15" Width="718.2" Height="56.7" Text="Предъявлено к оплате [SumEvents.TotalPositions] позиций реестра на сумму: [SumEvents.Total_Price]&#13;&#10;Согласовано к оплате [SumEvents.TotalAcceptPositions] на сумму: [SumEvents.Total_AcceptPrice]&#13;&#10;Не принято к оплате [[SumEvents.TotalPositions]-[SumEvents.TotalAcceptPositions]] на сумму: [[SumEvents.Total_Price]-[SumEvents.Total_AcceptPrice]]" Font="Times New Roman, 10pt">
+          <Formats>
+            <GeneralFormat/>
+            <CurrencyFormat/>
+            <GeneralFormat/>
+            <CurrencyFormat/>
+            <GeneralFormat/>
+            <CurrencyFormat/>
+          </Formats>
+        </TextObject>
+      </DataFooterBand>
+    </DataBand>
+    <DataBand Name="Data2" Top="581.11" Width="718.2" Height="19.9" CanGrow="true" CanShrink="true" DataSource="EventShortView" Filter="[EventShortView.Price]!=[EventShortView.AcceptPrice]" KeepTogether="true">
+      <TableObject Name="Table3" Width="718.2" Height="19.9" Border.Lines="All">
+        <TableColumn Name="Column23" Width="47.25"/>
+        <TableColumn Name="Column24" Width="147.42"/>
+        <TableColumn Name="Column25" Width="111.51"/>
+        <TableColumn Name="Column26" Width="109.62"/>
+        <TableColumn Name="Column27" Width="143.64"/>
+        <TableColumn Name="Column37" Width="158.76"/>
+        <TableRow Name="Row6" Height="19.9" AutoSize="true">
+          <TableCell Name="Cell86" Border.Lines="All" Text="[EventShortView.ExternalId]" Format="Number" Format.UseLocale="false" Format.DecimalDigits="0" Format.DecimalSeparator="," Format.GroupSeparator=" " Format.NegativePattern="1" HorzAlign="Center" Font="Times New Roman, 10pt"/>
+          <TableCell Name="Cell87" Border.Lines="All" Text="[EventShortView.INP][EventShortView.InsuranceDocSeries][EventShortView.InsuranceDocNumber]" HorzAlign="Center" Font="Times New Roman, 10pt"/>
+          <TableCell Name="Cell88" Border.Lines="All" Text="[EventShortView.Price]" Format="Number" Format.UseLocale="true" HorzAlign="Center" Font="Times New Roman, 10pt"/>
+          <TableCell Name="Cell89" Border.Lines="All" Text="[EventShortView.RefusalPrice]" Format="Number" Format.UseLocale="true" HorzAlign="Center" Font="Times New Roman, 10pt"/>
+          <TableCell Name="Cell90" Border.Lines="All" Text="[EventShortView.MecRefusals]" HorzAlign="Center" Font="Times New Roman, 10pt"/>
+          <TableCell Name="Cell109" Text="[EventShortView.EventComments]" Font="Times New Roman, 10pt"/>
+        </TableRow>
+      </TableObject>
+      <DataFooterBand Name="DataFooter2" Top="605.01" Width="718.2" Height="51.03">
+        <TableObject Name="Table1" Width="718.2" Height="16.12" Border.Lines="All">
+          <TableColumn Name="Column31" Width="47.25"/>
+          <TableColumn Name="Column32" Width="147.42"/>
+          <TableColumn Name="Column33" Width="111.51"/>
+          <TableColumn Name="Column34" Width="109.62"/>
+          <TableColumn Name="Column35" Width="143.64"/>
+          <TableColumn Name="Column38" Width="158.76"/>
+          <TableRow Name="Row9" Height="16.12" AutoSize="true">
+            <TableCell Name="Cell97" Border.Lines="All" Text="Итого" Format="Number" Format.UseLocale="false" Format.DecimalDigits="0" Format.DecimalSeparator="," Format.GroupSeparator=" " Format.NegativePattern="1" Font="Times New Roman, 8pt" ColSpan="2"/>
+            <TableCell Name="Cell98" Border.Lines="All" HorzAlign="Center" Font="Arial, 8pt"/>
+            <TableCell Name="Cell99" Border.Lines="All" Text="[TotalPrice]" NullValue="0" Format="Number" Format.UseLocale="true" HorzAlign="Center" Font="Times New Roman, 10pt"/>
+            <TableCell Name="Cell100" Border.Lines="All" Text="[TotalRefusal]" NullValue="0" Format="Number" Format.UseLocale="true" HorzAlign="Center" Font="Times New Roman, 10pt"/>
+            <TableCell Name="Cell101" Border.Lines="All" HorzAlign="Center" Font="Times New Roman, 8pt"/>
+            <TableCell Name="Cell110" Border.Lines="All"/>
+          </TableRow>
+        </TableObject>
+      </DataFooterBand>
+      <Sort>
+        <Sort Expression="[EventShortView.ExternalId]"/>
+      </Sort>
+    </DataBand>
+    <DataBand Name="Data4" Top="660.04" Width="718.2" Height="43.47" CanGrow="true" DataSource="localEmployee">
+      <TextObject Name="Text8" Left="1.89" Top="5.67" Width="247.59" Height="18.9" Text="[localEmployee.Position]" Font="Times New Roman, 10pt"/>
+      <TextObject Name="Text9" Left="249.48" Top="5.67" Width="296.73" Height="18.9" Border.Lines="Bottom" Font="Times New Roman, 10pt"/>
+      <TextObject Name="Text10" Left="546.21" Top="5.67" Width="171.99" Height="18.9" Text="[localEmployee.FullNameInitials]" Font="Times New Roman, 10pt"/>
+      <TextObject Name="Text11" Left="249.48" Top="24.57" Width="296.73" Height="18.9" Text="(подпись, расшифровка подписи)" HorzAlign="Center" Font="Times New Roman, 8pt"/>
+    </DataBand>
+    <ReportSummaryBand Name="ReportSummary1" Top="707.51" Width="718.2" Height="47.25" PrintOnBottom="true">
+      <TextObject Name="Text6" Top="28.35" Width="206.01" Height="18.9" Text="Дата [FactPreparedReport.Date]" Format="Date" Format.Format="d" Font="Times New Roman, 10pt"/>
+    </ReportSummaryBand>
+    <PageFooterBand Name="PageFooter1" Top="758.76" Width="718.2" Height="18.9"/>
+  </ReportPage>
+  <DialogPage Name="Form1" Width="538" Height="450" AcceptButton="btnOk" CancelButton="btnCancel" LoadEvent="Form1_Load">
+    <ButtonControl Name="btnOk" Left="366" Top="391" Anchor="Bottom, Right" Font="Tahoma, 8pt" TabIndex="0" Text="ОК" ClickEvent="btnOk_Click" DialogResult="OK"/>
+    <ButtonControl Name="btnCancel" Left="449" Top="391" Anchor="Bottom, Right" Font="Tahoma, 8pt" TabIndex="1" Text="Отмена" DialogResult="Cancel"/>
+    <LabelControl Name="Label1" Width="273" Height="13" Font="Tahoma, 8pt" TabIndex="3" Text="Выберете сотрудников, подписавшихся в акте МЭК"/>
+    <DataSelectorControl Name="DataSelector1" Left="4" Top="16" Width="524" Height="372" Font="Tahoma, 8pt" TabIndex="4" DataColumn="localEmployee.FullNameInitials"/>
+  </DialogPage>
+</Report>

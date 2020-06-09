@@ -1,0 +1,323 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report ScriptLanguage="CSharp" ReportInfo.Created="10/02/2013 22:23:42" ReportInfo.Modified="10/18/2013 12:18:11" ReportInfo.CreatorVersion="2013.3.9.0">
+  <Dictionary>
+    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqr2sEgbyd/XFgYBeuRgqcA2fPEABqa7op7lzIvjCd0OC4AYhmBbgkZmVd9K9BlXfZPz3FIQUANrhzsCET6UizfUELFh4+M5MjSKwpjqb3UXFEZDwzKPGGEzSbIBrVUZYNOWLtj+AJqf//EEcvaiLZry9g4GsjO2EEqU7j2Ezb/znYMjcU6ibLsdxwxpPfuqeTw96lszRxnPIj65vhJyJ7jA==">
+      <TableDataSource Name="Table" DataType="System.Int32" Enabled="true" SelectCommand="select l.nam_mok, (CASE sl.SLUCH_TYPE&#13;&#10;	WHEN 1 THEN 'Заболевание'&#13;&#10;	WHEN 2 THEN 'Профилактика'&#13;&#10;	WHEN 3 THEN 'Неотложная помощь'&#13;&#10;END) as SLUCH_TYPE, ISNULL(os.NameWithID, ' НЕТ ПРИЗНАКА') as os_sluch_region,&#13;&#10;sum(CASE&#13;&#10;	WHEN sl.USL_OK = 3 THEN 1&#13;&#10;	ELSE 0&#13;&#10;END) pc,  sum(CASE&#13;&#10;	WHEN sl.USL_OK = 3 THEN sl.SUMV&#13;&#10;	ELSE 0&#13;&#10;END) ps,  sum(CASE&#13;&#10;	WHEN sl.SUMP &gt; 0 and sl.USL_OK = 3 THEN 1&#13;&#10;	ELSE 0&#13;&#10;END) ppc, sum(CASE&#13;&#10;	WHEN sl.USL_OK = 3 THEN sl.SUMP&#13;&#10;	ELSE 0&#13;&#10;END) pps,&#13;&#10;sum(CASE&#13;&#10;	WHEN sl.USL_OK = 4 THEN 1&#13;&#10;	ELSE 0&#13;&#10;END) sc,  sum(CASE&#13;&#10;	WHEN sl.USL_OK = 4 THEN sl.SUMV&#13;&#10;	ELSE 0&#13;&#10;END) ss, sum(CASE&#13;&#10;	WHEN sl.SUMP &gt; 0 and sl.USL_OK = 4 THEN 1&#13;&#10;	ELSE 0&#13;&#10;END) spc, sum(CASE&#13;&#10;	WHEN sl.USL_OK = 4 THEN sl.SUMP&#13;&#10;	ELSE 0&#13;&#10;END) sps&#13;&#10; from sluch sl&#13;&#10;join f003 l on sl.lpu = l.mcod&#13;&#10;join SCHET s on sl.SCHET_ID = s.id&#13;&#10;left join OsobSluchDb os on sl.OS_SLUCH_REGION = os.Id&#13;&#10;where (s.[MONTH] &gt;= @M1 and s.[YEAR] &gt;= @Y1) and (s.[MONTH] &lt;= @M2 and s.[YEAR] &lt;= @Y2) and sl.USL_OK in (3,4)&#13;&#10;&#13;&#10;group by l.mcod, l.nam_mok, sl.SLUCH_TYPE, os.NameWithID&#13;&#10;&#13;&#10;&#13;&#10;&#13;&#10;&#13;&#10;&#13;&#10;">
+        <Column Name="nam_mok" DataType="System.String"/>
+        <Column Name="SLUCH_TYPE" DataType="System.Int32"/>
+        <Column Name="os_sluch_region" DataType="System.Int32"/>
+        <Column Name="pc" DataType="System.Int32"/>
+        <Column Name="ppc" DataType="System.Decimal"/>
+        <Column Name="pps" DataType="System.Int32"/>
+        <Column Name="sc" DataType="System.Int32"/>
+        <Column Name="ss" DataType="System.Decimal"/>
+        <Column Name="spc" DataType="System.Int32"/>
+        <Column Name="sps" DataType="System.Decimal"/>
+        <Column Name="ps" DataType="System.Decimal"/>
+        <CommandParameter Name="@M1" DataType="8" Expression="[@M1]" DefaultValue="8"/>
+        <CommandParameter Name="@Y1" DataType="8" Expression="[@Y1]" DefaultValue="2013"/>
+        <CommandParameter Name="@M2" DataType="8" Expression="[@M2]" DefaultValue="8"/>
+        <CommandParameter Name="@Y2" DataType="8" Expression="[@Y2]" DefaultValue="2013"/>
+      </TableDataSource>
+      <TableDataSource Name="Table2" DataType="System.Int32" Enabled="true" SelectCommand="&#13;&#10;select (CASE sl.SLUCH_TYPE&#13;&#10;	WHEN 1 THEN 'Заболевание'&#13;&#10;	WHEN 2 THEN 'Профилактика'&#13;&#10;	WHEN 3 THEN 'Неотложная помощь'&#13;&#10;END) as SLUCH_TYPE, ISNULL(os.NameWithID, ' НЕТ ПРИЗНАКА') as os_sluch_region,&#13;&#10;sum(CASE&#13;&#10;	WHEN sl.USL_OK = 3 THEN 1&#13;&#10;	ELSE 0&#13;&#10;END) pc,  sum(CASE&#13;&#10;	WHEN sl.USL_OK = 3 THEN sl.SUMV&#13;&#10;	ELSE 0&#13;&#10;END) ps,  sum(CASE&#13;&#10;	WHEN sl.SUMP &gt; 0 and sl.USL_OK = 3 THEN 1&#13;&#10;	ELSE 0&#13;&#10;END) ppc, sum(CASE&#13;&#10;	WHEN sl.USL_OK = 3 THEN sl.SUMP&#13;&#10;	ELSE 0&#13;&#10;END) pps,&#13;&#10;sum(CASE&#13;&#10;	WHEN sl.USL_OK = 4 THEN 1&#13;&#10;	ELSE 0&#13;&#10;END) sc,  sum(CASE&#13;&#10;	WHEN sl.USL_OK = 4 THEN sl.SUMV&#13;&#10;	ELSE 0&#13;&#10;END) ss, sum(CASE&#13;&#10;	WHEN sl.SUMP &gt; 0 and sl.USL_OK = 4 THEN 1&#13;&#10;	ELSE 0&#13;&#10;END) spc, sum(CASE&#13;&#10;	WHEN sl.USL_OK = 4 THEN sl.SUMP&#13;&#10;	ELSE 0&#13;&#10;END) sps&#13;&#10; from sluch sl&#13;&#10;join SCHET s on sl.SCHET_ID = s.id&#13;&#10;left join OsobSluchDb os on sl.OS_SLUCH_REGION = os.Id&#13;&#10;where (s.[MONTH] &gt;= @M1 and s.[YEAR] &gt;= @Y1) and (s.[MONTH] &lt;= @M2 and s.[YEAR] &lt;= @Y2) and sl.USL_OK in (3,4)&#13;&#10;&#13;&#10;group by sl.SLUCH_TYPE, os.NameWithID&#13;&#10;">
+        <Column Name="SLUCH_TYPE" DataType="System.String"/>
+        <Column Name="os_sluch_region" DataType="System.String"/>
+        <Column Name="pc" DataType="System.Int32"/>
+        <Column Name="ps" DataType="System.Decimal"/>
+        <Column Name="ppc" DataType="System.Int32"/>
+        <Column Name="pps" DataType="System.Decimal"/>
+        <Column Name="sc" DataType="System.Int32"/>
+        <Column Name="ss" DataType="System.Decimal"/>
+        <Column Name="spc" DataType="System.Int32"/>
+        <Column Name="sps" DataType="System.Decimal"/>
+        <CommandParameter Name="@M2" DataType="8" Expression="[@M2]" DefaultValue="8"/>
+        <CommandParameter Name="@M1" DataType="8" Expression="[@M1]" DefaultValue="8"/>
+        <CommandParameter Name="@Y2" DataType="8" Expression="[@Y2]" DefaultValue="2013"/>
+        <CommandParameter Name="@Y1" DataType="8" Expression="[@Y1]" DefaultValue="2013"/>
+      </TableDataSource>
+    </MsSqlDataConnection>
+    <Parameter Name="@M1" DataType="System.Int32"/>
+    <Parameter Name="@Y1" DataType="System.Int32"/>
+    <Parameter Name="@M2" DataType="System.Int32"/>
+    <Parameter Name="@Y2" DataType="System.Int32"/>
+    <Total Name="Total" Expression="[Table.pc]" Evaluator="Data1" PrintOn="GroupFooter2"/>
+    <Total Name="Total1" Expression="[Table.ps]" Evaluator="Data1" PrintOn="GroupFooter2"/>
+    <Total Name="Total2" Expression="[Table.ppc]" Evaluator="Data1" PrintOn="GroupFooter2"/>
+    <Total Name="Total3" Expression="[Table.pps]" Evaluator="Data1" PrintOn="GroupFooter2"/>
+    <Total Name="Total4" Expression="[Table.sc]" Evaluator="Data1" PrintOn="GroupFooter2"/>
+    <Total Name="Total5" Expression="[Table.ss]" Evaluator="Data1" PrintOn="GroupFooter2"/>
+    <Total Name="Total6" Expression="[Table.spc]" Evaluator="Data1" PrintOn="GroupFooter2"/>
+    <Total Name="Total7" Expression="[Table.sps]" Evaluator="Data1" PrintOn="GroupFooter2"/>
+    <Total Name="Total8" Expression="[Table.pc]" Evaluator="Data1" PrintOn="GroupFooter1"/>
+    <Total Name="Total9" Expression="[Table.ps]" Evaluator="Data1" PrintOn="GroupFooter1"/>
+    <Total Name="Total10" Expression="[Table.ppc]" Evaluator="Data1" PrintOn="GroupFooter1"/>
+    <Total Name="Total11" Expression="[Table.pps]" Evaluator="Data1" PrintOn="GroupFooter1"/>
+    <Total Name="Total12" Expression="[Table.sc]" Evaluator="Data1" PrintOn="GroupFooter1"/>
+    <Total Name="Total13" Expression="[Table.ss]" Evaluator="Data1" PrintOn="GroupFooter1"/>
+    <Total Name="Total14" Expression="[Table.spc]" Evaluator="Data1" PrintOn="GroupFooter1"/>
+    <Total Name="Total15" Expression="[Table.sps]" Evaluator="Data1" PrintOn="GroupFooter1"/>
+    <Total Name="Total16" Expression="[Table2.pc]" Evaluator="Data3" PrintOn="ReportSummary1"/>
+    <Total Name="Total17" Expression="[Table2.ps]" Evaluator="Data3" PrintOn="ReportSummary1"/>
+    <Total Name="Total18" Expression="[Table2.ppc]" Evaluator="Data3" PrintOn="ReportSummary1"/>
+    <Total Name="Total19" Expression="[Table2.pps]" Evaluator="Data3" PrintOn="ReportSummary1"/>
+    <Total Name="Total20" Expression="[Table2.sc]" Evaluator="Data3" PrintOn="ReportSummary1"/>
+    <Total Name="Total21" Expression="[Table2.ss]" Evaluator="Data3" PrintOn="ReportSummary1"/>
+    <Total Name="Total22" Expression="[Table2.spc]" Evaluator="Data3" PrintOn="ReportSummary1"/>
+    <Total Name="Total23" Expression="[Table2.sps]" Evaluator="Data3" PrintOn="ReportSummary1"/>
+  </Dictionary>
+  <ReportPage Name="Page1" Guides="0,718.2,18.9,160.65,226.8,311.85,378,453.6,519.75,585.9,652.05,85.05,66.15,75.6">
+    <ReportTitleBand Name="ReportTitle1" Width="718.2" Height="141.75" Guides="56.7,141.75,0,66.15,85.05,18.9">
+      <TableObject Name="Table1" Top="56.7" Width="718.2" Height="85.05" Border.Lines="All">
+        <TableColumn Name="Column28" Width="18.9"/>
+        <TableColumn Name="Column29" Width="141.75"/>
+        <TableColumn Name="Column30"/>
+        <TableColumn Name="Column31" Width="85.05"/>
+        <TableColumn Name="Column32"/>
+        <TableColumn Name="Column33" Width="75.6"/>
+        <TableColumn Name="Column49"/>
+        <TableColumn Name="Column48"/>
+        <TableColumn Name="Column47"/>
+        <TableColumn Name="Column46"/>
+        <TableRow Name="Row6" Height="66.15">
+          <TableCell Name="Cell28"/>
+          <TableCell Name="Cell29" Border.Lines="All" Text="Тип посещения" HorzAlign="Center" VertAlign="Center" Font="Arial, 12pt"/>
+          <TableCell Name="Cell30" Border.Lines="All" Text="Кол-во случаев поданых к оплате" Font="Arial, 8pt"/>
+          <TableCell Name="Cell31" Border.Lines="All" Text="Сумма случаев поданых к оплате" Font="Arial, 8pt"/>
+          <TableCell Name="Cell32" Border.Lines="All" Text="Кол-во случаев принятых к оплате" Font="Arial, 8pt"/>
+          <TableCell Name="Cell33" Border.Lines="All" Text="Сумма случаев принятых к оплате" Font="Arial, 8pt"/>
+          <TableCell Name="Cell46" Border.Lines="All" Text="Кол-во случаев поданых к оплате" Font="Arial, 8pt"/>
+          <TableCell Name="Cell47" Border.Lines="All" Text="Сумма случаев поданых к оплате" Font="Arial, 8pt"/>
+          <TableCell Name="Cell48" Border.Lines="All" Text="Кол-во случаев принятых к оплате" Font="Arial, 8pt"/>
+          <TableCell Name="Cell49" Border.Lines="All" Text="Сумма случаев принятых к оплате" Font="Arial, 8pt"/>
+        </TableRow>
+        <TableRow Name="Row7">
+          <TableCell Name="Cell50"/>
+          <TableCell Name="Cell51" Border.Lines="All"/>
+          <TableCell Name="Cell52" Border.Lines="All" Text="Поликлиника" HorzAlign="Center" ColSpan="4"/>
+          <TableCell Name="Cell53" Border.Lines="All" HorzAlign="Center"/>
+          <TableCell Name="Cell54" Border.Lines="All" HorzAlign="Center"/>
+          <TableCell Name="Cell55" Border.Lines="All" HorzAlign="Center"/>
+          <TableCell Name="Cell56" Border.Lines="All" Text="Скорая помощь" HorzAlign="Center" ColSpan="4"/>
+          <TableCell Name="Cell57" Border.Lines="All"/>
+          <TableCell Name="Cell58" Border.Lines="All"/>
+          <TableCell Name="Cell59" Border.Lines="All"/>
+        </TableRow>
+      </TableObject>
+    </ReportTitleBand>
+    <GroupHeaderBand Name="GroupHeader1" Top="144.04" Width="718.2" Height="37.8" Guides="0,37.8" Condition="[Table.nam_mok]">
+      <TableObject Name="Table1" Width="718.2" Height="37.8" Border.Lines="All">
+        <TableColumn Name="Column11" Width="453.6"/>
+        <TableColumn Name="Column12"/>
+        <TableColumn Name="Column13"/>
+        <TableColumn Name="Column14"/>
+        <TableColumn Name="Column15"/>
+        <TableRow Name="Row3" Height="37.8">
+          <TableCell Name="Cell11" Border.Lines="All" Text="[Table.nam_mok]" HideZeros="true" NullValue="&quot; --- &quot;" HorzAlign="Center" VertAlign="Center" Font="Arial, 11pt, style=Bold" ColSpan="5"/>
+          <TableCell Name="Cell12" Border.Lines="All"/>
+          <TableCell Name="Cell13" Border.Lines="All"/>
+          <TableCell Name="Cell14" Border.Lines="All"/>
+          <TableCell Name="Cell15" Border.Lines="All"/>
+        </TableRow>
+      </TableObject>
+      <GroupHeaderBand Name="GroupHeader2" Top="184.12" Width="718.2" Height="18.9" Guides="0,18.9" Condition="[Table.SLUCH_TYPE]">
+        <TableObject Name="Table1" Width="718.2" Height="18.9" Border.Lines="All">
+          <TableColumn Name="Column6" Width="453.6"/>
+          <TableColumn Name="Column7"/>
+          <TableColumn Name="Column8"/>
+          <TableColumn Name="Column9"/>
+          <TableColumn Name="Column10"/>
+          <TableRow Name="Row2">
+            <TableCell Name="Cell6" Border.Lines="All" Text="[Table.SLUCH_TYPE]" HideZeros="true" NullValue="&quot; --- &quot;" Font="Arial, 10pt, style=Bold" ColSpan="5"/>
+            <TableCell Name="Cell7" Border.Lines="All"/>
+            <TableCell Name="Cell8" Border.Lines="All"/>
+            <TableCell Name="Cell9" Border.Lines="All"/>
+            <TableCell Name="Cell10" Border.Lines="All"/>
+          </TableRow>
+        </TableObject>
+        <DataBand Name="Data1" Top="205.31" Width="718.2" Height="18.9" Guides="0,18.9" DataSource="Table">
+          <TableObject Name="Table1" Width="718.2" Height="18.9" Border.Lines="All">
+            <TableColumn Name="Column16" Width="18.9"/>
+            <TableColumn Name="Column1" Width="141.75"/>
+            <TableColumn Name="Column2"/>
+            <TableColumn Name="Column3" Width="85.05"/>
+            <TableColumn Name="Column4"/>
+            <TableColumn Name="Column5" Width="75.6"/>
+            <TableColumn Name="Column34"/>
+            <TableColumn Name="Column35"/>
+            <TableColumn Name="Column37"/>
+            <TableColumn Name="Column36"/>
+            <TableRow Name="Row1">
+              <TableCell Name="Cell16"/>
+              <TableCell Name="Cell1" Border.Lines="All" Text="[Table.os_sluch_region]" Wysiwyg="true"/>
+              <TableCell Name="Cell2" Border.Lines="All" Text="[Table.pc]"/>
+              <TableCell Name="Cell3" Border.Lines="All" Text="[Table.ps]"/>
+              <TableCell Name="Cell4" Border.Lines="All" Text="[Table.ppc]"/>
+              <TableCell Name="Cell5" Border.Lines="All" Text="[Table.pps]"/>
+              <TableCell Name="Cell34" Border.Lines="All" Text="[Table.sc]"/>
+              <TableCell Name="Cell35" Border.Lines="All" Text="[Table.ss]"/>
+              <TableCell Name="Cell37" Border.Lines="All" Text="[Table.spc]"/>
+              <TableCell Name="Cell36" Border.Lines="All" Text="[Table.sps]"/>
+            </TableRow>
+          </TableObject>
+          <Sort>
+            <Sort Expression="[Table.os_sluch_region]"/>
+          </Sort>
+        </DataBand>
+        <GroupFooterBand Name="GroupFooter2" Top="226.49" Width="718.2" Height="18.9" Guides="0,18.9">
+          <TableObject Name="Table1" Width="718.2" Height="18.9" Border.Lines="All">
+            <TableColumn Name="Column18" Width="160.65"/>
+            <TableColumn Name="Column19"/>
+            <TableColumn Name="Column20" Width="85.05"/>
+            <TableColumn Name="Column21"/>
+            <TableColumn Name="Column22" Width="75.6"/>
+            <TableColumn Name="Column38"/>
+            <TableColumn Name="Column39"/>
+            <TableColumn Name="Column40"/>
+            <TableColumn Name="Column41"/>
+            <TableRow Name="Row4">
+              <TableCell Name="Cell18" Border.Lines="All" Text="ИТОГО:" HorzAlign="Right" Font="Arial, 10pt, style=Bold"/>
+              <TableCell Name="Cell19" Border.Lines="All" Text="[Total]"/>
+              <TableCell Name="Cell20" Border.Lines="All" Text="[Total1]"/>
+              <TableCell Name="Cell21" Border.Lines="All" Text="[Total2]"/>
+              <TableCell Name="Cell22" Border.Lines="All" Text="[Total3]"/>
+              <TableCell Name="Cell38" Border.Lines="All" Text="[Total4]"/>
+              <TableCell Name="Cell39" Border.Lines="All" Text="[Total5]"/>
+              <TableCell Name="Cell40" Border.Lines="All" Text="[Total6]"/>
+              <TableCell Name="Cell41" Border.Lines="All" Text="[Total7]"/>
+            </TableRow>
+          </TableObject>
+        </GroupFooterBand>
+      </GroupHeaderBand>
+      <GroupFooterBand Name="GroupFooter1" Top="247.68" Width="718.2" Height="75.6" Guides="0,47.25">
+        <TableObject Name="Table1" Width="718.2" Height="47.25" Border.Lines="All">
+          <TableColumn Name="Column23" Width="160.65"/>
+          <TableColumn Name="Column24"/>
+          <TableColumn Name="Column25" Width="85.05"/>
+          <TableColumn Name="Column26"/>
+          <TableColumn Name="Column27" Width="75.6"/>
+          <TableColumn Name="Column45"/>
+          <TableColumn Name="Column44"/>
+          <TableColumn Name="Column43"/>
+          <TableColumn Name="Column42"/>
+          <TableRow Name="Row5" Height="47.25">
+            <TableCell Name="Cell23" Border.Lines="All" Text="ВСЕГО ПО МЕДИЦИНСКОЙ ОРГАНИЗАЦИИ:" HorzAlign="Right" Font="Arial, 10pt, style=Bold"/>
+            <TableCell Name="Cell24" Border.Lines="All" Text="[Total8]"/>
+            <TableCell Name="Cell25" Border.Lines="All" Text="[Total9]"/>
+            <TableCell Name="Cell26" Border.Lines="All" Text="[Total10]"/>
+            <TableCell Name="Cell27" Border.Lines="All" Text="[Total11]"/>
+            <TableCell Name="Cell45" Border.Lines="All" Text="[Total12]"/>
+            <TableCell Name="Cell44" Border.Lines="All" Text="[Total13]"/>
+            <TableCell Name="Cell43" Border.Lines="All" Text="[Total14]"/>
+            <TableCell Name="Cell42" Border.Lines="All" Text="[Total15]"/>
+          </TableRow>
+        </TableObject>
+      </GroupFooterBand>
+    </GroupHeaderBand>
+  </ReportPage>
+  <ReportPage Name="Page2" Guides="0,718.2,18.9,160.65,226.8,311.85,378,453.6,519.75,585.9,652.05,85.05,66.15,75.6">
+    <ReportTitleBand Name="ReportTitle2" Width="718.2" Height="85.05" Guides="0,85.05,66.15,18.9">
+      <TableObject Name="Table3" Width="718.2" Height="85.05" Border.Lines="All">
+        <TableColumn Name="Column98" Width="18.9"/>
+        <TableColumn Name="Column99" Width="141.75"/>
+        <TableColumn Name="Column100"/>
+        <TableColumn Name="Column101" Width="85.05"/>
+        <TableColumn Name="Column102"/>
+        <TableColumn Name="Column103" Width="75.6"/>
+        <TableColumn Name="Column104"/>
+        <TableColumn Name="Column105"/>
+        <TableColumn Name="Column106"/>
+        <TableColumn Name="Column107"/>
+        <TableRow Name="Row14" Height="66.15">
+          <TableCell Name="Cell108"/>
+          <TableCell Name="Cell109" Border.Lines="All" Text="Тип посещения" HorzAlign="Center" VertAlign="Center" Font="Arial, 12pt"/>
+          <TableCell Name="Cell110" Border.Lines="All" Text="Кол-во случаев поданых к оплате" Font="Arial, 8pt"/>
+          <TableCell Name="Cell111" Border.Lines="All" Text="Сумма случаев поданых к оплате" Font="Arial, 8pt"/>
+          <TableCell Name="Cell112" Border.Lines="All" Text="Кол-во случаев принятых к оплате" Font="Arial, 8pt"/>
+          <TableCell Name="Cell113" Border.Lines="All" Text="Сумма случаев принятых к оплате" Font="Arial, 8pt"/>
+          <TableCell Name="Cell114" Border.Lines="All" Text="Кол-во случаев поданых к оплате" Font="Arial, 8pt"/>
+          <TableCell Name="Cell115" Border.Lines="All" Text="Сумма случаев поданых к оплате" Font="Arial, 8pt"/>
+          <TableCell Name="Cell116" Border.Lines="All" Text="Кол-во случаев принятых к оплате" Font="Arial, 8pt"/>
+          <TableCell Name="Cell117" Border.Lines="All" Text="Сумма случаев принятых к оплате" Font="Arial, 8pt"/>
+        </TableRow>
+        <TableRow Name="Row15">
+          <TableCell Name="Cell118"/>
+          <TableCell Name="Cell119" Border.Lines="All"/>
+          <TableCell Name="Cell120" Border.Lines="All" Text="Поликлиника" HorzAlign="Center" ColSpan="4"/>
+          <TableCell Name="Cell121" Border.Lines="All" HorzAlign="Center"/>
+          <TableCell Name="Cell122" Border.Lines="All" HorzAlign="Center"/>
+          <TableCell Name="Cell123" Border.Lines="All" HorzAlign="Center"/>
+          <TableCell Name="Cell124" Border.Lines="All" Text="Скорая помощь" HorzAlign="Center" ColSpan="4"/>
+          <TableCell Name="Cell125" Border.Lines="All"/>
+          <TableCell Name="Cell126" Border.Lines="All"/>
+          <TableCell Name="Cell127" Border.Lines="All"/>
+        </TableRow>
+      </TableObject>
+    </ReportTitleBand>
+    <GroupHeaderBand Name="GroupHeader4" Top="87.34" Width="718.2" Height="18.9" Guides="0,18.9" Condition="[Table2.SLUCH_TYPE]">
+      <TableObject Name="Table3" Width="718.2" Height="18.9" Border.Lines="All">
+        <TableColumn Name="Column74" Width="453.6"/>
+        <TableColumn Name="Column75"/>
+        <TableColumn Name="Column76"/>
+        <TableColumn Name="Column77"/>
+        <TableColumn Name="Column78"/>
+        <TableRow Name="Row11">
+          <TableCell Name="Cell84" Border.Lines="All" Text="[Table2.SLUCH_TYPE]" HideZeros="true" NullValue="&quot; --- &quot;" Font="Arial, 10pt, style=Bold" ColSpan="5"/>
+          <TableCell Name="Cell85" Border.Lines="All"/>
+          <TableCell Name="Cell86" Border.Lines="All"/>
+          <TableCell Name="Cell87" Border.Lines="All"/>
+          <TableCell Name="Cell88" Border.Lines="All"/>
+        </TableRow>
+      </TableObject>
+      <DataBand Name="Data3" Top="108.52" Width="718.2" Height="38.09" Guides="0.29,38.09,0,37.8" DataSource="Table2">
+        <TableObject Name="Table4" Top="0.29" Width="718.2" Height="37.8" Border.Lines="All">
+          <TableColumn Name="Column79" Width="18.9"/>
+          <TableColumn Name="Column80" Width="141.75"/>
+          <TableColumn Name="Column81"/>
+          <TableColumn Name="Column82" Width="85.05"/>
+          <TableColumn Name="Column83"/>
+          <TableColumn Name="Column84" Width="75.6"/>
+          <TableColumn Name="Column85"/>
+          <TableColumn Name="Column86"/>
+          <TableColumn Name="Column87"/>
+          <TableColumn Name="Column88"/>
+          <TableRow Name="Row12" Height="37.8">
+            <TableCell Name="Cell89"/>
+            <TableCell Name="Cell90" Border.Lines="All" Text="[Table2.os_sluch_region]"/>
+            <TableCell Name="Cell91" Border.Lines="All" Text="[Table2.pc]"/>
+            <TableCell Name="Cell92" Border.Lines="All" Text="[Table2.ps]"/>
+            <TableCell Name="Cell93" Border.Lines="All" Text="[Table2.ppc]"/>
+            <TableCell Name="Cell94" Border.Lines="All" Text="[Table2.pps]"/>
+            <TableCell Name="Cell95" Border.Lines="All" Text="[Table2.sc]"/>
+            <TableCell Name="Cell96" Border.Lines="All" Text="[Table2.ss]"/>
+            <TableCell Name="Cell97" Border.Lines="All" Text="[Table2.spc]"/>
+            <TableCell Name="Cell98" Border.Lines="All" Text="[Table2.sps]"/>
+          </TableRow>
+        </TableObject>
+      </DataBand>
+    </GroupHeaderBand>
+    <ReportSummaryBand Name="ReportSummary1" Top="148.9" Width="718.2" Height="94.5" Guides="0.13,56.83,0,56.7">
+      <TableObject Name="Table5" Top="0.13" Width="718.2" Height="56.7" Border.Lines="All">
+        <TableColumn Name="Column89" Width="160.65"/>
+        <TableColumn Name="Column90"/>
+        <TableColumn Name="Column91" Width="85.05"/>
+        <TableColumn Name="Column92"/>
+        <TableColumn Name="Column93" Width="75.6"/>
+        <TableColumn Name="Column94"/>
+        <TableColumn Name="Column95"/>
+        <TableColumn Name="Column96"/>
+        <TableColumn Name="Column97"/>
+        <TableRow Name="Row13" Height="56.7">
+          <TableCell Name="Cell99" Border.Lines="All" Text="ВСЕГО ПО ПЕРИОДУ:" HorzAlign="Right" Font="Arial, 10pt, style=Bold"/>
+          <TableCell Name="Cell100" Border.Lines="All" Text="[Total16]"/>
+          <TableCell Name="Cell101" Border.Lines="All" Text="[Total17]"/>
+          <TableCell Name="Cell102" Border.Lines="All" Text="[Total18]"/>
+          <TableCell Name="Cell103" Border.Lines="All" Text="[Total19]"/>
+          <TableCell Name="Cell104" Border.Lines="All" Text="[Total20]"/>
+          <TableCell Name="Cell105" Border.Lines="All" Text="[Total21]"/>
+          <TableCell Name="Cell106" Border.Lines="All" Text="[Total22]"/>
+          <TableCell Name="Cell107" Border.Lines="All" Text="[Total23]"/>
+        </TableRow>
+      </TableObject>
+    </ReportSummaryBand>
+  </ReportPage>
+</Report>

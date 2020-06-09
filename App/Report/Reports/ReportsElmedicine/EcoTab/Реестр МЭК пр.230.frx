@@ -1,0 +1,457 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report ScriptLanguage="CSharp" ReportInfo.Created="11/07/2013 01:06:27" ReportInfo.Modified="04/10/2014 13:29:33" ReportInfo.CreatorVersion="2013.4.4.0">
+  <Dictionary>
+    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlq+rW0RkboK+/8CKGGYUID3ctBV8q9SvKYxl3iiE7vBnh7Tgou0+4WFf3NfmPSvHVFCjCPzCp3SWULwyFIreHyX9hhy7eVPz1nrB8Oiury3x2eTahgqK+rXwpgUlxtKiqWd3TmHrOEJSk175wDufYzDjOtCoXepZXKqmOO6PV5bOVhoInXMgphtsca/nYpKNBQK7dp6WsggUVCfcZCX8p5E38pqKfoU7NuwXaPLGTpuDQ2CrSDXJgrsoGETLA9llHG">
+      <TableDataSource Name="Table" Alias="NameTFOMS" DataType="System.Int32" Enabled="true" SelectCommand="SELECT (cast([id] as nvarchar) + ' ' + [Name])  as name    &#13;&#10;  FROM localPayment&#13;&#10;where id = 46">
+        <Column Name="name" DataType="System.Int32"/>
+      </TableDataSource>
+      <TableDataSource Name="Table6" Alias="KodTer" DataType="System.Int32" Enabled="true" SelectCommand="select [OKATO]&#13;&#10;  from F010&#13;&#10;where kod_tf = 46">
+        <Column Name="OKATO" DataType="System.String"/>
+      </TableDataSource>
+      <TableDataSource Name="Table7" Alias="KodNameMed" DataType="System.Int32" Enabled="true" SelectCommand="select top 1 mcod, nam_mok + ' ' + addr_j as name&#13;&#10;from sluch sl&#13;&#10;join F003 lpu on lpu.mcod = sl.lpu&#13;&#10;where SCHET_ID = @p">
+        <Column Name="mcod" DataType="System.String"/>
+        <Column Name="name" DataType="System.String"/>
+        <CommandParameter Name="@p" DataType="8" Expression="[@p]" DefaultValue="859"/>
+      </TableDataSource>
+      <TableDataSource Name="Table8" Alias="Table" DataType="System.Int32" Enabled="true" SelectCommand="declare @sumv numeric(15,2), @kol_schetov int, @usl_ok int&#13;&#10;declare @osumv numeric(15,2), @sumv1 numeric(15,2), @sumv2 numeric(15,2), @sumv3 numeric(15,2)&#13;&#10;declare @kol_schetov1 int, @kol_schetov2 int, @kol_schetov3 int&#13;&#10;&#13;&#10;DECLARE vend_cursor CURSOR FOR &#13;&#10;select sum(sumv) as sumv, sum(kolvo) as kol_pol, usl_ok&#13;&#10;from(&#13;&#10;SELECT sum(sl.sumv) as sumv, count(*) as kolvo, usl_ok, sl.SCHET_ID&#13;&#10;FROM SLUCH sl&#13;&#10;join PACIENT pa on sl.PID = pa.ID and (pa.SMO is null or pa.SMO not like '46%')&#13;&#10;join SCHET sc on sl.SCHET_ID = sc.ID &#13;&#10;--join sank sa on sa.slid = sl.id and sa.S_TIP = 1&#13;&#10;where sl.SCHET_ID = @p&#13;&#10;and usl_ok in (1,2,3)&#13;&#10;group by sl.usl_ok, sl.SCHET_ID)t&#13;&#10;group by usl_ok&#13;&#10;order by usl_ok&#13;&#10;&#13;&#10;OPEN vend_cursor&#13;&#10;FETCH NEXT FROM vend_cursor&#13;&#10;into @sumv, @kol_schetov, @usl_ok &#13;&#10;&#13;&#10;WHILE @@FETCH_STATUS = 0&#13;&#10;begin&#13;&#10;	if @usl_ok = 1&#13;&#10;	begin&#13;&#10;		set @sumv1 = @sumv;&#13;&#10;		set @kol_schetov1 = @kol_schetov		&#13;&#10;	end;&#13;&#10;	if @usl_ok = 2&#13;&#10;	begin&#13;&#10;		set @sumv2 = @sumv;&#13;&#10;		set @kol_schetov2 = @kol_schetov		&#13;&#10;	end;&#13;&#10;	if @usl_ok = 3&#13;&#10;	begin&#13;&#10;		set @sumv3 = @sumv;&#13;&#10;		set @kol_schetov3 = @kol_schetov		&#13;&#10;	end;&#13;&#10;	FETCH NEXT FROM vend_cursor&#13;&#10;	into @sumv, @kol_schetov, @usl_ok	&#13;&#10;end;&#13;&#10;CLOSE vend_cursor;&#13;&#10;DEALLOCATE vend_cursor;&#13;&#10;&#13;&#10;select isnull(@sumv1, 0)+isnull(@sumv2, 0)+isnull(@sumv3, 0) as osum, &#13;&#10;isnull(@sumv1, 0) sumv1, isnull(@kol_schetov1, 0) kol_schetov1, &#13;&#10;isnull(@sumv2, 0) sumv2, isnull(@kol_schetov2, 0) kol_schetov2, &#13;&#10;isnull(@sumv3, 0) sumv3, isnull(@kol_schetov3, 0) kol_schetov3 ">
+        <Column Name="osum" DataType="System.Decimal"/>
+        <Column Name="sumv1" DataType="System.Decimal"/>
+        <Column Name="kol_schetov1" DataType="System.Int32"/>
+        <Column Name="sumv2" DataType="System.Decimal"/>
+        <Column Name="kol_schetov2" DataType="System.Int32"/>
+        <Column Name="sumv3" DataType="System.Decimal"/>
+        <Column Name="kol_schetov3" DataType="System.Int32"/>
+        <CommandParameter Name="@p" DataType="8" Expression="[@p]" DefaultValue="1"/>
+      </TableDataSource>
+      <TableDataSource Name="Table9" Alias="Table1" DataType="System.Int32" Enabled="true" SelectCommand="declare @sumv numeric(15,2), @kol_schetov int, @usl_ok int&#13;&#10;declare @osumv numeric(15,2), @sumv1 numeric(15,2), @sumv2 numeric(15,2), @sumv3 numeric(15,2)&#13;&#10;declare @kol_schetov1 int, @kol_schetov2 int, @kol_schetov3 int&#13;&#10;--declare @t table &#13;&#10;--(&#13;&#10;--all_sum decimal(15,2),&#13;&#10;--all_kol int,&#13;&#10;--sumv1 decimal(15,2),&#13;&#10;--sumv2 decimal(15,2),&#13;&#10;--sumv3 decimal(15,2),&#13;&#10;--kol1 int,&#13;&#10;--kol2 int,&#13;&#10;--kol3 int&#13;&#10;--)&#13;&#10;&#13;&#10;DECLARE vend_cursor CURSOR FOR &#13;&#10;select sum(sumv) as sumv, sum(kolvo) as kol_pol, usl_ok&#13;&#10;from(&#13;&#10;SELECT sum(sl.sumv) as sumv, count(*) as kolvo, usl_ok, sl.SCHET_ID&#13;&#10;FROM SLUCH sl&#13;&#10;join PACIENT pa on sl.PID = pa.ID and (pa.SMO is null or pa.SMO not like '46%')&#13;&#10;join SCHET sc on sl.SCHET_ID = sc.ID &#13;&#10;--join sank sa on sa.slid = sl.id and sa.S_TIP = 1&#13;&#10;where sl.SCHET_ID =@p&#13;&#10;and usl_ok in (1,2,3)&#13;&#10;group by sl.usl_ok, sl.SCHET_ID)t&#13;&#10;group by usl_ok&#13;&#10;order by usl_ok&#13;&#10;&#13;&#10;OPEN vend_cursor&#13;&#10;FETCH NEXT FROM vend_cursor&#13;&#10;into @sumv, @kol_schetov, @usl_ok &#13;&#10;&#13;&#10;WHILE @@FETCH_STATUS = 0&#13;&#10;begin&#13;&#10;	if @usl_ok = 1&#13;&#10;	begin&#13;&#10;		set @sumv1 = @sumv;&#13;&#10;		set @kol_schetov1 = @kol_schetov		&#13;&#10;	end;&#13;&#10;	if @usl_ok = 2&#13;&#10;	begin&#13;&#10;		set @sumv2 = @sumv;&#13;&#10;		set @kol_schetov2 = @kol_schetov		&#13;&#10;	end;&#13;&#10;	if @usl_ok = 3&#13;&#10;	begin&#13;&#10;		set @sumv3 = @sumv;&#13;&#10;		set @kol_schetov3 = @kol_schetov		&#13;&#10;	end;&#13;&#10;	FETCH NEXT FROM vend_cursor&#13;&#10;	into @sumv, @kol_schetov, @usl_ok	&#13;&#10;end;&#13;&#10;CLOSE vend_cursor;&#13;&#10;DEALLOCATE vend_cursor;&#13;&#10;&#13;&#10;--select isnull(@sumv1, 0)+isnull(@sumv2, 0)+isnull(@sumv3, 0) as osum, &#13;&#10;--isnull(@sumv1, 0) sumv1, isnull(@kol_schetov1, 0) kol_schetov1, &#13;&#10;--isnull(@sumv2, 0) sumv2, isnull(@kol_schetov2, 0) kol_schetov2, &#13;&#10;--isnull(@sumv3, 0) sumv3, isnull(@kol_schetov3, 0) kol_schetov3 &#13;&#10;&#13;&#10;--insert into @t(all_sum, sumv1, kol1, sumv2, kol2, sumv3, kol3)&#13;&#10;--VALUES (isnull(@sumv1, 0)+isnull(@sumv2, 0)+isnull(@sumv3, 0), &#13;&#10;--isnull(@sumv1, 0), isnull(@kol_schetov1, 0), &#13;&#10;--isnull(@sumv2, 0), isnull(@kol_schetov2, 0), &#13;&#10;--isnull(@sumv3, 0), isnull(@kol_schetov3, 0))&#13;&#10;&#13;&#10;select (isnull(@sumv1, 0)+isnull(@sumv2, 0)+isnull(@sumv3, 0))-(sumv1 + sumv2 + sumv3)all_sum,&#13;&#10;(isnull(@kol_schetov1, 0)+isnull(@kol_schetov2, 0)+isnull(@kol_schetov3, 0))-(kol1 + kol2 + kol3)all_kol,&#13;&#10;isnull(@sumv1, 0)-sumv1 as sumv1,&#13;&#10;isnull(@sumv2, 0)-sumv2 as sumv2,&#13;&#10;isnull(@sumv3, 0)-sumv3 as sumv3,&#13;&#10;isnull(@kol_schetov1, 0)-kol1 as kol1,&#13;&#10;isnull(@kol_schetov2, 0)-kol2 as kol2,&#13;&#10;isnull(@kol_schetov3, 0)-kol3 as kol3   &#13;&#10;from(&#13;&#10;SELECT sum(case when sl.usl_ok = 1 then sl.sank_it else 0 end) as sumv1,&#13;&#10;sum(case when usl_ok = 1 then 1 else 0 end) as kol1,&#13;&#10;sum(case when usl_ok = 2 then sl.sank_it else 0 end) as sumv2,&#13;&#10;sum(case when usl_ok = 2 then 1 else 0 end) as kol2,&#13;&#10;sum(case when usl_ok = 3 then sl.sank_it else 0 end) as sumv3,&#13;&#10;sum(case when usl_ok = 3 then 1 else 0 end) as kol3&#13;&#10;FROM SLUCH sl&#13;&#10;join SCHET sc on sl.SCHET_ID = sc.ID &#13;&#10;join PACIENT pa on sl.PID = pa.ID and (pa.SMO is null or pa.SMO not like '46%')&#13;&#10;join sank sa on sa.slid = sl.id and sa.S_TIP = 1&#13;&#10;where sl.SCHET_ID =@p&#13;&#10;and usl_ok in (1,2,3)&#13;&#10;and oplata = 2) t&#13;&#10;&#13;&#10;">
+        <Column Name="sumv1" DataType="System.Decimal"/>
+        <Column Name="sumv2" DataType="System.Decimal"/>
+        <Column Name="sumv3" DataType="System.Decimal"/>
+        <Column Name="all_sum" DataType="System.Decimal"/>
+        <Column Name="all_kol" DataType="System.Int32"/>
+        <Column Name="kol1" DataType="System.Int32"/>
+        <Column Name="kol2" DataType="System.Int32"/>
+        <Column Name="kol3" DataType="System.Int32"/>
+        <CommandParameter Name="@p" DataType="8" Expression="[@p]" DefaultValue="1"/>
+      </TableDataSource>
+      <TableDataSource Name="Table11" Alias="Table2" DataType="System.Int32" Enabled="true" SelectCommand="select sumv1 + sumv2 + sumv3 all_sum, kol1 + kol2 + kol3 all_kol, sumv1, sumv2, sumv3, kol1, kol2, kol3   &#13;&#10;from(&#13;&#10;SELECT sum(case when sl.usl_ok = 1 then sl.sank_it else 0 end) as sumv1,&#13;&#10;sum(case when usl_ok = 1 then 1 else 0 end) as kol1,&#13;&#10;sum(case when usl_ok = 2 then sl.sank_it else 0 end) as sumv2,&#13;&#10;sum(case when usl_ok = 2 then 1 else 0 end) as kol2,&#13;&#10;sum(case when usl_ok = 3 then sl.sank_it else 0 end) as sumv3,&#13;&#10;sum(case when usl_ok = 3 then 1 else 0 end) as kol3&#13;&#10;FROM SLUCH sl&#13;&#10;join SCHET sc on sl.SCHET_ID = sc.ID &#13;&#10;join PACIENT pa on sl.PID = pa.ID and (pa.SMO is null or pa.SMO not like '46%')&#13;&#10;join sank sa on sa.slid = sl.id and sa.S_TIP = 1&#13;&#10;where sl.SCHET_ID =@p&#13;&#10;and usl_ok in (1,2,3)&#13;&#10;and oplata = 2) t">
+        <Column Name="sumv1" DataType="System.Decimal"/>
+        <Column Name="kol1" DataType="System.Int32"/>
+        <Column Name="sumv2" DataType="System.Decimal"/>
+        <Column Name="kol2" DataType="System.Int32"/>
+        <Column Name="sumv3" DataType="System.Decimal"/>
+        <Column Name="kol3" DataType="System.Int32"/>
+        <Column Name="all_sum" DataType="System.Decimal"/>
+        <Column Name="all_kol" DataType="System.Int32"/>
+        <CommandParameter Name="@p" DataType="8" Expression="[@p]" DefaultValue="1"/>
+      </TableDataSource>
+      <TableDataSource Name="Table10" Alias="Table3" DataType="System.Int32" Enabled="true" SelectCommand="select sum1 + sum2 + sum3 as all_sum, kol1 + kol2 + kol3 all_kol, sum1, kol1, sum2, kol2, sum3, kol3&#13;&#10;from( &#13;&#10;SELECT &#13;&#10;sum(case when usl_ok = 1 then sl.sump else 0 end) - sum(case when usl_ok = 1 then sl.sumv else 0 end) as sum1,&#13;&#10;sum(case when usl_ok = 1 then 1 else 0 end) as kol1,&#13;&#10;sum(case when usl_ok = 2 then sl.sump else 0 end) - sum(case when usl_ok = 2 then sl.sumv else 0 end) as sum2,&#13;&#10;sum(case when usl_ok = 2 then 1 else 0 end) as kol2,&#13;&#10;sum(case when usl_ok = 3 then sl.sump else 0 end) - sum(case when usl_ok = 3 then sl.sumv else 0 end) as sum3,&#13;&#10;sum(case when usl_ok = 3 then 1 else 0 end) as kol3&#13;&#10;FROM SLUCH sl&#13;&#10;join SCHET sc on sl.SCHET_ID = sc.ID &#13;&#10;join PACIENT pa on sl.PID = pa.ID and (pa.SMO is null or pa.SMO not like '46%')&#13;&#10;join sank sa on sa.slid = sl.id and sa.S_TIP = 1&#13;&#10;where sl.SCHET_ID =@p&#13;&#10;and usl_ok in (1,2,3)&#13;&#10;and oplata = 2) t">
+        <Column Name="all_sum" DataType="System.Decimal"/>
+        <Column Name="all_kol" DataType="System.Int32"/>
+        <Column Name="sum1" DataType="System.Decimal"/>
+        <Column Name="kol1" DataType="System.Int32"/>
+        <Column Name="sum2" DataType="System.Decimal"/>
+        <Column Name="kol2" DataType="System.Int32"/>
+        <Column Name="sum3" DataType="System.Decimal"/>
+        <Column Name="kol3" DataType="System.Int32"/>
+        <CommandParameter Name="@p" DataType="8" Expression="[@p]" DefaultValue="1"/>
+      </TableDataSource>
+      <TableDataSource Name="Table4" Alias="Table_stac" DataType="System.Int32" Enabled="true" SelectCommand="SELECT sl.LPU, sl.profil, &#13;&#10;'01.' + (case when len(sc.[MONTH]) = 1 then '0' + cast(sc.[MONTH] as varchar) else cast(sc.[MONTH] as varchar) end + '.' + cast(sc.[YEAR] as varchar)) as period,&#13;&#10;pa.npolis, '4600' smo_ok,&#13;&#10;sa.s_osn, sl.SUMP - sl.SUMV as SUMS&#13;&#10;FROM SLUCH sl&#13;&#10;join SCHET sc on sl.SCHET_ID = sc.ID&#13;&#10;join pacient pa on pa.id = sl.pid &#13;&#10;join sank sa on sa.slid = sl.id and sa.S_TIP = 1&#13;&#10;where sl.SCHET_ID =@p&#13;&#10;and usl_ok = 1&#13;&#10;and oplata = 2&#13;&#10;order by pa.npolis">
+        <Column Name="LPU" DataType="System.String"/>
+        <Column Name="profil" DataType="System.Int32"/>
+        <Column Name="period" DataType="System.String"/>
+        <Column Name="npolis" DataType="System.String"/>
+        <Column Name="s_osn" DataType="System.String"/>
+        <Column Name="SUMS" DataType="System.Decimal"/>
+        <Column Name="smo_ok" DataType="System.String"/>
+        <CommandParameter Name="@p" DataType="8" Expression="[@p]" DefaultValue="1"/>
+      </TableDataSource>
+      <TableDataSource Name="Table12" Alias="Table_dstac" DataType="System.Int32" Enabled="true" SelectCommand="SELECT sl.LPU, sl.profil, &#13;&#10;'01.' + (case when len(sc.[MONTH]) = 1 then '0' + cast(sc.[MONTH] as varchar) else cast(sc.[MONTH] as varchar) end + '.' + cast(sc.[YEAR] as varchar)) as period,&#13;&#10;pa.npolis, '4600' smo_ok,&#13;&#10;sa.s_osn, sl.SUMP - sl.SUMV as SUMS&#13;&#10;FROM SLUCH sl&#13;&#10;join SCHET sc on sl.SCHET_ID = sc.ID&#13;&#10;join pacient pa on pa.id = sl.pid &#13;&#10;join sank sa on sa.slid = sl.id and sa.S_TIP = 1&#13;&#10;where sl.SCHET_ID =@p&#13;&#10;and usl_ok = 2&#13;&#10;and oplata = 2&#13;&#10;order by pa.npolis">
+        <Column Name="LPU" DataType="System.String"/>
+        <Column Name="profil" DataType="System.Int32"/>
+        <Column Name="period" DataType="System.String"/>
+        <Column Name="npolis" DataType="System.String"/>
+        <Column Name="s_osn" DataType="System.String"/>
+        <Column Name="SUMS" DataType="System.Decimal"/>
+        <Column Name="smo_ok" DataType="System.String"/>
+        <CommandParameter Name="@p" DataType="8" Expression="[@p]" DefaultValue="1"/>
+      </TableDataSource>
+      <TableDataSource Name="Table13" Alias="Table_pol" DataType="System.Int32" Enabled="true" SelectCommand="SELECT sl.LPU, sl.profil, &#13;&#10;'01.' + (case when len(sc.[MONTH]) = 1 then '0' + cast(sc.[MONTH] as varchar) else cast(sc.[MONTH] as varchar) end + '.' + cast(sc.[YEAR] as varchar)) as period,&#13;&#10;pa.npolis, '4600' smo_ok,&#13;&#10;sa.s_osn, sl.SUMP - sl.SUMV as SUMS&#13;&#10;FROM SLUCH sl&#13;&#10;join SCHET sc on sl.SCHET_ID = sc.ID&#13;&#10;join pacient pa on pa.id = sl.pid &#13;&#10;join sank sa on sa.slid = sl.id and sa.S_TIP = 1&#13;&#10;where sl.SCHET_ID =@p&#13;&#10;and usl_ok = 3&#13;&#10;and oplata = 2 &#13;&#10;order by pa.npolis">
+        <Column Name="LPU" DataType="System.String"/>
+        <Column Name="profil" DataType="System.Int32"/>
+        <Column Name="period" DataType="System.String"/>
+        <Column Name="npolis" DataType="System.String"/>
+        <Column Name="s_osn" DataType="System.String"/>
+        <Column Name="SUMS" DataType="System.Decimal"/>
+        <Column Name="smo_ok" DataType="System.String"/>
+        <CommandParameter Name="@p" DataType="8" Expression="[@p]" DefaultValue="1"/>
+      </TableDataSource>
+      <TableDataSource Name="Table15" Alias="mon" DataType="System.Int32" Enabled="true" SelectCommand="Select CONVERT(DATETIME,CONVERT(nvarchar(4),s.[YEAR])+&#13;&#10;(CASE WHEN s.[MONTH] &lt; 10 THEN '0'+CONVERT(nvarchar(2),s.[MONTH]) &#13;&#10;ELSE CONVERT(nvarchar(2),s.[MONTH]) END)+'01')&#13;&#10;From SCHET s Where ID = @p">
+        <Column Name="Column1" DataType="System.DateTime"/>
+        <CommandParameter Name="@p" DataType="8" Expression="[@p]" DefaultValue="2"/>
+      </TableDataSource>
+    </MsSqlDataConnection>
+    <Parameter Name="@p" DataType="System.Int32"/>
+    <Total Name="Sump" Expression="[Table1.sumv1]+[Table1.sumv2]+[Table1.sumv3]" Evaluator="Data1"/>
+    <Total Name="Kolp" Expression="[Table1.kol1]+[Table1.kol2]+[Table1.kol3]" Evaluator="Data1"/>
+    <Total Name="Sumv_n" Expression="[Table2.sumv1]+[Table2.sumv2]+[Table2.sumv3]" Evaluator="Data1"/>
+  </Dictionary>
+  <ReportPage Name="Page1" Guides="28.35,368.55,368.55,689.85,463.05,444.15,453.6,453.6,378,481.95,481.95,481.95,481.95,481.95,500.85,85.05,311.85,189">
+    <ReportTitleBand Name="ReportTitle1" Width="718.2" Height="85.05">
+      <TextObject Name="Text1" Left="567" Top="9.45" Width="122.85" Height="18.9" Text="Приложение 2"/>
+      <TextObject Name="Text2" Left="28.35" Top="37.8" Width="661.5" Height="18.9" Text="Реестр актов № (изм) медико-экономического контроля" HorzAlign="Center" Font="Arial, 11pt, style=Bold"/>
+      <TextObject Name="Text3" Left="28.35" Top="65.9" Width="75.6" Height="18.9" Text="Период"/>
+      <TextObject Name="Text52" Left="-9450" Top="-9450" Width="661.5" Height="18.9" Text="	В т.ч.: за стационарную медицинскую помощь на сумму _____________ руб.;"/>
+      <TextObject Name="Text53" Left="-9450" Top="-9431.1" Width="661.5" Height="18.9" Text="	В т.ч.: за стационарную медицинскую помощь на сумму _____________ руб.;"/>
+      <TextObject Name="Text20" Left="122.85" Top="66.15" Width="255.15" Height="18.9" Text="[mon.Column1]" Format="Date" Format.Format="MMMM yyyy" Font="Arial, 10pt, style=Bold, Underline"/>
+    </ReportTitleBand>
+    <DataBand Name="Data1" Top="87.05" Width="718.2" Height="737.1" Guides="774.9,614.25">
+      <TextObject Name="Text4" Left="28.35" Top="9.45" Width="661.5" Height="18.9" Text="Вид медико-экономического контроля: ________ (первичный - 1, повторный - 2)"/>
+      <TextObject Name="Text5" Left="28.35" Top="28.35" Width="661.5" Height="18.9" Text="Наименование и код СМО (ТФ), получившего счета от медицинской организации"/>
+      <TextObject Name="Text7" Left="28.35" Top="75.6" Width="661.5" Height="18.9" Text="Название и код территории местонахождения СМО (ТФ)"/>
+      <TextObject Name="Text11" Left="28.35" Top="122.85" Width="661.5" Height="18.9" Text="Наименование, местонахождение и код медицинской организации, предоставившей счет&#13;&#10;"/>
+      <TextObject Name="Text13" Left="28.35" Top="151.2" Width="661.5" Height="18.9" Text="____________________________________________________________________________________"/>
+      <TextObject Name="Text14" Left="28.35" Top="179.55" Width="661.5" Height="18.9" Text="Код _______________________________________________________________________"/>
+      <TextObject Name="Text15" Left="28.35" Top="198.45" Width="661.5" Height="37.8" Text="На  анализ  предоставлены  реестры  счетов (счета) за  медицинские  услуги, оказанные застрахованным лицам.&#13;&#10;"/>
+      <TextObject Name="Text23" Left="28.35" Top="236.25" Width="661.5" Height="18.9" Text="Всего предоставлено счетов на сумму __________________________________ руб."/>
+      <TextObject Name="Text24" Left="28.35" Top="255.15" Width="661.5" Height="18.9" Text="Предоставленные для медико-экономического контроля счета включают:"/>
+      <TextObject Name="Text25" Left="28.35" Top="274.05" Width="661.5" Height="18.9" Text="За стационарную медицинскую помощь:"/>
+      <TextObject Name="Text26" Left="28.35" Top="302.4" Width="661.5" Height="18.9" Text="	cчет(ов) ______ реестров счетов ______ на сумму _____________ руб."/>
+      <TextObject Name="Text28" Left="28.35" Top="330.75" Width="661.5" Height="18.9" Text="За медицинскую помощь, оказанную в дневном стационаре:" VertAlign="Center"/>
+      <TextObject Name="Text31" Left="28.35" Top="387.45" Width="661.5" Height="37.8" Text="За амбулаторно-поликлиническую медицинскую помощь (в т.ч. стоматологические и параклинические услуги):&#13;&#10;"/>
+      <TextObject Name="Text35" Left="28.35" Top="463.05" Width="661.5" Height="18.9" Text="1. Согласовано к оплате всего:"/>
+      <TextObject Name="Text37" Left="28.35" Top="56.7" Width="661.5" Height="18.9" Text="____________________________________________________________________________________"/>
+      <TextObject Name="Text38" Left="28.35" Top="103.95" Width="661.5" Height="18.9" Text="____________________________________________________________________________________"/>
+      <TextObject Name="Text6" Left="28.35" Top="481.95" Width="661.5" Height="18.9" Text="	Персонифицированных(-ого) счетов (счета) _______ на сумму ____________ руб." ProcessAt="ReportFinished"/>
+      <TextObject Name="Text12" Left="28.35" Top="510.3" Width="661.5" Height="18.9" Text="	В т.ч.: за стационарную медицинскую помощь на сумму: __________ руб. _____ счетов"/>
+      <TextObject Name="Text16" Left="28.35" Top="538.65" Width="661.5" Height="18.9" Text="	за мед. помощь в дневном стационаре на сумму: __________ руб. ______ счетов"/>
+      <TextObject Name="Text17" Left="28.35" Top="567" Width="661.5" Height="18.9" Text="	за амбулаторно-поликлиническую мед. помощь на сумму: ____________ руб. ______ счетов"/>
+      <TextObject Name="Text39" Left="28.35" Top="595.35" Width="661.5" Height="18.9" Text="2. Не согласовано к оплате реестров счетов _______ на сумму: __________ руб."/>
+      <TextObject Name="Text40" Left="28.35" Top="623.7" Width="661.5" Height="18.9" Text="	В т.ч.: за стационарную медицинскую помощь на сумму: __________ руб. _______ счетов"/>
+      <TextObject Name="Text41" Left="28.35" Top="652.05" Width="661.5" Height="18.9" Text="	за медицинскую помощь в дневном стационаре на сумму: __________ руб. _______ счетов"/>
+      <TextObject Name="Text42" Left="28.35" Top="680.4" Width="661.5" Height="37.8" Text="	за амбулаторно-поликлиническую медицинскую помощь на сумму: _________ руб. _______ счетов"/>
+      <TextObject Name="Text19" Left="28.35" Top="718.2" Width="661.5" Height="18.9" Text="за превышение согласованных объемов медицинских услуг на сумму: ______ руб."/>
+      <TextObject Name="Text57" Left="292.95" Top="9.45" Width="37.8" Height="18.9" Text="1" HorzAlign="Center"/>
+      <TextObject Name="Text58" Left="28.35" Top="47.25" Width="661.5" Height="28.35" Text="[NameTFOMS.name]" HorzAlign="Center"/>
+      <TextObject Name="Text59" Left="28.35" Top="94.5" Width="661.5" Height="18.9" Text="[KodTer.OKATO]" HorzAlign="Center"/>
+      <TextObject Name="Text9" Left="28.35" Top="141.75" Width="661.5" Height="18.9" CanGrow="true" Text="[KodNameMed.name]" HorzAlign="Center"/>
+      <TextObject Name="Text10" Left="85.05" Top="170.1" Width="604.8" Height="18.9" Text="[KodNameMed.mcod]"/>
+      <TextObject Name="Text60" Left="283.5" Top="236.25" Width="198.45" Height="18.9" Text="[Table.osum]" Format="Number" Format.UseLocale="true"/>
+      <TextObject Name="Text61" Left="141.75" Top="302.4" Width="47.25" Height="18.9" Text="[Table.kol_schetov1]"/>
+      <TextObject Name="Text62" Left="311.85" Top="302.4" Width="47.25" Height="18.9" Text="1"/>
+      <TextObject Name="Text63" Left="415.8" Top="302.4" Width="94.5" Height="18.9" Text="[Table.sumv1]"/>
+      <TextObject Name="Text27" Left="141.75" Top="368.55" Width="56.7" Height="18.9" Text="[Table.kol_schetov2]"/>
+      <TextObject Name="Text65" Left="311.85" Top="368.55" Width="47.25" Height="18.9" Text="1"/>
+      <TextObject Name="Text29" Left="415.8" Top="368.55" Width="170.1" Height="18.9" Text="[Table.sumv2]"/>
+      <TextObject Name="Text30" Left="141.75" Top="434.7" Width="56.7" Height="18.9" Text="[Table.kol_schetov3]"/>
+      <TextObject Name="Text67" Left="302.4" Top="434.7" Width="66.15" Height="18.9" Text="1"/>
+      <TextObject Name="Text68" Left="415.8" Top="434.7" Width="170.1" Height="18.9" Text="[Table.sumv3]"/>
+      <TextObject Name="Text69" Left="28.35" Top="368.55" Width="661.5" Height="18.9" Text="	cчет(ов) ______ реестров счетов ______ на сумму _____________ руб."/>
+      <TextObject Name="Text70" Left="28.35" Top="434.7" Width="661.5" Height="18.9" Text="	cчет(ов) ______ реестров счетов ______ на сумму _____________ руб."/>
+      <TextObject Name="Text8" Left="491.4" Top="481.95" Width="94.5" Height="18.9" Text="[Table1.all_sum]" ProcessAt="ReportFinished">
+        <Formats>
+          <NumberFormat/>
+          <GeneralFormat/>
+          <GeneralFormat/>
+        </Formats>
+      </TextObject>
+      <TextObject Name="Text32" Left="368.55" Top="481.95" Width="56.7" Height="18.9" Text="[Table1.all_kol]" ProcessAt="ReportFinished">
+        <Formats>
+          <GeneralFormat/>
+          <GeneralFormat/>
+          <GeneralFormat/>
+        </Formats>
+      </TextObject>
+      <TextObject Name="Text33" Left="444.15" Top="510.3" Width="85.05" Height="18.9" Text="[Table1.sumv1]"/>
+      <TextObject Name="Text64" Left="548.1" Top="510.3" Width="47.25" Height="18.9" Text="[Table1.kol1]"/>
+      <TextObject Name="Text66" Left="396.9" Top="538.65" Width="85.05" Height="18.9" Text="[Table1.sumv2]"/>
+      <TextObject Name="Text71" Left="510.3" Top="538.65" Width="56.7" Height="18.9" Text="[Table1.kol2]"/>
+      <TextObject Name="Text72" Left="463.05" Top="567" Width="85.05" Height="18.9" Text="[Table1.sumv3]" Format="Number" Format.UseLocale="true"/>
+      <TextObject Name="Text73" Left="585.9" Top="567" Width="56.7" Height="18.9" Text="[Table1.kol3]"/>
+      <TextObject Name="Text74" Left="434.7" Top="595.35" Width="75.6" Height="18.9" Text="[Table2.all_sum]" ProcessAt="ReportFinished"/>
+      <TextObject Name="Text18" Left="444.15" Top="623.7" Width="94.5" Height="18.9" Text="[Table2.sumv1]"/>
+      <TextObject Name="Text75" Left="557.55" Top="623.7" Width="56.7" Height="18.9" Text="[Table2.kol1]"/>
+      <TextObject Name="Text76" Left="463.05" Top="652.05" Width="75.6" Height="18.9" Text="[Table2.sumv2]"/>
+      <TextObject Name="Text77" Left="567" Top="652.05" Width="56.7" Height="18.9" Text="[Table2.kol2]"/>
+      <TextObject Name="Text78" Left="510.3" Top="680.4" Width="66.15" Height="18.9" Text="[Table2.sumv3]"/>
+      <TextObject Name="Text79" Left="614.25" Top="680.4" Width="56.7" Height="18.9" Text="[Table2.kol3]"/>
+      <TextObject Name="Text21" Left="311.85" Top="595.35" Width="56.7" Height="18.9" Text="[Table2.all_kol]"/>
+    </DataBand>
+    <DataBand Name="Data2" Top="1036.05" Width="718.2" Height="28.35" DataSource="Table4" PrintIfDetailEmpty="true" PrintIfDatasourceEmpty="true">
+      <TableObject Name="Table1" Left="28.35" Width="661.5" Height="28.35">
+        <TableColumn Name="Column1"/>
+        <TableColumn Name="Column2"/>
+        <TableColumn Name="Column3" Width="56.7"/>
+        <TableColumn Name="Column4" Width="47.25"/>
+        <TableColumn Name="Column5"/>
+        <TableColumn Name="Column6" Width="47.25"/>
+        <TableColumn Name="Column7" Width="56.7"/>
+        <TableColumn Name="Column8"/>
+        <TableColumn Name="Column9" Width="56.7"/>
+        <TableColumn Name="Column10"/>
+        <TableColumn Name="Column11"/>
+        <TableRow Name="Row1" Height="28.35">
+          <TableCell Name="Cell1" Border.Lines="All" Text="[Table_stac.LPU]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell2" Border.Lines="All" Text="[Table_stac.profil]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell3" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell4" Border.Lines="All" Text="[Table_stac.period]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell5" Border.Lines="All" Text="[Table_stac.npolis]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell26" Border.Lines="All" Text="[Table_stac.smo_ok]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell27" Border.Lines="All" Text="[Table_stac.s_osn]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell28" Border.Lines="All" Text="[Table_stac.SUMS]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell29" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell30" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell31" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+        </TableRow>
+      </TableObject>
+      <DataHeaderBand Name="DataHeader3" Top="826.15" Width="718.2" Height="207.9">
+        <TextObject Name="Text95" Left="28.35" Top="9.45" Width="661.5" Height="18.9" Text="2.1. Не подлежит оплате ________ счетов на сумму __________ руб."/>
+        <TextObject Name="Text96" Left="28.35" Top="37.8" Width="661.5" Height="18.9" Text="2.1.1. за стационарную медицинскую помощь на сумму: __________ руб. _______ счетов"/>
+        <TableObject Name="Table14" Left="28.35" Top="66.15" Width="661.5" Height="141.75">
+          <TableColumn Name="Column74"/>
+          <TableColumn Name="Column75"/>
+          <TableColumn Name="Column76" Width="56.7"/>
+          <TableColumn Name="Column77" Width="47.25"/>
+          <TableColumn Name="Column78"/>
+          <TableColumn Name="Column79" Width="47.25"/>
+          <TableColumn Name="Column80" Width="56.7"/>
+          <TableColumn Name="Column81"/>
+          <TableColumn Name="Column82" Width="56.7"/>
+          <TableColumn Name="Column83"/>
+          <TableColumn Name="Column84"/>
+          <TableRow Name="Row20" Height="122.85">
+            <TableCell Name="Cell212" Border.Lines="All" Text="Код cтрукnурного подразделения&#13;&#10;" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+            <TableCell Name="Cell213" Border.Lines="All" Text="Код отделения или профиля коек (для тационарной&#13;&#10;медицинской помощи)&#13;&#10;" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+            <TableCell Name="Cell214" Border.Lines="All" Text="N индивидуального счета  &#13;&#10;" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+            <TableCell Name="Cell215" Border.Lines="All" Text="Период (месяц)&#13;&#10;" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+            <TableCell Name="Cell216" Border.Lines="All" Text="N полиса обязательного медицинского страхования   &#13;&#10;" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+            <TableCell Name="Cell217" Border.Lines="All" Text="Код территории страхования  &#13;&#10;" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+            <TableCell Name="Cell218" Border.Lines="All" Text="Код причины отказа в оплате &#13;&#10;" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+            <TableCell Name="Cell219" Border.Lines="All" Text="Сумма, подлежащая отказу в оплате  &#13;&#10;" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+            <TableCell Name="Cell220" Border.Lines="All" Text="Код финансовых санкций   &#13;&#10;" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+            <TableCell Name="Cell221" Border.Lines="All" Text="Сумма финансовых санкций   &#13;&#10;" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+            <TableCell Name="Cell222" Border.Lines="All" Text="Примечания &#13;&#10;" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          </TableRow>
+          <TableRow Name="Row21">
+            <TableCell Name="Cell223" Border.Lines="All" Text="1" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+            <TableCell Name="Cell224" Border.Lines="All" Text="2" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+            <TableCell Name="Cell225" Border.Lines="All" Text="3" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+            <TableCell Name="Cell226" Border.Lines="All" Text="4" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+            <TableCell Name="Cell227" Border.Lines="All" Text="5" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+            <TableCell Name="Cell228" Border.Lines="All" Text="6" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+            <TableCell Name="Cell229" Border.Lines="All" Text="7" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+            <TableCell Name="Cell230" Border.Lines="All" Text="8" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+            <TableCell Name="Cell231" Border.Lines="All" Text="9" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+            <TableCell Name="Cell232" Border.Lines="All" Text="10" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+            <TableCell Name="Cell233" Border.Lines="All" Text="11" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          </TableRow>
+        </TableObject>
+        <TextObject Name="Text97" Left="198.45" Top="9.45" Width="47.25" Height="18.9" Text="[Table3.all_kol]"/>
+        <TextObject Name="Text98" Left="368.55" Top="9.45" Width="75.6" Height="18.9" Text="[Table3.all_sum]"/>
+        <TextObject Name="Text99" Left="396.9" Top="37.8" Width="66.15" Height="18.9" Text="[Table3.sum1]"/>
+        <TextObject Name="Text100" Left="500.85" Top="37.8" Width="56.7" Height="18.9" Text="[Table3.kol1]"/>
+      </DataHeaderBand>
+    </DataBand>
+    <DataBand Name="Data3" Top="1238.5" Width="718.2" Height="28.35" DataSource="Table12" PrintIfDetailEmpty="true" PrintIfDatasourceEmpty="true">
+      <TableObject Name="Table2" Left="28.35" Width="661.5" Height="28.35">
+        <TableColumn Name="Column12"/>
+        <TableColumn Name="Column13"/>
+        <TableColumn Name="Column14" Width="56.7"/>
+        <TableColumn Name="Column15" Width="47.25"/>
+        <TableColumn Name="Column16"/>
+        <TableColumn Name="Column17" Width="47.25"/>
+        <TableColumn Name="Column18" Width="56.7"/>
+        <TableColumn Name="Column19"/>
+        <TableColumn Name="Column20" Width="56.7"/>
+        <TableColumn Name="Column21"/>
+        <TableColumn Name="Column22"/>
+        <TableRow Name="Row4" Height="28.35">
+          <TableCell Name="Cell44" Border.Lines="All" Text="[Table_dstac.LPU]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell45" Border.Lines="All" Text="[Table_dstac.profil]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell46" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell47" Border.Lines="All" Text="[Table_dstac.period]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell48" Border.Lines="All" Text="[Table_dstac.npolis]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell49" Border.Lines="All" Text="[Table_dstac.smo_ok]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell50" Border.Lines="All" Text="[Table_dstac.s_osn]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell51" Border.Lines="All" Text="[Table_dstac.SUMS]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell52" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell53" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell54" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+        </TableRow>
+      </TableObject>
+      <DataHeaderBand Name="DataHeader2" Top="1066.4" Width="718.2" Height="170.1">
+        <TextObject Name="Text91" Left="28.35" Top="9.45" Width="661.5" Height="37.8" Text="2.1.2. за медицинскую помощь в дневном стационаре на сумму: __________ руб."/>
+        <TableObject Name="Table14" Left="28.35" Top="56.7" Width="661.5" Height="113.4">
+          <TableColumn Name="Column63"/>
+          <TableColumn Name="Column64"/>
+          <TableColumn Name="Column65" Width="56.7"/>
+          <TableColumn Name="Column66" Width="47.25"/>
+          <TableColumn Name="Column67"/>
+          <TableColumn Name="Column68" Width="47.25"/>
+          <TableColumn Name="Column69" Width="56.7"/>
+          <TableColumn Name="Column70"/>
+          <TableColumn Name="Column71" Width="56.7"/>
+          <TableColumn Name="Column72"/>
+          <TableColumn Name="Column73"/>
+          <TableRow Name="Row18" Height="94.5">
+            <TableCell Name="Cell190" Border.Lines="All" Text="Код cтрукnурного подразделения&#13;&#10;" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+            <TableCell Name="Cell191" Border.Lines="All" Text="Код отделения или профиля коек (для ДС)   &#13;&#10;" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+            <TableCell Name="Cell192" Border.Lines="All" Text="N индивидуального счета  &#13;&#10;" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+            <TableCell Name="Cell193" Border.Lines="All" Text="Период (месяц)&#13;&#10;" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+            <TableCell Name="Cell194" Border.Lines="All" Text="N полиса обязательного медицинского страхования   &#13;&#10;" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+            <TableCell Name="Cell195" Border.Lines="All" Text="Код территории страхования  &#13;&#10;" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+            <TableCell Name="Cell196" Border.Lines="All" Text="Код причины отказа в оплате &#13;&#10;" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+            <TableCell Name="Cell197" Border.Lines="All" Text="Сумма, подлежащая отказу в оплате  &#13;&#10;" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+            <TableCell Name="Cell198" Border.Lines="All" Text="Код финансовых санкций   &#13;&#10;" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+            <TableCell Name="Cell199" Border.Lines="All" Text="Сумма финансовых санкций   &#13;&#10;" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+            <TableCell Name="Cell200" Border.Lines="All" Text="Примечания &#13;&#10;" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          </TableRow>
+          <TableRow Name="Row19">
+            <TableCell Name="Cell201" Border.Lines="All" Text="1" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+            <TableCell Name="Cell202" Border.Lines="All" Text="2" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+            <TableCell Name="Cell203" Border.Lines="All" Text="3" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+            <TableCell Name="Cell204" Border.Lines="All" Text="4" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+            <TableCell Name="Cell205" Border.Lines="All" Text="5" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+            <TableCell Name="Cell206" Border.Lines="All" Text="6" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+            <TableCell Name="Cell207" Border.Lines="All" Text="7" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+            <TableCell Name="Cell208" Border.Lines="All" Text="8" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+            <TableCell Name="Cell209" Border.Lines="All" Text="9" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+            <TableCell Name="Cell210" Border.Lines="All" Text="10" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+            <TableCell Name="Cell211" Border.Lines="All" Text="11" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          </TableRow>
+        </TableObject>
+        <TextObject Name="Text92" Left="444.15" Top="9.45" Width="75.6" Height="18.9" Text="[Table3.sum2]"/>
+        <TextObject Name="Text93" Left="28.35" Top="28.35" Width="56.7" Height="18.9" Text="[Table3.kol2]"/>
+        <TextObject Name="Text94" Left="28.35" Top="28.35" Width="661.5" Height="18.9" Text="_______ счетов&#13;&#10;"/>
+      </DataHeaderBand>
+    </DataBand>
+    <DataBand Name="Data4" Top="1440.95" Width="718.2" Height="28.35" DataSource="Table13" PrintIfDatasourceEmpty="true">
+      <TableObject Name="Table3" Left="28.35" Width="661.5" Height="28.35">
+        <TableColumn Name="Column23"/>
+        <TableColumn Name="Column24"/>
+        <TableColumn Name="Column25" Width="56.7"/>
+        <TableColumn Name="Column26" Width="47.25"/>
+        <TableColumn Name="Column27"/>
+        <TableColumn Name="Column28" Width="47.25"/>
+        <TableColumn Name="Column29" Width="56.7"/>
+        <TableColumn Name="Column30"/>
+        <TableColumn Name="Column31" Width="56.7"/>
+        <TableColumn Name="Column32"/>
+        <TableColumn Name="Column33"/>
+        <TableRow Name="Row7" Height="28.35">
+          <TableCell Name="Cell77" Border.Lines="All" Text="[Table_pol.LPU]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell78" Border.Lines="All" Text="[Table_pol.profil]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell79" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell80" Border.Lines="All" Text="[Table_pol.period]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell81" Border.Lines="All" Text="[Table_pol.npolis]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell82" Border.Lines="All" Text="[Table_pol.smo_ok]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell83" Border.Lines="All" Text="[Table_pol.s_osn]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell84" Border.Lines="All" Text="[Table_pol.SUMS]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell85" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell86" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell87" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+        </TableRow>
+      </TableObject>
+      <DataHeaderBand Name="DataHeader1" Top="1268.85" Width="718.2" Height="170.1">
+        <TextObject Name="Text88" Left="28.35" Top="9.45" Width="661.5" Height="37.8" Text="2.1.3. за амбулаторно-поликлиническую медицинскую помощь на сумму: __________ руб.&#13;&#10;"/>
+        <TableObject Name="Table14" Left="28.35" Top="56.7" Width="661.5" Height="113.4">
+          <TableColumn Name="Column52"/>
+          <TableColumn Name="Column53"/>
+          <TableColumn Name="Column54" Width="56.7"/>
+          <TableColumn Name="Column55" Width="47.25"/>
+          <TableColumn Name="Column56"/>
+          <TableColumn Name="Column57" Width="47.25"/>
+          <TableColumn Name="Column58" Width="56.7"/>
+          <TableColumn Name="Column59"/>
+          <TableColumn Name="Column60" Width="56.7"/>
+          <TableColumn Name="Column61"/>
+          <TableColumn Name="Column62"/>
+          <TableRow Name="Row16" Height="94.5">
+            <TableCell Name="Cell168" Border.Lines="All" Text="Код cтрукnурного подразделения&#13;&#10;" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+            <TableCell Name="Cell169" Border.Lines="All" Text="Код отделения или профиля коек (для ДС)   &#13;&#10;" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+            <TableCell Name="Cell170" Border.Lines="All" Text="N индивидуального счета  &#13;&#10;" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+            <TableCell Name="Cell171" Border.Lines="All" Text="Период (месяц)&#13;&#10;" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+            <TableCell Name="Cell172" Border.Lines="All" Text="N полиса обязательного медицинского страхования   &#13;&#10;" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+            <TableCell Name="Cell173" Border.Lines="All" Text="Код территории страхования  &#13;&#10;" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+            <TableCell Name="Cell174" Border.Lines="All" Text="Код причины отказа в оплате &#13;&#10;" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+            <TableCell Name="Cell175" Border.Lines="All" Text="Сумма, подлежащая отказу в оплате  &#13;&#10;" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+            <TableCell Name="Cell176" Border.Lines="All" Text="Код финансовых санкций   &#13;&#10;" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+            <TableCell Name="Cell177" Border.Lines="All" Text="Сумма финансовых санкций   &#13;&#10;" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+            <TableCell Name="Cell178" Border.Lines="All" Text="Примечания &#13;&#10;" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          </TableRow>
+          <TableRow Name="Row17">
+            <TableCell Name="Cell179" Border.Lines="All" Text="1" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+            <TableCell Name="Cell180" Border.Lines="All" Text="2" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+            <TableCell Name="Cell181" Border.Lines="All" Text="3" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+            <TableCell Name="Cell182" Border.Lines="All" Text="4" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+            <TableCell Name="Cell183" Border.Lines="All" Text="5" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+            <TableCell Name="Cell184" Border.Lines="All" Text="6" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+            <TableCell Name="Cell185" Border.Lines="All" Text="7" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+            <TableCell Name="Cell186" Border.Lines="All" Text="8" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+            <TableCell Name="Cell187" Border.Lines="All" Text="9" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+            <TableCell Name="Cell188" Border.Lines="All" Text="10" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+            <TableCell Name="Cell189" Border.Lines="All" Text="11" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          </TableRow>
+        </TableObject>
+        <TextObject Name="Text89" Left="500.85" Top="9.45" Width="75.6" Height="18.9" Text="[Table3.sum3]"/>
+        <TextObject Name="Text90" Left="37.8" Top="28.35" Width="47.25" Height="18.9" Text="[Table3.kol3]"/>
+        <TextObject Name="Text22" Left="28.35" Top="28.35" Width="661.5" Height="18.9" Text="_______ счетов&#13;&#10;"/>
+      </DataHeaderBand>
+    </DataBand>
+    <DataBand Name="Data5" Top="1471.3" Width="718.2" Height="387.45">
+      <TextObject Name="Text49" Left="28.35" Top="9.45" Width="661.5" Height="47.25" Text="2.2. Не принято  к  оплате  в  связи  с  превышением  согласованных объемов медицинских услуг на общую сумму _________________ руб.:&#13;&#10;"/>
+      <TextObject Name="Text34" Left="28.35" Top="56.7" Width="661.5" Height="18.9" Text="	В т.ч.: за стационарную медицинскую помощь на сумму _____________ руб.;"/>
+      <TextObject Name="Text50" Left="28.35" Top="75.6" Width="661.5" Height="18.9" Text="	за медицинскую помощь в дневном стационаре на сумму _____ руб.;"/>
+      <TextObject Name="Text51" Left="28.35" Top="94.5" Width="661.5" Height="18.9" Text="	за амбулаторно-поликлиническую медицинскую помощь на сумму ____руб."/>
+      <TableObject Name="Table5" Left="28.35" Top="122.85" Width="661.5" Height="160.65">
+        <TableColumn Name="Column43"/>
+        <TableColumn Name="Column44"/>
+        <TableColumn Name="Column45" Width="94.5"/>
+        <TableColumn Name="Column46" Width="85.05"/>
+        <TableColumn Name="Column47"/>
+        <TableColumn Name="Column48"/>
+        <TableColumn Name="Column49" Width="75.6"/>
+        <TableColumn Name="Column50"/>
+        <TableColumn Name="Column51" Width="75.6"/>
+        <TableRow Name="Row13" Height="122.85">
+          <TableCell Name="Cell141" Border.Lines="All" Text="Подразделения МО&#13;&#10;" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell142" Border.Lines="All" Text="Код отделения  &#13;&#10;" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell143" Border.Lines="All" Text="Период, в котором произошло превышение согласованных объемов (квартал)&#13;&#10;" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell144" Border.Lines="All" Text="Величина превышения согласованных объемов медицинских услуг (к/д., посещений, УЕТ)&#13;&#10;" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell145" Border.Lines="All" Text="Сумма, не подлежащая оплате в связи с превышением согласованных объемов &#13;&#10;&#13;&#10;" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell146" Border.Lines="All" Text="Сумма, не принятая к оплате в связи с превышением согласованных объемов&#13;&#10;" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell147" Border.Lines="All" Text="В т.ч.: до проведения повторного МЭК    &#13;&#10;" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell148" Border.Lines="All" Text="Сумма, удерживаемая в текущем месяце &#13;&#10;" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell149" Border.Lines="All" Text="Сумма, подлежащая удержанию в последующий период    &#13;&#10;" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+        </TableRow>
+        <TableRow Name="Row14">
+          <TableCell Name="Cell150" Border.Lines="All" Text="1" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell151" Border.Lines="All" Text="2" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell152" Border.Lines="All" Text="3" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell153" Border.Lines="All" Text="4" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell154" Border.Lines="All" Text="5" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell155" Border.Lines="All" Text="6" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell156" Border.Lines="All" Text="7" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell157" Border.Lines="All" Text="8" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell158" Border.Lines="All" Text="9" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+        </TableRow>
+        <TableRow Name="Row15">
+          <TableCell Name="Cell159" Border.Lines="All" Font="Arial, 8pt"/>
+          <TableCell Name="Cell160" Border.Lines="All" Font="Arial, 8pt"/>
+          <TableCell Name="Cell161" Border.Lines="All" Font="Arial, 8pt"/>
+          <TableCell Name="Cell162" Border.Lines="All" Font="Arial, 8pt"/>
+          <TableCell Name="Cell163" Border.Lines="All" Font="Arial, 8pt"/>
+          <TableCell Name="Cell164" Border.Lines="All" Font="Arial, 8pt"/>
+          <TableCell Name="Cell165" Border.Lines="All" Font="Arial, 8pt"/>
+          <TableCell Name="Cell166" Border.Lines="All" Font="Arial, 8pt"/>
+          <TableCell Name="Cell167" Border.Lines="All" Font="Arial, 8pt"/>
+        </TableRow>
+      </TableObject>
+      <TextObject Name="Text54" Left="28.35" Top="302.4" Width="661.5" Height="18.9" Text="Дата предоставления счетов СМО (ТФ) медицинской организацией"/>
+      <TextObject Name="Text55" Left="28.35" Top="321.3" Width="661.5" Height="18.9" Text="&quot;__&quot; ____________ 201_ г."/>
+      <TextObject Name="Text56" Left="28.35" Top="340.2" Width="661.5" Height="18.9" Text="Дата проверки счетов (реестров) &quot;__&quot; _____________ 201_ г."/>
+      <TextObject Name="Text36" Left="28.35" Top="368.55" Width="661.5" Height="18.9" Text="Специалист (Ф.И.О. и подпись) _______________________________"/>
+    </DataBand>
+    <PageFooterBand Name="PageFooter1" Top="1860.75" Width="718.2" Height="66.15"/>
+  </ReportPage>
+</Report>

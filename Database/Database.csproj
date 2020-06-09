@@ -1,0 +1,582 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{7C69D4FB-3DB0-4B3D-9C9A-35EB8DDCA4A9}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Medical.DatabaseCore</RootNamespace>
+    <AssemblyName>DatabaseCore</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Autofac, Version=4.0.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.4.0.0\lib\net451\Autofac.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="BLToolkit.4, Version=4.3.4.0, Culture=neutral, PublicKeyToken=b1d3f6ab3aadaca3, processorArchitecture=MSIL">
+      <HintPath>..\packages\BLToolkit.4.3.4\lib\net40\BLToolkit.4.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Data.v16.2, Version=16.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="GalaSoft.MvvmLight, Version=5.3.0.19026, Culture=neutral, PublicKeyToken=e7570ab207bcb616, processorArchitecture=MSIL">
+      <HintPath>..\packages\MvvmLightLibs.5.3.0.0\lib\net45\GalaSoft.MvvmLight.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="GalaSoft.MvvmLight.Extras, Version=5.3.0.19032, Culture=neutral, PublicKeyToken=669f0b5e8f868abf, processorArchitecture=MSIL">
+      <HintPath>..\packages\MvvmLightLibs.5.3.0.0\lib\net45\GalaSoft.MvvmLight.Extras.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="GalaSoft.MvvmLight.Platform, Version=5.3.0.19032, Culture=neutral, PublicKeyToken=5f873c45e98af8a1, processorArchitecture=MSIL">
+      <HintPath>..\packages\MvvmLightLibs.5.3.0.0\lib\net45\GalaSoft.MvvmLight.Platform.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\CommonServiceLocator.1.3\lib\portable-net4+sl5+netcore45+wpa81+wp8\Microsoft.Practices.ServiceLocation.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\MvvmLightLibs.5.3.0.0\lib\net45\System.Windows.Interactivity.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WPFToolkit.Extended, Version=1.6.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Lib\WPFToolkit.Extended.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DataModel\BaseEntity.cs" />
+    <Compile Include="DataModel\MedicineLogContext.cs" />
+    <Compile Include="DataModel\MedicineLogContext.generated.cs">
+      <DependentUpon>MedicineLogContext.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="DataModel\TortillaContext.cs" />
+    <Compile Include="DataModel\TortillaContext.generated.cs">
+      <DependentUpon>TortillaContext.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="DataModel\MedicineContextMetadata.cs" />
+    <Compile Include="EntityDataModel\EconomicPartner.cs" />
+    <Compile Include="EntityDataModel\EntityMedicineContext.cs" />
+    <Compile Include="EntityDataModel\EventShortView.cs" />
+    <Compile Include="EntityDataModel\F001.cs" />
+    <Compile Include="EntityDataModel\F002.cs" />
+    <Compile Include="EntityDataModel\F003.cs" />
+    <Compile Include="EntityDataModel\F004.cs" />
+    <Compile Include="EntityDataModel\F005.cs" />
+    <Compile Include="EntityDataModel\F006.cs" />
+    <Compile Include="EntityDataModel\F007.cs" />
+    <Compile Include="EntityDataModel\F008.cs" />
+    <Compile Include="EntityDataModel\F009.cs" />
+    <Compile Include="EntityDataModel\F010.cs" />
+    <Compile Include="EntityDataModel\F011.cs" />
+    <Compile Include="EntityDataModel\F012.cs" />
+    <Compile Include="EntityDataModel\F013.cs" />
+    <Compile Include="EntityDataModel\F014.cs" />
+    <Compile Include="EntityDataModel\F015.cs" />
+    <Compile Include="EntityDataModel\FactActEqma.cs" />
+    <Compile Include="EntityDataModel\FactActMee.cs" />
+    <Compile Include="EntityDataModel\FactAddress.cs" />
+    <Compile Include="EntityDataModel\FactClassifierVersion.cs" />
+    <Compile Include="EntityDataModel\FactDocument.cs" />
+    <Compile Include="EntityDataModel\FactEconomicAccount.cs" />
+    <Compile Include="EntityDataModel\FactEconomicDebt.cs" />
+    <Compile Include="EntityDataModel\FactEconomicPayment.cs" />
+    <Compile Include="EntityDataModel\FactEconomicPaymentDetail.cs" />
+    <Compile Include="EntityDataModel\FactEconomicRefuse.cs" />
+    <Compile Include="EntityDataModel\FactEconomicRefuseDetail.cs" />
+    <Compile Include="EntityDataModel\FactEconomicSurcharge.cs" />
+    <Compile Include="EntityDataModel\FactEconomicSurchargeDetail.cs" />
+    <Compile Include="EntityDataModel\FactEQMA.cs" />
+    <Compile Include="EntityDataModel\FactExchange.cs" />
+    <Compile Include="EntityDataModel\FactProcessing.cs" />
+    <Compile Include="EntityDataModel\FactExpertCriterion.cs" />
+    <Compile Include="EntityDataModel\FactExpertCriterion_copy.cs" />
+    <Compile Include="EntityDataModel\FactExternalRefuse.cs" />
+    <Compile Include="EntityDataModel\FactInsuredRegister.cs" />
+    <Compile Include="EntityDataModel\FactMEC.cs" />
+    <Compile Include="EntityDataModel\FactMedicalAccount.cs" />
+    <Compile Include="EntityDataModel\FactMedicalEvent.cs" />
+    <Compile Include="EntityDataModel\FactMedicalService.cs" />
+    <Compile Include="EntityDataModel\FactMEE.cs" />
+    <Compile Include="EntityDataModel\FactPatient.cs" />
+    <Compile Include="EntityDataModel\FactPerson.cs" />
+    <Compile Include="EntityDataModel\FactPreparedReport.cs" />
+    <Compile Include="EntityDataModel\FactReport.cs" />
+    <Compile Include="EntityDataModel\FactSrzQuery.cs" />
+    <Compile Include="EntityDataModel\FactTerritoryAccount.cs" />
+    <Compile Include="EntityDataModel\globalEqmaOutcome.cs" />
+    <Compile Include="EntityDataModel\globalAccountStatu.cs" />
+    <Compile Include="EntityDataModel\globalAccountType.cs" />
+    <Compile Include="EntityDataModel\globalClassifierMap.cs" />
+    <Compile Include="EntityDataModel\globalClassifierType.cs" />
+    <Compile Include="EntityDataModel\globalCriterionReason.cs" />
+    <Compile Include="EntityDataModel\globalCurePeriod.cs" />
+    <Compile Include="EntityDataModel\globalClinicalExamination.cs" />
+    <Compile Include="EntityDataModel\globalLicenseEntry.cs" />
+    <Compile Include="EntityDataModel\globalLicense.cs" />
+    <Compile Include="EntityDataModel\globalIDCToEventType.cs" />
+    <Compile Include="EntityDataModel\globalV015EqV002.cs" />
+    <Compile Include="EntityDataModel\globalRegionalAttribute.cs" />
+    <Compile Include="EntityDataModel\globalRefusalPenalty.cs" />
+    <Compile Include="EntityDataModel\globalProcessingType.cs" />
+    <Compile Include="EntityDataModel\globalDirection.cs" />
+    <Compile Include="EntityDataModel\globalDoctorParticularSign.cs" />
+    <Compile Include="EntityDataModel\globalEquivalentData.cs" />
+    <Compile Include="EntityDataModel\globalExaminationGroup.cs" />
+    <Compile Include="EntityDataModel\globalExaminationType.cs" />
+    <Compile Include="EntityDataModel\globalFlag.cs" />
+    <Compile Include="EntityDataModel\globalIDC10Modernization.cs" />
+    <Compile Include="EntityDataModel\globalMecType.cs" />
+    <Compile Include="EntityDataModel\globalMedicalAssistanceVolume.cs" />
+    <Compile Include="EntityDataModel\globalMedicalOrganizationIndicator.cs" />
+    <Compile Include="EntityDataModel\globalNonworkingDay.cs" />
+    <Compile Include="EntityDataModel\globalObsoleteData.cs" />
+    <Compile Include="EntityDataModel\globalOldProfile.cs" />
+    <Compile Include="EntityDataModel\globalParam.cs" />
+    <Compile Include="EntityDataModel\globalParticularCase.cs" />
+    <Compile Include="EntityDataModel\globalParticularSign.cs" />
+    <Compile Include="EntityDataModel\globalPaymentStatu.cs" />
+    <Compile Include="EntityDataModel\globalQuantityParticularSign.cs" />
+    <Compile Include="EntityDataModel\globalRefusalSource.cs" />
+    <Compile Include="EntityDataModel\globalReliability.cs" />
+    <Compile Include="EntityDataModel\globalSchoolStatu.cs" />
+    <Compile Include="EntityDataModel\globalMedicalEventType.cs" />
+    <Compile Include="EntityDataModel\localRole.cs" />
+    <Compile Include="EntityDataModel\globalScope.cs" />
+    <Compile Include="EntityDataModel\globalSrzStatu.cs" />
+    <Compile Include="EntityDataModel\globalVersion.cs" />
+    <Compile Include="EntityDataModel\LocalChief.cs" />
+    <Compile Include="EntityDataModel\localDoctorSchedule.cs" />
+    <Compile Include="EntityDataModel\localEmployee.cs" />
+    <Compile Include="EntityDataModel\localF001.cs" />
+    <Compile Include="EntityDataModel\localF003.cs" />
+    <Compile Include="EntityDataModel\localIDC10Group.cs" />
+    <Compile Include="EntityDataModel\localIDC10GroupComposition.cs" />
+    <Compile Include="EntityDataModel\localLogin.cs" />
+    <Compile Include="EntityDataModel\localOptionsDictionary.cs" />
+    <Compile Include="EntityDataModel\localParticularSignComposition.cs" />
+    <Compile Include="EntityDataModel\localPayment.cs" />
+    <Compile Include="EntityDataModel\localPaymentSource.cs" />
+    <Compile Include="EntityDataModel\localUser.cs" />
+    <Compile Include="EntityDataModel\localSettings.cs" />
+    <Compile Include="EntityDataModel\localUserSettings.cs" />
+    <Compile Include="EntityDataModel\M001.cs" />
+    <Compile Include="EntityDataModel\M001Classes.cs" />
+    <Compile Include="EntityDataModel\M001Sections.cs" />
+    <Compile Include="EntityDataModel\ME.cs" />
+    <Compile Include="EntityDataModel\MedicalAccountView.cs" />
+    <Compile Include="EntityDataModel\O001.cs" />
+    <Compile Include="EntityDataModel\O002.cs" />
+    <Compile Include="EntityDataModel\O003.cs" />
+    <Compile Include="EntityDataModel\O004.cs" />
+    <Compile Include="EntityDataModel\O005.cs" />
+    <Compile Include="EntityDataModel\PatientShortView.cs" />
+    <Compile Include="EntityDataModel\R001.cs" />
+    <Compile Include="EntityDataModel\R002.cs" />
+    <Compile Include="EntityDataModel\R003.cs" />
+    <Compile Include="EntityDataModel\R004.cs" />
+    <Compile Include="EntityDataModel\SchemaChanx.cs" />
+    <Compile Include="EntityDataModel\shareDoctor.cs" />
+    <Compile Include="EntityDataModel\shareKsg.cs" />
+    <Compile Include="EntityDataModel\shareMedicalDepartment.cs" />
+    <Compile Include="EntityDataModel\shareMedicalOrganizationLicense.cs" />
+    <Compile Include="EntityDataModel\shareMedicalOrganizationProfile.cs" />
+    <Compile Include="EntityDataModel\shareMedicalSubdivision.cs" />
+    <Compile Include="EntityDataModel\shareOperatingSchedule.cs" />
+    <Compile Include="EntityDataModel\shareRate.cs" />
+    <Compile Include="EntityDataModel\subAcademicDegree.cs" />
+    <Compile Include="EntityDataModel\subDayOfWeek.cs" />
+    <Compile Include="EntityDataModel\subExpertAcademicDegree.cs" />
+    <Compile Include="EntityDataModel\subExpertCertificate.cs" />
+    <Compile Include="EntityDataModel\subQualificationCategory.cs" />
+    <Compile Include="EntityDataModel\subScheduleDateTime.cs" />
+    <Compile Include="EntityDataModel\TerritoryAccountView.cs" />
+    <Compile Include="EntityDataModel\V001.cs" />
+    <Compile Include="EntityDataModel\V002.cs" />
+    <Compile Include="EntityDataModel\V003.cs" />
+    <Compile Include="EntityDataModel\V004.cs" />
+    <Compile Include="EntityDataModel\V005.cs" />
+    <Compile Include="EntityDataModel\V006.cs" />
+    <Compile Include="EntityDataModel\V007.cs" />
+    <Compile Include="EntityDataModel\V008.cs" />
+    <Compile Include="EntityDataModel\V009.cs" />
+    <Compile Include="EntityDataModel\V010.cs" />
+    <Compile Include="EntityDataModel\V012.cs" />
+    <Compile Include="EntityDataModel\V013.cs" />
+    <Compile Include="EntityDataModel\V014.cs" />
+    <Compile Include="EntityDataModel\V015.cs" />
+    <Compile Include="EntityDataModel\V016.cs" />
+    <Compile Include="EntityDataModel\V017.cs" />
+    <Compile Include="EntityDataModel\V018.cs" />
+    <Compile Include="EntityDataModel\V019.cs" />
+    <Compile Include="InitCommand.cs" />
+    <Compile Include="Migrations\201408311713438_InitialCreate.cs" />
+    <Compile Include="Migrations\201408311713438_InitialCreate.Designer.cs">
+      <DependentUpon>201408311713438_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201408311716467_AddLocalUserProfile.cs" />
+    <Compile Include="Migrations\201408311716467_AddLocalUserProfile.Designer.cs">
+      <DependentUpon>201408311716467_AddLocalUserProfile.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201412010818434_AddEventType.cs" />
+    <Compile Include="Migrations\201412010818434_AddEventType.Designer.cs">
+      <DependentUpon>201412010818434_AddEventType.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201412031119133_AddFactProcessing.cs" />
+    <Compile Include="Migrations\201412031119133_AddFactProcessing.Designer.cs">
+      <DependentUpon>201412031119133_AddFactProcessing.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201412070920144_AddLocalRole.cs" />
+    <Compile Include="Migrations\201412070920144_AddLocalRole.Designer.cs">
+      <DependentUpon>201412070920144_AddLocalRole.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201412231134428_AddGlobalRefusalPenalty.cs" />
+    <Compile Include="Migrations\201412231134428_AddGlobalRefusalPenalty.Designer.cs">
+      <DependentUpon>201412231134428_AddGlobalRefusalPenalty.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201412251903589_UpdateActMee.cs" />
+    <Compile Include="Migrations\201412251903589_UpdateActMee.Designer.cs">
+      <DependentUpon>201412251903589_UpdateActMee.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201501130851538_FixF014.cs" />
+    <Compile Include="Migrations\201501130851538_FixF014.Designer.cs">
+      <DependentUpon>201501130851538_FixF014.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201503060954063_AddElmedicineFields.cs" />
+    <Compile Include="Migrations\201503060954063_AddElmedicineFields.Designer.cs">
+      <DependentUpon>201503060954063_AddElmedicineFields.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201503061119198_AddElmedicineClassifiers.cs" />
+    <Compile Include="Migrations\201503061119198_AddElmedicineClassifiers.Designer.cs">
+      <DependentUpon>201503061119198_AddElmedicineClassifiers.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201503131340438_FixActMeeAndEqma.cs" />
+    <Compile Include="Migrations\201503131340438_FixActMeeAndEqma.Designer.cs">
+      <DependentUpon>201503131340438_FixActMeeAndEqma.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201503190750441_AddElmedicineClassifiers1.cs" />
+    <Compile Include="Migrations\201503190750441_AddElmedicineClassifiers1.Designer.cs">
+      <DependentUpon>201503190750441_AddElmedicineClassifiers1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201503200907330_FixFactEqmaAct.cs" />
+    <Compile Include="Migrations\201503200907330_FixFactEqmaAct.Designer.cs">
+      <DependentUpon>201503200907330_FixFactEqmaAct.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201503260953132_AddElmedicineFields2.cs" />
+    <Compile Include="Migrations\201503260953132_AddElmedicineFields2.Designer.cs">
+      <DependentUpon>201503260953132_AddElmedicineFields2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201503261124155_AddGlobalIDCToEventType.cs" />
+    <Compile Include="Migrations\201503261124155_AddGlobalIDCToEventType.Designer.cs">
+      <DependentUpon>201503261124155_AddGlobalIDCToEventType.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201503270746525_AddLocalF003Fields.cs" />
+    <Compile Include="Migrations\201503270746525_AddLocalF003Fields.Designer.cs">
+      <DependentUpon>201503270746525_AddLocalF003Fields.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201503270853119_AddF004Fields.cs" />
+    <Compile Include="Migrations\201503270853119_AddF004Fields.Designer.cs">
+      <DependentUpon>201503270853119_AddF004Fields.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201503301303204_FixFactEqmaAct2.cs" />
+    <Compile Include="Migrations\201503301303204_FixFactEqmaAct2.Designer.cs">
+      <DependentUpon>201503301303204_FixFactEqmaAct2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201503310901071_FixFactEqmaAct3.cs" />
+    <Compile Include="Migrations\201503310901071_FixFactEqmaAct3.Designer.cs">
+      <DependentUpon>201503310901071_FixFactEqmaAct3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201503311102164_AddGlobalEqmaOutcome.cs" />
+    <Compile Include="Migrations\201503311102164_AddGlobalEqmaOutcome.Designer.cs">
+      <DependentUpon>201503311102164_AddGlobalEqmaOutcome.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201609072125416_Optimizations.cs" />
+    <Compile Include="Migrations\201609072125416_Optimizations.Designer.cs">
+      <DependentUpon>201609072125416_Optimizations.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201612061317279_AddIDKSG.cs" />
+    <Compile Include="Migrations\201612061317279_AddIDKSG.Designer.cs">
+      <DependentUpon>201612061317279_AddIDKSG.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Services\Cache\AccountTypeCache.cs" />
+    <Compile Include="Services\Cache\CacheItem.cs" />
+    <Compile Include="Services\Cache\ExaminationGroupCache.cs" />
+    <Compile Include="Services\Cache\F004Cache.cs" />
+    <Compile Include="Services\Cache\F006Cache.cs" />
+    <Compile Include="Services\Cache\F008Cache.cs" />
+    <Compile Include="Services\Cache\F011Cache.cs" />
+    <Compile Include="Services\Cache\IDC10PayableCache.cs" />
+    <Compile Include="Services\Cache\M001Cache.cs" />
+    <Compile Include="Services\Cache\N001Cache.cs" />
+    <Compile Include="Services\Cache\N005Cache.cs" />
+    <Compile Include="Services\Cache\N004Cache.cs" />
+    <Compile Include="Services\Cache\N003Cache.cs" />
+    <Compile Include="Services\Cache\N002Cache.cs" />
+    <Compile Include="Services\Cache\N008Cache.cs" />
+    <Compile Include="Services\Cache\N013Cache.cs" />
+    <Compile Include="Services\Cache\N020Cache.cs" />
+    <Compile Include="Services\Cache\N019Cache.cs" />
+    <Compile Include="Services\Cache\N018Cache.cs" />
+    <Compile Include="Services\Cache\N017Cache.cs" />
+    <Compile Include="Services\Cache\N016Cache.cs" />
+    <Compile Include="Services\Cache\N015Cache.cs" />
+    <Compile Include="Services\Cache\N014Cache.cs" />
+    <Compile Include="Services\Cache\N011Cache.cs" />
+    <Compile Include="Services\Cache\N010Cache.cs" />
+    <Compile Include="Services\Cache\RefusalPenaltyCache.cs" />
+    <Compile Include="Services\Cache\RoleCache.cs" />
+    <Compile Include="Services\Cache\F002IdToNameCache.cs" />
+    <Compile Include="Services\Cache\F002ToTfOkatoCache.cs" />
+    <Compile Include="Services\Cache\F003MCodeToNameCache.cs" />
+    <Compile Include="Services\Cache\ExaminationTypeCache.cs" />
+    <Compile Include="Services\Cache\ShareDoctorToCodeCache.cs" />
+    <Compile Include="Services\Cache\TortilaPolicyTypeCache.cs" />
+    <Compile Include="Services\Cache\F010TfCodeToNameCache.cs" />
+    <Compile Include="Services\Cache\F010OkatoToNameCache.cs" />
+    <Compile Include="Services\Cache\AccountStatusCache.cs" />
+    <Compile Include="Services\Cache\ScopeCache.cs" />
+    <Compile Include="Services\Cache\ConsultationOnkCache.cs" />
+    <Compile Include="Services\Cache\GlobalRegionalAttributeCache.cs" />
+    <Compile Include="Services\Cache\V005Cache.cs" />
+    <Compile Include="Services\Cache\V008Cache.cs" />
+    <Compile Include="Services\Cache\V006Cache.cs" />
+    <Compile Include="Services\Cache\V010Cache.cs" />
+    <Compile Include="Services\Cache\V014Cache.cs" />
+    <Compile Include="Services\Cache\V012Cache.cs" />
+    <Compile Include="Services\Cache\ParamCache.cs" />
+    <Compile Include="Services\Cache\PaymentStatusCache.cs" />
+    <Compile Include="Services\Cache\V002Cache.cs" />
+    <Compile Include="Services\Cache\N007Cache.cs" />
+    <Compile Include="Services\Cache\V020Cache.cs" />
+    <Compile Include="Services\Cache\V021Cache.cs" />
+    <Compile Include="Services\Cache\V023Cache.cs" />
+    <Compile Include="Services\Cache\V029Cache.cs" />
+    <Compile Include="Services\Cache\V028Cache.cs" />
+    <Compile Include="Services\Cache\V027Cache.cs" />
+    <Compile Include="Services\Cache\V026Cache.cs" />
+    <Compile Include="Services\Cache\V025Cache.cs" />
+    <Compile Include="Services\Cache\V024Cache.cs" />
+    <Compile Include="Services\Classifiers\ClassifierBaseVm.cs" />
+    <Compile Include="Services\Classifiers\ClassifierItemsSource.cs" />
+    <Compile Include="Services\Classifiers\IClassifierModel.cs" />
+    <Compile Include="Services\Database\AppRemoteSettings.cs" />
+    <Compile Include="Services\Database\DatabaseContext.cs" />
+    <Compile Include="DataModel\MedicineContext.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MedicineContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Services\Database\FfomsReportRepository.cs" />
+    <Compile Include="Services\Database\IFfomsReportRepository.cs" />
+    <Compile Include="Services\Database\IMedicineLogRepository.cs" />
+    <Compile Include="Services\Database\ITortillaRepository.cs" />
+    <Compile Include="Services\Database\MedicineLogRepository.cs" />
+    <Compile Include="Services\Database\TerritoryService.cs" />
+    <Compile Include="Services\Database\TortillaRepository.cs" />
+    <Compile Include="Services\Database\IAppRemoteSettings.cs" />
+    <Compile Include="Services\Database\IElmedicineRepository.cs" />
+    <Compile Include="Services\Database\IMigrationService.cs" />
+    <Compile Include="Services\Database\ElmedicineRepository.cs" />
+    <Compile Include="Services\Database\MedicineRepository.cs" />
+    <Compile Include="Linq\PLinqListDatabase.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\Cache\CacheRepository.cs" />
+    <Compile Include="Services\Cache\DictionaryCache.cs" />
+    <Compile Include="Services\Cache\F001Cache.cs" />
+    <Compile Include="Services\Cache\F002Cache.cs" />
+    <Compile Include="Services\Cache\F003Cache.cs" />
+    <Compile Include="Services\Cache\F005Cache.cs" />
+    <Compile Include="Services\Cache\F010Cache.cs" />
+    <Compile Include="Services\Cache\F014aCache.cs" />
+    <Compile Include="Services\Cache\F014Cache.cs" />
+    <Compile Include="Services\Cache\ICache.cs" />
+    <Compile Include="Services\Cache\IDC10Cache.cs" />
+    <Compile Include="Services\Cache\ICacheRepository.cs" />
+    <Compile Include="Services\Cache\V004Cache.cs" />
+    <Compile Include="Services\Cache\V009Cache.cs" />
+    <Compile Include="Services\Cache\V015Cache.cs" />
+    <Compile Include="Services\Cache\VersionCache.cs" />
+    <Compile Include="Services\Database\IMedicineRepository.cs" />
+    <Compile Include="Services\Database\MigrationService.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.Config" />
+    <None Include="Auto.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Auto.cs</LastGenOutput>
+      <LastOutputs>.\Properties\AssemblyInfo.cs</LastOutputs>
+    </None>
+    <None Include="DataModel\BLToolkit.ttinclude" />
+    <None Include="DataModel\MedicineLogContext.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>MedicineLogContext.generated.cs</LastGenOutput>
+      <LastOutputs>.\MedicineLogContext.generated.cs</LastOutputs>
+    </None>
+    <None Include="DataModel\TortillaContext.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>TortillaContext.generated.cs</LastGenOutput>
+      <LastOutputs>.\TortillaContext.generated.cs</LastOutputs>
+    </None>
+    <None Include="DataModel\MedicineContext.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>MedicineContext.generated.cs</LastGenOutput>
+      <LastOutputs>.\MedicineContext.generated.cs</LastOutputs>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="migrations.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CoreLayer\CoreLayer.csproj">
+      <Project>{74298f56-160f-44cb-808f-077b69a3e53b}</Project>
+      <Name>CoreLayer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Core\Core.csproj">
+      <Project>{3d0ad1d2-d4f2-40fb-8ed4-f9ef3a48de2a}</Project>
+      <Name>Core</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201408311713438_InitialCreate.resx">
+      <DependentUpon>201408311713438_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201408311716467_AddLocalUserProfile.resx">
+      <DependentUpon>201408311716467_AddLocalUserProfile.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201412010818434_AddEventType.resx">
+      <DependentUpon>201412010818434_AddEventType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201412031119133_AddFactProcessing.resx">
+      <DependentUpon>201412031119133_AddFactProcessing.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201412070920144_AddLocalRole.resx">
+      <DependentUpon>201412070920144_AddLocalRole.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201412231134428_AddGlobalRefusalPenalty.resx">
+      <DependentUpon>201412231134428_AddGlobalRefusalPenalty.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201412251903589_UpdateActMee.resx">
+      <DependentUpon>201412251903589_UpdateActMee.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201501130851538_FixF014.resx">
+      <DependentUpon>201501130851538_FixF014.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201503060954063_AddElmedicineFields.resx">
+      <DependentUpon>201503060954063_AddElmedicineFields.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201503061119198_AddElmedicineClassifiers.resx">
+      <DependentUpon>201503061119198_AddElmedicineClassifiers.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201503131340438_FixActMeeAndEqma.resx">
+      <DependentUpon>201503131340438_FixActMeeAndEqma.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201503190750441_AddElmedicineClassifiers1.resx">
+      <DependentUpon>201503190750441_AddElmedicineClassifiers1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201503200907330_FixFactEqmaAct.resx">
+      <DependentUpon>201503200907330_FixFactEqmaAct.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201503260953132_AddElmedicineFields2.resx">
+      <DependentUpon>201503260953132_AddElmedicineFields2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201503261124155_AddGlobalIDCToEventType.resx">
+      <DependentUpon>201503261124155_AddGlobalIDCToEventType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201503270746525_AddLocalF003Fields.resx">
+      <DependentUpon>201503270746525_AddLocalF003Fields.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201503270853119_AddF004Fields.resx">
+      <DependentUpon>201503270853119_AddF004Fields.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201503301303204_FixFactEqmaAct2.resx">
+      <DependentUpon>201503301303204_FixFactEqmaAct2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201503310901071_FixFactEqmaAct3.resx">
+      <DependentUpon>201503310901071_FixFactEqmaAct3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201503311102164_AddGlobalEqmaOutcome.resx">
+      <DependentUpon>201503311102164_AddGlobalEqmaOutcome.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201609072125416_Optimizations.resx">
+      <DependentUpon>201609072125416_Optimizations.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612061317279_AddIDKSG.resx">
+      <DependentUpon>201612061317279_AddIDKSG.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
+  </Target>
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

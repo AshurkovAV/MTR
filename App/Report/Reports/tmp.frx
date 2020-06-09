@@ -1,0 +1,197 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report ScriptLanguage="CSharp" DoublePass="true" StartReportEvent="_StartReport" ReportInfo.Created="06/20/2009 22:40:42" ReportInfo.Modified="02/10/2015 15:10:39" ReportInfo.CreatorVersion="2013.3.9.0">
+  <ScriptText>using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Windows.Forms;
+using System.Drawing;
+using System.Data;
+using FastReport;
+using FastReport.Data;
+using FastReport.Dialog;
+using FastReport.Barcode;
+using FastReport.Table;
+using FastReport.Utils;
+
+namespace FastReport
+{
+  public class ReportScript
+  {
+    
+
+    private void btnOk_Click(object sender, EventArgs e)
+    {
+      if (!CheckBox1.Checked)
+        ReportTitle1.Visible = false;
+    }
+  }
+}
+</ScriptText>
+  <Dictionary>
+    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqM3/HbiZANEYP3Y6oNtE7mhb00LswZpLPL1nHlNPE8Ttd/PYtJWZHa+Bi6VxY2kO/86yqC3dEAfSOFuAtVHPo27ltpeit54RmWfyB1HPJuDUSBNOELtEhifv9pd5xb8NjHezfLLxa7C+tQPiWNZSeim26GSpcno8vSop5X0uZ7SE=">
+      <TableDataSource Name="localEmployee" DataType="System.Int32" Enabled="true" TableName="localEmployee" SelectCommand="SELECT L.Surname, L.EName, L.Patronymic, L.Position, L.Speciality, L.Phone, L.EmployeeId, L.ConfNumber&#13;&#10;FROM &quot;localEmployee&quot; L WHERE L.EmployeeId=@EmployeeIdParam&#13;&#10;">
+        <Column Name="Surname" DataType="System.String"/>
+        <Column Name="EName" DataType="System.String"/>
+        <Column Name="Patronymic" DataType="System.String"/>
+        <Column Name="Position" DataType="System.String"/>
+        <Column Name="Speciality" DataType="System.String"/>
+        <Column Name="Phone" DataType="System.String"/>
+        <Column Name="EmployeeId" DataType="System.Int32"/>
+        <Column Name="ConfNumber" DataType="System.String"/>
+        <Column Name="FullNameInitials" DataType="System.Int32" PropName="Column" Calculated="true" Expression="[localEmployee.Surname] + &quot; &quot;+Substring([localEmployee.EName],0,1) + &quot;.&quot; +Substring([localEmployee.Patronymic],0,1) + &quot;.&quot;"/>
+        <CommandParameter Name="EmployeeIdParam" DataType="8" DefaultValue="1"/>
+      </TableDataSource>
+      <TableDataSource Name="FactActMee" DataType="System.Int32" Enabled="true" TableName="FactActMee" SelectCommand="SELECT F.ActMeeId, F.Number, F.Date, F.Letter, F.Positions, F.Personal, F.PolicyNumber, F.MedicalOrganization, F.History, F.EventBegin, F.EventEnd, F.DiagnosisGeneral, F.DiagnosisGeneralComments, F.DiagnosisSecondary, F.DiagnosisSecondaryComments, F.Doctor, F.Documentation, F.Duration, F.RefusalCode, F.Quantity, F.Price, F.AcceptPrice, F.EmployeeId, F.MedicalOrganizationDirector, F.AccountId, F.PatientId, F.Conclusion, F.PenaltyPrice&#13;&#10;FROM &quot;FactActMee&quot; F&#13;&#10;WHERE F.ActMeeId=@ActIdParam&#13;&#10;">
+        <Column Name="ActMeeId" DataType="System.Int32"/>
+        <Column Name="Number" DataType="System.Int32"/>
+        <Column Name="Date" DataType="System.DateTime"/>
+        <Column Name="Letter" DataType="System.String"/>
+        <Column Name="Positions" DataType="System.String"/>
+        <Column Name="Personal" DataType="System.String"/>
+        <Column Name="PolicyNumber" DataType="System.String"/>
+        <Column Name="MedicalOrganization" DataType="System.String"/>
+        <Column Name="History" DataType="System.String"/>
+        <Column Name="EventBegin" DataType="System.DateTime"/>
+        <Column Name="EventEnd" DataType="System.DateTime"/>
+        <Column Name="DiagnosisGeneral" DataType="System.String"/>
+        <Column Name="DiagnosisGeneralComments" DataType="System.String"/>
+        <Column Name="DiagnosisSecondary" DataType="System.String"/>
+        <Column Name="DiagnosisSecondaryComments" DataType="System.String"/>
+        <Column Name="Doctor" DataType="System.String"/>
+        <Column Name="Documentation" DataType="System.String"/>
+        <Column Name="Duration" DataType="System.String"/>
+        <Column Name="Quantity" DataType="System.Decimal"/>
+        <Column Name="Price" DataType="System.Decimal"/>
+        <Column Name="AcceptPrice" DataType="System.Decimal"/>
+        <Column Name="EmployeeId" DataType="System.Int32"/>
+        <Column Name="MedicalOrganizationDirector" DataType="System.String"/>
+        <Column Name="AccountId" DataType="System.Int32"/>
+        <Column Name="PatientId" DataType="System.Int32"/>
+        <Column Name="Conclusion" DataType="System.String"/>
+        <Column Name="RefusalCode" DataType="System.String"/>
+        <Column Name="PenaltyPrice" DataType="System.Decimal"/>
+        <CommandParameter Name="ActIdParam" DataType="8" Expression="[ActId]" DefaultValue="13"/>
+      </TableDataSource>
+      <TableDataSource Name="FactTerritoryAccount" DataType="System.Int32" Enabled="true" TableName="FactTerritoryAccount" SelectCommand="SELECT F.Date, F.AccountNumber, F.AccountDate, F.Price, F.AcceptPrice, F.MECPenalties, F.MEEPenalties, F.EQMAPenalties, F.Comments, F.Source, F.Destination, F.Status, F.ExternalId, F.PacketNumber, F.Type, F.Direction, F.Parent, F.TerritoryAccountId&#13;&#10;FROM &quot;FactTerritoryAccount&quot; F&#13;&#10;WHERE F.TerritoryAccountId=@AccountIdParam&#13;&#10;">
+        <Column Name="AccountNumber" DataType="System.String"/>
+        <Column Name="TerritoryAccountId" DataType="System.Int32"/>
+        <Column Name="Date" DataType="System.DateTime"/>
+        <Column Name="AccountDate" DataType="System.DateTime"/>
+        <Column Name="Price" DataType="System.Decimal"/>
+        <Column Name="AcceptPrice" DataType="System.Decimal"/>
+        <Column Name="MECPenalties" DataType="System.Decimal"/>
+        <Column Name="MEEPenalties" DataType="System.Decimal"/>
+        <Column Name="EQMAPenalties" DataType="System.Decimal"/>
+        <Column Name="Comments" DataType="System.String"/>
+        <Column Name="Source" DataType="System.String"/>
+        <Column Name="Destination" DataType="System.String"/>
+        <Column Name="Status" DataType="System.Int32"/>
+        <Column Name="ExternalId" DataType="System.Int32"/>
+        <Column Name="PacketNumber" DataType="System.Int32"/>
+        <Column Name="Type" DataType="System.Int32"/>
+        <Column Name="Direction" DataType="System.Int32"/>
+        <Column Name="Parent" DataType="System.Int32"/>
+        <CommandParameter Name="AccountIdParam" DataType="8" Expression="[FactActMee.AccountId]" DefaultValue="1"/>
+      </TableDataSource>
+    </MsSqlDataConnection>
+    <Parameter Name="EmployeeId" DataType="System.Int32"/>
+    <Parameter Name="PatientId" DataType="System.Int32"/>
+    <Parameter Name="AccountId" DataType="System.Int32"/>
+    <Parameter Name="ChkPrintPrivacyMark" DataType="System.Boolean"/>
+    <Parameter Name="ActId" DataType="System.Int32"/>
+  </Dictionary>
+  <ReportPage Name="Page1" RawPaperSize="9" LeftMargin="20" TopMargin="20" BottomMargin="20">
+    <ReportTitleBand Name="ReportTitle1" Width="680.4" Height="56.7" CanGrow="true">
+      <TextObject Name="Text2" Left="463.05" Width="217.35" Height="56.7" Text="Конфиденциально&#13;&#10;Экз.№" Font="Times New Roman, 12pt, style=Bold"/>
+    </ReportTitleBand>
+    <DataBand Name="Data2" Top="60.7" Width="680.4" Height="279.72" CanGrow="true">
+      <TextObject Name="Text1" Width="680.4" Height="18.9" Text="Акт № [FactActMee.Number] медико-экономической экспертизы страхового случая" HorzAlign="Center" Font="Times New Roman, 12pt, style=Bold">
+        <Formats>
+          <GeneralFormat/>
+          <DateFormat/>
+          <GeneralFormat/>
+          <DateFormat/>
+          <GeneralFormat/>
+        </Formats>
+      </TextObject>
+      <TextObject Name="Text3" Top="20.79" Width="680.4" Height="258.93" CanGrow="true" Text="1. Дата проведения экспертизы [FactActMee.Date]&#13;&#10;2. Фамилия, имя, отчество специалиста-эксперта [localEmployee.FullNameInitials]&#13;&#10;3. Наименование проверяющей организации Территориальный фонд обязательного медицинского страхования Курской области&#13;&#10;4. Наименование медицинской организации [FactActMee.MedicalOrganization]&#13;&#10;5. Номер счета за медицинские услуги № [FactTerritoryAccount.AccountNumber] от [FactTerritoryAccount.AccountDate]&#13;&#10;6. N полиса обязательного медицинского страхования [FactActMee.PolicyNumber]&#13;&#10;7. Номер медицинской карты (амбулаторного или стационарного больного) [FactActMee.History]&#13;&#10;8. Окончательный (клинический) диагноз основного заболевания [FactActMee.DiagnosisGeneral] [FactActMee.DiagnosisGeneralComments]&#13;&#10;9. Диагноз сопутствующего заболевания [FactActMee.DiagnosisSecondary] [FactActMee.DiagnosisSecondaryComments]&#13;&#10;10. Сроки лечения с [FactActMee.EventBegin] по [FactActMee.EventEnd]&#13;&#10;11. Стоимость лечения [FactActMee.Price]&#13;&#10;12. Длительность заболевания [FactActMee.Duration]&#13;&#10;13. Фамилия, имя, отчество лечащего врача [FactActMee.Doctor]&#13;&#10;14. Дополнительно проверена следующая учетно-отчетная документация [FactActMee.Documentation]&#13;&#10;" Font="Times New Roman, 12pt">
+        <Formats>
+          <DateFormat/>
+          <GeneralFormat/>
+          <GeneralFormat/>
+          <GeneralFormat/>
+          <DateFormat/>
+          <GeneralFormat/>
+          <GeneralFormat/>
+          <GeneralFormat/>
+          <GeneralFormat/>
+          <GeneralFormat/>
+          <GeneralFormat/>
+          <DateFormat/>
+          <DateFormat/>
+          <CurrencyFormat/>
+          <GeneralFormat/>
+          <GeneralFormat/>
+          <GeneralFormat/>
+        </Formats>
+      </TextObject>
+      <ChildBand Name="Child1" Top="344.42" Width="680.4" Height="122.85">
+        <TextObject Name="Text4" Top="18.9" Width="682.29" Height="103.95" Text="Заключение специалиста-эксперта по обоснованности объемов&#13;&#10;медицинских услуг, предоставленных к оплате, и их соответствие&#13;&#10;записям в первичной медицинской и учетно-отчетной документации&#13;&#10;медицинской организации&#13;&#10;(в т.ч. краткий перечень выявленных недостатков)" HorzAlign="Center" Font="Times New Roman, 12pt"/>
+        <ChildBand Name="Child2" Top="471.27" Width="680.4" Height="90.72" CanGrow="true">
+          <TextObject Name="Text5" Left="1.89" Top="39.69" Width="678.51" Height="51.03" Text="Не подлежит оплате (сумма, код дефекта/нарушения) [[FactActMee.Price]-[FactActMee.AcceptPrice]],[FactActMee.RefusalCode]&#13;&#10;Подлежит оплате [FactActMee.AcceptPrice]" AutoWidth="true" Font="Times New Roman, 12pt">
+            <Formats>
+              <CurrencyFormat/>
+              <GeneralFormat/>
+              <CurrencyFormat/>
+            </Formats>
+          </TextObject>
+          <TextObject Name="Text7" Left="1.89" Top="1.89" Width="94.5" Height="18.9" Text="ВЫВОДЫ: " Font="Times New Roman, 12pt"/>
+          <TextObject Name="Text8" Left="1.89" Top="20.79" Width="678.51" Height="18.9" CanGrow="true" Text="[FactActMee.Conclusion]" Font="Times New Roman, 12pt"/>
+        </ChildBand>
+      </ChildBand>
+      <DataFooterBand Name="DataFooter1" Top="565.99" Width="680.4" Height="100.17">
+        <TableObject Name="Table2" Left="1.89" Top="43.47" Width="676.4" Height="56.7">
+          <TableColumn Name="Column31" Width="258.3"/>
+          <TableColumn Name="Column32" Width="200.75"/>
+          <TableColumn Name="Column33" Width="94.5"/>
+          <TableColumn Name="Column34" Width="122.85"/>
+          <TableRow Name="Row9" AutoSize="true">
+            <TableCell Name="Cell97" Text="&quot;__&quot; _______________ 200_ г." Font="Times New Roman, 10pt"/>
+            <TableCell Name="Cell98" Text="[localEmployee.Position]" Padding="0, 0, 0, 0" Font="Times New Roman, 10pt"/>
+            <TableCell Name="Cell99" Text="___________" Font="Times New Roman, 10pt"/>
+            <TableCell Name="Cell106" Text="[localEmployee.FullNameInitials]" Font="Times New Roman, 10pt"/>
+          </TableRow>
+          <TableRow Name="Row10">
+            <TableCell Name="Cell100" Font="Times New Roman, 10pt"/>
+            <TableCell Name="Cell101" HorzAlign="Center" Font="Times New Roman, 10pt"/>
+            <TableCell Name="Cell102" Font="Times New Roman, 10pt"/>
+            <TableCell Name="Cell107" Font="Times New Roman, 10pt"/>
+          </TableRow>
+          <TableRow Name="Row11">
+            <TableCell Name="Cell103" Text="Руководитель М.П. медицинской организации" Font="Times New Roman, 10pt" ColSpan="2"/>
+            <TableCell Name="Cell104" Font="Times New Roman, 10pt"/>
+            <TableCell Name="Cell105" Text="___________" Font="Times New Roman, 10pt"/>
+            <TableCell Name="Cell108" Font="Times New Roman, 10pt"/>
+          </TableRow>
+        </TableObject>
+      </DataFooterBand>
+    </DataBand>
+    <PageFooterBand Name="PageFooter1" Top="670.16" Width="680.4" Height="22.68">
+      <TextObject Name="Text9" Width="446.04" Height="22.68" Text="№ [localEmployee.ConfNumber]/К-Б/" Font="Times New Roman, 10pt"/>
+    </PageFooterBand>
+  </ReportPage>
+  <ReportPage Name="Page2">
+    <ReportTitleBand Name="ReportTitle2" Width="718.2" Height="37.8"/>
+    <PageHeaderBand Name="PageHeader1" Top="41.25" Width="718.2" Height="28.35"/>
+    <DataBand Name="Data1" Top="73.05" Width="718.2" Height="75.6"/>
+    <PageFooterBand Name="PageFooter2" Top="152.09" Width="718.2" Height="126.63">
+      <TextObject Name="Text14" Width="446.04" Height="126.63" Text="№ [localEmployee.ConfNumber]/К-Б/&#13;&#10;Отп. 3 экз., на [Round(([TotalPages]) /2.0 + 0.1)]  [IIf( [TotalPages] &lt;= 2,&quot;листе&quot;,&quot;листах&quot;)] каждый &#13;&#10;Экз. №1 - адресату&#13;&#10;Экз. №2 - в ЛПУ&#13;&#10;Экз. №3 - в дело&#13;&#10;[localEmployee.FullNameInitials]&#13;&#10;[localEmployee.Phone]" Font="Times New Roman, 10pt"/>
+    </PageFooterBand>
+  </ReportPage>
+  <DialogPage Name="Form1" Width="298" Height="94" AcceptButton="btnOk" CancelButton="btnCancel">
+    <ButtonControl Name="btnOk" Left="126" Top="31" Anchor="Bottom, Right" Font="Tahoma, 8pt" TabIndex="0" Text="ОК" ClickEvent="btnOk_Click" DialogResult="OK"/>
+    <ButtonControl Name="btnCancel" Left="209" Top="31" Anchor="Bottom, Right" Font="Tahoma, 8pt" TabIndex="1" Text="Отмена" DialogResult="Cancel"/>
+    <CheckBoxControl Name="CheckBox1" Left="8" Top="8" Width="235" Height="19" Font="Tahoma, 8pt" TabIndex="2" Text="Печатать пометку о конфеденциальности" ReportParameter="ChkPrintPrivacyMark"/>
+  </DialogPage>
+</Report>

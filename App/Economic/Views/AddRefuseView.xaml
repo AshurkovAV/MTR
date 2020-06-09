@@ -1,0 +1,87 @@
+﻿<UserControl
+    x:Class="Medical.AppLayer.Economic.Views.AddRefuseView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol" 
+    xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors" 
+    xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+    xmlns:converters="clr-namespace:Medical.AppLayer.Converters"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    mc:Ignorable="d" 
+    d:DesignHeight="600" 
+    d:DesignWidth="800" 
+    x:Name="AddRefuseControl"
+    Height="Auto">
+
+    <UserControl.Resources>
+        <converters:AssistanceConditionsConverter x:Key="AssistanceConditionsConverter"/>
+    </UserControl.Resources>
+    
+    <Grid>
+        <dxlc:LayoutControl StretchContentHorizontally="True" Orientation="Vertical" VerticalAlignment="Stretch">
+            <dxlc:LayoutItem Label="ID счета" >
+                <dxe:TextEdit EditValue="{Binding AccountId, UpdateSourceTrigger=PropertyChanged}" IsEnabled="False"/>
+            </dxlc:LayoutItem>
+            <dxlc:LayoutItem Label="Дата отказа">
+                <dxe:DateEdit EditValue="{Binding RefuseDate, UpdateSourceTrigger=PropertyChanged}" />
+            </dxlc:LayoutItem>
+            <dxlc:LayoutItem Height="16">
+                <Separator/>
+            </dxlc:LayoutItem>
+            <dxlc:LayoutGroup>
+                <Button Content="Посчитать" Height="23" HorizontalAlignment="Right" VerticalAlignment="Top" Width="75"  Command="{Binding EvalCommand}"/>
+            </dxlc:LayoutGroup>
+            <dxlc:LayoutItem VerticalAlignment="Stretch">
+                <dxg:GridControl 
+                    x:Name="_gridControl"
+                    HorizontalAlignment="Stretch" 
+                    VerticalContentAlignment="Stretch"
+                    ShowBorder="False" 
+                    UseLayoutRounding="True"
+                    ItemsSource="{Binding RefuseList, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged}">
+                    <dxg:GridControl.Columns>
+                        <dxg:GridColumn FieldName="Amount" Header="Cумма">
+                            <dxg:GridColumn.EditSettings>
+                                <dxe:TextEditSettings DisplayFormat="c2" MaskType="Numeric"  Mask="c2"  TextWrapping="WrapWithOverflow"  />
+                            </dxg:GridColumn.EditSettings>
+                        </dxg:GridColumn>
+                        <dxg:GridColumn FieldName="AssistanceConditionsId" Header="Условия оказания МП" ReadOnly="True">
+                            <dxg:GridColumn.EditSettings>
+                                <dxe:TextEditSettings DisplayTextConverter="{StaticResource AssistanceConditionsConverter}"/>
+                            </dxg:GridColumn.EditSettings>
+                        </dxg:GridColumn>
+                    </dxg:GridControl.Columns>
+
+                    <dxg:GridControl.TotalSummary>
+                        <dxg:GridSummaryItem SummaryType="Count" Alignment="Left"/>
+                        <dxg:GridSummaryItem FieldName="Amount" SummaryType="Sum" DisplayFormat="Итого: {0:C2}" />
+                    </dxg:GridControl.TotalSummary>
+
+                    <dxg:GridControl.View>
+                        <dxg:TableView Name="_tableView" 
+                                       AutoWidth="True"
+                                       ShowTotalSummary="True"
+                                       ShowGroupPanel="False" 
+                                       ShowAutoFilterRow="False" 
+                                       AllowColumnMoving="False" 
+                                       AllowEditing="True" 
+                                       ShowIndicator="True"
+                                       HeaderPanelMinHeight="35"/>
+
+                    </dxg:GridControl.View>
+                </dxg:GridControl>
+            </dxlc:LayoutItem>
+            
+            <dxlc:LayoutItem Label="Итоговая сумма отказа">
+                <dxe:PopupCalcEdit EditValue="{Binding RefuseTotalAmount, UpdateSourceTrigger=PropertyChanged}" MaskType="Numeric"  Mask="c2" DisplayFormatString="c2" />
+            </dxlc:LayoutItem>
+            <dxlc:LayoutItem Height="16">
+                <Separator/>
+            </dxlc:LayoutItem>
+            <dxlc:LayoutGroup>
+                <Button Content="Сохранить" Height="23" HorizontalAlignment="Right" VerticalAlignment="Top" Width="75"  Command="{Binding CreateAccountCommand}"/>
+            </dxlc:LayoutGroup>
+        </dxlc:LayoutControl>
+    </Grid>
+</UserControl>

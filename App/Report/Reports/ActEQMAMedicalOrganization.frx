@@ -1,0 +1,532 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report ScriptLanguage="CSharp" DoublePass="true" StartReportEvent="_StartReport" ReportInfo.Created="06/20/2009 22:40:42" ReportInfo.Modified="03/31/2015 16:03:44" ReportInfo.CreatorVersion="2013.3.9.0">
+  <ScriptText>using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Windows.Forms;
+using System.Drawing;
+using System.Data;
+using FastReport;
+using FastReport.Data;
+using FastReport.Dialog;
+using FastReport.Barcode;
+using FastReport.Table;
+using FastReport.Utils;
+
+namespace FastReport
+{
+  public class ReportScript
+  {
+    
+  }
+}
+</ScriptText>
+  <Dictionary>
+    <MsSqlDataConnection Name="MedicineInsNew" ConnectionString="rijcmlqiZZFrbnDOgUFE0q/H07Xq4Otwab20sFwKiaUevosqcxLHF85VchBmXVM1DCRfbzlLQW+/Lx8P1hZlSbiKa+q6cB+nkWTY9snVuSTzNNbqcF5GWXVrKbOy4s7wXr7WkvWA47EC+NdgmjO/XuuksZN3CiL8dKt6Yk1EHtajqH5rErpXBEx5D63SpnjhgpjdWJGxrUDofrw7fuNQqlEWYf0OhBiDQ1IcIkVDbi7FbMkzsUshpDUC0cbZAGB1R5RMpMc/o3pcm6hlMbVmjgRx+Tb8Q==">
+      <TableDataSource Name="localUserQuery" Alias="localUser" DataType="System.Int32" PropName="Table" Enabled="true" TableName="localUser" SelectCommand="SELECT L.LastName, L.FirstName, L.Patronymic, L.Position, L.Phone, L.ConfNumber&#13;&#10;FROM &quot;localUser&quot; L&#13;&#10;WHERE L.UserID = @UserIdParam&#13;&#10;">
+        <Column Name="LastName" DataType="System.String"/>
+        <Column Name="FirstName" DataType="System.String"/>
+        <Column Name="Patronymic" DataType="System.String"/>
+        <Column Name="Position" DataType="System.String"/>
+        <Column Name="Phone" DataType="System.String"/>
+        <Column Name="ConfNumber" DataType="System.String"/>
+        <Column Name="FullName" DataType="System.String" PropName="Column" Calculated="true" Expression="[localUser.LastName]+&quot; &quot;+Substring([localUser.FirstName],0,1)+&quot;. &quot;+Substring([localUser.Patronymic],0,1)+&quot;.&quot;"/>
+        <CommandParameter Name="UserIdParam" DataType="8" Expression="[UserId]" DefaultValue="1"/>
+      </TableDataSource>
+      <TableDataSource Name="AccountQuery" Alias="Account" DataType="System.Int32" PropName="Table" Enabled="true" TableName="Account" SelectCommand="SELECT ISNULL(t.AccountNumber, '')+ISNULL(m.AccountNumber, '') as AccountNumber,ISNULL(t.AccountDate, '')+ISNULL(m.AccountDate, '') as AccountDate&#13;&#10;from FactActEqma as a&#13;&#10;LEFT JOIN FactTerritoryAccount t ON t.TerritoryAccountId = a.AccountId&#13;&#10;LEFT JOIN FactMedicalAccount m ON m.MedicalAccountId = a.AccountMoId&#13;&#10;WHERE ActEqma = @ActEqmaIdParam">
+        <Column Name="AccountNumber" DataType="System.String"/>
+        <Column Name="AccountDate" DataType="System.DateTime"/>
+        <CommandParameter Name="ActEqmaIdParam" DataType="8" Expression="[ActId]" DefaultValue="4"/>
+      </TableDataSource>
+      <TableDataSource Name="FactActEqmaQuery" Alias="FactActEqma" DataType="System.Int32" PropName="Table1" Enabled="true" TableName="FactActEqma" SelectCommand="SELECT &#13;&#10;(SELECT &#13;&#10;	CASE WHEN Id = f.outcome THEN '&lt;u&gt;' + OutcomeName + '&lt;/u&gt;,  '&#13;&#10;	ELSE OutcomeName + ',  '	&#13;&#10;	END&#13;&#10;FROM globalEqmaOutcomes&#13;&#10;FOR XML PATH(''), TYPE).value('.','nvarchar(1024)') as OutcomeText,&#13;&#10;F.Number, F.Date, F.Positions, F.Personal, F.PolicyNumber, F.MedicalOrganization, F.History, F.EventBegin, F.EventEnd, F.DiagnosisGeneral, F.DiagnosisGeneralComments, F.DiagnosisSecondary, F.DiagnosisSecondaryComments, F.Doctor, F.Documentation, F.Duration, F.RefusalCode, F.Quantity, F.Price, F.AcceptPrice, F.EmployeeId, F.MedicalOrganizationDirector, F.AccountId, F.PatientId, F.ExpertConclusion, F.PenaltyPrice, F.ExpertId, F.AssignmentOrganization, F.AssignmentNumber, F.AssignmentReason, F.PersonalBirthday, F.Insurance, F.Department, F.TotalDuration, F.DiagnosisPostmortemGeneral, F.DiagnosisPostmortemSecondary, F.Outcome, F.Surgery, F.SurgeryDate, F.ExpertMastermind, F.MedicalOrganizationRepresentative, F.ActEqma, F.DisclosedDefect, F.ExpertRecommendation, F.AccountMoId, F.RefusalPrice, F.WorkPlace, F.Address, F.OutcomeComments, F.DiagnosisComplication, F.DiagnosisComplicationComments, F.DiagnosisPostmortemComplication, F.Anamnesis, F.AnamnesisError, F.Diagnosis, F.DiagnosisError, F.Cure, F.CureError, F.Continuity, F.ContinuityError, F.FinalConclusion, F.SignificantError&#13;&#10;FROM &quot;FactActEqma&quot; F&#13;&#10;WHERE  F.ActEqma = @EqmaActIdParam&#13;&#10;&#13;&#10;">
+        <Column Name="Number" DataType="System.Int32"/>
+        <Column Name="Date" DataType="System.DateTime"/>
+        <Column Name="Positions" DataType="System.String"/>
+        <Column Name="Personal" DataType="System.String"/>
+        <Column Name="PolicyNumber" DataType="System.String"/>
+        <Column Name="MedicalOrganization" DataType="System.String"/>
+        <Column Name="History" DataType="System.String"/>
+        <Column Name="EventBegin" DataType="System.DateTime"/>
+        <Column Name="EventEnd" DataType="System.DateTime"/>
+        <Column Name="DiagnosisGeneral" DataType="System.String"/>
+        <Column Name="DiagnosisGeneralComments" DataType="System.String"/>
+        <Column Name="DiagnosisSecondary" DataType="System.String"/>
+        <Column Name="DiagnosisSecondaryComments" DataType="System.String"/>
+        <Column Name="Doctor" DataType="System.String"/>
+        <Column Name="Documentation" DataType="System.String"/>
+        <Column Name="Duration" DataType="System.String"/>
+        <Column Name="RefusalCode" DataType="System.String"/>
+        <Column Name="Quantity" DataType="System.Decimal"/>
+        <Column Name="Price" DataType="System.Decimal"/>
+        <Column Name="AcceptPrice" DataType="System.Decimal"/>
+        <Column Name="EmployeeId" DataType="System.Int32"/>
+        <Column Name="MedicalOrganizationDirector" DataType="System.String"/>
+        <Column Name="AccountId" DataType="System.Int32"/>
+        <Column Name="PatientId" DataType="System.Int32"/>
+        <Column Name="ExpertConclusion" DataType="System.String"/>
+        <Column Name="PenaltyPrice" DataType="System.Decimal"/>
+        <Column Name="ExpertId" DataType="System.Int32"/>
+        <Column Name="AssignmentOrganization" DataType="System.String"/>
+        <Column Name="AssignmentNumber" DataType="System.Int32"/>
+        <Column Name="AssignmentReason" DataType="System.String"/>
+        <Column Name="PersonalBirthday" DataType="System.DateTime"/>
+        <Column Name="Insurance" DataType="System.String"/>
+        <Column Name="Department" DataType="System.String"/>
+        <Column Name="TotalDuration" DataType="System.Decimal"/>
+        <Column Name="DiagnosisPostmortemGeneral" DataType="System.String"/>
+        <Column Name="DiagnosisPostmortemSecondary" DataType="System.String"/>
+        <Column Name="Outcome" DataType="System.String"/>
+        <Column Name="Surgery" DataType="System.String"/>
+        <Column Name="SurgeryDate" DataType="System.DateTime"/>
+        <Column Name="ExpertMastermind" DataType="System.Int32"/>
+        <Column Name="MedicalOrganizationRepresentative" DataType="System.String"/>
+        <Column Name="ActEqma" DataType="System.Int32"/>
+        <Column Name="DisclosedDefect" DataType="System.String"/>
+        <Column Name="ExpertRecommendation" DataType="System.String"/>
+        <Column Name="AccountMoId" DataType="System.Int32"/>
+        <Column Name="RefusalPrice" DataType="System.Decimal"/>
+        <Column Name="WorkPlace" DataType="System.String"/>
+        <Column Name="Address" DataType="System.String"/>
+        <Column Name="OutcomeComments" DataType="System.String"/>
+        <Column Name="DiagnosisComplication" DataType="System.String"/>
+        <Column Name="DiagnosisComplicationComments" DataType="System.String"/>
+        <Column Name="DiagnosisPostmortemComplication" DataType="System.String"/>
+        <Column Name="Anamnesis" DataType="System.String"/>
+        <Column Name="AnamnesisError" DataType="System.String"/>
+        <Column Name="Diagnosis" DataType="System.String"/>
+        <Column Name="DiagnosisError" DataType="System.String"/>
+        <Column Name="Cure" DataType="System.String"/>
+        <Column Name="CureError" DataType="System.String"/>
+        <Column Name="Continuity" DataType="System.String"/>
+        <Column Name="ContinuityError" DataType="System.String"/>
+        <Column Name="FinalConclusion" DataType="System.String"/>
+        <Column Name="SignificantError" DataType="System.String"/>
+        <Column Name="Outcometext" DataType="System.String"/>
+        <CommandParameter Name="EqmaActIdParam" DataType="8" Expression="[ActId]" DefaultValue="4"/>
+      </TableDataSource>
+      <TableDataSource Name="Table" Alias="Expert" DataType="System.Int32" Enabled="true" SelectCommand="SELECT F.Id, F.fname, F.surname, F.patronymic, F.birth_date, F.SNILS, F.phone1, F.phone2, F.email, F.organization_code, F.employment_place, F.position, F.date_begin, F.date_end, F.exclusion_reason, F.code, F.speciality, F.experience, F.date_edit&#13;&#10;FROM &quot;F004&quot; F&#13;&#10;WHERE F.code = @ExpertIdParam&#13;&#10;">
+        <Column Name="Id" DataType="System.Int32"/>
+        <Column Name="fname" DataType="System.String"/>
+        <Column Name="surname" DataType="System.String"/>
+        <Column Name="patronymic" DataType="System.String"/>
+        <Column Name="birth_date" DataType="System.DateTime"/>
+        <Column Name="SNILS" DataType="System.String"/>
+        <Column Name="phone1" DataType="System.String"/>
+        <Column Name="phone2" DataType="System.String"/>
+        <Column Name="email" DataType="System.String"/>
+        <Column Name="organization_code" DataType="System.String"/>
+        <Column Name="employment_place" DataType="System.String"/>
+        <Column Name="position" DataType="System.String"/>
+        <Column Name="date_begin" DataType="System.DateTime"/>
+        <Column Name="date_end" DataType="System.DateTime"/>
+        <Column Name="exclusion_reason" DataType="System.String"/>
+        <Column Name="code" DataType="System.String"/>
+        <Column Name="speciality" DataType="System.String"/>
+        <Column Name="experience" DataType="System.Int32"/>
+        <Column Name="date_edit" DataType="System.DateTime"/>
+        <CommandParameter Name="ExpertIdParam" DataType="12" Expression="[FactActEqma.ExpertId]" DefaultValue="1"/>
+      </TableDataSource>
+      <TableDataSource Name="Table1" Alias="Events" DataType="System.Int32" Enabled="true" SelectCommand="select &#13;&#10;(case when e.AssistanceConditions in (1,2) then '(амбул./&lt;u&gt;стац.&lt;/u&gt;)' else '(&lt;u&gt;амбул.&lt;/u&gt;/стац.)' end) as AssistanceConditionsText,&#13;&#10;(case when e.AssistanceForm in (1,2) then '&lt;u&gt;экстренное&lt;/u&gt;,плановое' else 'экстренное,&lt;u&gt;плановое&lt;/u&gt;' end) as AssistanceFormText,&#13;&#10;v.PRNAME,&#13;&#10;e.eventbegin,&#13;&#10;e.eventend,&#13;&#10;case when datediff(dd,e.eventbegin,e.eventend)=0 then 1 else datediff(dd,e.eventbegin,e.eventend) end as kday&#13;&#10;from FactMedicalEvent e&#13;&#10;INNER JOIN FactEQMA eq ON eq.MedicalEventId = e.MedicalEventId and eq.ActId = @actidparam&#13;&#10;inner join v002 v on e.profilecodeid = v.id">
+        <Column Name="AssistanceConditionsText" DataType="System.String"/>
+        <Column Name="EventBegin" DataType="System.DateTime"/>
+        <Column Name="EventEnd" DataType="System.DateTime"/>
+        <Column Name="PRNAME" DataType="System.String"/>
+        <Column Name="kday" DataType="System.Int32"/>
+        <Column Name="AssistanceFormText" DataType="System.String"/>
+        <CommandParameter Name="actidparam" DataType="8" Expression="[ActId]" DefaultValue="4"/>
+      </TableDataSource>
+    </MsSqlDataConnection>
+    <Parameter Name="UserId" DataType="System.Int32"/>
+    <Parameter Name="PatientId" DataType="System.Int32"/>
+    <Parameter Name="AccountId" DataType="System.Int32"/>
+    <Parameter Name="ChkPrintPrivacyMark" DataType="System.Boolean"/>
+    <Parameter Name="ActId" DataType="System.Int32"/>
+  </Dictionary>
+  <ReportPage Name="Page1" RawPaperSize="9" LeftMargin="20" TopMargin="20" BottomMargin="20">
+    <DataBand Name="Data2" Width="680.4" Height="585.9" CanGrow="true" DataSource="FactActEqmaQuery">
+      <TextObject Name="Text3" Left="292.95" Top="37.8" Width="396.9" Height="18.9" Text="[Expert.code]" Font="Times New Roman, 11pt, style=Bold, Underline"/>
+      <TextObject Name="Text1" Width="680.4" Height="18.9" Text="Акт № [FactActEqma.Number] экспертизы качества медицинской помощи (целевой)" HorzAlign="Center" Font="Times New Roman, 11pt, style=Bold">
+        <Formats>
+          <GeneralFormat/>
+          <DateFormat/>
+          <GeneralFormat/>
+          <DateFormat/>
+          <GeneralFormat/>
+        </Formats>
+      </TextObject>
+      <TextObject Name="Text2" Top="18.9" Width="680.4" Height="18.9" Text="[FactActEqma.Date]" Format="Date" Format.Format="D" Font="Times New Roman, 11pt, style=Bold, Underline"/>
+      <TextObject Name="Text4" Top="37.8" Width="292.95" Height="18.9" Text="Экспертом качества медицинской помощи" Font="Times New Roman, 11pt"/>
+      <TextObject Name="Text5" Top="56.7" Width="103.95" Height="18.9" Text="по поручению" Font="Times New Roman, 11pt"/>
+      <TextObject Name="Text6" Left="103.95" Top="56.7" Width="576.45" Height="18.9" Text="[FactActEqma.AssignmentOrganization]" Font="Times New Roman, 11pt"/>
+      <TextObject Name="Text15" Top="75.6" Width="94.5" Height="18.9" Text="поручение №" Font="Times New Roman, 11pt"/>
+      <TextObject Name="Text16" Left="94.5" Top="75.6" Width="585.9" Height="18.9" Text="[FactActEqma.AssignmentNumber]" Font="Times New Roman, 11pt"/>
+      <TextObject Name="Text17" Top="94.5" Width="66.15" Height="18.9" Text="в связи с" Font="Times New Roman, 11pt"/>
+      <TextObject Name="Text18" Left="66.15" Top="94.5" Width="614.25" Height="18.9" Text="[FactActEqma.AssignmentReason]" Font="Times New Roman, 11pt"/>
+      <TextObject Name="Text8" Top="113.4" Width="680.4" Height="18.9" CanGrow="true" Text="проведена целевая экспертиза качества медицинской помощи с целью выявления  нарушения прав застрахованного лица" Font="Times New Roman, 11pt"/>
+      <TextObject Name="Text10" Top="132.3" Width="113.4" Height="18.9" Text="документ ОМС" Font="Times New Roman, 11pt"/>
+      <TextObject Name="Text11" Left="113.4" Top="132.3" Width="567" Height="18.9" Text="[FactActEqma.PolicyNumber]" Font="Times New Roman, 11pt, style=Bold, Underline"/>
+      <TextObject Name="Text12" Top="151.2" Width="113.4" Height="18.9" Text="место работы" Font="Times New Roman, 11pt"/>
+      <TextObject Name="Text19" Top="170.1" Width="255.15" Height="18.9" Text="место оказания медицинской помощи" Font="Times New Roman, 11pt"/>
+      <TextObject Name="Text13" Left="255.15" Top="170.1" Width="425.25" Height="18.9" Text="[FactActEqma.MedicalOrganization]" Font="Times New Roman, 11pt, style=Bold, Underline"/>
+      <TextObject Name="Text20" Top="189" Width="680.4" Height="18.9" Text="[FactActEqma.Department]" Font="Times New Roman, 11pt"/>
+      <TextObject Name="Text21" Top="207.9" Width="160.65" Height="18.9" Text="Ф.И.О. лечащего врача" Font="Times New Roman, 11pt"/>
+      <TextObject Name="Text22" Left="160.65" Top="207.9" Width="519.75" Height="18.9" Text="[FactActEqma.Doctor]" Font="Times New Roman, 11pt"/>
+      <TextObject Name="Text23" Top="226.8" Width="680.4" Height="18.9" Text="Медицинская документация" Font="Times New Roman, 11pt"/>
+      <TextObject Name="Text24" Top="245.7" Width="680.4" Height="18.9" CanGrow="true" Text="[FactActEqma.Documentation]" Font="Times New Roman, 11pt"/>
+      <TextObject Name="Text25" Top="264.6" Width="28.35" Height="18.9" Text="№" Font="Times New Roman, 11pt"/>
+      <TextObject Name="Text26" Left="28.35" Top="264.6" Width="652.05" Height="18.9" Text="[FactActEqma.History]" Font="Times New Roman, 11pt, style=Bold, Underline"/>
+      <TextObject Name="Text27" Top="283.5" Width="680.4" Height="18.9" Text="Период оказания медицинской помощи" Font="Times New Roman, 11pt"/>
+      <TextObject Name="Text28" Top="302.4" Width="680.4" Height="18.9" Text="с [FactActEqma.EventBegin] по [FactActEqma.EventEnd]" Font="Times New Roman, 11pt, style=Bold, Underline">
+        <Formats>
+          <DateFormat Format="D"/>
+          <DateFormat Format="D"/>
+        </Formats>
+      </TextObject>
+      <TextObject Name="Text29" Top="321.3" Width="349.65" Height="18.9" Text="Диагноз установленный медицинской организацией" Font="Times New Roman, 11pt"/>
+      <TextObject Name="Text30" Left="349.65" Top="321.3" Width="330.75" Height="18.9" Text="[FactActEqma.DiagnosisGeneral]" Font="Times New Roman, 11pt, style=Bold, Underline"/>
+      <TextObject Name="Text31" Top="340.2" Width="680.4" Height="18.9" CanGrow="true" Text="[FactActEqma.DiagnosisGeneralComments]" Font="Times New Roman, 11pt"/>
+      <TextObject Name="Text32" Top="359.1" Width="349.65" Height="18.9" Text="КРАТКОЕ ЭКСПЕРТНОЕ ЗАКЛЮЧЕНИЕ" Font="Times New Roman, 11pt"/>
+      <TextObject Name="Text33" Top="378" Width="680.4" Height="18.9" Text="Выявлены дефекты медицинской помощи" Font="Times New Roman, 11pt"/>
+      <TextObject Name="Text34" Top="396.9" Width="680.4" Height="18.9" CanGrow="true" Text="[FactActEqma.DisclosedDefect]" Font="Times New Roman, 11pt"/>
+      <TextObject Name="Text35" Top="415.8" Width="680.4" Height="18.9" Text="Выводы" Font="Times New Roman, 11pt"/>
+      <TextObject Name="Text36" Top="453.6" Width="680.4" Height="18.9" Text="Рекомендации" Font="Times New Roman, 11pt"/>
+      <TextObject Name="Text37" Top="434.7" Width="680.4" Height="18.9" CanGrow="true" Text="[FactActEqma.ExpertConclusion]" Font="Times New Roman, 11pt"/>
+      <TextObject Name="Text38" Top="472.5" Width="680.4" Height="18.9" CanGrow="true" Text="[FactActEqma.ExpertRecommendation]" Font="Times New Roman, 11pt"/>
+      <TextObject Name="Text39" Top="491.4" Width="680.4" Height="18.9" Text="Неоплачиваемых (койко-дней, пациенто-дней, посещений):" Font="Times New Roman, 11pt"/>
+      <TextObject Name="Text40" Top="510.3" Width="680.4" Height="18.9" Text="[FactActEqma.Duration] из [FactActEqma.TotalDuration]" Font="Times New Roman, 11pt">
+        <Formats>
+          <NumberFormat/>
+          <NumberFormat/>
+        </Formats>
+      </TextObject>
+      <TextObject Name="Text41" Top="548.1" Width="680.4" Height="18.9" Text="По итогам проверки проведен разбор данного случая с руководством медицинской организации." Font="Times New Roman, 11pt"/>
+      <TextObject Name="Text7" Left="113.4" Top="151.2" Width="567" Height="18.9" Text="[FactActEqma.WorkPlace]" Font="Times New Roman, 11pt"/>
+      <DataFooterBand Name="DataFooter1" Top="589.9" Width="680.4" Height="207.9">
+        <TableObject Name="Table2" Left="1.89" Top="15.12" Width="676.4" Height="132.3">
+          <TableColumn Name="Column31" Width="258.3"/>
+          <TableColumn Name="Column32" Width="200.75"/>
+          <TableColumn Name="Column33" Width="94.5"/>
+          <TableColumn Name="Column34" Width="122.85"/>
+          <TableRow Name="Row9" AutoSize="true">
+            <TableCell Name="Cell97" Text="Подпись эксперта  качества медицинской помощи" Font="Times New Roman, 11pt"/>
+            <TableCell Name="Cell98" Text="[Expert.code]" Padding="0, 0, 0, 0" Font="Times New Roman, 11pt"/>
+            <TableCell Name="Cell99" Border.Lines="Bottom" Font="Times New Roman, 10pt"/>
+            <TableCell Name="Cell106" Font="Times New Roman, 10pt"/>
+          </TableRow>
+          <TableRow Name="Row10">
+            <TableCell Name="Cell100" Font="Times New Roman, 10pt"/>
+            <TableCell Name="Cell101" HorzAlign="Center" Font="Times New Roman, 10pt"/>
+            <TableCell Name="Cell102" Font="Times New Roman, 10pt"/>
+            <TableCell Name="Cell107" Font="Times New Roman, 10pt"/>
+          </TableRow>
+          <TableRow Name="Row11">
+            <TableCell Name="Cell103" Text="Подпись представителя СМО/ТФОМС" Font="Times New Roman, 11pt"/>
+            <TableCell Name="Cell104" Text="[localUser.Position]" Font="Times New Roman, 11pt"/>
+            <TableCell Name="Cell105" Border.Lines="Bottom" Font="Times New Roman, 10pt"/>
+            <TableCell Name="Cell108" Text="[localUser.FullName]" Font="Times New Roman, 11pt"/>
+          </TableRow>
+          <TableRow Name="Row12">
+            <TableCell Name="Cell109"/>
+            <TableCell Name="Cell110"/>
+            <TableCell Name="Cell111"/>
+            <TableCell Name="Cell112"/>
+          </TableRow>
+          <TableRow Name="Row13" AutoSize="true">
+            <TableCell Name="Cell113" Text="Подпись представителя медицинской организации" Font="Times New Roman, 11pt"/>
+            <TableCell Name="Cell114"/>
+            <TableCell Name="Cell115" Border.Lines="Bottom"/>
+            <TableCell Name="Cell116"/>
+          </TableRow>
+          <TableRow Name="Row14">
+            <TableCell Name="Cell117"/>
+            <TableCell Name="Cell118"/>
+            <TableCell Name="Cell119"/>
+            <TableCell Name="Cell120"/>
+          </TableRow>
+          <TableRow Name="Row15">
+            <TableCell Name="Cell121" Text="С актом экспертизы ознакомлен" Font="Times New Roman, 11pt"/>
+            <TableCell Name="Cell122"/>
+            <TableCell Name="Cell123" Border.Lines="Bottom"/>
+            <TableCell Name="Cell124" Text="[FactActEqma.MedicalOrganizationDirector]" Font="Times New Roman, 11pt"/>
+          </TableRow>
+        </TableObject>
+        <TextObject Name="Text46" Top="189" Width="340.2" Height="18.9" Text="М.П." Font="Times New Roman, 11pt"/>
+      </DataFooterBand>
+    </DataBand>
+    <PageFooterBand Name="PageFooter1" Top="801.8" Width="680.4" Height="22.68"/>
+  </ReportPage>
+  <ReportPage Name="Page2">
+    <ReportTitleBand Name="ReportTitle1" Width="718.2" Height="18.9">
+      <TextObject Name="Text48" Width="718.2" Height="18.9" Text="Экспертное заключение (протокол оценки качества медицинской помощи)" HorzAlign="Center" Font="Times New Roman, 11pt, style=Bold">
+        <Formats>
+          <GeneralFormat/>
+          <DateFormat/>
+          <GeneralFormat/>
+          <DateFormat/>
+          <GeneralFormat/>
+        </Formats>
+      </TextObject>
+    </ReportTitleBand>
+    <DataBand Name="Data1" Top="159.2" Width="718.2" Height="18.9" CanGrow="true" CanShrink="true" CanBreak="true" DataSource="Table1">
+      <TextObject Name="Text56" Width="368.55" Height="18.9" Text="Отделение [Events.PRNAME]" Font="Times New Roman, 11pt">
+        <Formats>
+          <NumberFormat/>
+          <NumberFormat/>
+        </Formats>
+      </TextObject>
+      <TextObject Name="Text57" Left="368.55" Width="349.65" Height="18.9" Text="с [Events.EventBegin] по [Events.EventEnd], к/д. [Events.kday]" Font="Times New Roman, 11pt">
+        <Formats>
+          <DateFormat/>
+          <DateFormat/>
+          <GeneralFormat/>
+        </Formats>
+      </TextObject>
+      <DataHeaderBand Name="DataHeader1" Top="22.9" Width="718.2" Height="132.3" CanGrow="true" CanShrink="true" CanBreak="true">
+        <TextObject Name="Text55" Top="113.4" Width="718.2" Height="18.9" Text="Длительность лечения (к/дни) всего [FactActEqma.TotalDuration]. Стоимость всего [FactActEqma.Price]" Font="Times New Roman, 11pt">
+          <Formats>
+            <NumberFormat/>
+            <NumberFormat/>
+          </Formats>
+        </TextObject>
+        <TextObject Name="Text54" Top="94.5" Width="718.2" Height="18.9" Text="Счет № [Account.AccountNumber] от [Account.AccountDate]" Font="Times New Roman, 11pt">
+          <Formats>
+            <GeneralFormat/>
+            <DateFormat/>
+          </Formats>
+        </TextObject>
+        <TextObject Name="Text53" Top="75.6" Width="718.2" Height="18.9" Text="Наименование медицинской организации [FactActEqma.MedicalOrganization]" Font="Times New Roman, 11pt"/>
+        <TextObject Name="Text52" Top="56.7" Width="718.2" Height="18.9" CanGrow="true" Text="Адрес застрахованного  лица [FactActEqma.Address]" Padding="0, 0, 0, 0" Format="Date" Format.Format="d" Font="Times New Roman, 11pt" HtmlTags="true"/>
+        <TextObject Name="Text51" Top="37.8" Width="718.2" Height="18.9" CanGrow="true" Text="Дата рождения [FactActEqma.PersonalBirthday]" Padding="0, 0, 0, 0" Format="Date" Format.Format="d" Font="Times New Roman, 11pt" HtmlTags="true"/>
+        <TextObject Name="Text47" Width="292.95" Height="18.9" Text="Наименование проверяющей организации" Font="Times New Roman, 11pt"/>
+        <TextObject Name="Text49" Left="292.95" Width="292.95" Height="18.9" Text="ТФОМС Курской области" Font="Times New Roman, 11pt"/>
+        <TextObject Name="Text50" Top="18.9" Width="718.2" Height="18.9" CanGrow="true" Text="Медицинская карта [Events.AssistanceConditionsText] больного №   &lt;b&gt;[FactActEqma.History]&lt;/b&gt;,   лечащий  врач [FactActEqma.Doctor]&#13;&#10;" Padding="0, 0, 0, 0" Font="Times New Roman, 11pt" HtmlTags="true"/>
+      </DataHeaderBand>
+    </DataBand>
+    <DataBand Name="Data3" Top="182.1" Width="718.2" Height="633.15" CanGrow="true" CanShrink="true" CanBreak="true" DataSource="FactActEqmaQuery">
+      <TextObject Name="Text89" Top="614.25" Width="718.2" Height="18.9" CanGrow="true" Text="НАИБОЛЕЕ ЗНАЧИМЫЕ ОШИБКИ, ПОВЛИЯВШИЕ НА ИСХОД ЗАБОЛЕВАНИЯ: [FactActEqma.SignificantError]" VertAlign="Center" Font="Times New Roman, 11pt" HtmlTags="true">
+        <Formats>
+          <GeneralFormat/>
+          <DateFormat/>
+        </Formats>
+      </TextObject>
+      <TextObject Name="Text88" Top="585.9" Width="718.2" Height="18.9" CanGrow="true" Text="ЗАКЛЮЧЕНИЕ эксперта качества медицинской помощи: [FactActEqma.FinalConclusion]" VertAlign="Center" Font="Times New Roman, 11pt" HtmlTags="true">
+        <Formats>
+          <GeneralFormat/>
+          <DateFormat/>
+        </Formats>
+      </TextObject>
+      <TextObject Name="Text87" Top="557.55" Width="718.2" Height="18.9" CanGrow="true" Text="[FactActEqma.ContinuityError]" VertAlign="Center" Font="Times New Roman, 11pt" HtmlTags="true">
+        <Formats>
+          <GeneralFormat/>
+          <DateFormat/>
+        </Formats>
+      </TextObject>
+      <TextObject Name="Text86" Top="538.65" Width="718.2" Height="18.9" CanGrow="true" Text="Обоснование негативных последствий ошибок в преемственности лечения:" VertAlign="Center" Font="Times New Roman, 11pt" HtmlTags="true">
+        <Formats>
+          <GeneralFormat/>
+          <DateFormat/>
+        </Formats>
+      </TextObject>
+      <TextObject Name="Text85" Top="519.75" Width="718.2" Height="18.9" CanGrow="true" Text="[FactActEqma.Continuity]" VertAlign="Center" Font="Times New Roman, 11pt" HtmlTags="true">
+        <Formats>
+          <GeneralFormat/>
+          <DateFormat/>
+        </Formats>
+      </TextObject>
+      <TextObject Name="Text84" Top="500.85" Width="718.2" Height="18.9" CanGrow="true" Text="IV. ПРЕЕМСТВЕННОСТЬ (обоснование поступления, длительности лечения, перевод, содержание рекомендаций)" VertAlign="Center" Font="Times New Roman, 11pt" HtmlTags="true">
+        <Formats>
+          <GeneralFormat/>
+          <DateFormat/>
+        </Formats>
+      </TextObject>
+      <TextObject Name="Text83" Top="481.95" Width="718.2" Height="18.9" CanGrow="true" Text="[FactActEqma.CureError]" VertAlign="Center" Font="Times New Roman, 11pt" HtmlTags="true">
+        <Formats>
+          <GeneralFormat/>
+          <DateFormat/>
+        </Formats>
+      </TextObject>
+      <TextObject Name="Text82" Top="463.05" Width="718.2" Height="18.9" CanGrow="true" Text="Обоснование негативных последствий ошибок в лечении:" VertAlign="Center" Font="Times New Roman, 11pt" HtmlTags="true">
+        <Formats>
+          <GeneralFormat/>
+          <DateFormat/>
+        </Formats>
+      </TextObject>
+      <TextObject Name="Text81" Top="444.15" Width="718.2" Height="18.9" CanGrow="true" Text="[FactActEqma.Cure]" VertAlign="Center" Font="Times New Roman, 11pt" HtmlTags="true">
+        <Formats>
+          <GeneralFormat/>
+          <DateFormat/>
+        </Formats>
+      </TextObject>
+      <TextObject Name="Text79" Top="406.35" Width="718.2" Height="18.9" CanGrow="true" Text="[FactActEqma.DiagnosisError]" VertAlign="Center" Font="Times New Roman, 11pt" HtmlTags="true">
+        <Formats>
+          <GeneralFormat/>
+          <DateFormat/>
+        </Formats>
+      </TextObject>
+      <TextObject Name="Text80" Top="425.25" Width="718.2" Height="18.9" CanGrow="true" Text="III. ЛЕЧЕНИЕ (хирургическое, в т.ч. родовспоможение, медикаментозное, прочие виды и способы лечения)" VertAlign="Center" Font="Times New Roman, 11pt" HtmlTags="true">
+        <Formats>
+          <GeneralFormat/>
+          <DateFormat/>
+        </Formats>
+      </TextObject>
+      <TextObject Name="Text78" Top="387.45" Width="718.2" Height="18.9" CanGrow="true" Text="Обоснование негативных последствий ошибок в диагнозе:" VertAlign="Center" Font="Times New Roman, 11pt" HtmlTags="true">
+        <Formats>
+          <GeneralFormat/>
+          <DateFormat/>
+        </Formats>
+      </TextObject>
+      <TextObject Name="Text77" Top="368.55" Width="718.2" Height="18.9" CanGrow="true" Text="[FactActEqma.Diagnosis]" VertAlign="Center" Font="Times New Roman, 11pt" HtmlTags="true">
+        <Formats>
+          <GeneralFormat/>
+          <DateFormat/>
+        </Formats>
+      </TextObject>
+      <TextObject Name="Text76" Top="349.65" Width="718.2" Height="18.9" CanGrow="true" Text="II. ДИАГНОЗ (формулировка, содержание, время постановки)" VertAlign="Center" Font="Times New Roman, 11pt" HtmlTags="true">
+        <Formats>
+          <GeneralFormat/>
+          <DateFormat/>
+        </Formats>
+      </TextObject>
+      <TextObject Name="Text75" Top="330.75" Width="718.2" Height="18.9" CanGrow="true" Text="[FactActEqma.AnamnesisError]" VertAlign="Center" Font="Times New Roman, 11pt" HtmlTags="true">
+        <Formats>
+          <GeneralFormat/>
+          <DateFormat/>
+        </Formats>
+      </TextObject>
+      <TextObject Name="Text73" Top="292.95" Width="718.2" Height="18.9" CanGrow="true" Text="[FactActEqma.Anamnesis]" VertAlign="Center" Font="Times New Roman, 11pt" HtmlTags="true">
+        <Formats>
+          <GeneralFormat/>
+          <DateFormat/>
+        </Formats>
+      </TextObject>
+      <TextObject Name="Text74" Top="311.85" Width="718.2" Height="18.9" CanGrow="true" Text="Обоснование негативных следствий ошибок в сборе информации:" VertAlign="Center" Font="Times New Roman, 11pt" HtmlTags="true">
+        <Formats>
+          <GeneralFormat/>
+          <DateFormat/>
+        </Formats>
+      </TextObject>
+      <TextObject Name="Text71" Top="255.15" Width="718.2" Height="18.9" CanGrow="true" Text="сопутствующий [FactActEqma.DiagnosisPostmortemSecondary]" VertAlign="Center" Font="Times New Roman, 11pt" HtmlTags="true">
+        <Formats>
+          <GeneralFormat/>
+          <DateFormat/>
+        </Formats>
+      </TextObject>
+      <TextObject Name="Text72" Top="274.05" Width="718.2" Height="18.9" CanGrow="true" Text="I. СБОР ИНФОРМАЦИИ (расспрос, физикальное обследование, лабораторные и инструментальные исследования, консультации специалистов, консилиум)" VertAlign="Center" Font="Times New Roman, 11pt" HtmlTags="true">
+        <Formats>
+          <GeneralFormat/>
+          <DateFormat/>
+        </Formats>
+      </TextObject>
+      <TextObject Name="Text70" Top="236.25" Width="718.2" Height="18.9" CanGrow="true" Text="осложнение [FactActEqma.DiagnosisPostmortemComplication]" VertAlign="Center" Font="Times New Roman, 11pt" HtmlTags="true">
+        <Formats>
+          <GeneralFormat/>
+          <DateFormat/>
+        </Formats>
+      </TextObject>
+      <TextObject Name="Text69" Top="217.35" Width="718.2" Height="18.9" CanGrow="true" Text="основной [FactActEqma.DiagnosisPostmortemGeneral]" VertAlign="Center" Font="Times New Roman, 11pt" HtmlTags="true">
+        <Formats>
+          <GeneralFormat/>
+          <DateFormat/>
+        </Formats>
+      </TextObject>
+      <TextObject Name="Text68" Top="198.45" Width="718.2" Height="18.9" CanGrow="true" Text="Диагноз паталогоанатомический:" VertAlign="Center" Font="Times New Roman, 11pt" HtmlTags="true">
+        <Formats>
+          <GeneralFormat/>
+          <DateFormat/>
+        </Formats>
+      </TextObject>
+      <TextObject Name="Text67" Top="179.55" Width="718.2" Height="18.9" CanGrow="true" Text="сопутствующий [FactActEqma.DiagnosisSecondary] [FactActEqma.DiagnosisSecondaryComments]" VertAlign="Center" Font="Times New Roman, 11pt" HtmlTags="true">
+        <Formats>
+          <GeneralFormat/>
+          <DateFormat/>
+        </Formats>
+      </TextObject>
+      <TextObject Name="Text66" Top="160.65" Width="718.2" Height="18.9" CanGrow="true" Text="осложнение [FactActEqma.DiagnosisComplication] [FactActEqma.DiagnosisComplicationComments]" VertAlign="Center" Font="Times New Roman, 11pt" HtmlTags="true">
+        <Formats>
+          <GeneralFormat/>
+          <DateFormat/>
+        </Formats>
+      </TextObject>
+      <TextObject Name="Text65" Top="141.75" Width="718.2" Height="18.9" CanGrow="true" Text="основной [FactActEqma.DiagnosisGeneral] [FactActEqma.DiagnosisGeneralComments]" VertAlign="Center" Font="Times New Roman, 11pt" HtmlTags="true">
+        <Formats>
+          <GeneralFormat/>
+          <DateFormat/>
+        </Formats>
+      </TextObject>
+      <TextObject Name="Text64" Top="122.85" Width="718.2" Height="18.9" CanGrow="true" Text="Диагноз клинический заключительный:" VertAlign="Center" Font="Times New Roman, 11pt" HtmlTags="true">
+        <Formats>
+          <GeneralFormat/>
+          <DateFormat/>
+        </Formats>
+      </TextObject>
+      <TextObject Name="Text63" Top="103.95" Width="718.2" Height="18.9" CanGrow="true" Text="Операция: [IIf([FactActEqma.Surgery]==&quot;&quot;,&quot;нет&quot;,[FactActEqma.Surgery])], дата [FactActEqma.SurgeryDate]" VertAlign="Center" Font="Times New Roman, 11pt" HtmlTags="true">
+        <Formats>
+          <GeneralFormat/>
+          <DateFormat/>
+        </Formats>
+      </TextObject>
+      <TextObject Name="Text62" Top="85.05" Width="718.2" Height="18.9" CanGrow="true" Text="[FactActEqma.OutcomeComments]" VertAlign="Center" Font="Times New Roman, 11pt" HtmlTags="true"/>
+      <TextObject Name="Text61" Top="66.15" Width="718.2" Height="18.9" CanGrow="true" Text="Исход случая: [FactActEqma.Outcometext]" VertAlign="Center" Font="Times New Roman, 11pt" HtmlTags="true"/>
+      <TextObject Name="Text60" Top="47.25" Width="718.2" Height="18.9" CanGrow="true" Text="Поступление: [Events.AssistanceFormText]" VertAlign="Center" Font="Times New Roman, 11pt" HtmlTags="true"/>
+      <TextObject Name="Text59" Top="28.35" Width="718.2" Height="18.9" Text="Дата проведения экспертизы качества медицинской помощи [FactActEqma.Date]" Format="Date" Format.Format="d" Font="Times New Roman, 11pt"/>
+      <TextObject Name="Text58" Top="9.45" Width="718.2" Height="18.9" Text="Эксперт качества медицинской помощи [Expert.code]" Font="Times New Roman, 11pt">
+        <Formats>
+          <NumberFormat/>
+          <NumberFormat/>
+        </Formats>
+      </TextObject>
+      <DataFooterBand Name="DataFooter2" Top="819.25" Width="718.2" Height="170.1">
+        <TableObject Name="Table2" Top="9.45" Width="676.4" Height="132.3">
+          <TableColumn Name="Column35" Width="258.3"/>
+          <TableColumn Name="Column36" Width="200.75"/>
+          <TableColumn Name="Column37" Width="94.5"/>
+          <TableColumn Name="Column38" Width="122.85"/>
+          <TableRow Name="Row16" AutoSize="true">
+            <TableCell Name="Cell125" Text="Подпись эксперта  качества медицинской помощи" Font="Times New Roman, 11pt"/>
+            <TableCell Name="Cell126" Text="[Expert.code]" Padding="0, 0, 0, 0" Font="Times New Roman, 11pt"/>
+            <TableCell Name="Cell127" Border.Lines="Bottom" Font="Times New Roman, 10pt"/>
+            <TableCell Name="Cell128" Font="Times New Roman, 10pt"/>
+          </TableRow>
+          <TableRow Name="Row17">
+            <TableCell Name="Cell129" Font="Times New Roman, 10pt"/>
+            <TableCell Name="Cell130" HorzAlign="Center" Font="Times New Roman, 10pt"/>
+            <TableCell Name="Cell131" Font="Times New Roman, 10pt"/>
+            <TableCell Name="Cell132" Font="Times New Roman, 10pt"/>
+          </TableRow>
+          <TableRow Name="Row18">
+            <TableCell Name="Cell133" Text="Подпись представителя СМО/ТФОМС" Font="Times New Roman, 11pt"/>
+            <TableCell Name="Cell134" Text="[localUser.Position]" Font="Times New Roman, 11pt"/>
+            <TableCell Name="Cell135" Border.Lines="Bottom" Font="Times New Roman, 10pt"/>
+            <TableCell Name="Cell136" Text="[localUser.FullName]" Font="Times New Roman, 11pt"/>
+          </TableRow>
+          <TableRow Name="Row19">
+            <TableCell Name="Cell137"/>
+            <TableCell Name="Cell138"/>
+            <TableCell Name="Cell139"/>
+            <TableCell Name="Cell140"/>
+          </TableRow>
+          <TableRow Name="Row20" AutoSize="true">
+            <TableCell Name="Cell141" Text="Подпись представителя медицинской организации" Font="Times New Roman, 11pt"/>
+            <TableCell Name="Cell142"/>
+            <TableCell Name="Cell143" Border.Lines="Bottom"/>
+            <TableCell Name="Cell144"/>
+          </TableRow>
+          <TableRow Name="Row21">
+            <TableCell Name="Cell145"/>
+            <TableCell Name="Cell146"/>
+            <TableCell Name="Cell147"/>
+            <TableCell Name="Cell148"/>
+          </TableRow>
+          <TableRow Name="Row22">
+            <TableCell Name="Cell149" Text="С актом экспертизы ознакомлен" Font="Times New Roman, 11pt"/>
+            <TableCell Name="Cell150"/>
+            <TableCell Name="Cell151" Border.Lines="Bottom"/>
+            <TableCell Name="Cell152" Text="[FactActEqma.MedicalOrganizationDirector]" Font="Times New Roman, 11pt"/>
+          </TableRow>
+        </TableObject>
+        <TextObject Name="Text90" Top="151.2" Width="340.2" Height="18.9" Text="М.П." Font="Times New Roman, 11pt"/>
+      </DataFooterBand>
+    </DataBand>
+  </ReportPage>
+</Report>

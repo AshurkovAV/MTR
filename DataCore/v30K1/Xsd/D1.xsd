@@ -1,0 +1,1530 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="ZL_LIST">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="ZGLV">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="VERSION" type="xs:string" fixed="3.0" >
+                <xs:annotation>
+                  <xs:documentation>
+                    Версия взаимодействия. Текущей редакции соответствует значение 3.0
+                  </xs:documentation>
+                </xs:annotation>
+              </xs:element>
+              <xs:element name="DATA" >
+                <xs:annotation>
+                  <xs:documentation>
+                    Дата в формате ГГГГ-ММ-ДД
+                  </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                  <xs:restriction base="xs:date">
+                    <xs:pattern value="\d{4}-\d{2}-\d{2}"/>
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="FILENAME">
+                <xs:annotation>
+                  <xs:documentation>
+                    Имя файла без расширения
+                  </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="26"/>
+                    <xs:minLength value="1"/>
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="SD_Z" >
+                <xs:annotation>
+                  <xs:documentation>
+                    Количество записей в файле
+                  </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                  <xs:restriction base="xs:decimal">
+                    <xs:totalDigits value="9"/>
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="SCHET">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="CODE">
+                <xs:annotation>
+                  <xs:documentation>
+                    Код записи счета
+                  </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                  <xs:restriction base="xs:decimal">
+                    <xs:totalDigits value="8"/>
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="CODE_MO">
+                <xs:annotation>
+                  <xs:documentation>
+                    Реестровый номер медицинской организации
+                  </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="6"/>
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="YEAR">
+                <xs:annotation>
+                  <xs:documentation>
+                    Отчетный год
+                  </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                  <xs:restriction base="xs:decimal">
+                    <xs:totalDigits value="4"/>
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="MONTH">
+                <xs:annotation>
+                  <xs:documentation>
+                    Отчетный месяц
+                  </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                  <xs:restriction base="xs:decimal">
+                    <xs:totalDigits value="2"/>
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="NSCHET">
+                <xs:annotation>
+                  <xs:documentation>
+                    Номер счёта
+                  </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="17"/>
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="DSCHET">
+                <xs:annotation>
+                  <xs:documentation>
+                    Дата выставления счёта в формате ГГГГ-ММ-ДД
+                  </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                  <xs:restriction base="xs:date">
+                    <xs:pattern value="\d{4}-\d{2}-\d{2}"/>
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="PLAT" minOccurs="0">
+                <xs:annotation>
+                  <xs:documentation>
+                    Плательщик. Реестровый номер СМО
+                  </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="5"/>
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="SUMMAV">
+                <xs:annotation>
+                  <xs:documentation>
+                    Сумма МО, выставленная на оплату
+                  </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                  <xs:restriction base="xs:decimal">
+                    <xs:totalDigits value="17"/>
+                    <xs:fractionDigits value="2"/>
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="COMENTS" minOccurs="0">
+                <xs:annotation>
+                  <xs:documentation>
+                    Служебное поле к счету
+                  </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="250"/>
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="SUMMAP" minOccurs="0">
+                <xs:annotation>
+                  <xs:documentation>
+                    Сумма, принятая к оплате СМО (ТФОМС)
+                  </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                  <xs:restriction base="xs:decimal">
+                    <xs:totalDigits value="17"/>
+                    <xs:fractionDigits value="2"/>
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="SANK_MEK" minOccurs="0">
+                <xs:annotation>
+                  <xs:documentation>
+                    Финансовые санкции (МЭК)
+                  </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                  <xs:restriction base="xs:decimal">
+                    <xs:totalDigits value="17"/>
+                    <xs:fractionDigits value="2"/>
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="SANK_MEE" minOccurs="0">
+                <xs:annotation>
+                  <xs:documentation>
+                    Финансовые санкции (МЭЭ)
+                  </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                  <xs:restriction base="xs:decimal">
+                    <xs:totalDigits value="17"/>
+                    <xs:fractionDigits value="2"/>
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="SANK_EKMP" minOccurs="0">
+                <xs:annotation>
+                  <xs:documentation>
+                    Финансовые санкции (ЭКМП)
+                  </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                  <xs:restriction base="xs:decimal">
+                    <xs:totalDigits value="17"/>
+                    <xs:fractionDigits value="2"/>
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element maxOccurs="unbounded" name="ZAP">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="N_ZAP">
+                <xs:annotation>
+                  <xs:documentation>
+                    Номер позиции записи
+                  </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                  <xs:restriction base="xs:decimal">
+                    <xs:totalDigits value="8"/>
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="PR_NOV">
+                <xs:annotation>
+                  <xs:documentation>
+                    Признак исправленной записи
+                  </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                  <xs:restriction base="xs:nonNegativeInteger">
+                    <xs:pattern value="0|1"/>
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="PACIENT">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="ID_PAC">
+                      <xs:annotation>
+                        <xs:documentation>
+                          Код записи о пациенте
+                        </xs:documentation>
+                      </xs:annotation>
+                      <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                          <xs:maxLength value="36"/>
+                        </xs:restriction>
+                      </xs:simpleType>
+                    </xs:element>
+                    <xs:element name="VPOLIS">
+                      <xs:annotation>
+                        <xs:documentation>
+                          Тип документа, подтверждающего факт страхования по ОМС
+                        </xs:documentation>
+                      </xs:annotation>
+                      <xs:simpleType>
+                        <xs:restriction base="xs:nonNegativeInteger">
+                          <xs:pattern value="1|2|3"/>
+                        </xs:restriction>
+                      </xs:simpleType>
+                    </xs:element>
+                    <xs:element name="SPOLIS" minOccurs="0">
+                      <xs:annotation>
+                        <xs:documentation>
+                          Серия документа, подтверждающего факт страхования по ОМС
+                        </xs:documentation>
+                      </xs:annotation>
+                      <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                          <xs:maxLength value="10"/>
+                        </xs:restriction>
+                      </xs:simpleType>
+                    </xs:element>
+                    <xs:element name="NPOLIS">
+                      <xs:annotation>
+                        <xs:documentation>
+                          Номер документа, подтверждающего факт страхования по ОМС
+                        </xs:documentation>
+                      </xs:annotation>
+                      <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                          <xs:maxLength value="20"/>
+                        </xs:restriction>
+                      </xs:simpleType>
+                    </xs:element>
+                    <xs:element name="ST_OKATO" minOccurs="0">
+                      <xs:annotation>
+                        <xs:documentation>
+                          Регион страхования
+                        </xs:documentation>
+                      </xs:annotation>
+                      <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                          <xs:maxLength value="5"/>
+                        </xs:restriction>
+                      </xs:simpleType>
+                    </xs:element>
+                    <xs:element name="SMO" minOccurs="0">
+                      <xs:annotation>
+                        <xs:documentation>
+                          Реестровый номер СМО
+                        </xs:documentation>
+                      </xs:annotation>
+                      <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                          <xs:maxLength value="5"/>
+                        </xs:restriction>
+                      </xs:simpleType>
+                    </xs:element>
+                    <xs:element name="SMO_OGRN" minOccurs="0">
+                      <xs:annotation>
+                        <xs:documentation>
+                          ОГРН СМО
+                        </xs:documentation>
+                      </xs:annotation>
+                      <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                          <xs:maxLength value="17"/>
+                        </xs:restriction>
+                      </xs:simpleType>
+                    </xs:element>
+                    <xs:element name="SMO_OK" minOccurs="0">
+                      <xs:annotation>
+                        <xs:documentation>
+                          ОКАТО территории страхования
+                        </xs:documentation>
+                      </xs:annotation>
+                      <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                          <xs:maxLength value="5"/>
+                        </xs:restriction>
+                      </xs:simpleType>
+                    </xs:element>
+                    <xs:element name="SMO_NAM" minOccurs="0">
+                      <xs:annotation>
+                        <xs:documentation>
+                          Наименование СМО
+                        </xs:documentation>
+                      </xs:annotation>
+                      <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                          <xs:maxLength value="100"/>
+                        </xs:restriction>
+                      </xs:simpleType>
+                    </xs:element>
+                    <xs:element name="MSE" minOccurs="0">
+                      <xs:annotation>
+                        <xs:documentation>Направление на МСЭ</xs:documentation>
+                      </xs:annotation>
+                      <xs:simpleType>
+                        <xs:restriction base="xs:nonNegativeInteger">
+                          <xs:pattern value="1"/>
+                        </xs:restriction>
+                      </xs:simpleType>
+                    </xs:element>
+                    <xs:element name="NOVOR">
+                      <xs:annotation>
+                        <xs:documentation>
+                          Признак новорождённог. Либо 0, либо ПДДММГГН
+                        </xs:documentation>
+                      </xs:annotation>
+                      <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                          <xs:maxLength value="9"/>
+                        </xs:restriction>
+                      </xs:simpleType>
+                    </xs:element>
+                    <xs:element name="VNOV_D" minOccurs="0">
+                      <xs:annotation>
+                        <xs:documentation>Вес при рождении</xs:documentation>
+                      </xs:annotation>
+                      <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                          <xs:pattern value="[0-9]{1,4}"/>
+                        </xs:restriction>
+                      </xs:simpleType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="Z_SL" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="ZSL_ID" minOccurs="0">
+                      <xs:annotation>
+                        <xs:documentation>
+                          Идетификотор законченного случая региональный
+                        </xs:documentation>
+                      </xs:annotation>
+                      <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                          <xs:maxLength value="36"/>
+                        </xs:restriction>
+                      </xs:simpleType>
+                    </xs:element>
+                    <xs:element name="IDCASE">
+                      <xs:annotation>
+                        <xs:documentation>Номер записи в реестре случаев</xs:documentation>
+                      </xs:annotation>
+                      <xs:simpleType>
+                        <xs:restriction base="xs:decimal">
+                          <!-- Должно быть 11, но в int не влезает :(, в БД int, возможно нужно сделать bigint-->
+                          <xs:totalDigits value="10"/>
+                        </xs:restriction>
+                      </xs:simpleType>
+                    </xs:element>
+                    <xs:element name="USL_OK" minOccurs="0">
+                      <xs:annotation>
+                        <xs:documentation>Условия оказания медицинской помощи</xs:documentation>
+                      </xs:annotation>
+                      <xs:simpleType>
+                        <xs:restriction base="xs:decimal">
+                          <xs:totalDigits value="2"/>
+                        </xs:restriction>
+                      </xs:simpleType>
+                    </xs:element>
+                    <xs:element name="VIDPOM">
+                      <xs:annotation>
+                        <xs:documentation>Вид медицинской помощи</xs:documentation>
+                      </xs:annotation>
+                      <xs:simpleType>
+                        <xs:restriction base="xs:decimal">
+                          <xs:totalDigits value="4"/>
+                        </xs:restriction>
+                      </xs:simpleType>
+                    </xs:element>
+                    <xs:element name="FOR_POM">
+                      <xs:annotation>
+                        <xs:documentation>Форма оказания медицинской помощи</xs:documentation>
+                      </xs:annotation>
+                      <xs:simpleType>
+                        <xs:restriction base="xs:decimal">
+                          <xs:totalDigits value="1"/>
+                        </xs:restriction>
+                      </xs:simpleType>
+                    </xs:element>
+                    <xs:element name="NPR_MO" minOccurs="0">
+                      <xs:annotation>
+                        <xs:documentation>Код МО, направившего на лечение (диагностику, консультацию)</xs:documentation>
+                      </xs:annotation>
+                      <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                          <xs:maxLength value="6"/>
+                        </xs:restriction>
+                      </xs:simpleType>
+                    </xs:element>
+                    <xs:element name="NPR_DATE" minOccurs="0">
+                      <xs:annotation>
+                        <xs:documentation>Дата направления на лечение (диагностику, консультацию, госпитализацию)</xs:documentation>
+                      </xs:annotation>
+                      <xs:simpleType>
+                        <xs:restriction base="xs:date">
+                          <xs:pattern value="\d{4}-\d{2}-\d{2}"/>
+                        </xs:restriction>
+                      </xs:simpleType>
+                    </xs:element>
+                    <xs:element name="P_DISP2" minOccurs="0">
+                      <xs:annotation>
+                        <xs:documentation>Признак оказания медицинской помощи в рамках 2 этапа диспансеризации</xs:documentation>
+                      </xs:annotation>
+                      <xs:simpleType>
+                        <xs:restriction base="xs:decimal">
+                          <xs:pattern value="\d{1}"/>
+                        </xs:restriction>
+                      </xs:simpleType>
+                    </xs:element>
+                    <xs:element name="LPU">
+                      <xs:annotation>
+                        <xs:documentation>Код МО</xs:documentation>
+                      </xs:annotation>
+                      <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                          <xs:maxLength value="6"/>
+                        </xs:restriction>
+                      </xs:simpleType>
+                    </xs:element>
+                    <xs:element name="VBR" minOccurs="0">
+                      <xs:annotation>
+                        <xs:documentation>Признак мобильной медицинской бригады</xs:documentation>
+                      </xs:annotation>
+                      <xs:simpleType>
+                        <xs:restriction base="xs:decimal">
+                          <xs:totalDigits value="1"/>
+                        </xs:restriction>
+                      </xs:simpleType>
+                    </xs:element>
+                    <xs:element name="DATE_Z_1">
+                      <xs:annotation>
+                        <xs:documentation>Дата начала лечения</xs:documentation>
+                      </xs:annotation>
+                      <xs:simpleType>
+                        <xs:restriction base="xs:date">
+                          <xs:pattern value="\d{4}-\d{2}-\d{2}"/>
+                        </xs:restriction>
+                      </xs:simpleType>
+                    </xs:element>
+                    <xs:element name="DATE_Z_2">
+                      <xs:annotation>
+                        <xs:documentation>Дата окончания лечения</xs:documentation>
+                      </xs:annotation>
+                      <xs:simpleType>
+                        <xs:restriction base="xs:date">
+                          <xs:pattern value="\d{4}-\d{2}-\d{2}"/>
+                        </xs:restriction>
+                      </xs:simpleType>
+                    </xs:element>
+                    <xs:element name="P_OTK" minOccurs="0">
+                      <xs:annotation>
+                        <xs:documentation>Признак отказа</xs:documentation>
+                      </xs:annotation>
+                      <xs:simpleType>
+                        <xs:restriction base="xs:decimal">
+                          <xs:totalDigits value="1"/>
+                        </xs:restriction>
+                      </xs:simpleType>
+                    </xs:element>
+                    <xs:element name="KD_Z" minOccurs="0">
+                      <xs:annotation>
+                        <xs:documentation>Продолжительность госпитализации(койко-дни)</xs:documentation>
+                      </xs:annotation>
+                      <xs:simpleType>
+                        <xs:restriction base="xs:decimal">
+                          <xs:totalDigits value="3"/>
+                        </xs:restriction>
+                      </xs:simpleType>
+                    </xs:element>
+                    <xs:element name="VNOV_M" minOccurs="0" maxOccurs="unbounded">
+                      <xs:annotation>
+                        <xs:documentation>Вес при рождении</xs:documentation>
+                      </xs:annotation>
+                      <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                          <xs:pattern value="[0-9]{1,4}"/>
+                        </xs:restriction>
+                      </xs:simpleType>
+                    </xs:element>
+                    <xs:element name="RSLT">
+                      <xs:annotation>
+                        <xs:documentation>Результат обращения/ госпитализации</xs:documentation>
+                      </xs:annotation>
+                      <xs:simpleType>
+                        <xs:restriction base="xs:decimal">
+                          <xs:totalDigits value="3"/>
+                        </xs:restriction>
+                      </xs:simpleType>
+                    </xs:element>
+                    <xs:element name="ISHOD">
+                      <xs:annotation>
+                        <xs:documentation>Исход заболевания</xs:documentation>
+                      </xs:annotation>
+                      <xs:simpleType>
+                        <xs:restriction base="xs:decimal">
+                          <xs:totalDigits value="3"/>
+                        </xs:restriction>
+                      </xs:simpleType>
+                    </xs:element>
+                    <xs:element name="OS_SLUCH" minOccurs="0" maxOccurs="unbounded">
+                      <xs:annotation>
+                        <xs:documentation>Признак "Особый случай" при регистрации обращения за медицинской помощью</xs:documentation>
+                      </xs:annotation>
+                      <xs:simpleType>
+                        <xs:restriction base="xs:nonNegativeInteger">
+                          <xs:pattern value="1|2"/>
+                        </xs:restriction>
+                      </xs:simpleType>
+                    </xs:element>
+                    <xs:element name="VB_P" minOccurs="0">
+                      <xs:annotation>
+                        <xs:documentation>Признак внутрибольничного перевода</xs:documentation>
+                      </xs:annotation>
+                      <xs:simpleType>
+                        <xs:restriction base="xs:decimal">
+                          <xs:pattern value="\d{1}"/>
+                        </xs:restriction>
+                      </xs:simpleType>
+                    </xs:element>
+                    <xs:element name="OS_SLUCH_REGION" minOccurs="0">
+                      <xs:annotation>
+                        <xs:documentation>Признак "Региональный особый случай"</xs:documentation>
+                      </xs:annotation>
+                      <xs:simpleType>
+                        <xs:restriction base="xs:decimal">
+                          <xs:totalDigits value="2"/>
+                        </xs:restriction>
+                      </xs:simpleType>
+                    </xs:element>
+                    <xs:element name="VOZR" minOccurs="0">
+                      <xs:annotation>
+                        <xs:documentation>Признак возраста</xs:documentation>
+                      </xs:annotation>
+                      <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                          <xs:maxLength value="15"/>
+                        </xs:restriction>
+                      </xs:simpleType>
+                    </xs:element>
+                    <xs:element maxOccurs="unbounded" name="SL">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="SL_ID" >
+                            <xs:annotation>
+                              <xs:documentation>Идентификатор случая</xs:documentation>
+                            </xs:annotation>
+                            <xs:simpleType>
+                              <xs:restriction base="xs:string">
+                                <xs:maxLength value="36"/>
+                              </xs:restriction>
+                            </xs:simpleType>
+                          </xs:element>
+                          <xs:element name="USL_OK" minOccurs="0">
+                            <xs:annotation>
+                              <xs:documentation>Условия оказания медицинской помощи</xs:documentation>
+                            </xs:annotation>
+                            <xs:simpleType>
+                              <xs:restriction base="xs:decimal">
+                                <xs:totalDigits value="2"/>
+                              </xs:restriction>
+                            </xs:simpleType>
+                          </xs:element>
+                          <xs:element name="VID_HMP" minOccurs="0">
+                            <xs:annotation>
+                              <xs:documentation>Вид высокотехнологичной медицинской помощи</xs:documentation>
+                            </xs:annotation>
+                            <xs:simpleType>
+                              <xs:restriction base="xs:string">
+                                <xs:maxLength value="12"/>
+                              </xs:restriction>
+                            </xs:simpleType>
+                          </xs:element>
+                          <xs:element name="METOD_HMP" minOccurs="0">
+                            <xs:annotation>
+                              <xs:documentation>Метод высокотехнологичной медицинской помощи</xs:documentation>
+                            </xs:annotation>
+                            <xs:simpleType>
+                              <xs:restriction base="xs:decimal">
+                                <xs:totalDigits value="3"/>
+                              </xs:restriction>
+                            </xs:simpleType>
+                          </xs:element>
+                          <xs:element name="LPU_1" minOccurs="0">
+                            <xs:annotation>
+                              <xs:documentation>Подразделение МО</xs:documentation>
+                            </xs:annotation>
+                            <xs:simpleType>
+                              <xs:restriction base="xs:string">
+                                <xs:maxLength value="3"/>
+                              </xs:restriction>
+                            </xs:simpleType>
+                          </xs:element>
+                          <xs:element name="PODR" minOccurs="0">
+                            <xs:annotation>
+                              <xs:documentation>Код отделения</xs:documentation>
+                            </xs:annotation>
+                            <xs:simpleType>
+                              <xs:restriction base="xs:decimal">
+                                <xs:totalDigits value="14"/>
+                              </xs:restriction>
+                            </xs:simpleType>
+                          </xs:element>
+                          <xs:element name="PROFIL">
+                            <xs:annotation>
+                              <xs:documentation>Профиль</xs:documentation>
+                            </xs:annotation>
+                            <xs:simpleType>
+                              <xs:restriction base="xs:decimal">
+                                <xs:totalDigits value="3"/>
+                              </xs:restriction>
+                            </xs:simpleType>
+                          </xs:element>
+                          <xs:element name="PROFIL_K" minOccurs="0">
+                            <xs:annotation>
+                              <xs:documentation>Профиль койки</xs:documentation>
+                            </xs:annotation>
+                            <xs:simpleType>
+                              <xs:restriction base="xs:decimal">
+                                <xs:totalDigits value="3"/>
+                              </xs:restriction>
+                            </xs:simpleType>
+                          </xs:element>
+                          <xs:element name="DET">
+                            <xs:annotation>
+                              <xs:documentation>Признак детского профиля</xs:documentation>
+                            </xs:annotation>
+                            <xs:simpleType>
+                              <xs:restriction base="xs:nonNegativeInteger">
+                                <xs:pattern value="0|1"/>
+                              </xs:restriction>
+                            </xs:simpleType>
+                          </xs:element>
+                          <xs:element name="P_CEL" minOccurs="0">
+                            <xs:annotation>
+                              <xs:documentation>Цель посещения</xs:documentation>
+                            </xs:annotation>
+                            <xs:simpleType>
+                              <xs:restriction base="xs:string">
+                                <xs:maxLength value="3"/>
+                              </xs:restriction>
+                            </xs:simpleType>
+                          </xs:element>
+                          <xs:element name="NHISTORY">
+                            <xs:annotation>
+                              <xs:documentation>Номер истории болезни/ талона амбулаторного пациента/ карты вызова скорой медицинской помощи</xs:documentation>
+                            </xs:annotation>
+                            <xs:simpleType>
+                              <xs:restriction base="xs:string">
+                                <xs:maxLength value="50"/>
+                              </xs:restriction>
+                            </xs:simpleType>
+                          </xs:element>
+                          <xs:element name="DATE_1">
+                            <xs:annotation>
+                              <xs:documentation>Дата начала лечения</xs:documentation>
+                            </xs:annotation>
+                            <xs:simpleType>
+                              <xs:restriction base="xs:date">
+                                <xs:pattern value="\d{4}-\d{2}-\d{2}"/>
+                              </xs:restriction>
+                            </xs:simpleType>
+                          </xs:element>
+                          <xs:element name="DATE_2">
+                            <xs:annotation>
+                              <xs:documentation>Дата окончания лечения</xs:documentation>
+                            </xs:annotation>
+                            <xs:simpleType>
+                              <xs:restriction base="xs:date">
+                                <xs:pattern value="\d{4}-\d{2}-\d{2}"/>
+                              </xs:restriction>
+                            </xs:simpleType>
+                          </xs:element>
+                          <xs:element name="DS0" minOccurs="0">
+                            <xs:annotation>
+                              <xs:documentation>Диагноз первичный</xs:documentation>
+                            </xs:annotation>
+                            <xs:simpleType>
+                              <xs:restriction base="xs:string">
+                                <xs:maxLength value="10"/>
+                              </xs:restriction>
+                            </xs:simpleType>
+                          </xs:element>
+                          <xs:element name="DS1">
+                            <xs:annotation>
+                              <xs:documentation>Диагноз основной</xs:documentation>
+                            </xs:annotation>
+                            <xs:simpleType>
+                              <xs:restriction base="xs:string">
+                                <xs:maxLength value="10"/>
+                              </xs:restriction>
+                            </xs:simpleType>
+                          </xs:element>
+                          <xs:element name="DS2" minOccurs="0" maxOccurs="unbounded">
+                            <xs:annotation>
+                              <xs:documentation>Диагноз сопутствующего заболевания</xs:documentation>
+                            </xs:annotation>
+                            <xs:simpleType>
+                              <xs:restriction base="xs:string">
+                                <xs:maxLength value="10"/>
+                              </xs:restriction>
+                            </xs:simpleType>
+                          </xs:element>
+                          <xs:element name="DS3" minOccurs="0" maxOccurs="unbounded">
+                            <xs:annotation>
+                              <xs:documentation>Диагноз осложнения заболевания</xs:documentation>
+                            </xs:annotation>
+                            <xs:simpleType>
+                              <xs:restriction base="xs:string">
+                                <xs:maxLength value="10"/>
+                              </xs:restriction>
+                            </xs:simpleType>
+                          </xs:element>
+                          <xs:element name="CODE_MES1" minOccurs="0" maxOccurs="unbounded">
+                            <xs:annotation>
+                              <xs:documentation>Код МЭС</xs:documentation>
+                            </xs:annotation>
+                            <xs:simpleType>
+                              <xs:restriction base="xs:string">
+                                <xs:maxLength value="20"/>
+                              </xs:restriction>
+                            </xs:simpleType>
+                          </xs:element>
+                          <xs:element name="CODE_MES2" minOccurs="0">
+                            <xs:annotation>
+                              <xs:documentation>Код МЭС сопутствующего заболевания</xs:documentation>
+                            </xs:annotation>
+                            <xs:simpleType>
+                              <xs:restriction base="xs:string">
+                                <xs:maxLength value="20"/>
+                              </xs:restriction>
+                            </xs:simpleType>
+                          </xs:element>
+                          <xs:element name="PRVS">
+                            <xs:annotation>
+                              <xs:documentation>Специальность лечащего врача/ врача, закрывшего талон</xs:documentation>
+                            </xs:annotation>
+                            <xs:simpleType>
+                              <xs:restriction base="xs:decimal">
+                                <xs:totalDigits value="4"/>
+                              </xs:restriction>
+                            </xs:simpleType>
+                          </xs:element>
+                          <xs:element name="VERS_SPEC" minOccurs="0">
+                            <xs:annotation>
+                              <xs:documentation>Код классификатора медицинских специальностей</xs:documentation>
+                            </xs:annotation>
+                            <xs:simpleType>
+                              <xs:restriction base="xs:string">
+                                <xs:maxLength value="4"/>
+                              </xs:restriction>
+                            </xs:simpleType>
+                          </xs:element>
+                          <xs:element name="IDDOKT">
+                            <xs:annotation>
+                              <xs:documentation>Код врача, закрывшего талон/историю болезни</xs:documentation>
+                            </xs:annotation>
+                            <xs:simpleType>
+                              <xs:restriction base="xs:string">
+                                <xs:maxLength value="25"/>
+                              </xs:restriction>
+                            </xs:simpleType>
+                          </xs:element>
+                          <xs:element name="ED_COL" minOccurs="0">
+                            <xs:annotation>
+                              <xs:documentation>Количество единиц оплаты медицинской помощи</xs:documentation>
+                            </xs:annotation>
+                            <xs:simpleType>
+                              <xs:restriction base="xs:decimal">
+                                <xs:totalDigits value="7"/>
+                                <xs:fractionDigits value="2"/>
+                              </xs:restriction>
+                            </xs:simpleType>
+                          </xs:element>
+                          <!--Begin USL-->
+                          <xs:element name="USL" minOccurs="0" maxOccurs="unbounded">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element name="IDSERV">
+                                  <xs:annotation>
+                                    <xs:documentation>Номер записи в реестре услуг</xs:documentation>
+                                  </xs:annotation>
+                                  <xs:simpleType>
+                                    <xs:restriction base="xs:string">
+                                      <xs:maxLength value="36"/>
+                                    </xs:restriction>
+                                  </xs:simpleType>
+                                </xs:element>
+                                <xs:element name="LPU">
+                                  <xs:annotation>
+                                    <xs:documentation>Код МО</xs:documentation>
+                                  </xs:annotation>
+                                  <xs:simpleType>
+                                    <xs:restriction base="xs:string">
+                                      <xs:maxLength value="6"/>
+                                    </xs:restriction>
+                                  </xs:simpleType>
+                                </xs:element>
+                                <xs:element name="LPU_1" minOccurs="0">
+                                  <xs:annotation>
+                                    <xs:documentation>Подразделение МО</xs:documentation>
+                                  </xs:annotation>
+                                  <xs:simpleType>
+                                    <xs:restriction base="xs:string">
+                                      <xs:maxLength value="3"/>
+                                    </xs:restriction>
+                                  </xs:simpleType>
+                                </xs:element>
+                                <xs:element name="PODR" minOccurs="0">
+                                  <xs:annotation>
+                                    <xs:documentation>Код отделения</xs:documentation>
+                                  </xs:annotation>
+                                  <xs:simpleType>
+                                    <xs:restriction base="xs:decimal">
+                                      <xs:totalDigits value="14"/>
+                                    </xs:restriction>
+                                  </xs:simpleType>
+                                </xs:element>
+                                <xs:element name="PROFIL">
+                                  <xs:annotation>
+                                    <xs:documentation>Профиль</xs:documentation>
+                                  </xs:annotation>
+                                  <xs:simpleType>
+                                    <xs:restriction base="xs:decimal">
+                                      <xs:totalDigits value="3"/>
+                                    </xs:restriction>
+                                  </xs:simpleType>
+                                </xs:element>
+                                <xs:element name="VID_VME" minOccurs="0">
+                                  <xs:annotation>
+                                    <xs:documentation>Вид медицинского вмешательства</xs:documentation>
+                                  </xs:annotation>
+                                  <xs:simpleType>
+                                    <xs:restriction base="xs:string">
+                                      <xs:maxLength value="17"/>
+                                    </xs:restriction>
+                                  </xs:simpleType>
+                                </xs:element>
+                                <xs:element name="DET">
+                                  <xs:annotation>
+                                    <xs:documentation>Признак детского профиля</xs:documentation>
+                                  </xs:annotation>
+                                  <xs:simpleType>
+                                    <xs:restriction base="xs:nonNegativeInteger">
+                                      <xs:pattern value="0|1"/>
+                                    </xs:restriction>
+                                  </xs:simpleType>
+                                </xs:element>
+                                <xs:element name="DATE_IN">
+                                  <xs:annotation>
+                                    <xs:documentation>Дата начала оказания услуги</xs:documentation>
+                                  </xs:annotation>
+                                  <xs:simpleType>
+                                    <xs:restriction base="xs:date">
+                                      <xs:pattern value="\d{4}-\d{2}-\d{2}"/>
+                                    </xs:restriction>
+                                  </xs:simpleType>
+                                </xs:element>
+                                <xs:element name="DATE_OUT">
+                                  <xs:annotation>
+                                    <xs:documentation>Дата окончания оказания услуги</xs:documentation>
+                                  </xs:annotation>
+                                  <xs:simpleType>
+                                    <xs:restriction base="xs:date">
+                                      <xs:pattern value="\d{4}-\d{2}-\d{2}"/>
+                                    </xs:restriction>
+                                  </xs:simpleType>
+                                </xs:element>
+                                <xs:element name="DS">
+                                  <xs:annotation>
+                                    <xs:documentation>Диагноз</xs:documentation>
+                                  </xs:annotation>
+                                  <xs:simpleType>
+                                    <xs:restriction base="xs:string">
+                                      <xs:maxLength value="10"/>
+                                    </xs:restriction>
+                                  </xs:simpleType>
+                                </xs:element>
+                                <xs:element name="CODE_USL">
+                                  <xs:annotation>
+                                    <xs:documentation>Код услуги</xs:documentation>
+                                  </xs:annotation>
+                                  <xs:simpleType>
+                                    <xs:restriction base="xs:string">
+                                      <xs:maxLength value="20"/>
+                                    </xs:restriction>
+                                  </xs:simpleType>
+                                </xs:element>
+                                <xs:element name="KOL_USL">
+                                  <xs:annotation>
+                                    <xs:documentation>Количество услуг (кратность услуги)</xs:documentation>
+                                  </xs:annotation>
+                                  <xs:simpleType>
+                                    <xs:restriction base="xs:decimal">
+                                      <xs:totalDigits value="6"/>
+                                      <xs:fractionDigits value="2"/>
+                                    </xs:restriction>
+                                  </xs:simpleType>
+                                </xs:element>
+                                <xs:element name="TARIF" minOccurs="0">
+                                  <xs:annotation>
+                                    <xs:documentation>Тариф</xs:documentation>
+                                  </xs:annotation>
+                                  <xs:simpleType>
+                                    <xs:restriction base="xs:decimal">
+                                      <xs:totalDigits value="17"/>
+                                      <xs:fractionDigits value="2"/>
+                                    </xs:restriction>
+                                  </xs:simpleType>
+                                </xs:element>
+                                <xs:element name="SUMV_USL">
+                                  <xs:annotation>
+                                    <xs:documentation>Стоимость медицинской услуги, принятая к оплате (руб.)</xs:documentation>
+                                  </xs:annotation>
+                                  <xs:simpleType>
+                                    <xs:restriction base="xs:decimal">
+                                      <xs:totalDigits value="17"/>
+                                      <xs:fractionDigits value="2"/>
+                                    </xs:restriction>
+                                  </xs:simpleType>
+                                </xs:element>
+                                <xs:element name="PRVS">
+                                  <xs:annotation>
+                                    <xs:documentation>Специальность медработника, выполнившего услугу</xs:documentation>
+                                  </xs:annotation>
+                                  <xs:simpleType>
+                                    <xs:restriction base="xs:decimal">
+                                      <xs:totalDigits value="9"/>
+                                    </xs:restriction>
+                                  </xs:simpleType>
+                                </xs:element>
+                                <xs:element name="CODE_MD">
+                                  <xs:annotation>
+                                    <xs:documentation>Код медицинского работника, оказавшего медицинскую услугу</xs:documentation>
+                                  </xs:annotation>
+                                  <xs:simpleType>
+                                    <xs:restriction base="xs:string">
+                                      <xs:maxLength value="14"/>
+                                    </xs:restriction>
+                                  </xs:simpleType>
+                                </xs:element>
+                                <xs:element name="P_OTK" minOccurs="0">
+                                  <xs:annotation>
+                                    <xs:documentation>Отказ от услуги</xs:documentation>
+                                  </xs:annotation>
+                                  <xs:simpleType>
+                                    <xs:restriction base="xs:nonNegativeInteger">
+                                      <xs:pattern value="0|1"/>
+                                    </xs:restriction>
+                                  </xs:simpleType>
+                                </xs:element>
+                                <xs:element name="NPL" minOccurs="0">
+                                  <xs:annotation>
+                                    <xs:documentation>Признак проведения услуги ранее даты начала случая</xs:documentation>
+                                  </xs:annotation>
+                                  <xs:simpleType>
+                                    <xs:restriction base="xs:nonNegativeInteger">
+                                      <xs:pattern value="0|1"/>
+                                    </xs:restriction>
+                                  </xs:simpleType>
+                                </xs:element>
+                                <xs:element name="COMENTU" minOccurs="0">
+                                  <xs:simpleType>
+                                    <xs:restriction base="xs:string">
+                                      <xs:maxLength value="250"/>
+                                    </xs:restriction>
+                                  </xs:simpleType>
+                                </xs:element>
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                          <!--End USL-->
+                          <xs:element name="TARIF" minOccurs="0">
+                            <xs:annotation>
+                              <xs:documentation>Тариф</xs:documentation>
+                            </xs:annotation>
+                            <xs:simpleType>
+                              <xs:restriction base="xs:decimal">
+                                <xs:totalDigits value="17"/>
+                                <xs:fractionDigits value="2"/>
+                              </xs:restriction>
+                            </xs:simpleType>
+                          </xs:element>
+                          <xs:element name="SUM_M">
+                            <xs:annotation>
+                              <xs:documentation>Стоимость случая, выставленная к оплате</xs:documentation>
+                            </xs:annotation>
+                            <xs:simpleType>
+                              <xs:restriction base="xs:decimal">
+                                <xs:totalDigits value="17"/>
+                                <xs:fractionDigits value="2"/>
+                              </xs:restriction>
+                            </xs:simpleType>
+                          </xs:element>
+                          <!--Begin SANK-->
+                          <xs:element name="SANK" minOccurs="0" maxOccurs="unbounded">
+                            <xs:annotation>
+                              <xs:documentation>Сведения о санкциях</xs:documentation>
+                            </xs:annotation>
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element name="S_CODE">
+                                  <xs:annotation>
+                                    <xs:documentation>Идентификатор санкции</xs:documentation>
+                                  </xs:annotation>
+                                  <xs:simpleType>
+                                    <xs:restriction base="xs:string">
+                                      <xs:maxLength value="36"/>
+                                    </xs:restriction>
+                                  </xs:simpleType>
+                                </xs:element>
+                                <xs:element name="S_SUM">
+                                  <xs:annotation>
+                                    <xs:documentation>Финансовая санкция</xs:documentation>
+                                  </xs:annotation>
+                                  <xs:simpleType>
+                                    <xs:restriction base="xs:decimal">
+                                      <xs:totalDigits value="17"/>
+                                      <xs:fractionDigits value="2"/>
+                                    </xs:restriction>
+                                  </xs:simpleType>
+                                </xs:element>
+                                <xs:element name="S_TIP">
+                                  <xs:annotation>
+                                    <xs:documentation>Тип санкции</xs:documentation>
+                                  </xs:annotation>
+                                  <xs:simpleType>
+                                    <xs:restriction base="xs:nonNegativeInteger">
+                                      <xs:pattern value="1|2|3|10|11|12|20|21|22|23|24|25|26|30|31|32|33|34|35|36|37|38|39|40|41"/>
+                                    </xs:restriction>
+                                  </xs:simpleType>
+                                </xs:element>
+                                <xs:element name="S_OSN">
+                                  <xs:annotation>
+                                    <xs:documentation>Код причины отказа (частичной) оплаты</xs:documentation>
+                                  </xs:annotation>
+                                  <xs:simpleType>
+                                    <xs:restriction base="xs:string">
+                                    </xs:restriction>
+                                  </xs:simpleType>
+                                </xs:element>
+                                <xs:element name="S_DATE" minOccurs="0">
+                                  <xs:annotation>
+                                    <xs:documentation>Дата отказа</xs:documentation>
+                                  </xs:annotation>
+                                  <xs:simpleType>
+                                    <xs:restriction base="xs:date">
+                                      <xs:pattern value="\d{4}-\d{2}-\d{2}"/>
+                                    </xs:restriction>
+                                  </xs:simpleType>
+                                </xs:element>
+                                <xs:element name="S_COM" minOccurs="0">
+                                  <xs:annotation>
+                                    <xs:documentation>Комментарий</xs:documentation>
+                                  </xs:annotation>
+                                  <xs:simpleType>
+                                    <xs:restriction base="xs:string">
+                                      <xs:maxLength value="250"/>
+                                    </xs:restriction>
+                                  </xs:simpleType>
+                                </xs:element>
+                                <xs:element name="S_IST">
+                                  <xs:annotation>
+                                    <xs:documentation>Источник</xs:documentation>
+                                  </xs:annotation>
+                                  <xs:simpleType>
+                                    <xs:restriction base="xs:nonNegativeInteger">
+                                      <xs:pattern value="[0-9]{1}"/>
+                                    </xs:restriction>
+                                  </xs:simpleType>
+                                </xs:element>
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                          <!--End SANK-->
+                          <xs:element name="KD" minOccurs="0">
+                            <xs:annotation>
+                              <xs:documentation>Продолжительность госпитализации(койко-дни)</xs:documentation>
+                            </xs:annotation>
+                            <xs:simpleType>
+                              <xs:restriction base="xs:decimal">
+                                <xs:totalDigits value="3"/>
+                              </xs:restriction>
+                            </xs:simpleType>
+                          </xs:element>
+                          <!--begin KSG_KPG-->
+                          <xs:element name="KSG_KPG" minOccurs="0">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element name="N_KSG" minOccurs="0">
+                                  <xs:annotation>
+                                    <xs:documentation>Номер КСГ</xs:documentation>
+                                  </xs:annotation>
+                                  <xs:simpleType>
+                                    <xs:restriction base="xs:string">
+                                      <xs:maxLength value="20"/>
+                                    </xs:restriction>
+                                  </xs:simpleType>
+                                </xs:element>
+                                <xs:element name="VER_KSG">
+                                  <xs:annotation>
+                                    <xs:documentation>Модель определения КСГ</xs:documentation>
+                                  </xs:annotation>
+                                  <xs:simpleType>
+                                    <xs:restriction base="xs:decimal">
+                                      <xs:totalDigits value="4"/>
+                                    </xs:restriction>
+                                  </xs:simpleType>
+                                </xs:element>
+                                <xs:element name="KSG_PG">
+                                  <xs:annotation>
+                                    <xs:documentation>Признак использования подгруппы КСГ</xs:documentation>
+                                  </xs:annotation>
+                                  <xs:simpleType>
+                                    <xs:restriction base="xs:decimal">
+                                      <xs:totalDigits value="1"/>
+                                    </xs:restriction>
+                                  </xs:simpleType>
+                                </xs:element>
+                                <xs:element name="N_KPG" minOccurs="0">
+                                  <xs:annotation>
+                                    <xs:documentation>Номер КПГ</xs:documentation>
+                                  </xs:annotation>
+                                  <xs:simpleType>
+                                    <xs:restriction base="xs:decimal">
+                                      <xs:totalDigits value="2"/>
+                                    </xs:restriction>
+                                  </xs:simpleType>
+                                </xs:element>
+                                <xs:element name="KOEF_Z" >
+                                  <xs:annotation>
+                                    <xs:documentation>Коэффициент затратоемкости</xs:documentation>
+                                  </xs:annotation>
+                                  <xs:simpleType>
+                                    <xs:restriction base="xs:decimal">
+                                      <xs:totalDigits value="7"/>
+                                      <xs:fractionDigits value="5"/>
+                                    </xs:restriction>
+                                  </xs:simpleType>
+                                </xs:element>
+                                <xs:element name="KOEF_UP" >
+                                  <xs:annotation>
+                                    <xs:documentation>Управленческий коэффициент</xs:documentation>
+                                  </xs:annotation>
+                                  <xs:simpleType>
+                                    <xs:restriction base="xs:decimal">
+                                      <xs:totalDigits value="7"/>
+                                      <xs:fractionDigits value="5"/>
+                                    </xs:restriction>
+                                  </xs:simpleType>
+                                </xs:element>
+                                <xs:element name="BZTSZ" >
+                                  <xs:annotation>
+                                    <xs:documentation>Базовая ставка</xs:documentation>
+                                  </xs:annotation>
+                                  <xs:simpleType>
+                                    <xs:restriction base="xs:decimal">
+                                      <xs:totalDigits value="8"/>
+                                      <xs:fractionDigits value="2"/>
+                                    </xs:restriction>
+                                  </xs:simpleType>
+                                </xs:element>
+                                <xs:element name="KOEF_D" >
+                                  <xs:annotation>
+                                    <xs:documentation>Коэффициент дифференциации</xs:documentation>
+                                  </xs:annotation>
+                                  <xs:simpleType>
+                                    <xs:restriction base="xs:decimal">
+                                      <xs:totalDigits value="7"/>
+                                      <xs:fractionDigits value="5"/>
+                                    </xs:restriction>
+                                  </xs:simpleType>
+                                </xs:element>
+                                <xs:element name="KOEF_U" >
+                                  <xs:annotation>
+                                    <xs:documentation>Коэффициент уровня/подуровня оказания медицинской помощи</xs:documentation>
+                                  </xs:annotation>
+                                  <xs:simpleType>
+                                    <xs:restriction base="xs:decimal">
+                                      <xs:totalDigits value="7"/>
+                                      <xs:fractionDigits value="5"/>
+                                    </xs:restriction>
+                                  </xs:simpleType>
+                                </xs:element>
+                                <xs:element name="DKK1" minOccurs="0">
+                                  <xs:annotation>
+                                    <xs:documentation>Дополнительный классификационный критерий</xs:documentation>
+                                  </xs:annotation>
+                                  <xs:simpleType>
+                                    <xs:restriction base="xs:string">
+                                      <xs:maxLength value="10"/>
+                                    </xs:restriction>
+                                  </xs:simpleType>
+                                </xs:element>
+                                <xs:element name="DKK2" minOccurs="0">
+                                  <xs:annotation>
+                                    <xs:documentation>Дополнительный классификационный критерий</xs:documentation>
+                                  </xs:annotation>
+                                  <xs:simpleType>
+                                    <xs:restriction base="xs:string">
+                                      <xs:maxLength value="10"/>
+                                    </xs:restriction>
+                                  </xs:simpleType>
+                                </xs:element>
+                                <xs:element name="SL_K">
+                                  <xs:annotation>
+                                    <xs:documentation>Признак использования КСЛП</xs:documentation>
+                                  </xs:annotation>
+                                  <xs:simpleType>
+                                    <xs:restriction base="xs:decimal">
+                                      <xs:totalDigits value="1"/>
+                                    </xs:restriction>
+                                  </xs:simpleType>
+                                </xs:element>
+                                <xs:element name="IT_SL" minOccurs="0">
+                                  <xs:annotation>
+                                    <xs:documentation>Применённый коэффициент сложности лечения пациента</xs:documentation>
+                                  </xs:annotation>
+                                  <xs:simpleType>
+                                    <xs:restriction base="xs:decimal">
+                                      <xs:totalDigits value="7"/>
+                                      <xs:fractionDigits value="5"/>
+                                    </xs:restriction>
+                                  </xs:simpleType>
+                                </xs:element>
+                                <xs:element name="SL_KOEF" minOccurs="0" maxOccurs="unbounded">
+                                  <xs:annotation>
+                                    <xs:documentation>Коэффициенты сложности лечения пациента</xs:documentation>
+                                  </xs:annotation>
+                                  <xs:complexType>
+                                    <xs:sequence>
+                                      <xs:element name="IDSL">
+                                        <xs:annotation>
+                                          <xs:documentation>Номер коэффициента сложности лечения пациента</xs:documentation>
+                                        </xs:annotation>
+                                        <xs:simpleType>
+                                          <xs:restriction base="xs:decimal">
+                                            <xs:totalDigits value="4"/>
+                                          </xs:restriction>
+                                        </xs:simpleType>
+                                      </xs:element>
+                                      <xs:element name="Z_SL">
+                                        <xs:annotation>
+                                          <xs:documentation>Значение коэффициента сложности лечения пациента</xs:documentation>
+                                        </xs:annotation>
+                                        <xs:simpleType>
+                                          <xs:restriction base="xs:decimal">
+                                            <xs:totalDigits value="3"/>
+                                            <xs:fractionDigits value="2"/>
+                                          </xs:restriction>
+                                        </xs:simpleType>
+                                      </xs:element>
+
+                                    </xs:sequence>
+                                  </xs:complexType>
+                                </xs:element>
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                          <!--end KSG-->
+                          <xs:element name="DS1_PR" minOccurs="0">
+                            <xs:annotation>
+                              <xs:documentation>Установлен впервые (основной)</xs:documentation>
+                            </xs:annotation>
+                            <xs:simpleType>
+                              <xs:restriction base="xs:decimal">
+                                <xs:totalDigits value="1"/>
+                              </xs:restriction>
+                            </xs:simpleType>
+                          </xs:element>
+                          <xs:element name="PR_D_N" minOccurs="0">
+                            <xs:annotation>
+                              <xs:documentation>Диспансерное наблюдение</xs:documentation>
+                            </xs:annotation>
+                            <xs:simpleType>
+                              <xs:restriction base="xs:decimal">
+                                <xs:totalDigits value="1"/>
+                              </xs:restriction>
+                            </xs:simpleType>
+                          </xs:element>
+                          <!--begin DS2_N-->
+                          <xs:element name="DS2_N" minOccurs="0">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element name="DS2" >
+                                  <xs:annotation>
+                                    <xs:documentation>Диагноз сопутствующего заболевания</xs:documentation>
+                                  </xs:annotation>
+                                  <xs:simpleType>
+                                    <xs:restriction base="xs:string">
+                                      <xs:maxLength value="10"/>
+                                    </xs:restriction>
+                                  </xs:simpleType>
+                                </xs:element>
+                                <xs:element name="DS2_PR" minOccurs="0">
+                                  <xs:annotation>
+                                    <xs:documentation>Установлен впервые (сопутствующий)</xs:documentation>
+                                  </xs:annotation>
+                                  <xs:simpleType>
+                                    <xs:restriction base="xs:decimal">
+                                      <xs:totalDigits value="1"/>
+                                    </xs:restriction>
+                                  </xs:simpleType>
+                                </xs:element>
+                                <xs:element name="PR_DS2_N" minOccurs="0">
+                                  <xs:annotation>
+                                    <xs:documentation>Диспансерное наблюдение</xs:documentation>
+                                  </xs:annotation>
+                                  <xs:simpleType>
+                                    <xs:restriction base="xs:decimal">
+                                      <xs:totalDigits value="1"/>
+                                    </xs:restriction>
+                                  </xs:simpleType>
+                                </xs:element>
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                          <!--end DS2_N-->
+                          <!--begin NAZ-->
+                          <!--<xs:element name="NAZ" minOccurs="0">
+                              <xs:complexType>
+                                <xs:sequence>
+                                  <xs:element name="NAZ_N" >
+									<xs:annotation>
+									  <xs:documentation>Номер по порядку</xs:documentation>
+									</xs:annotation>
+									<xs:simpleType>
+									  <xs:restriction base="xs:decimal">
+									     <xs:totalDigits value="2"/>
+									  </xs:restriction>
+								    </xs:simpleType>
+								  </xs:element>
+								  <xs:element name="NAZ_R" >
+									<xs:annotation>
+									  <xs:documentation>Вид назначения</xs:documentation>
+									</xs:annotation>
+									<xs:simpleType>
+									  <xs:restriction base="xs:decimal">
+									     <xs:totalDigits value="2"/>
+									  </xs:restriction>
+								    </xs:simpleType>
+								  </xs:element>
+								  <xs:element name="NAZ_SP" minOccurs="0">
+									<xs:annotation>
+									  <xs:documentation>Специальность врача</xs:documentation>
+									</xs:annotation>
+									<xs:simpleType>
+									  <xs:restriction base="xs:decimal">
+									     <xs:totalDigits value="4"/>
+									  </xs:restriction>
+								    </xs:simpleType>
+								  </xs:element>
+								  <xs:element name="NAZ_V" minOccurs="0">
+									<xs:annotation>
+									  <xs:documentation>Вид обследования</xs:documentation>
+									</xs:annotation>
+									<xs:simpleType>
+									  <xs:restriction base="xs:decimal">
+									     <xs:totalDigits value="1"/>
+									  </xs:restriction>
+								    </xs:simpleType>
+								  </xs:element>
+								  <xs:element name="NAZ_PMP" minOccurs="0">
+									<xs:annotation>
+									  <xs:documentation>Профиль медицинской помощи</xs:documentation>
+									</xs:annotation>
+									<xs:simpleType>
+									  <xs:restriction base="xs:decimal">
+									     <xs:totalDigits value="3"/>
+									  </xs:restriction>
+								    </xs:simpleType>
+								  </xs:element>
+								  <xs:element name="NAZ_PK" minOccurs="0">
+									<xs:annotation>
+									  <xs:documentation>Профиль койки</xs:documentation>
+									</xs:annotation>
+									<xs:simpleType>
+									  <xs:restriction base="xs:decimal">
+									     <xs:totalDigits value="3"/>
+									  </xs:restriction>
+								    </xs:simpleType>
+								  </xs:element>
+                                </xs:sequence>
+                              </xs:complexType>
+                            </xs:element>-->
+                          <!--end NAZ-->
+                          <xs:element name="COMENTSL" minOccurs="0">
+                            <xs:simpleType>
+                              <xs:restriction base="xs:string">
+                                <xs:maxLength value="250"/>
+                              </xs:restriction>
+                            </xs:simpleType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="IDSP">
+                      <xs:annotation>
+                        <xs:documentation>Код способа оплаты медицинской помощи</xs:documentation>
+                      </xs:annotation>
+                      <xs:simpleType>
+                        <xs:restriction base="xs:decimal">
+                          <xs:totalDigits value="2"/>
+                        </xs:restriction>
+                      </xs:simpleType>
+                    </xs:element>
+                    <xs:element name="SUMV">
+                      <xs:annotation>
+                        <xs:documentation>Сумма выставленная на оплату</xs:documentation>
+                      </xs:annotation>
+                      <xs:simpleType>
+                        <xs:restriction base="xs:decimal">
+                          <xs:totalDigits value="17"/>
+                          <xs:fractionDigits value="2"/>
+                        </xs:restriction>
+                      </xs:simpleType>
+                    </xs:element>
+                    <xs:element name="OPLATA" minOccurs="0">
+                      <xs:annotation>
+                        <xs:documentation>Тип оплаты</xs:documentation>
+                      </xs:annotation>
+                      <xs:simpleType>
+                        <xs:restriction base="xs:nonNegativeInteger">
+                          <xs:pattern value="0|1|2|3"/>
+                        </xs:restriction>
+                      </xs:simpleType>
+                    </xs:element>
+                    <xs:element name="SUMP" minOccurs="0">
+                      <xs:annotation>
+                        <xs:documentation>Сумма, принятая к оплате СМО (ТФОМС)</xs:documentation>
+                      </xs:annotation>
+                      <xs:simpleType>
+                        <xs:restriction base="xs:decimal">
+                          <xs:totalDigits value="17"/>
+                          <xs:fractionDigits value="2"/>
+                        </xs:restriction>
+                      </xs:simpleType>
+                    </xs:element>
+                    <xs:element name="SANK_IT" minOccurs="0">
+                      <xs:annotation>
+                        <xs:documentation>Сумма санкций по случаю</xs:documentation>
+                      </xs:annotation>
+                      <xs:simpleType>
+                        <xs:restriction base="xs:decimal">
+                          <xs:totalDigits value="17"/>
+                          <xs:fractionDigits value="2"/>
+                        </xs:restriction>
+                      </xs:simpleType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

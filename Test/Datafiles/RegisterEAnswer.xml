@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<ZL_LIST>
+  <ZGLV>
+    <VERSION>1.0</VERSION>
+    <DATA>2011-11-30</DATA>
+    <OKATO_OMS>38000</OKATO_OMS>
+  </ZGLV>
+  <SCHET>
+    <YEAR>2011</YEAR>
+    <MONTH>10</MONTH>
+    <NSCHET>11046</NSCHET>
+    <DSCHET>2011-10-28</DSCHET>
+    <SUMMAV>605285.96</SUMMAV>
+    <SUMMAP>575651.75</SUMMAP>
+    <SANK_MEK>29634.21</SANK_MEK>
+    <SANK_MEE>1.01</SANK_MEE>
+    <SANK_EKMP>2.22</SANK_EKMP>
+  </SCHET>
+  <ZAP>
+    <N_ZAP>1</N_ZAP>
+    <PACIENT>
+      <VPOLIS>1</VPOLIS>
+      <SPOLIS>666</SPOLIS>
+      <NPOLIS>027239668</NPOLIS>
+    </PACIENT>
+    <SLUCH>
+      <IDCASE>1</IDCASE>
+      <NHISTORY>6559/2466</NHISTORY>
+      <IDSP>14</IDSP>
+      <ED_COL>8.00</ED_COL>
+      <TARIF>2195.43</TARIF>
+      <SUMV>17563.44</SUMV>
+      <OPLATA>1</OPLATA>
+      <SUMP>17563.44</SUMP>
+      <REFREASON>1</REFREASON>
+      <REFREASON>2</REFREASON>
+      <REFREASON>3</REFREASON>
+      <SANK_MEK>1.1</SANK_MEK>
+      <SANK_MEE>2.2</SANK_MEE>
+      <SANK_EKMP>3.3</SANK_EKMP>
+      <COMENTSL>Комментарии к случаю</COMENTSL>
+    </SLUCH>
+    <SLUCH>
+      <IDCASE>2</IDCASE>
+      <NHISTORY>7107/2707</NHISTORY>
+      <IDSP>14</IDSP>
+      <ED_COL>8.00</ED_COL>
+      <TARIF>2195.43</TARIF>
+      <SUMV>17563.44</SUMV>
+      <OPLATA>1</OPLATA>
+      <SUMP>17563.44</SUMP>
+    </SLUCH>
+  </ZAP>
+  <ZAP>
+    <N_ZAP>2</N_ZAP>
+    <PACIENT>
+      <VPOLIS>1</VPOLIS>
+      <NPOLIS>4602009021100049</NPOLIS>
+    </PACIENT>
+    <SLUCH>
+      <IDCASE>3</IDCASE>
+      <NHISTORY>1</NHISTORY>
+      <IDSP>1</IDSP>
+      <ED_COL>1.00</ED_COL>
+      <TARIF>87.24</TARIF>
+      <SUMV>87.24</SUMV>
+      <OPLATA>1</OPLATA>
+      <SUMP>87.24</SUMP>
+      <COMENTSL>Неполное заполнение полей реестра счетов - сведения о случае</COMENTSL>
+    </SLUCH>
+  </ZAP>
+  <ZAP>
+    <N_ZAP>3</N_ZAP>
+    <PACIENT>
+      <VPOLIS>1</VPOLIS>
+      <NPOLIS>4601989052200751</NPOLIS>
+    </PACIENT>
+    <SLUCH>
+      <IDCASE>4</IDCASE>
+      <NHISTORY>1</NHISTORY>
+      <IDSP>1</IDSP>
+      <ED_COL>1.00</ED_COL>
+      <TARIF>100.73</TARIF>
+      <SUMV>100.73</SUMV>
+      <OPLATA>1</OPLATA>
+      <SUMP>100.73</SUMP>
+      <COMENTSL>
+        Неполное заполнение полей реестра счетов - сведения о случае
+        Не найден номер полиса
+      </COMENTSL>
+    </SLUCH>
+    <SLUCH>
+      <IDCASE>5</IDCASE>
+      <NHISTORY>1</NHISTORY>
+      <IDSP>1</IDSP>
+      <ED_COL>1.00</ED_COL>
+      <TARIF>100.73</TARIF>
+      <SUMV>100.73</SUMV>
+      <OPLATA>1</OPLATA>
+      <SUMP>100.73</SUMP>
+      <COMENTSL>
+        Неполное заполнение полей реестра счетов - сведения о случае
+        Не найден номер полиса
+      </COMENTSL>
+    </SLUCH>
+  </ZAP>
+</ZL_LIST>

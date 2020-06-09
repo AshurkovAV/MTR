@@ -1,0 +1,125 @@
+﻿<UserControl x:Class="Medical.AppLayer.Economic.Views.EconomicRefuseView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+             xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+             xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
+             xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core" 
+             mc:Ignorable="d" 
+             d:DesignHeight="661" 
+             d:DesignWidth="800" 
+             xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol"
+             xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:views="clr-namespace:Medical.AppLayer.Economic.Views">
+    <UserControl.Resources>
+        
+    </UserControl.Resources>
+    
+    <dxb:BarManager CreateStandardLayout="False">
+        <Grid>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <dx:PLinqInstantFeedbackDataSource Name="pLinqAccountDataSource" ListSource="{Binding Path=AccountListSource}" />
+                <dxlc:LayoutControl Padding="0" Orientation="Vertical">
+
+                    <dxlc:LayoutItem VerticalAlignment="Stretch">
+                        <dxg:GridControl Name="Grid" 
+                             
+                             ItemsSource="{Binding ElementName=pLinqAccountDataSource, Path=Data}"
+                             ShowBorder="False"
+                             AutoExpandAllGroups="True"
+                             UseLayoutRounding="True">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="DataContextChanged">
+                                    <ei:CallMethodAction TargetObject="{Binding ElementName=tableView}" MethodName="BestFitColumns"/>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+
+                            <dxg:GridControl.Columns>
+                                <dxg:GridColumn FieldName="Refuse.RefuseDate" Header="Дата отказа"/>
+
+                                <dxg:GridColumn FieldName="HospitalAmount" Header="Стационар">
+                                    <dxg:GridColumn.EditSettings>
+                                        <dxe:TextEditSettings DisplayFormat="c2" MaskType="Numeric"  Mask="c2"  TextWrapping="WrapWithOverflow"  />
+                                    </dxg:GridColumn.EditSettings>
+                                </dxg:GridColumn>
+
+                                <dxg:GridColumn FieldName="DayHospitalAmount" Header="Дневной стационар">
+                                    <dxg:GridColumn.EditSettings>
+                                        <dxe:TextEditSettings DisplayFormat="c2" MaskType="Numeric"  Mask="c2"  TextWrapping="WrapWithOverflow"  />
+                                    </dxg:GridColumn.EditSettings>
+                                </dxg:GridColumn>
+
+                                <dxg:GridColumn FieldName="PolyclinicAmount" Header="Поликлиника">
+                                    <dxg:GridColumn.EditSettings>
+                                        <dxe:TextEditSettings DisplayFormat="c2" MaskType="Numeric"  Mask="c2"  TextWrapping="WrapWithOverflow"  />
+                                    </dxg:GridColumn.EditSettings>
+                                </dxg:GridColumn>
+
+                                <dxg:GridColumn FieldName="AmbulanceAmount" Header="Скорая помощь">
+                                    <dxg:GridColumn.EditSettings>
+                                        <dxe:TextEditSettings DisplayFormat="c2" MaskType="Numeric"  Mask="c2"  TextWrapping="WrapWithOverflow"  />
+                                    </dxg:GridColumn.EditSettings>
+                                </dxg:GridColumn>
+
+                                <dxg:GridColumn FieldName="Refuse.RefuseTotalAmount" Header="Итоговая сумма отказа">
+                                    <dxg:GridColumn.EditSettings>
+                                        <dxe:TextEditSettings DisplayFormat="c2" MaskType="Numeric"  Mask="c2"  TextWrapping="WrapWithOverflow"  />
+                                    </dxg:GridColumn.EditSettings>
+                                </dxg:GridColumn>
+
+                                <dxg:GridColumn FieldName="Refuse.EconomicRefuseId" Header="ID информации об отказе" />
+
+                            </dxg:GridControl.Columns>
+                            <dxg:GridControl.TotalSummary>
+                                <dxg:GridSummaryItem FieldName="Account.EconomicAccountId" SummaryType="Count"
+                                      DisplayFormat="Всего: {0}"/>
+                            </dxg:GridControl.TotalSummary>
+
+                            <dxg:GridControl.View>
+                                <dxg:TableView Name="tableView"  
+                                   AllowEditing="False" 
+                                   ShowIndicator="True"
+                                   AllowCascadeUpdate="True"        
+                                   ShowGroupPanel="False" 
+                                   ShowAutoFilterRow="True" 
+                                   NavigationStyle="Row"
+                                   WaitIndicatorType="Panel"
+                                   ShowTotalSummary="True"
+                                   RowAnimationKind="None"
+                                   AutoWidth="True"
+                                   HeaderPanelMinHeight="35"
+                                   FocusedRow="{Binding CurrentRow, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                            </dxg:GridControl.View>
+                            <dxg:GridControl.GroupSummary>
+                                <dxg:GridSummaryItem FieldName="AccountNumber" SummaryType="Count"/>
+                            </dxg:GridControl.GroupSummary>
+                        </dxg:GridControl>
+                    </dxlc:LayoutItem>
+                </dxlc:LayoutControl>
+            </Grid>
+            <Grid Grid.ZIndex="1000">
+                <controls:Flyout IsOpen="{Binding IsAddRefuseOpen}"  
+                                Header="Редактирование отказа"
+                                Position="Right">
+                    <Grid Margin="10" HorizontalAlignment="Stretch" >
+                        <views:AddRefuseView DataContext="{Binding AddRefuseModel}"/>
+                    </Grid>
+                </controls:Flyout>
+            </Grid>
+        </Grid>
+
+        <i:Interaction.Triggers>
+            <i:EventTrigger EventName="Closed">
+                <i:InvokeCommandAction Command="{Binding ElementName=pLinqAccountDataSource, Path=DisposeCommand}" />
+            </i:EventTrigger>
+        </i:Interaction.Triggers>
+        
+    </dxb:BarManager>
+</UserControl>

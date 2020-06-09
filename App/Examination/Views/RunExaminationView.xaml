@@ -1,0 +1,214 @@
+﻿<UserControl x:Class="Medical.AppLayer.Examination.Views.RunExaminationView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:converters="clr-namespace:Medical.AppLayer.Converters"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+             xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+             xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             x:Name="RunExaminationControl"
+             Height="Auto"
+             d:DesignHeight="600"
+             d:DesignWidth="1100"
+             mc:Ignorable="d">
+
+  <UserControl.Resources>
+    <converters:ReasonConverter x:Key="ReasonConverter" />
+    <converters:ScopeConverter x:Key="ErrorScopeConverter" />
+
+  </UserControl.Resources>
+
+  <Grid Background="White">
+    <dxlc:LayoutControl HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch"
+                        Orientation="Horizontal">
+      <dxlc:LayoutGroup Width="550"
+                        HorizontalAlignment="Left"
+                        dxlc:LayoutControl.AllowHorizontalSizing="True"
+                        Orientation="Vertical">
+        <dxlc:LayoutItem FontWeight="Bold" Label="Проверки">
+          <Separator />
+        </dxlc:LayoutItem>
+        <dxlc:LayoutItem Label="Профили">
+          <dxe:ComboBoxEdit>
+            <dxe:ComboBoxEdit.Buttons>
+              <dxe:ButtonInfo GlyphKind="Plus" />
+            </dxe:ComboBoxEdit.Buttons>
+          </dxe:ComboBoxEdit>
+        </dxlc:LayoutItem>
+        <dxlc:LayoutItem MinWidth="300"
+                         MinHeight="300"
+                         VerticalAlignment="Stretch">
+          <dxe:ListBoxEdit AllowItemHighlighting="True"
+                           DisplayMember="Name"
+                           EditValue="{Binding SelectedExamsList,
+                                               NotifyOnValidationError=true,
+                                               ValidatesOnDataErrors=true,
+                                               ValidatesOnExceptions=true}"
+                           ItemsSource="{Binding AllExamsList}"
+                           SelectionMode="Multiple"
+                           ShowCustomItems="True"
+                           ValueMember="FactExpertCriterionID">
+            <dxe:ListBoxEdit.StyleSettings>
+              <dxe:CheckedListBoxEditStyleSettings />
+            </dxe:ListBoxEdit.StyleSettings>
+          </dxe:ListBoxEdit>
+        </dxlc:LayoutItem>
+        <dxlc:LayoutItem FontWeight="Bold">
+          <Separator />
+        </dxlc:LayoutItem>
+        <Button Width="75"
+                Height="23"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                Command="{Binding SelectCommand}"
+                Content="Выполнить" />
+      </dxlc:LayoutGroup>
+      <dxlc:LayoutGroup Orientation="Vertical">
+        <dxlc:LayoutItem FontWeight="Bold" Label="Результаты проверки">
+          <Separator />
+        </dxlc:LayoutItem>
+        <dxlc:LayoutGroup>
+          <dxlc:LayoutItem VerticalAlignment="Stretch">
+            <dxg:GridControl ItemsSource="{Binding ErrorList}" ShowBorder="False">
+              <dxg:GridControl.Columns>
+                <dxg:GridColumn Width="50"
+                                FieldName="IsApply"
+                                FixedWidth="True"
+                                Header="Вкл.">
+                  <dxg:GridColumn.EditSettings>
+                    <dxe:CheckEditSettings />
+                  </dxg:GridColumn.EditSettings>
+                </dxg:GridColumn>
+                <dxg:GridColumn Width="130"
+                                FieldName="ErrorScope"
+                                FixedWidth="True"
+                                Header="Область ошибок"
+                                ReadOnly="True">
+                  <dxg:GridColumn.EditSettings>
+                    <dxe:TextEditSettings DisplayTextConverter="{StaticResource ErrorScopeConverter}" />
+                  </dxg:GridColumn.EditSettings>
+                </dxg:GridColumn>
+                <dxg:GridColumn Width="50"
+                                FieldName="Id"
+                                FixedWidth="True"
+                                Header="Id"
+                                ReadOnly="True" />
+                <dxg:GridColumn Width="80"
+                                FieldName="Reason"
+                                FixedWidth="True"
+                                Header="Причина"
+                                ReadOnly="True">
+                  <dxg:GridColumn.EditSettings>
+                    <dxe:TextEditSettings DisplayTextConverter="{StaticResource ReasonConverter}" />
+                  </dxg:GridColumn.EditSettings>
+                </dxg:GridColumn>
+                <dxg:GridColumn Width="100"
+                                FieldName="RefusalPercent"
+                                FixedWidth="True"
+                                Header="Штраф %"
+                                ReadOnly="True">
+                  <dxg:GridColumn.EditSettings>
+                    <dxe:ProgressBarEditSettings ContentDisplayMode="Value" />
+                  </dxg:GridColumn.EditSettings>
+                </dxg:GridColumn>
+                <dxg:GridColumn Width="150"
+                                FieldName="RefusalAmount"
+                                FixedWidth="True"
+                                Header="Штраф"
+                                ReadOnly="True">
+                  <dxg:GridColumn.EditSettings>
+                    <dxe:TextEditSettings DisplayFormat="c2"
+                                          Mask="c2"
+                                          MaskType="Numeric"
+                                          TextWrapping="WrapWithOverflow" />
+                  </dxg:GridColumn.EditSettings>
+                </dxg:GridColumn>
+                <dxg:GridColumn FieldName="Comments" Header="Комментарий">
+                  <dxg:GridColumn.EditSettings>
+                    <dxe:MemoEditSettings MemoTextWrapping="Wrap" ShowIcon="False" />
+                  </dxg:GridColumn.EditSettings>
+                </dxg:GridColumn>
+              </dxg:GridControl.Columns>
+              <dxg:GridControl.View>
+                <dxg:TableView AllowCascadeUpdate="True"
+                               AllowEditing="True"
+                               AllowPerPixelScrolling="True"
+                               AutoWidth="True"
+                               FocusedRow="{Binding CurrentRow,
+                                                    Mode=TwoWay,
+                                                    UpdateSourceTrigger=PropertyChanged}"
+                               HeaderPanelMinHeight="35"
+                               RowAnimationKind="None"
+                               ShowGroupPanel="False"
+                               ShowIndicator="True"
+                               ShowTotalSummary="True"
+                               WaitIndicatorType="Panel" />
+              </dxg:GridControl.View>
+              <dxg:GridControl.TotalSummary>
+                <dxg:GridSummaryItem FieldName="ErrorScope" SummaryType="Count" />
+                <dxg:GridSummaryItem FieldName="RefusalAmount" SummaryType="Sum" />
+              </dxg:GridControl.TotalSummary>
+            </dxg:GridControl>
+          </dxlc:LayoutItem>
+
+        </dxlc:LayoutGroup>
+        <dxlc:LayoutGroup Header="Детальные данные"
+                          IsCollapsed="False"
+                          IsCollapsible="True"
+                          ItemSpace="0"
+                          UseLayoutRounding="True"
+                          View="GroupBox">
+          <dxg:GridControl MaxHeight="400"
+                           AutoPopulateColumns="True"
+                           ItemsSource="{Binding DetailsCollection}"
+                           ShowBorder="False">
+            <dxg:GridControl.TotalSummary>
+              <dxg:GridSummaryItem DisplayFormat="Всего случаев: {0}"
+                                   FieldName="ExternalId"
+                                   SummaryType="Count" />
+            </dxg:GridControl.TotalSummary>
+            <dxg:GridControl.View>
+              <dxg:TableView Name="tableView2"
+                             AllowCascadeUpdate="True"
+                             AllowEditing="False"
+                             HeaderPanelMinHeight="35"
+                             NavigationStyle="Row"
+                             ShowAutoFilterRow="True"
+                             ShowGroupPanel="False"
+                             ShowTotalSummary="True"
+                             WaitIndicatorType="Panel" />
+            </dxg:GridControl.View>
+          </dxg:GridControl>
+        </dxlc:LayoutGroup>
+
+        <dxlc:LayoutItem VerticalAlignment="Bottom" FontWeight="Bold">
+          <Separator />
+        </dxlc:LayoutItem>
+        <dxlc:LayoutGroup VerticalAlignment="Bottom" Orientation="Horizontal">
+          <Button Width="95"
+                  Height="23"
+                  HorizontalAlignment="Right"
+                  VerticalAlignment="Bottom"
+                  Command="{Binding SelectAllCommand}"
+                  Content="Выбрать все" />
+          <Button Width="95"
+                  Height="23"
+                  HorizontalAlignment="Right"
+                  VerticalAlignment="Bottom"
+                  Command="{Binding UnselectAllCommand}"
+                  Content="Отменить все" />
+          <Button Width="75"
+                  Height="23"
+                  HorizontalAlignment="Right"
+                  VerticalAlignment="Bottom"
+                  Command="{Binding ApplyCommand}"
+                  Content="Применить" />
+        </dxlc:LayoutGroup>
+
+      </dxlc:LayoutGroup>
+    </dxlc:LayoutControl>
+
+  </Grid>
+</UserControl>

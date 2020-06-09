@@ -1,0 +1,2144 @@
+﻿<UserControl x:Class="Medical.AppLayer.Operator.Views.ZslOperatorView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:Serialization="clr-namespace:DevExpress.Xpf.LayoutControl.Serialization;assembly=DevExpress.Xpf.LayoutControl.v16.2"
+             xmlns:cmd="http://www.galasoft.ch/mvvmlight"
+             xmlns:converters="clr-namespace:Medical.AppLayer.Converters"
+             xmlns:d="http://sАchemas.microsoft.com/expression/blend/2008"
+             xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+             xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars"
+             xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+             xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+             xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             x:Name="ZslOperatorControl"
+             d:DesignHeight="768"
+             d:DesignWidth="1224"
+             mc:Ignorable="d">
+  <UserControl.Resources>
+    <converters:RefusalTypeToColorConverter x:Key="RefusalTypeToColorConverter" />
+    <converters:RefusalFlagToImageConverter x:Key="RefusalFlagToImageConverter" />
+    <converters:RefusalTypeToImageConverter x:Key="RefusalTypeToImageConverter" />
+    <converters:RefusalDestToImageConverter x:Key="RefusalDestToImageConverter" />
+    <converters:DiagnosisConverter x:Key="DiagnosisConverter" />
+    <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+    <converters:InsuranceConverter x:Key="InsuranceConverter" />
+    <converters:MedicalOrganizationConverter x:Key="MedicalOrganizationConverter" />
+    <converters:MedicalOrganizationIdConverter x:Key="MedicalOrganizationIdConverter" />
+
+
+    <Style x:Key="BaseStyle" TargetType="{x:Type Control}">
+      <Setter Property="FontWeight" Value="Bold" />
+    </Style>
+    <Style BasedOn="{StaticResource BaseStyle}" TargetType="{x:Type dxe:TextEdit}" />
+    <Style BasedOn="{StaticResource BaseStyle}" TargetType="{x:Type dxe:ComboBoxEdit}" />
+    <Style BasedOn="{StaticResource BaseStyle}" TargetType="{x:Type dxe:ButtonEdit}" />
+    <Style BasedOn="{StaticResource BaseStyle}" TargetType="{x:Type dxe:DateEdit}" />
+    <Style BasedOn="{StaticResource BaseStyle}" TargetType="{x:Type dxe:MemoEdit}" />
+
+  </UserControl.Resources>
+
+  <Grid>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto" />
+      <RowDefinition Height="*" />
+    </Grid.RowDefinitions>
+    <dxb:BarContainerControl Grid.Row="0" DockPanel.Dock="Top">
+
+      <dxb:ToolBarControl AllowQuickCustomization="False" Caption="Просмотр">
+        <dxb:BarLinkContainerItem>
+          <dxb:BarButtonItem Command="{Binding SaveCommand}"
+                             Content="Сохранить"
+                             Glyph="{dx:DXImage Image=Save_16x16.png}"
+                             LargeGlyph="{dx:DXImage Image=Save_32x32.png}" />
+          <dxb:BarButtonItem Command="{Binding RevertCommand}"
+                             Content="Отменить изменения"
+                             Glyph="{dx:DXImage Image=Reset2_16x16.png}"
+                             LargeGlyph="{dx:DXImage Image=Reset2_32x32.png}" />
+          <dxb:BarItemLinkSeparator />
+          <dxb:BarButtonItem Command="{Binding CheckPolicyCommand}"
+                             Content="Проверка полиса"
+                             Glyph="{dx:DXImage Image=CheckBox_16x16.png}"
+                             LargeGlyph="{dx:DXImage Image=CheckBox_32x32.png}" />
+          <dxb:BarItemLinkSeparator />
+          <dxb:BarButtonItem Command="{Binding ViewSrzCommand}"
+                             Content="Просмотр ответа из СРЗ"
+                             Glyph="{dx:DXImage Image=Customer_16x16.png}"
+                             LargeGlyph="{dx:DXImage Image=Customer_32x32.png}" />
+          <dxb:BarButtonItem Command="{Binding SendSrzQueryCommand}"
+                             Content="Запрос в СРЗ"
+                             Glyph="{dx:DXImage Image=Role_16x16.png}"
+                             LargeGlyph="{dx:DXImage Image=Role_32x32.png}" />
+          <dxb:BarItemLinkSeparator />
+          <dxb:BarButtonItem Command="{Binding SearchDignosisCommand}"
+                             Content="Поиск в МКБ-10"
+                             Glyph="{dx:DXImage Image=Find_16x16.png}"
+                             LargeGlyph="{dx:DXImage Image=Find_32x32.png}" />
+          <dxb:BarItemLinkSeparator />
+          <dxb:BarButtonItem Command="{Binding GenerateInpCommand}"
+                             Content="Генерация ЕНП"
+                             Glyph="{dx:DXImage Image=Wizard_16x16.png}"
+                             LargeGlyph="{dx:DXImage Image=Wizard_32x32.png}" />
+          <dxb:BarItemLinkSeparator IsVisible="{Binding IsInterMode, Converter={StaticResource BooleanToVisibilityConverter}}" />
+          <dxb:BarButtonItem Command="{Binding CopyPatientCommand}"
+                             Content="Копия пациента"
+                             Glyph="{dx:DXImage Image=Copy_16x16.png}"
+                             IsVisible="{Binding IsInterMode,
+                                                 Converter={StaticResource BooleanToVisibilityConverter}}"
+                             LargeGlyph="{dx:DXImage Image=Copy_32x32.png}" />
+          <dxb:BarButtonItem Command="{Binding MovePatientCommand}"
+                             Content="Перенос пациента"
+                             Glyph="{dx:DXImage Image=Convert_16x16.png}"
+                             IsVisible="{Binding IsInterMode,
+                                                 Converter={StaticResource BooleanToVisibilityConverter}}"
+                             LargeGlyph="{dx:DXImage Image=Convert_32x32.png}" />
+          <dxb:BarButtonItem Command="{Binding ExcludePatientCommand}"
+                             Content="Исключить пациента"
+                             Glyph="{dx:DXImage Image=Remove_16x16.png}"
+                             IsVisible="{Binding IsInterMode,
+                                                 Converter={StaticResource BooleanToVisibilityConverter}}"
+                             LargeGlyph="{dx:DXImage Image=Remove_32x32.png}" />
+          <dxb:BarItemLinkSeparator />
+          <dxb:BarButtonItem Command="{Binding RemoveAllMecCommand}"
+                             Content="Удалить все МЭКи"
+                             Glyph="{dx:DXImage Image=Delete_16x16.png}"
+                             LargeGlyph="{dx:DXImage Image=Delete_32x32.png}" />
+        </dxb:BarLinkContainerItem>
+
+      </dxb:ToolBarControl>
+
+    </dxb:BarContainerControl>
+    <dxlc:LayoutControl Grid.Row="1"
+                        ItemSpace="1"
+                        Padding="2">
+      <dxlc:LayoutGroup Orientation="Vertical">
+        <dxlc:LayoutGroup Orientation="Horizontal">
+          <dxlc:LayoutItem Width="150">
+            <dxe:ButtonEdit Width="140"
+                            Height="22"
+                            AllowDefaultButton="False"
+                            EditValue="{Binding CurrentPatientPositionText,
+                                                Mode=OneWay}"
+                            IsReadOnly="True">
+              <dxe:ButtonInfo Command="{Binding NextPatientCommand}" GlyphKind="Right" />
+              <dxe:ButtonInfo Command="{Binding LastPatientCommand}" GlyphKind="Last" />
+              <dxe:ButtonInfo Command="{Binding FirstPatientCommand}"
+                              GlyphKind="First"
+                              IsLeft="True" />
+              <dxe:ButtonInfo Command="{Binding PrevPatientCommand}"
+                              GlyphKind="Left"
+                              IsLeft="True" />
+            </dxe:ButtonEdit>
+
+          </dxlc:LayoutItem>
+          <dxlc:LayoutItem Width="50">
+            <dxe:ButtonEdit Height="22"
+                            AcceptsReturn="False"
+                            AllowDefaultButton="False"
+                            EditValue="{Binding GoToPatientPosition,
+                                                UpdateSourceTrigger=PropertyChanged}">
+              <i:Interaction.Triggers>
+                <i:EventTrigger EventName="KeyDown">
+                  <cmd:EventToCommand Command="{Binding GoToPatientPositionKeyCommand}" PassEventArgsToCommand="True" />
+                </i:EventTrigger>
+              </i:Interaction.Triggers>
+              <dxe:ButtonInfo Command="{Binding GoToPatientPositionCommand}" GlyphKind="Custom">
+                <Image Source="../../Resources/Icons/go-next16.png" />
+              </dxe:ButtonInfo>
+            </dxe:ButtonEdit>
+          </dxlc:LayoutItem>
+        </dxlc:LayoutGroup>
+        <!--  Данные пациента  -->
+        <dxlc:LayoutGroup VerticalAlignment="Stretch"
+                          Header="LayoutGroup"
+                          View="Tabs">
+          <dxlc:LayoutGroup Header="Пациент"
+                            Orientation="Vertical"
+                            View="Group">
+            <dxlc:LayoutGroup>
+              <dxlc:LayoutItem Label="ID пациента" LabelPosition="Top">
+                <dxe:TextEdit EditValue="{Binding Patient.PatientId, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" />
+              </dxlc:LayoutItem>
+              <dxlc:LayoutItem Label="№ записи"
+                               LabelPosition="Top"
+                               Visibility="{Binding IsInterMode,
+                                                    Converter={StaticResource BooleanToVisibilityConverter}}">
+                <dxe:TextEdit EditValue="{Binding Patient.ExternalId, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" />
+              </dxlc:LayoutItem>
+              <dxlc:LayoutItem Label="№ записи"
+                               LabelPosition="Top"
+                               Visibility="{Binding IsLocalMode,
+                                                    Converter={StaticResource BooleanToVisibilityConverter}}">
+                <dxe:TextEdit EditValue="{Binding Patient.MedicalExternalId, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" />
+              </dxlc:LayoutItem>
+            </dxlc:LayoutGroup>
+            <dxlc:LayoutItem Label="Фамилия" LabelPosition="Top">
+              <dxe:TextEdit EditValue="{Binding Person.Surname, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
+            </dxlc:LayoutItem>
+            <dxlc:LayoutItem Label="Имя" LabelPosition="Top">
+              <dxe:TextEdit EditValue="{Binding Person.PName, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
+            </dxlc:LayoutItem>
+            <dxlc:LayoutItem Label="Отчество" LabelPosition="Top">
+              <dxe:TextEdit EditValue="{Binding Person.Patronymic, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
+            </dxlc:LayoutItem>
+            <dxlc:LayoutGroup>
+              <dxlc:LayoutItem Label="Дата рождения" LabelPosition="Top">
+                <dxe:DateEdit EditValue="{Binding Person.Birthday, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" NullText="Отсутствует" />
+              </dxlc:LayoutItem>
+              <dxlc:LayoutItem Label="Пол" LabelPosition="Top">
+                <dxe:ComboBoxEdit x:Name="SexComboBoxEdit"
+                                  DisplayMember="DisplayName"
+                                  EditValue="{Binding Person.Sex,
+                                                      NotifyOnValidationError=True,
+                                                      UpdateSourceTrigger=PropertyChanged,
+                                                      ValidatesOnDataErrors=True}"
+                                  NullText="Отсутствует"
+                                  ValueMember="Value" />
+              </dxlc:LayoutItem>
+            </dxlc:LayoutGroup>
+            <dxlc:LayoutItem Label="Тип документа ОМС" LabelPosition="Top">
+              <dxe:ComboBoxEdit x:Name="F008ComboBoxEdit"
+                                DisplayMember="DisplayName"
+                                EditValue="{Binding Patient.InsuranceDocType,
+                                                    NotifyOnValidationError=True,
+                                                    UpdateSourceTrigger=PropertyChanged,
+                                                    ValidatesOnDataErrors=True}"
+                                NullText="Отсутствует"
+                                ValueMember="Value" />
+            </dxlc:LayoutItem>
+            <dxlc:LayoutGroup>
+              <dxlc:LayoutItem Label="Номер документа ОМС" LabelPosition="Top">
+                <dxe:ButtonEdit AllowDefaultButton="False" EditValue="{Binding Patient.InsuranceDocNumber, UpdateSourceTrigger=PropertyChanged}">
+                  <dxe:ButtonInfo Command="{Binding SearchPolicyCommand}" GlyphKind="Regular" />
+                </dxe:ButtonEdit>
+              </dxlc:LayoutItem>
+              <dxlc:LayoutItem Label="Серия документа ОМС" LabelPosition="Top">
+                <dxe:TextEdit EditValue="{Binding Patient.InsuranceDocSeries, UpdateSourceTrigger=PropertyChanged}" />
+              </dxlc:LayoutItem>
+            </dxlc:LayoutGroup>
+            <dxlc:LayoutItem Label="ЕНП" LabelPosition="Top">
+              <dxe:ButtonEdit AllowDefaultButton="False" EditValue="{Binding Patient.INP, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}">
+                <dxe:ButtonInfo Command="{Binding SearchPolicyCommand}" GlyphKind="Regular" />
+              </dxe:ButtonEdit>
+            </dxlc:LayoutItem>
+            <dxlc:LayoutGroup>
+              <dxlc:LayoutItem Label="Признак новорожденного" LabelPosition="Top">
+                <dxe:TextEdit EditValue="{Binding Patient.Newborn, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
+              </dxlc:LayoutItem>
+              <dxlc:LayoutItem Label="Вес при рождении" LabelPosition="Top">
+                <dxe:TextEdit DisplayFormatString="f2"
+                              EditValue="{Binding Patient.NewbornWeight,
+                                                  NotifyOnValidationError=True,
+                                                  UpdateSourceTrigger=PropertyChanged,
+                                                  ValidatesOnDataErrors=True}"
+                              MaskType="Numeric"
+                              ToolTip="Указывается при оказании медицинской помощи недоношенным и маловесным детям. Поле заполняется, если в качестве пациента указан ребёнок." />
+              </dxlc:LayoutItem>
+            </dxlc:LayoutGroup>
+            <dxlc:LayoutItem Label="Тип УДЛ" LabelPosition="Top">
+              <dxe:ComboBoxEdit x:Name="F011ComboBoxEdit"
+                                AllowNullInput="True"
+                                DisplayMember="DisplayName"
+                                EditValue="{Binding Document.DocType,
+                                                    NotifyOnValidationError=True,
+                                                    UpdateSourceTrigger=PropertyChanged,
+                                                    ValidatesOnDataErrors=True}"
+                                NullText="Отсутствует"
+                                ValueMember="Value" />
+            </dxlc:LayoutItem>
+            <dxlc:LayoutGroup>
+              <dxlc:LayoutItem Label="Серия" LabelPosition="Top">
+                <dxe:TextEdit EditValue="{Binding Document.DocSeries, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
+              </dxlc:LayoutItem>
+              <dxlc:LayoutItem Label="Номер" LabelPosition="Top">
+                <dxe:TextEdit EditValue="{Binding Document.DocNum, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
+              </dxlc:LayoutItem>
+            </dxlc:LayoutGroup>
+            <dxlc:LayoutGroup>
+              <dxlc:LayoutItem Label="Дата выдачи" LabelPosition="Top">
+                <dxe:DateEdit EditValue="{Binding Document.DocDate, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" NullText="Отсутствует" />
+              </dxlc:LayoutItem>
+              <dxlc:LayoutItem Label="Наименование органа" LabelPosition="Top">
+                <dxe:TextEdit EditValue="{Binding Document.DocOrg, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
+              </dxlc:LayoutItem>
+            </dxlc:LayoutGroup>
+
+            <dxlc:LayoutItem Label="Комментарий" LabelPosition="Top">
+              <dxe:MemoEdit EditValue="{Binding Patient.Comments, UpdateSourceTrigger=PropertyChanged}" ShowIcon="False" />
+            </dxlc:LayoutItem>
+
+          </dxlc:LayoutGroup>
+          <dxlc:LayoutGroup Header="Условные данные" Orientation="Vertical">
+            <dxlc:LayoutItem Label="Реестровый номер СМО" LabelPosition="Top">
+              <dxe:ButtonEdit AllowDefaultButton="False"
+                              EditValue="{Binding Patient.InsuranceId,
+                                                  Converter={StaticResource InsuranceConverter},
+                                                  UpdateSourceTrigger=PropertyChanged}"
+                              NullText="Отсутствует">
+                <dxe:ButtonInfo Command="{Binding SearchInsuranceCommand}" GlyphKind="Regular" />
+              </dxe:ButtonEdit>
+            </dxlc:LayoutItem>
+            <dxlc:LayoutItem Label="ОГРН СМО" LabelPosition="Top">
+              <dxe:TextEdit EditValue="{Binding Patient.InsuranceOgrn, UpdateSourceTrigger=PropertyChanged}" />
+            </dxlc:LayoutItem>
+            <dxlc:LayoutItem Label="ОКАТО тер. страхования" LabelPosition="Top">
+              <dxe:ComboBoxEdit x:Name="F010ComboBoxEdit"
+                                AutoComplete="True"
+                                DisplayMember="DisplayName"
+                                EditValue="{Binding Patient.TerritoryOkato,
+                                                    UpdateSourceTrigger=PropertyChanged}"
+                                NullText="Отсутствует"
+                                ValueMember="Value" />
+              <!--  AutoComplete="True" - By Ira  -->
+            </dxlc:LayoutItem>
+            <dxlc:LayoutItem Label="Наименование СМО" LabelPosition="Top">
+              <dxe:TextEdit EditValue="{Binding Patient.InsuranceName, UpdateSourceTrigger=PropertyChanged}" />
+            </dxlc:LayoutItem>
+            <dxlc:LayoutItem Label="Место рождения пациента или представителя" LabelPosition="Top">
+              <dxe:MemoEdit EditValue="{Binding Person.BirthPlace, UpdateSourceTrigger=PropertyChanged}" ShowIcon="False" />
+            </dxlc:LayoutItem>
+            <dxlc:LayoutItem Label="СНИЛС" LabelPosition="Top">
+              <dxe:TextEdit EditValue="{Binding Person.SNILS, UpdateSourceTrigger=PropertyChanged}" />
+            </dxlc:LayoutItem>
+            <!--<dxlc:LayoutGroup>
+                            <dxlc:LayoutItem Label="Код места жительства" LabelPosition="Top">
+                                <dxe:ButtonEdit EditValue="{Binding Person.AddressLive, UpdateSourceTrigger=PropertyChanged}" AllowDefaultButton="False">
+                                    <dxe:ButtonInfo GlyphKind="Regular" Command="{Binding SearchAddressLiveCommand}"/>
+                                </dxe:ButtonEdit>
+                            </dxlc:LayoutItem>
+                            <dxlc:LayoutItem Label="Код места пребывания" LabelPosition="Top">
+                                <dxe:ButtonEdit EditValue="{Binding Person.AddressReg, UpdateSourceTrigger=PropertyChanged}" AllowDefaultButton="False">
+                                    <dxe:ButtonInfo GlyphKind="Regular" Command="{Binding SearchAddressRegCommand}"/>
+                                </dxe:ButtonEdit>
+                            </dxlc:LayoutItem>
+                        </dxlc:LayoutGroup>-->
+            <dxlc:LayoutItem Label="Фамилия представителя" LabelPosition="Top">
+              <dxe:TextEdit EditValue="{Binding Person.RepresentativeSurname, UpdateSourceTrigger=PropertyChanged}" />
+            </dxlc:LayoutItem>
+            <dxlc:LayoutItem Label="Имя  представителя" LabelPosition="Top">
+              <dxe:TextEdit EditValue="{Binding Person.RepresentativeName, UpdateSourceTrigger=PropertyChanged}" />
+            </dxlc:LayoutItem>
+            <dxlc:LayoutItem Label="Отчество  представителя" LabelPosition="Top">
+              <dxe:TextEdit EditValue="{Binding Person.RepresentativePatronymic, UpdateSourceTrigger=PropertyChanged}" />
+            </dxlc:LayoutItem>
+            <dxlc:LayoutGroup>
+              <dxlc:LayoutItem Label="Дата рождения  представителя" LabelPosition="Top">
+                <dxe:DateEdit EditValue="{Binding Person.RepresentativeBirthday, UpdateSourceTrigger=PropertyChanged}" NullText="Отсутствует" />
+              </dxlc:LayoutItem>
+              <dxlc:LayoutItem Label="Пол  представителя" LabelPosition="Top">
+                <dxe:ComboBoxEdit x:Name="V005ReprComboBoxEdit"
+                                  AllowNullInput="True"
+                                  DisplayMember="DisplayName"
+                                  EditValue="{Binding Person.RepresentativeSex,
+                                                      UpdateSourceTrigger=PropertyChanged}"
+                                  NullText="Отсутствует"
+                                  ShowCustomItems="True"
+                                  ValueMember="Value" />
+              </dxlc:LayoutItem>
+            </dxlc:LayoutGroup>
+            <dxlc:LayoutItem Label="Регион страхования"
+                             LabelPosition="Top"
+                             Visibility="{Binding IsInterMode,
+                                                  Converter={StaticResource BooleanToVisibilityConverter}}">
+              <dxe:ComboBoxEdit x:Name="F010RegionComboBoxEdit"
+                                AllowNullInput="True"
+                                DisplayMember="DisplayName"
+                                EditValue="{Binding Patient.InsuranceRegion,
+                                                    UpdateSourceTrigger=PropertyChanged}"
+                                NullText="Отсутствует"
+                                ShowCustomItems="True"
+                                ToolTip="Указывается ОКАТО территории выдачи ДПФС для полисов старого образца при наличии данных"
+                                ValueMember="Value" />
+            </dxlc:LayoutItem>
+          </dxlc:LayoutGroup>
+        </dxlc:LayoutGroup>
+      </dxlc:LayoutGroup>
+      <!--  Данные законченного случая МП  -->
+      <dxlc:LayoutGroup Orientation="Vertical">
+        <dxlc:LayoutGroup Orientation="Horizontal">
+          <dxlc:LayoutItem Width="150">
+            <dxe:ButtonEdit Width="140"
+                            Height="22"
+                            AllowDefaultButton="False"
+                            EditValue="{Binding Mevent.CurrentMedicalEventPositionText,
+                                                Mode=OneWay}"
+                            IsReadOnly="True">
+              <dxe:ButtonInfo Command="{Binding Mevent.NextMedicalEventCommand}" GlyphKind="Right" />
+              <dxe:ButtonInfo Command="{Binding Mevent.LastMedicalEventCommand}" GlyphKind="Last" />
+              <dxe:ButtonInfo Command="{Binding Mevent.FirstMedicalEventCommand}"
+                              GlyphKind="First"
+                              IsLeft="True" />
+              <dxe:ButtonInfo Command="{Binding Mevent.PrevMedicalEventCommand}"
+                              GlyphKind="Left"
+                              IsLeft="True" />
+            </dxe:ButtonEdit>
+
+          </dxlc:LayoutItem>
+          <dxlc:LayoutItem Width="50">
+            <dxe:ButtonEdit Height="22"
+                            AcceptsReturn="False"
+                            AllowDefaultButton="False"
+                            EditValue="{Binding Mevent.GoToMedicalEventPosition,
+                                                UpdateSourceTrigger=PropertyChanged}">
+              <i:Interaction.Triggers>
+                <i:EventTrigger EventName="KeyDown">
+                  <cmd:EventToCommand Command="{Binding Mevent.GoToMedicalEventPositionKeyCommand}" PassEventArgsToCommand="True" />
+                </i:EventTrigger>
+              </i:Interaction.Triggers>
+              <dxe:ButtonInfo Command="{Binding Mevent.GoToMedicalEventPositionCommand}" GlyphKind="Custom">
+                <Image Source="../../Resources/Icons/go-next16.png" />
+              </dxe:ButtonInfo>
+            </dxe:ButtonEdit>
+          </dxlc:LayoutItem>
+        </dxlc:LayoutGroup>
+        <dxlc:LayoutGroup VerticalAlignment="Stretch"
+                          Header="LayoutGroup"
+                          View="Tabs">
+          <dxlc:LayoutGroup Header="Законченые случаи МП"
+                            Orientation="Vertical"
+                            View="Group">
+
+            <dxlc:LayoutGroup Orientation="Horizontal">
+              <dxlc:LayoutItem Label="ID случая" LabelPosition="Top">
+                <dxe:TextEdit EditValue="{Binding Mevent.ZslMedicalEvent.ZslMedicalEventId, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" />
+              </dxlc:LayoutItem>
+              <dxlc:LayoutItem Label="№ случая"
+                               LabelPosition="Top"
+                               Visibility="{Binding IsInterMode,
+                                                    Converter={StaticResource BooleanToVisibilityConverter}}">
+                <dxe:TextEdit EditValue="{Binding Mevent.ZslMedicalEvent.ExternalId, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" />
+              </dxlc:LayoutItem>
+              <dxlc:LayoutItem Label="№ случая"
+                               LabelPosition="Top"
+                               Visibility="{Binding IsLocalMode,
+                                                    Converter={StaticResource BooleanToVisibilityConverter}}">
+                <dxe:TextEdit EditValue="{Binding Mevent.ZslMedicalEvent.MedicalExternalId, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" />
+              </dxlc:LayoutItem>
+
+            </dxlc:LayoutGroup>
+            <dxlc:LayoutGroup>
+              <dxlc:LayoutItem Label="Вид помощи" LabelPosition="Top">
+                <dxe:ComboBoxEdit x:Name="V008ComboBoxEdit"
+                                  DisplayMember="DisplayName"
+                                  EditValue="{Binding Mevent.ZslMedicalEvent.AssistanceType,
+                                                      NotifyOnValidationError=True,
+                                                      UpdateSourceTrigger=PropertyChanged,
+                                                      ValidatesOnDataErrors=True}"
+                                  NullText="Отсутствует"
+                                  NullValueButtonPlacement="EditBox"
+                                  ValueMember="Value" />
+              </dxlc:LayoutItem>
+            </dxlc:LayoutGroup>
+            <dxlc:LayoutGroup>
+              <dxlc:LayoutItem Label="Условия оказания помощи" LabelPosition="Top">
+                <dxe:ComboBoxEdit x:Name="V006ComboBoxEdit"
+                                  AllowNullInput="True"
+                                  DisplayMember="DisplayField"
+                                  EditValue="{Binding Mevent.ZslMedicalEvent.AssistanceConditions,
+                                                      NotifyOnValidationError=True,
+                                                      UpdateSourceTrigger=PropertyChanged,
+                                                      ValidatesOnDataErrors=True}"
+                                  NullText="Отсутствует"
+                                  NullValueButtonPlacement="EditBox"
+                                  ValueMember="ValueField" />
+              </dxlc:LayoutItem>
+              <dxlc:LayoutItem Label="Форма оказания МП" LabelPosition="Top">
+                <dxe:ComboBoxEdit x:Name="V014ComboBoxEdit"
+                                  DisplayMember="DisplayName"
+                                  EditValue="{Binding Mevent.ZslMedicalEvent.AssistanceForm,
+                                                      NotifyOnValidationError=True,
+                                                      UpdateSourceTrigger=PropertyChanged,
+                                                      ValidatesOnDataErrors=True}"
+                                  NullText="Отсутствует"
+                                  NullValueButtonPlacement="EditBox"
+                                  ValueMember="Value" />
+              </dxlc:LayoutItem>
+
+            </dxlc:LayoutGroup>
+            <dxlc:LayoutGroup>
+              <dxlc:LayoutItem Label="Код МО" LabelPosition="Top">
+                <dxe:ButtonEdit AllowDefaultButton="False"
+                                EditValue="{Binding Mevent.ZslMedicalEvent.MedicalOrganizationCode,
+                                                    Converter={StaticResource MedicalOrganizationConverter},
+                                                    UpdateSourceTrigger=PropertyChanged}"
+                                NullText="Отсутствует"
+                                NullValueButtonPlacement="EditBox">
+                  <dxe:ButtonInfo Command="{Binding SelectMeventMedicalOrganizationCodeCommand}" GlyphKind="Regular" />
+                </dxe:ButtonEdit>
+              </dxlc:LayoutItem>
+            </dxlc:LayoutGroup>
+            <dxlc:LayoutGroup>
+              <dxlc:LayoutItem Label="Начало лечения" LabelPosition="Top">
+                <dxe:DateEdit EditValue="{Binding Mevent.ZslMedicalEvent.EventBeginZ1,
+                                                  NotifyOnValidationError=True,
+                                                  UpdateSourceTrigger=PropertyChanged,
+                                                  ValidatesOnDataErrors=True}"
+                              NullText="Отсутствует"
+                              NullValueButtonPlacement="EditBox" />
+              </dxlc:LayoutItem>
+              <dxlc:LayoutItem Label="Окончание" LabelPosition="Top">
+                <dxe:DateEdit EditValue="{Binding Mevent.ZslMedicalEvent.EventEndZ2,
+                                                  NotifyOnValidationError=True,
+                                                  UpdateSourceTrigger=PropertyChanged,
+                                                  ValidatesOnDataErrors=True}"
+                              NullText="Отсутствует"
+                              NullValueButtonPlacement="EditBox" />
+              </dxlc:LayoutItem>
+            </dxlc:LayoutGroup>
+            <dxlc:LayoutGroup>
+              <dxlc:LayoutItem Label="Результат" LabelPosition="Top">
+                <dxe:ComboBoxEdit x:Name="V009ComboBoxEdit"
+                                  AllowUpdateTwoWayBoundPropertiesOnSynchronization="False"
+                                  DisplayMember="DisplayName"
+                                  EditValue="{Binding Mevent.ZslMedicalEvent.Result,
+                                                      NotifyOnValidationError=True,
+                                                      UpdateSourceTrigger=PropertyChanged,
+                                                      ValidatesOnDataErrors=True}"
+                                  ItemsSource="{Binding SelectedItem.DataField.Item2,
+                                                        ElementName=V006ComboBoxEdit}"
+                                  NullText="Отсутствует"
+                                  NullValueButtonPlacement="EditBox"
+                                  ValueMember="Value" />
+              </dxlc:LayoutItem>
+              <dxlc:LayoutItem Label="Исход" LabelPosition="Top">
+                <dxe:ComboBoxEdit x:Name="V012ComboBoxEdit"
+                                  AllowUpdateTwoWayBoundPropertiesOnSynchronization="False"
+                                  DisplayMember="DisplayName"
+                                  EditValue="{Binding Mevent.ZslMedicalEvent.Outcome,
+                                                      NotifyOnValidationError=True,
+                                                      UpdateSourceTrigger=PropertyChanged,
+                                                      ValidatesOnDataErrors=True}"
+                                  ItemsSource="{Binding SelectedItem.DataField.Item1,
+                                                        ElementName=V006ComboBoxEdit}"
+                                  NullText="Отсутствует"
+                                  NullValueButtonPlacement="EditBox"
+                                  ValueMember="Value" />
+              </dxlc:LayoutItem>
+            </dxlc:LayoutGroup>
+
+          </dxlc:LayoutGroup>
+          <dxlc:LayoutGroup Header="Условные данные" Orientation="Vertical">
+            <dxlc:LayoutItem Label="Код МО, направившего пациента"
+                             LabelPosition="Top"
+                             ToolTip="Код МО, направившего на лечение (диагностику, консультацию)">
+              <dxe:ButtonEdit AllowDefaultButton="False"
+                              EditValue="{Binding Mevent.ZslMedicalEvent.ReferralOrganization,
+                                                  Converter={StaticResource MedicalOrganizationIdConverter},
+                                                  UpdateSourceTrigger=PropertyChanged}"
+                              NullText="Отсутствует"
+                              NullValueButtonPlacement="EditBox">
+                <dxe:ButtonInfo Command="{Binding SelectMeventReferralOrganizationCommand}" GlyphKind="Regular" />
+              </dxe:ButtonEdit>
+            </dxlc:LayoutItem>
+            <dxlc:LayoutItem Label="Дата направления" LabelPosition="Top">
+              <dxe:DateEdit EditValue="{Binding Mevent.ZslMedicalEvent.ReferralDate, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" NullValueButtonPlacement="EditBox" />
+            </dxlc:LayoutItem>
+            <dxlc:LayoutItem Label="Особый случай" LabelPosition="Top">
+              <dxe:ComboBoxEdit EditValue="{Binding Mevent.ZslMedicalEvent.ParticularCase,
+                                                    UpdateSourceTrigger=PropertyChanged}"
+                                NullText="Отсутствует"
+                                NullValueButtonPlacement="EditBox" />
+            </dxlc:LayoutItem>
+            <dxlc:LayoutItem Label="Признак вб перевода" LabelPosition="Top">
+              <dxe:TextEdit EditValue="{Binding Mevent.ZslMedicalEvent.Vbp, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" />
+            </dxlc:LayoutItem>
+            <dxlc:LayoutItem Label="Вес при рождении" LabelPosition="Top">
+              <dxe:TextEdit EditValue="{Binding Mevent.ZslMedicalEvent.NewbornsWeightAggregate, UpdateSourceTrigger=PropertyChanged}" />
+            </dxlc:LayoutItem>
+            <dxlc:LayoutItem Label="Региональный признак"
+                             LabelPosition="Top"
+                             Visibility="{Binding IsLocalMode,
+                                                  Converter={StaticResource BooleanToVisibilityConverter}}">
+              <dxe:ComboBoxEdit x:Name="RegionalAttributeComboBoxEdit"
+                                AllowNullInput="True"
+                                DisplayMember="DisplayName"
+                                EditValue="{Binding Mevent.ZslMedicalEvent.RegionalAttribute,
+                                                    UpdateSourceTrigger=PropertyChanged}"
+                                NullText="Отсутствует"
+                                NullValueButtonPlacement="EditBox"
+                                ShowCustomItems="True"
+                                ValueMember="Value" />
+            </dxlc:LayoutItem>
+          </dxlc:LayoutGroup>
+        </dxlc:LayoutGroup>
+
+      </dxlc:LayoutGroup>
+
+      <!--  Данные случая  -->
+      <dxlc:LayoutGroup Orientation="Vertical">
+        <dxlc:LayoutGroup Orientation="Horizontal">
+          <dxlc:LayoutItem Width="150">
+            <dxe:ButtonEdit Width="140"
+                            Height="22"
+                            AllowDefaultButton="False"
+                            EditValue="{Binding ZmedicalEvent.CurrentMedicalEventPositionText,
+                                                Mode=OneWay}"
+                            IsReadOnly="True">
+              <dxe:ButtonInfo Command="{Binding ZmedicalEvent.NextMedicalEventCommand}" GlyphKind="Right" />
+              <dxe:ButtonInfo Command="{Binding ZmedicalEvent.LastMedicalEventCommand}" GlyphKind="Last" />
+              <dxe:ButtonInfo Command="{Binding ZmedicalEvent.FirstMedicalEventCommand}"
+                              GlyphKind="First"
+                              IsLeft="True" />
+              <dxe:ButtonInfo Command="{Binding ZmedicalEvent.PrevMedicalEventCommand}"
+                              GlyphKind="Left"
+                              IsLeft="True" />
+            </dxe:ButtonEdit>
+
+          </dxlc:LayoutItem>
+          <dxlc:LayoutItem Width="50">
+            <dxe:ButtonEdit Height="22"
+                            AcceptsReturn="False"
+                            AllowDefaultButton="False"
+                            EditValue="{Binding ZmedicalEvent.GoToMedicalEventPosition,
+                                                UpdateSourceTrigger=PropertyChanged}">
+              <i:Interaction.Triggers>
+                <i:EventTrigger EventName="KeyDown">
+                  <cmd:EventToCommand Command="{Binding ZmedicalEvent.GoToMedicalEventPositionKeyCommand}" PassEventArgsToCommand="True" />
+                </i:EventTrigger>
+              </i:Interaction.Triggers>
+              <dxe:ButtonInfo Command="{Binding ZmedicalEvent.GoToMedicalEventPositionCommand}" GlyphKind="Custom">
+                <Image Source="../../Resources/Icons/go-next16.png" />
+              </dxe:ButtonInfo>
+            </dxe:ButtonEdit>
+          </dxlc:LayoutItem>
+        </dxlc:LayoutGroup>
+        <dxlc:LayoutGroup VerticalAlignment="Stretch"
+                          Header="LayoutGroup"
+                          View="Tabs">
+          <dxlc:LayoutGroup Header="Случаи МП"
+                            Orientation="Vertical"
+                            View="Group">
+
+            <dxlc:LayoutGroup Orientation="Horizontal">
+              <dxlc:LayoutItem Label="ID случая" LabelPosition="Top">
+                <dxe:TextEdit EditValue="{Binding ZmedicalEvent.MedicalEvent.ZmedicalEventId, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" />
+              </dxlc:LayoutItem>
+              <dxlc:LayoutItem Label="№ случая"
+                               LabelPosition="Top"
+                               Visibility="{Binding IsInterMode,
+                                                    Converter={StaticResource BooleanToVisibilityConverter}}">
+                <dxe:TextEdit EditValue="{Binding ZmedicalEvent.MedicalEvent.ExternalId, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" />
+              </dxlc:LayoutItem>
+              <dxlc:LayoutItem Label="№ случая"
+                               LabelPosition="Top"
+                               Visibility="{Binding IsLocalMode,
+                                                    Converter={StaticResource BooleanToVisibilityConverter}}">
+                <dxe:TextEdit EditValue="{Binding ZmedicalEvent.MedicalEvent.SlIdGuid, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" />
+              </dxlc:LayoutItem>
+            </dxlc:LayoutGroup>
+            <dxlc:LayoutGroup>
+
+              <dxlc:LayoutItem Label="Цель посещения" LabelPosition="Top">
+                <dxe:ComboBoxEdit x:Name="PcelComboBoxEdit"
+                                  DisplayMember="DisplayName"
+                                  EditValue="{Binding ZmedicalEvent.MedicalEvent.Pcel,
+                                                      UpdateSourceTrigger=PropertyChanged}"
+                                  NullText="Отсутствует"
+                                  NullValueButtonPlacement="EditBox"
+                                  ValueMember="Value" />
+              </dxlc:LayoutItem>
+            </dxlc:LayoutGroup>
+            <dxlc:LayoutGroup>
+              <dxlc:LayoutItem Label="Код врача" LabelPosition="Top">
+                <dxe:ButtonEdit AllowDefaultButton="False"
+                                EditValue="{Binding ZmedicalEvent.MedicalEvent.DoctorId,
+                                                    UpdateSourceTrigger=PropertyChanged}"
+                                NullValueButtonPlacement="EditBox">
+                  <dxe:ButtonInfo Command="{Binding SelectMeventDoctorCommand}" GlyphKind="Regular" />
+                </dxe:ButtonEdit>
+              </dxlc:LayoutItem>
+              <dxlc:LayoutItem Width="120"
+                               HorizontalAlignment="Right"
+                               Label="детский профиль"
+                               LabelPosition="Top">
+                <CheckBox Height="18"
+                          HorizontalAlignment="Left"
+                          VerticalAlignment="Top"
+                          IsChecked="{Binding ZmedicalEvent.MedicalEvent.IsChildren,
+                                              NotifyOnValidationError=True,
+                                              UpdateSourceTrigger=PropertyChanged,
+                                              ValidatesOnDataErrors=True}" />
+              </dxlc:LayoutItem>
+            </dxlc:LayoutGroup>
+            <dxlc:LayoutGroup>
+              <dxlc:LayoutItem Label="Начало лечения" LabelPosition="Top">
+                <dxe:DateEdit EditValue="{Binding ZmedicalEvent.MedicalEvent.EventBegin,
+                                                  NotifyOnValidationError=True,
+                                                  UpdateSourceTrigger=PropertyChanged,
+                                                  ValidatesOnDataErrors=True}"
+                              NullText="Отсутствует"
+                              NullValueButtonPlacement="EditBox" />
+              </dxlc:LayoutItem>
+              <dxlc:LayoutItem Label="Окончание" LabelPosition="Top">
+                <dxe:DateEdit EditValue="{Binding ZmedicalEvent.MedicalEvent.EventEnd,
+                                                  NotifyOnValidationError=True,
+                                                  UpdateSourceTrigger=PropertyChanged,
+                                                  ValidatesOnDataErrors=True}"
+                              NullText="Отсутствует"
+                              NullValueButtonPlacement="EditBox" />
+              </dxlc:LayoutItem>
+            </dxlc:LayoutGroup>
+            <dxlc:LayoutItem Label="Основной диагноз" LabelPosition="Top">
+              <dxe:ButtonEdit AllowDefaultButton="False"
+                              EditValue="{Binding ZmedicalEvent.MedicalEvent.DiagnosisGeneral,
+                                                  Converter={StaticResource DiagnosisConverter},
+                                                  NotifyOnValidationError=True,
+                                                  UpdateSourceTrigger=PropertyChanged,
+                                                  ValidatesOnDataErrors=True}"
+                              NullValueButtonPlacement="EditBox">
+                <dxe:ButtonInfo Command="{Binding SelectDiagnosisGeneralCommand}" GlyphKind="Regular" />
+              </dxe:ButtonEdit>
+            </dxlc:LayoutItem>
+            <dxlc:LayoutItem Label="Профиль мед. помощи" LabelPosition="Top">
+              <dxe:ComboBoxEdit x:Name="V002MeventComboBoxEdit"
+                                AutoComplete="True"
+                                DisplayMember="DisplayName"
+                                EditValue="{Binding ZmedicalEvent.MedicalEvent.ProfileCodeId,
+                                                    NotifyOnValidationError=True,
+                                                    UpdateSourceTrigger=PropertyChanged,
+                                                    ValidatesOnDataErrors=True}"
+                                ImmediatePopup="True"
+                                IncrementalFiltering="True"
+                                NullText="Отсутствует"
+                                NullValueButtonPlacement="EditBox"
+                                ValueMember="Value" />
+            </dxlc:LayoutItem>
+            <dxlc:LayoutItem Label="Профиль койки" LabelPosition="Top">
+              <dxe:ComboBoxEdit x:Name="V020MeventComboBoxEdit"
+                                AutoComplete="True"
+                                DisplayMember="DisplayName"
+                                EditValue="{Binding ZmedicalEvent.MedicalEvent.ProfileCodeBedId,
+                                                    NotifyOnValidationError=True,
+                                                    UpdateSourceTrigger=PropertyChanged,
+                                                    ValidatesOnDataErrors=True}"
+                                ImmediatePopup="True"
+                                IncrementalFiltering="True"
+                                NullText="Отсутствует"
+                                NullValueButtonPlacement="EditBox"
+                                ValueMember="Value" />
+            </dxlc:LayoutItem>
+            <dxlc:LayoutGroup>
+              <dxlc:LayoutItem Label="Количество услуг"
+                               LabelPosition="Top"
+                               ToolTip="Кратность">
+                <dxe:TextEdit DisplayFormatString="f2"
+                              EditValue="{Binding ZmedicalEvent.MedicalEvent.Quantity,
+                                                  NotifyOnValidationError=True,
+                                                  UpdateSourceTrigger=PropertyChanged,
+                                                  ValidatesOnDataErrors=True}"
+                              MaskType="Numeric" />
+              </dxlc:LayoutItem>
+              <dxlc:LayoutItem Label="Тариф" LabelPosition="Top">
+                <dxe:TextEdit DisplayFormatString="c"
+                              EditValue="{Binding ZmedicalEvent.MedicalEvent.Rate,
+                                                  UpdateSourceTrigger=PropertyChanged}"
+                              MaskType="Numeric" />
+              </dxlc:LayoutItem>
+            </dxlc:LayoutGroup>
+            <dxlc:LayoutItem Label="Сумма выставл." LabelPosition="Top">
+              <dxe:TextEdit DisplayFormatString="c"
+                            EditValue="{Binding ZmedicalEvent.MedicalEvent.EventPrice,
+                                                UpdateSourceTrigger=PropertyChanged}"
+                            MaskType="Numeric" />
+            </dxlc:LayoutItem>
+            <dxlc:LayoutItem Label="Номер КСГ" LabelPosition="Top">
+              <dxe:ComboBoxEdit x:Name="V023ComboBoxEdit"
+                                AllowUpdateTwoWayBoundPropertiesOnSynchronization="False"
+                                DisplayMember="DisplayName"
+                                EditValue="{Binding KKsg.KsgKpg.Kksg,
+                                                    NotifyOnValidationError=True,
+                                                    UpdateSourceTrigger=PropertyChanged,
+                                                    ValidatesOnDataErrors=True}"
+                                ItemsSource="{Binding SelectedItem.DataField.Item3,
+                                                      ElementName=V006ComboBoxEdit}"
+                                NullText="Отсутствует"
+                                NullValueButtonPlacement="EditBox"
+                                ValueMember="Value"
+                                Visibility="{Binding IsKsgKpgMode,
+                                                     Converter={StaticResource BooleanToVisibilityConverter}}">
+                <dxe:ComboBoxEdit.Buttons>
+                  <dxe:ButtonInfo Command="{Binding SelectKsgKpgCommand}" GlyphKind="Regular" />
+                </dxe:ComboBoxEdit.Buttons>
+              </dxe:ComboBoxEdit>
+              <!--<dxe:ButtonEdit AllowDefaultButton="False" EditValue="{Binding KKsg.KsgKpg.Kksg, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}">
+                <dxe:ButtonInfo Command="{Binding SelectKsgKpgCommand}" GlyphKind="Regular" />
+              </dxe:ButtonEdit>-->
+            </dxlc:LayoutItem>
+            <!--<dxlc:LayoutItem Label="Код спец. (V015)" LabelPosition="Top">
+              <dxe:ComboBoxEdit x:Name="V015MeventComboBoxEdit"
+                                AutoComplete="True"
+                                DisplayMember="DisplayName"
+                                EditValue="{Binding ZmedicalEvent.MedicalEvent.SpecialityCodeV015,
+                                                    NotifyOnValidationError=True,
+                                                    UpdateSourceTrigger=PropertyChanged,
+                                                    ValidatesOnDataErrors=True}"
+                                ImmediatePopup="True"
+                                IncrementalFiltering="True"
+                                NullText="Отсутствует"
+                                ValueMember="Value" />
+            </dxlc:LayoutItem>-->
+            <dxlc:LayoutItem Label="Код спец. (V021)" LabelPosition="Top">
+              <dxe:ComboBoxEdit x:Name="V021MeventComboBoxEdit"
+                                AutoComplete="True"
+                                DisplayMember="DisplayName"
+                                EditValue="{Binding ZmedicalEvent.MedicalEvent.SpecialityCodeV021,
+                                                    NotifyOnValidationError=True,
+                                                    UpdateSourceTrigger=PropertyChanged,
+                                                    ValidatesOnDataErrors=True}"
+                                ImmediatePopup="True"
+                                IncrementalFiltering="True"
+                                NullText="Отсутствует"
+                                NullValueButtonPlacement="EditBox"
+                                ValueMember="Value" />
+            </dxlc:LayoutItem>
+            <dxlc:LayoutItem Label="Характер заболевания" LabelPosition="Top">
+              <dxe:ComboBoxEdit x:Name="V027MeventComboBoxEdit"
+                                AutoComplete="True"
+                                DisplayMember="DisplayName"
+                                EditValue="{Binding ZmedicalEvent.MedicalEvent.Czab,
+                                                    NotifyOnValidationError=True,
+                                                    UpdateSourceTrigger=PropertyChanged,
+                                                    ValidatesOnDataErrors=True}"
+                                ImmediatePopup="True"
+                                IncrementalFiltering="True"
+                                NullText="Отсутствует"
+                                NullValueButtonPlacement="EditBox"
+                                ValueMember="Value" />
+            </dxlc:LayoutItem>
+            <dxlc:LayoutItem Label="Признак подозрения на зно" LabelPosition="Top">
+              <dxe:ComboBoxEdit x:Name="DsOnkComboBoxEdit"
+                                AutoComplete="True"
+                                DisplayMember="DisplayName"
+                                EditValue="{Binding ZmedicalEvent.MedicalEvent.SignSuspectedDsOnk,
+                                                    NotifyOnValidationError=True,
+                                                    UpdateSourceTrigger=PropertyChanged,
+                                                    ValidatesOnDataErrors=True}"
+                                ImmediatePopup="True"
+                                IncrementalFiltering="True"
+                                NullText="Отсутствует"
+                                NullValueButtonPlacement="EditBox"
+                                ValueMember="Value" />
+            </dxlc:LayoutItem>
+
+            <dxlc:LayoutItem Label="Комментарий" LabelPosition="Top">
+              <dxe:MemoEdit EditValue="{Binding ZmedicalEvent.MedicalEvent.Comments, UpdateSourceTrigger=PropertyChanged}" ShowIcon="False" />
+            </dxlc:LayoutItem>
+
+          </dxlc:LayoutGroup>
+          <dxlc:LayoutGroup Header="Условные данные" Orientation="Vertical">
+
+            <dxlc:LayoutItem Label="Вид высокотехнологичной мед. помощи"
+                             LabelPosition="Top"
+                             ToolTip="Классификатор видов высокотехнологичной медицинской помощи.Справочник V018.">
+              <dxe:ButtonEdit AllowDefaultButton="False"
+                              EditValue="{Binding ZmedicalEvent.MedicalEvent.HighTechAssistanceType,
+                                                  NotifyOnValidationError=True,
+                                                  UpdateSourceTrigger=PropertyChanged,
+                                                  ValidatesOnDataErrors=True}"
+                              NullValueButtonPlacement="EditBox">
+                <dxe:ButtonInfo Command="{Binding SelectHighTechAssistanceTypeCommand}" GlyphKind="Regular" />
+              </dxe:ButtonEdit>
+            </dxlc:LayoutItem>
+            <dxlc:LayoutItem Label="Метод высокотехнологичной мед. помощи" LabelPosition="Top">
+              <dxe:ButtonEdit AllowDefaultButton="False"
+                              EditValue="{Binding ZmedicalEvent.MedicalEvent.HighTechAssistanceMethod,
+                                                  NotifyOnValidationError=True,
+                                                  UpdateSourceTrigger=PropertyChanged,
+                                                  ValidatesOnDataErrors=True}"
+                              NullValueButtonPlacement="EditBox">
+                <dxe:ButtonInfo Command="{Binding SelectHighTechAssistanceMethodCommand}" GlyphKind="Regular" />
+              </dxe:ButtonEdit>
+            </dxlc:LayoutItem>
+            <dxlc:LayoutItem Label="Дата выдачи талона на ВМП" LabelPosition="Top">
+              <dxe:DateEdit EditValue="{Binding ZmedicalEvent.MedicalEvent.HightTechAssistanceTalon,
+                                                NotifyOnValidationError=True,
+                                                UpdateSourceTrigger=PropertyChanged,
+                                                ValidatesOnDataErrors=True}"
+                            NullText="Отсутствует"
+                            NullValueButtonPlacement="EditBox" />
+            </dxlc:LayoutItem>
+
+
+
+            <dxlc:LayoutGroup>
+              <dxlc:LayoutItem Label="№ истории болезни/талона" LabelPosition="Top">
+                <dxe:TextEdit EditValue="{Binding ZmedicalEvent.MedicalEvent.History, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
+              </dxlc:LayoutItem>
+              <dxlc:LayoutItem Width="120"
+                               HorizontalAlignment="Right"
+                               Label="Признак диспансер."
+                               LabelPosition="Top">
+                <CheckBox Height="18"
+                          HorizontalAlignment="Left"
+                          VerticalAlignment="Top"
+                          IsChecked="{Binding ZmedicalEvent.MedicalEvent.Disp,
+                                              NotifyOnValidationError=True,
+                                              UpdateSourceTrigger=PropertyChanged,
+                                              ValidatesOnDataErrors=True}" />
+              </dxlc:LayoutItem>
+            </dxlc:LayoutGroup>
+            <dxlc:LayoutItem Label="Продолжительность госпитализации" LabelPosition="Top">
+              <dxe:TextEdit EditValue="{Binding ZmedicalEvent.MedicalEvent.Kday, UpdateSourceTrigger=PropertyChanged}" />
+            </dxlc:LayoutItem>
+
+            <dxlc:LayoutGroup VerticalAlignment="Stretch"
+                              Header="LayoutGroup"
+                              View="Tabs">
+              <dxlc:LayoutGroup Header="Диагнозы"
+                                Orientation="Vertical"
+                                View="Group">
+                <dxb:BarManager ToolbarGlyphSize="Small">
+                  <dxb:BarManager.Bars>
+                    <dxb:Bar Caption="Контрольная панель"
+                             IsMainMenu="True"
+                             IsMultiLine="True"
+                             UseWholeRow="True">
+                      <dxb:Bar.DockInfo>
+                        <dxb:BarDockInfo ContainerType="Top" />
+                      </dxb:Bar.DockInfo>
+                      <dxb:BarItemLinkSeparator />
+                      <dxb:BarButtonItem BarItemDisplayMode="ContentAndGlyph"
+                                         Command="{Binding AddDsCommand}"
+                                         Glyph="{dx:DXImage Image=Add_32x32.png}"
+                                         GlyphAlignment="Left"
+                                         LargeGlyph="{dx:DXImage Image=Add_32x32.png}" />
+                      <dxb:BarItemLinkSeparator />
+                      <dxb:BarButtonItem BarItemDisplayMode="ContentAndGlyph"
+                                         Command="{Binding EditDsCommand}"
+                                         Glyph="{dx:DXImage Image=Edit_32x32.png}"
+                                         GlyphAlignment="Left" />
+                      <dxb:BarItemLinkSeparator />
+                      <dxb:BarButtonItem x:Name="DelButtonItemDs"
+                                         BarItemDisplayMode="ContentAndGlyph"
+                                         Command="{Binding DeleteDsCommand}"
+                                         Glyph="{dx:DXImage Image=DeleteList2_32x32.png}"
+                                         GlyphAlignment="Left" />
+                      <dxb:BarItemLinkSeparator />
+                    </dxb:Bar>
+                  </dxb:BarManager.Bars>
+                  <dxg:GridControl Height="120"
+                                   VerticalAlignment="Top"
+                                   ItemsSource="{Binding ZDs.Ds}"
+                                   ShowBorder="False">
+                    <dxg:GridControl.View>
+                      <dxg:TableView AllowCascadeUpdate="True"
+                                     AllowEditing="False"
+                                     AllowGrouping="False"
+                                     AllowPerPixelScrolling="True"
+                                     FocusedRow="{Binding ZDs.SelectedDs,
+                                                          Mode=TwoWay,
+                                                          UpdateSourceTrigger=PropertyChanged}"
+                                     HeaderPanelMinHeight="35"
+                                     NavigationStyle="Row"
+                                     RowAnimationKind="None"
+                                     ShowGroupPanel="False"
+                                     ShowIndicator="True"
+                                     WaitIndicatorType="Panel" />
+                    </dxg:GridControl.View>
+                    <dxg:GridColumn Name="Ds"
+                                    FieldName="Ds"
+                                    FixedWidth="True"
+                                    Header="Код МКБ" />
+                    <dxg:GridColumn Name="Type"
+                                    FieldName="DsType"
+                                    FixedWidth="True"
+                                    Header="Тип диагноза">
+                      <dxg:GridColumn.EditSettings>
+                        <dxe:ComboBoxEditSettings AutoComplete="True"
+                                                  DisplayMember="DisplayName"
+                                                  ItemsSource="{Binding UpdateSourceTrigger=PropertyChanged}"
+                                                  NullValueButtonPlacement="EditBox"
+                                                  ValueMember="Value" />
+                      </dxg:GridColumn.EditSettings>
+                    </dxg:GridColumn>
+                  </dxg:GridControl>
+                </dxb:BarManager>
+              </dxlc:LayoutGroup>
+            </dxlc:LayoutGroup>
+
+
+
+
+            <dxlc:LayoutItem Label="Первичный диагноз" LabelPosition="Top">
+              <dxe:ButtonEdit AllowDefaultButton="False" EditValue="{Binding ZmedicalEvent.MedicalEvent.DiagnosisPrimary, Converter={StaticResource DiagnosisConverter}, UpdateSourceTrigger=PropertyChanged}">
+                <dxe:ButtonInfo Command="{Binding SelectMeventDiagnosisPrimaryCommand}" GlyphKind="Regular" />
+              </dxe:ButtonEdit>
+            </dxlc:LayoutItem>
+            <dxlc:LayoutGroup>
+              <!--<dxlc:LayoutItem Label="Диагноз сопутствующего заболевания" LabelPosition="Top">
+                <dxe:ButtonEdit AllowDefaultButton="False" EditValue="{Binding ZmedicalEvent.MedicalEvent.DiagnosisSecondaryAggregate, Converter={StaticResource DiagnosisConverter}, UpdateSourceTrigger=PropertyChanged}">
+                  <dxe:ButtonInfo Command="{Binding SelectMeventDiagnosisSecondaryCommand}" GlyphKind="Regular" />
+                </dxe:ButtonEdit>
+              </dxlc:LayoutItem>-->
+              <dxlc:LayoutItem Label="Диагноз осложнения заболевания" LabelPosition="Top">
+                <dxe:ButtonEdit AllowDefaultButton="False" EditValue="{Binding ZmedicalEvent.MedicalEvent.DiagnosisComplicationAggregate, Converter={StaticResource DiagnosisConverter}, UpdateSourceTrigger=PropertyChanged}">
+                  <dxe:ButtonInfo Command="{Binding SelectMeventDiagnosisSecondaryCommand}" GlyphKind="Regular" />
+                </dxe:ButtonEdit>
+              </dxlc:LayoutItem>
+            </dxlc:LayoutGroup>
+            <dxlc:LayoutItem Label="Диспансерное наблюдение"
+                             LabelPosition="Top"
+                             ToolTip="Указываются  сведения о диспансерном наблюдении по поводу основного заболевания (состояния):  1 - состоит, 2 - взят,  4 - снят по причине выздоровления, 6 - снят по другим причинам. Обязательно для заполнения, если P_CEL=1.3 ">
+              <dxe:ComboBoxEdit x:Name="DnComboBoxEdit"
+                                DisplayMember="DisplayName"
+                                EditValue="{Binding ZmedicalEvent.MedicalEvent.Dn,
+                                                    UpdateSourceTrigger=PropertyChanged}"
+                                NullText="Отсутствует"
+                                NullValueButtonPlacement="EditBox"
+                                ValueMember="Value" />
+            </dxlc:LayoutItem>
+            <dxlc:LayoutItem Label="Признак реабилитации" LabelPosition="Top">
+              <CheckBox Height="18"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Top"
+                        IsChecked="{Binding ZmedicalEvent.MedicalEvent.Reab,
+                                            NotifyOnValidationError=True,
+                                            UpdateSourceTrigger=PropertyChanged,
+                                            ValidatesOnDataErrors=True}" />
+            </dxlc:LayoutItem>
+            <dxlc:LayoutGroup>
+              <dxlc:LayoutItem Label="Код МЭС" LabelPosition="Top">
+                <dxe:TextEdit EditValue="{Binding ZmedicalEvent.MedicalEvent.MES, UpdateSourceTrigger=PropertyChanged}" />
+              </dxlc:LayoutItem>
+              <dxlc:LayoutItem Label="Код МЭС сопутствующий" LabelPosition="Top">
+                <dxe:TextEdit EditValue="{Binding ZmedicalEvent.MedicalEvent.SecondaryMES, UpdateSourceTrigger=PropertyChanged}" />
+              </dxlc:LayoutItem>
+            </dxlc:LayoutGroup>
+
+
+          </dxlc:LayoutGroup>
+          <dxlc:LayoutGroup Header="ОНКО"
+                            Orientation="Vertical"
+                            View="Group"
+                            Visibility="{Binding IsVersion31,
+                                                 Converter={StaticResource BooleanToVisibilityConverter}}">
+            <dxlc:LayoutGroup Orientation="Vertical">
+
+              <dxlc:LayoutItem Label="ИД случая" LabelPosition="Top">
+                <dxe:TextEdit EditValue="{Binding ZmedicalEventOnk.MedicalEventOnk.ZMedicalEventOnkId, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" />
+              </dxlc:LayoutItem>
+
+              <dxlc:LayoutItem Label="Повод обращения" LabelPosition="Top">
+                <dxe:ComboBoxEdit x:Name="Ds1tComboBoxEdit"
+                                  DisplayMember="DisplayName"
+                                  EditValue="{Binding ZmedicalEventOnk.MedicalEventOnk.Ds1t,
+                                                      UpdateSourceTrigger=PropertyChanged}"
+                                  NullText="Отсутствует"
+                                  NullValueButtonPlacement="EditBox"
+                                  ValueMember="Value" />
+              </dxlc:LayoutItem>
+              <dxlc:LayoutItem Label="Стадия заболевания" LabelPosition="Top">
+                <dxe:ComboBoxEdit x:Name="StageDiseaseComboBoxEdit"
+                                  DisplayMember="DisplayName"
+                                  EditValue="{Binding ZmedicalEventOnk.MedicalEventOnk.StageDisease,
+                                                      UpdateSourceTrigger=PropertyChanged}"
+                                  NullText="Отсутствует"
+                                  NullValueButtonPlacement="EditBox"
+                                  ValueMember="Value" />
+              </dxlc:LayoutItem>
+              <dxlc:LayoutItem Label="Значение Tumor" LabelPosition="Top">
+                <dxe:ComboBoxEdit x:Name="OnkTComboBoxEdit"
+                                  DisplayMember="DisplayName"
+                                  EditValue="{Binding ZmedicalEventOnk.MedicalEventOnk.OnkT,
+                                                      UpdateSourceTrigger=PropertyChanged}"
+                                  NullText="Отсутствует"
+                                  NullValueButtonPlacement="EditBox"
+                                  ValueMember="Value" />
+              </dxlc:LayoutItem>
+              <dxlc:LayoutItem Label="Значение Nodus" LabelPosition="Top">
+                <dxe:ComboBoxEdit x:Name="OnkNComboBoxEdit"
+                                  DisplayMember="DisplayName"
+                                  EditValue="{Binding ZmedicalEventOnk.MedicalEventOnk.OnkN,
+                                                      UpdateSourceTrigger=PropertyChanged}"
+                                  NullText="Отсутствует"
+                                  NullValueButtonPlacement="EditBox"
+                                  ValueMember="Value" />
+              </dxlc:LayoutItem>
+              <dxlc:LayoutItem Label="Значение Metastasis" LabelPosition="Top">
+                <dxe:ComboBoxEdit x:Name="OnkMComboBoxEdit"
+                                  DisplayMember="DisplayName"
+                                  EditValue="{Binding ZmedicalEventOnk.MedicalEventOnk.OnkM,
+                                                      UpdateSourceTrigger=PropertyChanged}"
+                                  NullText="Отсутствует"
+                                  NullValueButtonPlacement="EditBox"
+                                  ValueMember="Value" />
+              </dxlc:LayoutItem>
+              <dxlc:LayoutItem Label="Признак мет."
+                               LabelPosition="Left"
+                               ToolTip="Признак выявления отдалённых метастазов">
+                <CheckBox Height="18"
+                          HorizontalAlignment="Left"
+                          VerticalAlignment="Top"
+                          IsChecked="{Binding ZmedicalEventOnk.MedicalEventOnk.Mtstz,
+                                              UpdateSourceTrigger=PropertyChanged}" />
+              </dxlc:LayoutItem>
+              <dxlc:LayoutItem Label="Сумм. доза"
+                               LabelPosition="Left"
+                               ToolTip="Суммарная очаговая доза">
+                <dxe:TextEdit EditValue="{Binding ZmedicalEventOnk.MedicalEventOnk.Sod, UpdateSourceTrigger=PropertyChanged}" />
+              </dxlc:LayoutItem>
+              <dxlc:LayoutGroup Orientation="Horizontal">
+                <dxlc:LayoutItem Label="Количество фр."
+                                 LabelPosition="Left"
+                                 ToolTip="Количество фракций проведения лучевой терапии">
+                  <dxe:TextEdit EditValue="{Binding ZmedicalEventOnk.MedicalEventOnk.Kfr, UpdateSourceTrigger=PropertyChanged}" />
+                </dxlc:LayoutItem>
+                <dxlc:LayoutItem Label="Масса тела (кг)"
+                                 LabelPosition="Left"
+                                 ToolTip="Масса тела (кг)">
+                  <dxe:TextEdit EditValue="{Binding ZmedicalEventOnk.MedicalEventOnk.Wei, UpdateSourceTrigger=PropertyChanged}" />
+                </dxlc:LayoutItem>
+              </dxlc:LayoutGroup>
+              <dxlc:LayoutGroup Orientation="Horizontal">
+                <dxlc:LayoutItem Label="Рост (см)" LabelPosition="Left">
+                  <dxe:TextEdit EditValue="{Binding ZmedicalEventOnk.MedicalEventOnk.Hei, UpdateSourceTrigger=PropertyChanged}" />
+                </dxlc:LayoutItem>
+                <dxlc:LayoutItem Label="Площадь"
+                                 LabelPosition="Left"
+                                 ToolTip="Площадь поверхности тела (м2)">
+                  <dxe:TextEdit EditValue="{Binding ZmedicalEventOnk.MedicalEventOnk.Bsa, UpdateSourceTrigger=PropertyChanged}" />
+                </dxlc:LayoutItem>
+              </dxlc:LayoutGroup>
+            </dxlc:LayoutGroup>
+
+
+            <dxlc:LayoutGroup VerticalAlignment="Stretch"
+                              Header="LayoutGroup"
+                              View="Tabs">
+              <dxlc:LayoutGroup Header="Диаг. блок"
+                                Orientation="Vertical"
+                                View="Group">
+
+                <dxb:BarManager ToolbarGlyphSize="Small">
+                  <dxb:BarManager.Bars>
+                    <dxb:Bar Caption="Контрольная панель"
+                             IsMainMenu="True"
+                             IsMultiLine="True"
+                             UseWholeRow="True">
+                      <dxb:Bar.DockInfo>
+                        <dxb:BarDockInfo ContainerType="Top" />
+                      </dxb:Bar.DockInfo>
+                      <dxb:BarItemLinkSeparator />
+                      <dxb:BarButtonItem BarItemDisplayMode="ContentAndGlyph"
+                                         Command="{Binding AddDiagBlokCommand}"
+                                         Glyph="{dx:DXImage Image=Add_32x32.png}"
+                                         GlyphAlignment="Left"
+                                         LargeGlyph="{dx:DXImage Image=Add_32x32.png}" />
+                      <dxb:BarItemLinkSeparator />
+                      <dxb:BarButtonItem BarItemDisplayMode="ContentAndGlyph"
+                                         Command="{Binding EditDiagBlokCommand}"
+                                         Glyph="{dx:DXImage Image=Edit_32x32.png}"
+                                         GlyphAlignment="Left" />
+                      <dxb:BarItemLinkSeparator />
+                      <dxb:BarButtonItem x:Name="DelButtonItemAdrReg"
+                                         BarItemDisplayMode="ContentAndGlyph"
+                                         Command="{Binding DeleteDiagBlokCommand}"
+                                         Glyph="{dx:DXImage Image=DeleteList2_32x32.png}"
+                                         GlyphAlignment="Left" />
+                      <dxb:BarItemLinkSeparator />
+                    </dxb:Bar>
+                  </dxb:BarManager.Bars>
+                  <dxg:GridControl Height="120"
+                                   VerticalAlignment="Top"
+                                   ItemsSource="{Binding ZDiagBlok.DiagBlok}"
+                                   ShowBorder="False">
+                    <dxg:GridControl.View>
+                      <dxg:TableView AllowCascadeUpdate="True"
+                                     AllowEditing="False"
+                                     AllowGrouping="False"
+                                     AllowPerPixelScrolling="True"
+                                     FocusedRow="{Binding ZDiagBlok.SelectedDiagBlok,
+                                                          Mode=TwoWay,
+                                                          UpdateSourceTrigger=PropertyChanged}"
+                                     HeaderPanelMinHeight="35"
+                                     NavigationStyle="Row"
+                                     RowAnimationKind="None"
+                                     ShowGroupPanel="False"
+                                     ShowIndicator="True"
+                                     WaitIndicatorType="Panel" />
+                    </dxg:GridControl.View>
+                    <dxg:GridColumn Width="50"
+                                    FieldName="DiagDate"
+                                    FixedWidth="True"
+                                    Header="Дата" />
+                    <dxg:GridColumn Name="DiagTipColumn"
+                                    Width="50"
+                                    FieldName="DiagTip"
+                                    FixedWidth="True"
+                                    Header="Тип диаг.">
+                      <dxg:GridColumn.EditSettings>
+                        <dxe:ComboBoxEditSettings AutoComplete="True"
+                                                  DisplayMember="DisplayName"
+                                                  ItemsSource="{Binding UpdateSourceTrigger=PropertyChanged}"
+                                                  NullValueButtonPlacement="EditBox"
+                                                  ValueMember="Value" />
+                      </dxg:GridColumn.EditSettings>
+                    </dxg:GridColumn>
+                    <dxg:GridColumn Name="DiagCode7Column"
+                                    FieldName="DiagCode7"
+                                    FixedWidth="True"
+                                    Header="Код показателя">
+                      <dxg:GridColumn.EditSettings>
+                        <dxe:ComboBoxEditSettings AutoComplete="True"
+                                                  DisplayMember="DisplayName"
+                                                  ItemsSource="{Binding UpdateSourceTrigger=PropertyChanged}"
+                                                  NullValueButtonPlacement="EditBox"
+                                                  ValueMember="Value" />
+                      </dxg:GridColumn.EditSettings>
+                    </dxg:GridColumn>
+                    <dxg:GridColumn Name="DiagCode10Column"
+                                    FieldName="DiagCode10"
+                                    FixedWidth="True"
+                                    Header="Код показателя2">
+                      <dxg:GridColumn.EditSettings>
+                        <dxe:ComboBoxEditSettings AutoComplete="True"
+                                                  DisplayMember="DisplayName"
+                                                  ItemsSource="{Binding UpdateSourceTrigger=PropertyChanged}"
+                                                  NullValueButtonPlacement="EditBox"
+                                                  ValueMember="Value" />
+                      </dxg:GridColumn.EditSettings>
+                    </dxg:GridColumn>
+                    <dxg:GridColumn Name="DiagRslt8Column"
+                                    FieldName="DiagRslt8"
+                                    FixedWidth="True"
+                                    Header="Код диагностики">
+                      <dxg:GridColumn.EditSettings>
+                        <dxe:ComboBoxEditSettings AutoComplete="True"
+                                                  DisplayMember="DisplayName"
+                                                  ItemsSource="{Binding UpdateSourceTrigger=PropertyChanged}"
+                                                  NullValueButtonPlacement="EditBox"
+                                                  ValueMember="Value" />
+                      </dxg:GridColumn.EditSettings>
+                    </dxg:GridColumn>
+                    <dxg:GridColumn Name="DiagRslt11Column"
+                                    FieldName="DiagRslt11"
+                                    FixedWidth="True"
+                                    Header="Код диагностики">
+                      <dxg:GridColumn.EditSettings>
+                        <dxe:ComboBoxEditSettings AutoComplete="True"
+                                                  DisplayMember="DisplayName"
+                                                  ItemsSource="{Binding UpdateSourceTrigger=PropertyChanged}"
+                                                  NullValueButtonPlacement="EditBox"
+                                                  ValueMember="Value" />
+                      </dxg:GridColumn.EditSettings>
+                    </dxg:GridColumn>
+                  </dxg:GridControl>
+                </dxb:BarManager>
+
+              </dxlc:LayoutGroup>
+              <dxlc:LayoutGroup Header="Противопоказания и отказы"
+                                Orientation="Vertical"
+                                View="Group">
+
+
+                <dxb:BarManager ToolbarGlyphSize="Small">
+                  <dxb:BarManager.Bars>
+                    <dxb:Bar Caption="Контрольная панель"
+                             IsMainMenu="True"
+                             IsMultiLine="True"
+                             UseWholeRow="True">
+                      <dxb:Bar.DockInfo>
+                        <dxb:BarDockInfo ContainerType="Top" />
+                      </dxb:Bar.DockInfo>
+                      <dxb:BarItemLinkSeparator />
+                      <dxb:BarButtonItem BarItemDisplayMode="ContentAndGlyph"
+                                         Command="{Binding AddContraindicationsCommand}"
+                                         Glyph="{dx:DXImage Image=Add_32x32.png}"
+                                         GlyphAlignment="Left"
+                                         LargeGlyph="{dx:DXImage Image=Add_32x32.png}" />
+                      <dxb:BarItemLinkSeparator />
+                      <dxb:BarButtonItem BarItemDisplayMode="ContentAndGlyph"
+                                         Command="{Binding EditContraindicationsCommand}"
+                                         Glyph="{dx:DXImage Image=Edit_32x32.png}"
+                                         GlyphAlignment="Left" />
+                      <dxb:BarItemLinkSeparator />
+                      <dxb:BarButtonItem BarItemDisplayMode="ContentAndGlyph"
+                                         Command="{Binding DeleteContraindicationsCommand}"
+                                         Glyph="{dx:DXImage Image=DeleteList2_32x32.png}"
+                                         GlyphAlignment="Left" />
+                      <dxb:BarItemLinkSeparator />
+                    </dxb:Bar>
+                  </dxb:BarManager.Bars>
+                  <dxg:GridControl Height="120"
+                                   VerticalAlignment="Top"
+                                   ItemsSource="{Binding ZContraindications.Сontraindications}"
+                                   ShowBorder="False">
+                    <dxg:GridControl.View>
+                      <dxg:TableView AllowCascadeUpdate="True"
+                                     AllowEditing="False"
+                                     AllowGrouping="False"
+                                     AllowPerPixelScrolling="True"
+                                     FocusedRow="{Binding ZContraindications.SelectedСontraindications,
+                                                          Mode=TwoWay,
+                                                          UpdateSourceTrigger=PropertyChanged}"
+                                     HeaderPanelMinHeight="35"
+                                     NavigationStyle="Row"
+                                     RowAnimationKind="None"
+                                     ShowGroupPanel="False"
+                                     ShowIndicator="True"
+                                     WaitIndicatorType="Panel" />
+                    </dxg:GridControl.View>
+                    <dxg:GridColumn Width="80"
+                                    FieldName="Prot"
+                                    FixedWidth="True"
+                                    Header="Код прот. или отк." />
+                    <dxg:GridColumn FieldName="Dprot"
+                                    FixedWidth="True"
+                                    Header="Дата" />
+                  </dxg:GridControl>
+                </dxb:BarManager>
+              </dxlc:LayoutGroup>
+            </dxlc:LayoutGroup>
+          </dxlc:LayoutGroup>
+        </dxlc:LayoutGroup>
+      </dxlc:LayoutGroup>
+
+      <!--</dxlc:LayoutGroup>-->
+
+      <!--  Данные услуги  -->
+      <dxlc:LayoutGroup x:Name="ServiceGroup" Orientation="Vertical">
+
+        <dxlc:LayoutGroup VerticalAlignment="Stretch"
+                          Header="ServiceLayoutGroup"
+                          View="Tabs">
+          <dxlc:LayoutGroup Header="Услуги"
+                            Orientation="Vertical"
+                            View="Group">
+            <dxlc:LayoutGroup Orientation="Vertical" Visibility="{Binding Services1, Converter={StaticResource BooleanToVisibilityConverter}}">
+              <!--  Visibility="{Binding OneServ, Converter={StaticResource BooleanToVisibilityConverter}}"  -->
+              <dxlc:LayoutGroup IsEnabled="{Binding Services, Converter={StaticResource BooleanToVisibilityConverter}}" Orientation="Horizontal">
+                <dxlc:LayoutItem Width="150">
+                  <dxe:ButtonEdit Width="140"
+                                  Height="22"
+                                  AllowDefaultButton="False"
+                                  EditValue="{Binding Mservice.CurrentMedicalServicePositionText,
+                                                      Mode=OneWay}"
+                                  IsReadOnly="True">
+                    <dxe:ButtonInfo Command="{Binding Mservice.NextMedicalServiceCommand}" GlyphKind="Right" />
+                    <dxe:ButtonInfo Command="{Binding Mservice.LastMedicalServiceCommand}" GlyphKind="Last" />
+                    <dxe:ButtonInfo Command="{Binding Mservice.FirstMedicalServiceCommand}"
+                                    GlyphKind="First"
+                                    IsLeft="True" />
+                    <dxe:ButtonInfo Command="{Binding Mservice.PrevMedicalServiceCommand}"
+                                    GlyphKind="Left"
+                                    IsLeft="True" />
+                  </dxe:ButtonEdit>
+
+                </dxlc:LayoutItem>
+                <dxlc:LayoutItem Width="50">
+                  <dxe:ButtonEdit Height="22"
+                                  AcceptsReturn="False"
+                                  AllowDefaultButton="False"
+                                  EditValue="{Binding Mservice.GoToMedicalServicePosition,
+                                                      UpdateSourceTrigger=PropertyChanged}">
+                    <i:Interaction.Triggers>
+                      <i:EventTrigger EventName="KeyDown">
+                        <cmd:EventToCommand Command="{Binding Mservice.GoToMedicalServicePositionKeyCommand}" PassEventArgsToCommand="True" />
+                      </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                    <dxe:ButtonInfo Command="{Binding Mservice.GoToMedicalServicePositionCommand}" GlyphKind="Custom">
+                      <Image Source="../../Resources/Icons/go-next16.png" />
+                    </dxe:ButtonInfo>
+                  </dxe:ButtonEdit>
+                </dxlc:LayoutItem>
+              </dxlc:LayoutGroup>
+              <dxlc:LayoutGroup Orientation="Horizontal">
+                <dxlc:LayoutItem Label="ID услуги" LabelPosition="Top">
+                  <dxe:TextEdit EditValue="{Binding Mservice.MedicalService.ZmedicalServicesId, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" />
+                </dxlc:LayoutItem>
+
+                <dxlc:LayoutItem Label="№ услуги" LabelPosition="Top">
+                  <dxe:TextEdit EditValue="{Binding Mservice.MedicalService.ExternalId, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
+                </dxlc:LayoutItem>
+
+              </dxlc:LayoutGroup>
+              <dxlc:LayoutGroup>
+                <dxlc:LayoutItem Label="Код МО" LabelPosition="Top">
+                  <dxe:ButtonEdit AllowDefaultButton="False"
+                                  EditValue="{Binding Mservice.MedicalService.MedicalOrganizationCode,
+                                                      NotifyOnValidationError=True,
+                                                      UpdateSourceTrigger=PropertyChanged,
+                                                      ValidatesOnDataErrors=True}"
+                                  NullValueButtonPlacement="EditBox">
+                    <dxe:ButtonInfo Command="{Binding SelectMserviceMedicalOrganizationCommand}" GlyphKind="Regular" />
+                  </dxe:ButtonEdit>
+                </dxlc:LayoutItem>
+                <dxlc:LayoutItem Label="Код мед. работника" LabelPosition="Top">
+                  <dxe:ButtonEdit AllowDefaultButton="False"
+                                  EditValue="{Binding Mservice.MedicalService.DoctorId,
+                                                      UpdateSourceTrigger=PropertyChanged}"
+                                  NullValueButtonPlacement="EditBox">
+                    <dxe:ButtonInfo Command="{Binding SelectMserviceDoctorCommand}" GlyphKind="Regular" />
+                  </dxe:ButtonEdit>
+                </dxlc:LayoutItem>
+              </dxlc:LayoutGroup>
+              <dxlc:LayoutItem Label="Профиль мед. помощи" LabelPosition="Top">
+                <dxe:ComboBoxEdit x:Name="V002ServiceComboBoxEdit"
+                                  DisplayMember="DisplayName"
+                                  EditValue="{Binding Mservice.MedicalService.Profile,
+                                                      NotifyOnValidationError=True,
+                                                      UpdateSourceTrigger=PropertyChanged,
+                                                      ValidatesOnDataErrors=True}"
+                                  NullText="Отсутствует"
+                                  NullValueButtonPlacement="EditBox"
+                                  ValueMember="Value" />
+              </dxlc:LayoutItem>
+              <dxlc:LayoutGroup>
+                <dxlc:LayoutItem Label="Начало оказания услуги" LabelPosition="Top">
+                  <dxe:DateEdit EditValue="{Binding Mservice.MedicalService.ServiceBegin,
+                                                    NotifyOnValidationError=True,
+                                                    UpdateSourceTrigger=PropertyChanged,
+                                                    ValidatesOnDataErrors=True}"
+                                NullText="Отсутствует"
+                                NullValueButtonPlacement="EditBox" />
+                </dxlc:LayoutItem>
+                <dxlc:LayoutItem Label="Окончание" LabelPosition="Top">
+                  <dxe:DateEdit EditValue="{Binding Mservice.MedicalService.ServiceEnd,
+                                                    NotifyOnValidationError=True,
+                                                    UpdateSourceTrigger=PropertyChanged,
+                                                    ValidatesOnDataErrors=True}"
+                                NullText="Отсутствует"
+                                NullValueButtonPlacement="EditBox" />
+                </dxlc:LayoutItem>
+              </dxlc:LayoutGroup>
+              <dxlc:LayoutGroup Serialization:SerializableItem.TypeName="LayoutGroup" dx:ScrollViewerTouchBehavior.IsEnabled="True">
+                <dxlc:LayoutItem Label="Диагноз" LabelPosition="Top">
+                  <dxe:ButtonEdit AllowDefaultButton="False"
+                                  EditValue="{Binding Mservice.MedicalService.Diagnosis,
+                                                      Converter={StaticResource DiagnosisConverter},
+                                                      NotifyOnValidationError=True,
+                                                      UpdateSourceTrigger=PropertyChanged,
+                                                      ValidatesOnDataErrors=True}"
+                                  NullValueButtonPlacement="EditBox">
+                    <dxe:ButtonInfo Command="{Binding SelectMserviceDiagnosisCommand}" GlyphKind="Regular" />
+                  </dxe:ButtonEdit>
+                </dxlc:LayoutItem>
+                <dxlc:LayoutItem Label="детский профиль" LabelPosition="Top">
+                  <CheckBox Height="18"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Top"
+                            IsChecked="{Binding Mservice.MedicalService.IsChildren,
+                                                NotifyOnValidationError=True,
+                                                UpdateSourceTrigger=PropertyChanged,
+                                                ValidatesOnDataErrors=True}" />
+                </dxlc:LayoutItem>
+              </dxlc:LayoutGroup>
+              <dxlc:LayoutItem Label="Код услуги"
+                               LabelPosition="Top"
+                               Visibility="{Binding IsLocalMode,
+                                                    Converter={StaticResource BooleanToVisibilityConverter}}">
+                <dxe:TextEdit EditValue="{Binding Mservice.MedicalService.ServiceCode, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
+              </dxlc:LayoutItem>
+
+              <dxlc:LayoutItem Label="Наименование услуги" LabelPosition="Top">
+                <dxe:TextEdit EditValue="{Binding Mservice.MedicalService.ServiceName, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" ToolTip="{Binding Mservice.MedicalService.ServiceName, Mode=OneWay}" />
+              </dxlc:LayoutItem>
+              <dxlc:LayoutGroup>
+                <dxlc:LayoutItem Label="Количество услуг"
+                                 LabelPosition="Top"
+                                 ToolTip="Кратность">
+                  <dxe:TextEdit DisplayFormatString="f2"
+                                EditValue="{Binding Mservice.MedicalService.Quantity,
+                                                    NotifyOnValidationError=True,
+                                                    UpdateSourceTrigger=PropertyChanged,
+                                                    ValidatesOnDataErrors=True}"
+                                MaskType="Numeric" />
+                </dxlc:LayoutItem>
+                <dxlc:LayoutItem Label="Тариф" LabelPosition="Top">
+                  <dxe:TextEdit DisplayFormatString="c"
+                                EditValue="{Binding Mservice.MedicalService.Rate,
+                                                    UpdateSourceTrigger=PropertyChanged}"
+                                MaskType="Numeric" />
+                </dxlc:LayoutItem>
+              </dxlc:LayoutGroup>
+              <dxlc:LayoutItem Label="Стоимость медицинской услуги" LabelPosition="Top">
+                <dxe:TextEdit DisplayFormatString="c"
+                              EditValue="{Binding Mservice.MedicalService.Price,
+                                                  NotifyOnValidationError=True,
+                                                  UpdateSourceTrigger=PropertyChanged,
+                                                  ValidatesOnDataErrors=True}"
+                              MaskType="Numeric" />
+              </dxlc:LayoutItem>
+              <dxlc:LayoutItem Label="Специальность мед. работника (V021)" LabelPosition="Top">
+                <dxe:ComboBoxEdit x:Name="V021ServiceComboBoxEdit"
+                                  DisplayMember="DisplayName"
+                                  EditValue="{Binding Mservice.MedicalService.SpecialityCodeV021,
+                                                      NotifyOnValidationError=True,
+                                                      UpdateSourceTrigger=PropertyChanged,
+                                                      ValidatesOnDataErrors=True}"
+                                  NullText="Отсутствует"
+                                  ValueMember="Value" />
+              </dxlc:LayoutItem>
+              <dxlc:LayoutItem Label="Вид медицинского вмешательства" LabelPosition="Top">
+                <dxe:ComboBoxEdit EditValue="{Binding Mservice.MedicalService.SurgeryType, UpdateSourceTrigger=PropertyChanged}" NullText="Отсутствует" />
+              </dxlc:LayoutItem>
+              <dxlc:LayoutItem Label="Признак проведения услуги" LabelPosition="Left">
+                <CheckBox Height="18"
+                          HorizontalAlignment="Left"
+                          VerticalAlignment="Top"
+                          IsChecked="{Binding Mservice.MedicalService.IsServiceBeforeEvent,
+                                              UpdateSourceTrigger=PropertyChanged}" />
+              </dxlc:LayoutItem>
+              <dxlc:LayoutItem Label="Отказ от услуги" LabelPosition="Left">
+                <CheckBox Height="18"
+                          HorizontalAlignment="Left"
+                          VerticalAlignment="Top"
+                          IsChecked="{Binding Mservice.MedicalService.IsServiceRefuse,
+                                              UpdateSourceTrigger=PropertyChanged}" />
+              </dxlc:LayoutItem>
+            </dxlc:LayoutGroup>
+            <dxlc:LayoutItem HorizontalAlignment="Stretch"
+                             VerticalAlignment="Stretch"
+                             Visibility="{Binding NoServices1,
+                                                  Converter={StaticResource BooleanToVisibilityConverter}}">
+              <Label HorizontalAlignment="Center"
+                     VerticalAlignment="Center"
+                     Content="Услуги отсутствуют"
+                     FontSize="16"
+                     FontWeight="Bold" />
+            </dxlc:LayoutItem>
+          </dxlc:LayoutGroup>
+          <dxlc:LayoutGroup Header="Услуги ОНКО"
+                            Orientation="Vertical"
+                            View="Group"
+                            Visibility="{Binding IsVersion31,
+                                                 Converter={StaticResource BooleanToVisibilityConverter}}">
+            <dxlc:LayoutGroup Orientation="Vertical" Visibility="{Binding Services1Onk, Converter={StaticResource BooleanToVisibilityConverter}}">
+              <dxlc:LayoutGroup Orientation="Horizontal">
+                <dxlc:LayoutItem Width="150">
+                  <dxe:ButtonEdit Width="140"
+                                  Height="22"
+                                  AllowDefaultButton="False"
+                                  EditValue="{Binding MserviceOnk.CurrentMedicalServicePositionText,
+                                                      Mode=OneWay}"
+                                  IsReadOnly="True">
+                    <dxe:ButtonInfo Command="{Binding MserviceOnk.NextMedicalServiceCommand}" GlyphKind="Right" />
+                    <dxe:ButtonInfo Command="{Binding MserviceOnk.LastMedicalServiceCommand}" GlyphKind="Last" />
+                    <dxe:ButtonInfo Command="{Binding MserviceOnk.FirstMedicalServiceCommand}"
+                                    GlyphKind="First"
+                                    IsLeft="True" />
+                    <dxe:ButtonInfo Command="{Binding MserviceOnk.PrevMedicalServiceCommand}"
+                                    GlyphKind="Left"
+                                    IsLeft="True" />
+                  </dxe:ButtonEdit>
+
+                </dxlc:LayoutItem>
+                <dxlc:LayoutItem Width="50">
+                  <dxe:ButtonEdit Height="22"
+                                  AcceptsReturn="False"
+                                  AllowDefaultButton="False"
+                                  EditValue="{Binding MserviceOnk.GoToMedicalServicePosition,
+                                                      UpdateSourceTrigger=PropertyChanged}">
+                    <i:Interaction.Triggers>
+                      <i:EventTrigger EventName="KeyDown">
+                        <cmd:EventToCommand Command="{Binding MserviceOnk.GoToMedicalServicePositionKeyCommand}" PassEventArgsToCommand="True" />
+                      </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                    <dxe:ButtonInfo Command="{Binding MserviceOnk.GoToMedicalServicePositionCommand}" GlyphKind="Custom">
+                      <Image Source="../../Resources/Icons/go-next16.png" />
+                    </dxe:ButtonInfo>
+                  </dxe:ButtonEdit>
+                </dxlc:LayoutItem>
+              </dxlc:LayoutGroup>
+
+
+              <dxlc:LayoutItem Label="ID случая" LabelPosition="Top">
+                <dxe:TextEdit EditValue="{Binding MserviceOnk.MedicalServiceOnk.ZmedicalServicesOnkId, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" />
+              </dxlc:LayoutItem>
+              <dxlc:LayoutItem Label="Тип услуги" LabelPosition="Top">
+                <dxe:ComboBoxEdit x:Name="ServicesOnkTypeComboBoxEdit"
+                                  DisplayMember="DisplayName"
+                                  EditValue="{Binding MserviceOnk.MedicalServiceOnk.ServicesOnkTypeId,
+                                                      UpdateSourceTrigger=PropertyChanged}"
+                                  NullText="Отсутствует"
+                                  ValueMember="Value" />
+              </dxlc:LayoutItem>
+              <dxlc:LayoutItem Label="Тип хирургического лечения" LabelPosition="Top">
+                <dxe:ComboBoxEdit x:Name="HirTypeComboBoxEdit"
+                                  DisplayMember="DisplayName"
+                                  EditValue="{Binding MserviceOnk.MedicalServiceOnk.HirTypeId,
+                                                      UpdateSourceTrigger=PropertyChanged}"
+                                  NullText="Отсутствует"
+                                  ValueMember="Value" />
+              </dxlc:LayoutItem>
+              <dxlc:LayoutItem Label="Линия лекарственной терапии" LabelPosition="Top">
+                <dxe:ComboBoxEdit x:Name="LekTypeLComboBoxEdit"
+                                  DisplayMember="DisplayName"
+                                  EditValue="{Binding MserviceOnk.MedicalServiceOnk.LekTypeLId,
+                                                      UpdateSourceTrigger=PropertyChanged}"
+                                  NullText="Отсутствует"
+                                  ValueMember="Value" />
+              </dxlc:LayoutItem>
+              <dxlc:LayoutItem Label="Цикл лекарственной терапии" LabelPosition="Top">
+                <dxe:ComboBoxEdit x:Name="LekTypeVComboBoxEdit"
+                                  DisplayMember="DisplayName"
+                                  EditValue="{Binding MserviceOnk.MedicalServiceOnk.LekTypeVId,
+                                                      UpdateSourceTrigger=PropertyChanged}"
+                                  NullText="Отсутствует"
+                                  ValueMember="Value" />
+              </dxlc:LayoutItem>
+              <dxlc:LayoutItem Label="Тип лучевой терапии" LabelPosition="Top">
+                <dxe:ComboBoxEdit x:Name="LuchTypeComboBoxEdit"
+                                  DisplayMember="DisplayName"
+                                  EditValue="{Binding MserviceOnk.MedicalServiceOnk.LuchTypeId,
+                                                      UpdateSourceTrigger=PropertyChanged}"
+                                  NullText="Отсутствует"
+                                  ValueMember="Value" />
+              </dxlc:LayoutItem>
+
+              <dxlc:LayoutGroup VerticalAlignment="Stretch"
+                                Header="LayoutGroup"
+                                View="Tabs">
+                <dxlc:LayoutGroup Header="Сведения о введенном противоопухолевом лекарственном препарате"
+                                  Orientation="Vertical"
+                                  View="Group">
+
+                  <dxb:BarManager ToolbarGlyphSize="Small">
+                    <dxb:BarManager.Bars>
+                      <dxb:Bar Caption="Контрольная панель"
+                               IsMainMenu="True"
+                               IsMultiLine="True"
+                               UseWholeRow="True">
+                        <dxb:Bar.DockInfo>
+                          <dxb:BarDockInfo ContainerType="Top" />
+                        </dxb:Bar.DockInfo>
+                        <dxb:BarItemLinkSeparator />
+                        <dxb:BarButtonItem BarItemDisplayMode="ContentAndGlyph"
+                                           Command="{Binding AddAnticancerDrugCommand}"
+                                           Glyph="{dx:DXImage Image=Add_32x32.png}"
+                                           GlyphAlignment="Left"
+                                           LargeGlyph="{dx:DXImage Image=Add_32x32.png}" />
+                        <dxb:BarItemLinkSeparator />
+                        <dxb:BarButtonItem BarItemDisplayMode="ContentAndGlyph"
+                                           Command="{Binding EditAnticancerDrugCommand}"
+                                           Glyph="{dx:DXImage Image=Edit_32x32.png}"
+                                           GlyphAlignment="Left" />
+                        <dxb:BarItemLinkSeparator />
+                        <dxb:BarButtonItem x:Name="DelButtonItemLekPr"
+                                           BarItemDisplayMode="ContentAndGlyph"
+                                           Command="{Binding DeleteAnticancerDrugCommand}"
+                                           Glyph="{dx:DXImage Image=DeleteList2_32x32.png}"
+                                           GlyphAlignment="Left" />
+                        <dxb:BarItemLinkSeparator />
+                      </dxb:Bar>
+                    </dxb:BarManager.Bars>
+                    <dxg:GridControl Height="120"
+                                     VerticalAlignment="Top"
+                                     ItemsSource="{Binding ZAnticancerDrug.AnticancerDrug}"
+                                     ShowBorder="False">
+                      <dxg:GridControl.View>
+                        <dxg:TableView AllowCascadeUpdate="True"
+                                       AllowEditing="False"
+                                       AllowGrouping="False"
+                                       AllowPerPixelScrolling="True"
+                                       FocusedRow="{Binding ZAnticancerDrug.SelectedAnticancerDrug,
+                                                            Mode=TwoWay,
+                                                            UpdateSourceTrigger=PropertyChanged}"
+                                       HeaderPanelMinHeight="35"
+                                       NavigationStyle="Row"
+                                       RowAnimationKind="None"
+                                       ShowGroupPanel="False"
+                                       ShowIndicator="True"
+                                       WaitIndicatorType="Panel" />
+                      </dxg:GridControl.View>
+                      <dxg:GridColumn Name="RegNumColumn"
+                                      Width="80"
+                                      FieldName="RegNum"
+                                      FixedWidth="True"
+                                      Header="Идентификатор ЛП">
+                        <dxg:GridColumn.EditSettings>
+                          <dxe:ComboBoxEditSettings AutoComplete="True"
+                                                    DisplayMember="DisplayName"
+                                                    ItemsSource="{Binding UpdateSourceTrigger=PropertyChanged}"
+                                                    NullValueButtonPlacement="EditBox"
+                                                    ValueMember="Value" />
+                        </dxg:GridColumn.EditSettings>
+                      </dxg:GridColumn>
+                      <dxg:GridColumn Name="CodeShColumn"
+                                      FieldName="CodeSh"
+                                      FixedWidth="True"
+                                      Header="Код схемы">
+                        <dxg:GridColumn.EditSettings>
+                          <dxe:ComboBoxEditSettings AutoComplete="True"
+                                                    DisplayMember="DisplayName"
+                                                    ItemsSource="{Binding UpdateSourceTrigger=PropertyChanged}"
+                                                    NullValueButtonPlacement="EditBox"
+                                                    ValueMember="Value" />
+                        </dxg:GridColumn.EditSettings>
+                      </dxg:GridColumn>
+                      <dxg:GridColumn FieldName="DataInj"
+                                      FixedWidth="True"
+                                      Header="Дата введения" />
+                    </dxg:GridControl>
+                  </dxb:BarManager>
+
+                </dxlc:LayoutGroup>
+              </dxlc:LayoutGroup>
+
+
+            </dxlc:LayoutGroup>
+            <dxlc:LayoutItem HorizontalAlignment="Stretch"
+                             VerticalAlignment="Stretch"
+                             Visibility="{Binding NoServices1Onk,
+                                                  Converter={StaticResource BooleanToVisibilityConverter}}">
+              <Label HorizontalAlignment="Center"
+                     VerticalAlignment="Center"
+                     Content="ОНКО услуги отсутствуют"
+                     FontSize="16"
+                     FontWeight="Bold" />
+            </dxlc:LayoutItem>
+          </dxlc:LayoutGroup>
+          <dxlc:LayoutGroup Header="Направления"
+                            Orientation="Vertical"
+                            View="Group"
+                            Visibility="{Binding IsVersion31,
+                                                 Converter={StaticResource BooleanToVisibilityConverter}}">
+
+            <dxlc:LayoutGroup Orientation="Vertical" Visibility="{Binding Napr, Converter={StaticResource BooleanToVisibilityConverter}}">
+              <dxlc:LayoutGroup Orientation="Horizontal">
+                <dxlc:LayoutItem Width="150">
+                  <dxe:ButtonEdit Width="140"
+                                  Height="22"
+                                  AllowDefaultButton="False"
+                                  EditValue="{Binding ZDirection.CurrentMedicalDirectionPositionText,
+                                                      Mode=OneWay}"
+                                  IsReadOnly="True">
+                    <dxe:ButtonInfo Command="{Binding ZDirection.NextMedicalDirectionCommand}" GlyphKind="Right" />
+                    <dxe:ButtonInfo Command="{Binding ZDirection.LastMedicalDirectionCommand}" GlyphKind="Last" />
+                    <dxe:ButtonInfo Command="{Binding ZDirection.FirstMedicalDirectionCommand}"
+                                    GlyphKind="First"
+                                    IsLeft="True" />
+                    <dxe:ButtonInfo Command="{Binding ZDirection.PrevMedicalDirectionCommand}"
+                                    GlyphKind="Left"
+                                    IsLeft="True" />
+                  </dxe:ButtonEdit>
+
+                </dxlc:LayoutItem>
+                <dxlc:LayoutItem Width="50">
+                  <dxe:ButtonEdit Height="22"
+                                  AcceptsReturn="False"
+                                  AllowDefaultButton="False"
+                                  EditValue="{Binding ZDirection.GoToMedicalDirectionPosition,
+                                                      UpdateSourceTrigger=PropertyChanged}">
+                    <i:Interaction.Triggers>
+                      <i:EventTrigger EventName="KeyDown">
+                        <cmd:EventToCommand Command="{Binding ZDirection.GoToMedicalDirectionPositionKeyCommand}" PassEventArgsToCommand="True" />
+                      </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                    <dxe:ButtonInfo Command="{Binding ZDirection.GoToMedicalDirectionPositionCommand}" GlyphKind="Custom">
+                      <Image Source="../../Resources/Icons/go-next16.png" />
+                    </dxe:ButtonInfo>
+                  </dxe:ButtonEdit>
+                </dxlc:LayoutItem>
+              </dxlc:LayoutGroup>
+              <dxlc:LayoutItem Label="ID" LabelPosition="Top">
+                <dxe:TextEdit EditValue="{Binding ZDirection.MedicalDirection.ZDirectionId, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" />
+              </dxlc:LayoutItem>
+              <dxlc:LayoutItem Label="Дата направления" LabelPosition="Top">
+                <dxe:DateEdit EditValue="{Binding ZDirection.MedicalDirection.DirectionDate,
+                                                  NotifyOnValidationError=True,
+                                                  UpdateSourceTrigger=PropertyChanged,
+                                                  ValidatesOnDataErrors=True}"
+                              NullText="Отсутствует"
+                              NullValueButtonPlacement="EditBox" />
+              </dxlc:LayoutItem>
+              <dxlc:LayoutItem Label="Код МО" LabelPosition="Top">
+                <dxe:ButtonEdit AllowDefaultButton="False"
+                                EditValue="{Binding ZDirection.MedicalDirection.DirectionMo,
+                                                    Converter={StaticResource MedicalOrganizationConverter},
+                                                    UpdateSourceTrigger=PropertyChanged}"
+                                NullText="Отсутствует"
+                                NullValueButtonPlacement="EditBox">
+                  <dxe:ButtonInfo Command="{Binding SelectDirectionMoCommand}" GlyphKind="Regular" />
+                </dxe:ButtonEdit>
+              </dxlc:LayoutItem>
+              <dxlc:LayoutItem Label="Вид направления" LabelPosition="Top">
+                <dxe:ComboBoxEdit x:Name="viewDirComboBoxEdit"
+                                  DisplayMember="DisplayName"
+                                  EditValue="{Binding ZDirection.MedicalDirection.DirectionViewId,
+                                                      UpdateSourceTrigger=PropertyChanged}"
+                                  NullText="Отсутствует"
+                                  NullValueButtonPlacement="EditBox"
+                                  ValueMember="Value" />
+              </dxlc:LayoutItem>
+              <dxlc:LayoutItem Label="Метод" LabelPosition="Top">
+                <dxe:ComboBoxEdit x:Name="metssComboBoxEdit"
+                                  DisplayMember="DisplayName"
+                                  EditValue="{Binding ZDirection.MedicalDirection.MetIsslId,
+                                                      UpdateSourceTrigger=PropertyChanged}"
+                                  NullText="Отсутствует"
+                                  NullValueButtonPlacement="EditBox"
+                                  ValueMember="Value" />
+              </dxlc:LayoutItem>
+              <dxlc:LayoutItem Label="Медицинская услуга" LabelPosition="Top">
+                <dxe:TextEdit EditValue="{Binding ZDirection.MedicalDirection.DirectionService, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="False" />
+              </dxlc:LayoutItem>
+            </dxlc:LayoutGroup>
+            <dxlc:LayoutItem HorizontalAlignment="Stretch"
+                             VerticalAlignment="Stretch"
+                             Visibility="{Binding NoNapr,
+                                                  Converter={StaticResource BooleanToVisibilityConverter}}">
+              <Label HorizontalAlignment="Center"
+                     VerticalAlignment="Center"
+                     Content="Данные направления отсутствуют"
+                     FontSize="16"
+                     FontWeight="Bold" />
+            </dxlc:LayoutItem>
+
+          </dxlc:LayoutGroup>
+          <dxlc:LayoutGroup Header="Консилиум"
+                            Orientation="Vertical"
+                            View="Group"
+                            Visibility="{Binding IsVersion31,
+                                                 Converter={StaticResource BooleanToVisibilityConverter}}">
+            <dxlc:LayoutGroup Orientation="Vertical" Visibility="{Binding Consultations, Converter={StaticResource BooleanToVisibilityConverter}}">
+              <dxlc:LayoutGroup Orientation="Horizontal">
+                <dxlc:LayoutItem Width="150">
+                  <dxe:ButtonEdit Width="140"
+                                  Height="22"
+                                  AllowDefaultButton="False"
+                                  EditValue="{Binding ZConsultations.CurrentMedicalConsultationsPositionText,
+                                                      Mode=OneWay}"
+                                  IsReadOnly="True">
+                    <dxe:ButtonInfo Command="{Binding ZConsultations.NextMedicalConsultationsCommand}" GlyphKind="Right" />
+                    <dxe:ButtonInfo Command="{Binding ZConsultations.LastMedicalConsultationsCommand}" GlyphKind="Last" />
+                    <dxe:ButtonInfo Command="{Binding ZConsultations.FirstMedicalConsultationsCommand}"
+                                    GlyphKind="First"
+                                    IsLeft="True" />
+                    <dxe:ButtonInfo Command="{Binding ZConsultations.PrevMedicalConsultationsCommand}"
+                                    GlyphKind="Left"
+                                    IsLeft="True" />
+                  </dxe:ButtonEdit>
+                </dxlc:LayoutItem>
+                <dxlc:LayoutItem Width="50">
+                  <dxe:ButtonEdit Height="22"
+                                  AcceptsReturn="False"
+                                  AllowDefaultButton="False"
+                                  EditValue="{Binding ZConsultations.GoToMedicalConsultationsPosition,
+                                                      UpdateSourceTrigger=PropertyChanged}">
+                    <i:Interaction.Triggers>
+                      <i:EventTrigger EventName="KeyDown">
+                        <cmd:EventToCommand Command="{Binding ZConsultations.GoToMedicalConsultationsPositionKeyCommand}" PassEventArgsToCommand="True" />
+                      </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                    <dxe:ButtonInfo Command="{Binding ZConsultations.GoToMedicalConsultationsPositionCommand}" GlyphKind="Custom">
+                      <Image Source="../../Resources/Icons/go-next16.png" />
+                    </dxe:ButtonInfo>
+                  </dxe:ButtonEdit>
+                </dxlc:LayoutItem>
+              </dxlc:LayoutGroup>
+              <dxlc:LayoutItem Label="ID" LabelPosition="Top">
+                <dxe:TextEdit EditValue="{Binding ZConsultations.MedicalConsultationsOnk.ZConsultationsId, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" />
+              </dxlc:LayoutItem>
+              <dxlc:LayoutItem Label="Цель" LabelPosition="Top">
+                <dxe:ComboBoxEdit x:Name="PrConsComboBoxEdit"
+                                  DisplayMember="DisplayName"
+                                  EditValue="{Binding ZConsultations.MedicalConsultationsOnk.PrCons,
+                                                      UpdateSourceTrigger=PropertyChanged}"
+                                  NullText="Отсутствует"
+                                  NullValueButtonPlacement="EditBox"
+                                  ValueMember="Value" />
+              </dxlc:LayoutItem>
+              <dxlc:LayoutItem Label="Дата проведения" LabelPosition="Top">
+                <dxe:DateEdit EditValue="{Binding ZConsultations.MedicalConsultationsOnk.DtCons,
+                                                  NotifyOnValidationError=True,
+                                                  UpdateSourceTrigger=PropertyChanged,
+                                                  ValidatesOnDataErrors=True}"
+                              NullText="Отсутствует"
+                              NullValueButtonPlacement="EditBox" />
+              </dxlc:LayoutItem>
+            </dxlc:LayoutGroup>
+            <dxlc:LayoutItem HorizontalAlignment="Stretch"
+                             VerticalAlignment="Stretch"
+                             Visibility="{Binding NoConsultations,
+                                                  Converter={StaticResource BooleanToVisibilityConverter}}">
+              <Label HorizontalAlignment="Center"
+                     VerticalAlignment="Center"
+                     Content="Консилиум отсутствуют"
+                     FontSize="16"
+                     FontWeight="Bold" />
+            </dxlc:LayoutItem>
+          </dxlc:LayoutGroup>
+        </dxlc:LayoutGroup>
+        <!--<dxlc:LayoutItem HorizontalAlignment="Stretch"
+                         VerticalAlignment="Stretch"
+                         Visibility="{Binding NoServices,
+                                              Converter={StaticResource BooleanToVisibilityConverter}}">
+          <Label HorizontalAlignment="Center"
+                 VerticalAlignment="Center"
+                 Content="Услуги отсутствуют"
+                 FontSize="16"
+                 FontWeight="Bold" />
+        </dxlc:LayoutItem>-->
+      </dxlc:LayoutGroup>
+
+
+
+
+
+
+
+      <dxlc:LayoutGroup VerticalAlignment="Stretch"
+                        Header="LayoutGroup"
+                        View="Tabs">
+        <dxlc:LayoutGroup Header="Оплата" Orientation="Vertical">
+          <dxlc:LayoutItem Label="Код способа оплаты" LabelPosition="Top">
+            <dxe:ComboBoxEdit x:Name="V010ComboBoxEdit"
+                              DisplayMember="DisplayName"
+                              EditValue="{Binding Mevent.ZslMedicalEvent.PaymentMethod,
+                                                  NotifyOnValidationError=True,
+                                                  UpdateSourceTrigger=PropertyChanged,
+                                                  ValidatesOnDataErrors=True}"
+                              NullText="Отсутствует"
+                              NullValueButtonPlacement="EditBox"
+                              ValueMember="Value" />
+          </dxlc:LayoutItem>
+          <dxlc:LayoutGroup>
+            <dxlc:LayoutItem Label="Сумма выставленная"
+                             LabelPosition="Top"
+                             Visibility="{Binding IsInterMode,
+                                                  Converter={StaticResource BooleanToVisibilityConverter}}">
+              <dxe:TextEdit DisplayFormatString="c"
+                            EditValue="{Binding Mevent.ZslMedicalEvent.Price,
+                                                NotifyOnValidationError=True,
+                                                UpdateSourceTrigger=PropertyChanged,
+                                                ValidatesOnDataErrors=True}"
+                            MaskType="Numeric" />
+            </dxlc:LayoutItem>
+            <dxlc:LayoutItem Label="Сумма выставленная"
+                             LabelPosition="Top"
+                             Visibility="{Binding IsLocalMode,
+                                                  Converter={StaticResource BooleanToVisibilityConverter}}">
+              <dxe:TextEdit DisplayFormatString="c"
+                            EditValue="{Binding Mevent.ZslMedicalEvent.MoPrice,
+                                                NotifyOnValidationError=True,
+                                                UpdateSourceTrigger=PropertyChanged,
+                                                ValidatesOnDataErrors=True}"
+                            MaskType="Numeric" />
+            </dxlc:LayoutItem>
+            <dxlc:LayoutItem Label="Сумма принятая" LabelPosition="Top">
+              <dxe:TextEdit DisplayFormatString="c"
+                            EditValue="{Binding Mevent.ZslMedicalEvent.AcceptPrice,
+                                                NotifyOnValidationError=True,
+                                                UpdateSourceTrigger=PropertyChanged,
+                                                ValidatesOnDataErrors=True}"
+                            MaskType="Numeric" />
+            </dxlc:LayoutItem>
+          </dxlc:LayoutGroup>
+          <dxlc:LayoutItem Label="Статус оплаты"
+                           LabelPosition="Top"
+                           Visibility="{Binding IsInterMode,
+                                                Converter={StaticResource BooleanToVisibilityConverter}}">
+            <dxe:ComboBoxEdit x:Name="F005ComboBoxEdit"
+                              DisplayMember="DisplayName"
+                              EditValue="{Binding Mevent.ZslMedicalEvent.PaymentStatus,
+                                                  NotifyOnValidationError=True,
+                                                  UpdateSourceTrigger=PropertyChanged,
+                                                  ValidatesOnDataErrors=True}"
+                              NullText="Отсутствует"
+                              NullValueButtonPlacement="EditBox"
+                              ValueMember="Value" />
+          </dxlc:LayoutItem>
+          <dxlc:LayoutItem Label="Статус оплаты"
+                           LabelPosition="Top"
+                           Visibility="{Binding IsLocalMode,
+                                                Converter={StaticResource BooleanToVisibilityConverter}}">
+            <dxe:ComboBoxEdit x:Name="F005ComboBoxEdit2"
+                              DisplayMember="DisplayName"
+                              EditValue="{Binding Mevent.ZslMedicalEvent.MoPaymentStatus,
+                                                  NotifyOnValidationError=True,
+                                                  UpdateSourceTrigger=PropertyChanged,
+                                                  ValidatesOnDataErrors=True}"
+                              NullText="Отсутствует"
+                              NullValueButtonPlacement="EditBox"
+                              ValueMember="Value" />
+          </dxlc:LayoutItem>
+          <dxlc:LayoutItem Label="Сумма санкций по случаю" LabelPosition="Top">
+            <dxe:TextEdit DisplayFormatString="c"
+                          EditValue="{Binding Refusal.RefusalPrice,
+                                              Mode=OneWay,
+                                              UpdateSourceTrigger=PropertyChanged}"
+                          IsReadOnly="True"
+                          MaskType="Numeric" />
+          </dxlc:LayoutItem>
+          <!--<dxlc:LayoutItem Label="Сумма санкций по зак. случаю" LabelPosition="Top">
+            <dxe:TextEdit DisplayFormatString="c"
+                          EditValue="{Binding Refusal.ZslRefusalPrice,
+                                              Mode=OneWay,
+                                              UpdateSourceTrigger=PropertyChanged}"
+                          IsReadOnly="True"
+                          MaskType="Numeric" />
+          </dxlc:LayoutItem>-->
+          <dxlc:LayoutItem Label="Штрафные санкции">
+            <Separator />
+          </dxlc:LayoutItem>
+          <dxlc:LayoutItem>
+            <dxe:ButtonEdit Height="36"
+                            HorizontalAlignment="Left"
+                            AllowDefaultButton="False"
+                            ShowText="False">
+              <dxe:ButtonInfo Command="{Binding DeleteRefusalCommand}"
+                              GlyphKind="Custom"
+                              ToolTip="Удалить отказ">
+                <Image Source="../../Resources/Icons/dialog-cancel.png" />
+              </dxe:ButtonInfo>
+              <dxe:ButtonInfo Command="{Binding AddMecCommand}"
+                              GlyphKind="Custom"
+                              ToolTip="Добавить МЭК">
+                <Image Source="../../Resources/Icons/mec.png" />
+              </dxe:ButtonInfo>
+              <dxe:ButtonInfo Command="{Binding AddMeeCommand}"
+                              GlyphKind="Custom"
+                              ToolTip="Добавить МЭЭ">
+                <Image Source="../../Resources/Icons/mee.png" />
+              </dxe:ButtonInfo>
+              <dxe:ButtonInfo Command="{Binding AddEqmaCommand}"
+                              GlyphKind="Custom"
+                              ToolTip="Добавить ЭКМП">
+                <Image Source="../../Resources/Icons/eqma.png" />
+              </dxe:ButtonInfo>
+              <dxe:ButtonInfo Command="{Binding BlockRefuseCommand}"
+                              GlyphKind="Custom"
+                              ToolTip="Заблокировать отказ">
+                <Image Source="../../Resources/Icons/lock.png" />
+              </dxe:ButtonInfo>
+              <dxe:ButtonInfo Command="{Binding AgreeRefuseCommand}"
+                              CommandParameter="1"
+                              GlyphKind="Custom"
+                              ToolTip="Согласиться с отказом">
+                <Image Source="../../Resources/Icons/dialog-apply.png" />
+              </dxe:ButtonInfo>
+              <dxe:ButtonInfo Command="{Binding AgreeRefuseCommand}"
+                              CommandParameter="0"
+                              GlyphKind="Custom"
+                              ToolTip="Не согласиться с отказом">
+                <Image Source="../../Resources/Icons/edit-delete.png" />
+              </dxe:ButtonInfo>
+              <dxe:ButtonInfo Command="{Binding EditRefuseCommand}"
+                              GlyphKind="Custom"
+                              ToolTip="Редактировать отказ">
+                <Image Source="../../Resources/Icons/edit.png" />
+              </dxe:ButtonInfo>
+            </dxe:ButtonEdit>
+          </dxlc:LayoutItem>
+          <dxg:GridControl Height="120"
+                           ItemsSource="{Binding Refusal.MedicalRefusals}"
+                           ShowBorder="False">
+            <dxg:GridControl.Resources>
+              <Style x:Key="optimizedRowStyle" TargetType="{x:Type dxg:RowControl}">
+                <Style.Triggers>
+                  <Trigger Property="dxg:DataViewBase.IsFocusedRow" Value="True">
+                    <Setter Property="Background" Value="{Binding Row.RefusalType, Converter={StaticResource RefusalTypeToColorConverter}, FallbackValue={x:Null}}" />
+                    <Setter Property="FontWeight" Value="Bold" />
+                  </Trigger>
+                  <Trigger Property="dxg:DataViewBase.IsFocusedRow" Value="False">
+                    <Setter Property="Background" Value="{Binding Row.RefusalType, Converter={StaticResource RefusalTypeToColorConverter}, FallbackValue={x:Null}}" />
+                  </Trigger>
+                </Style.Triggers>
+              </Style>
+            </dxg:GridControl.Resources>
+
+            <dxg:GridControl.View>
+              <dxg:TableView AllowCascadeUpdate="True"
+                             AllowEditing="False"
+                             AllowGrouping="False"
+                             AllowPerPixelScrolling="True"
+                             FocusedRow="{Binding Refusal.SelectedRefusal,
+                                                  Mode=TwoWay,
+                                                  UpdateSourceTrigger=PropertyChanged}"
+                             HeaderPanelMinHeight="35"
+                             NavigationStyle="Row"
+                             RowAnimationKind="None"
+                             RowStyle="{StaticResource optimizedRowStyle}"
+                             ShowGroupPanel="False"
+                             ShowIndicator="True"
+                             WaitIndicatorType="Panel" />
+            </dxg:GridControl.View>
+            <dxg:GridColumn Width="22"
+                            FieldName="Dest"
+                            Header=" ">
+              <dxg:GridColumn.CellTemplate>
+                <DataTemplate>
+                  <Image Width="22"
+                         Height="22"
+                         HorizontalAlignment="Center"
+                         Source="{Binding RowData.Row.Dest,
+                                          Converter={StaticResource RefusalDestToImageConverter}}" />
+                </DataTemplate>
+              </dxg:GridColumn.CellTemplate>
+            </dxg:GridColumn>
+            <dxg:GridColumn Width="22"
+                            FieldName="RefusalType"
+                            Header=" ">
+              <dxg:GridColumn.CellTemplate>
+                <DataTemplate>
+                  <Image Width="22"
+                         Height="22"
+                         HorizontalAlignment="Center"
+                         Source="{Binding RowData.Row.RefusalType,
+                                          Converter={StaticResource RefusalTypeToImageConverter}}" />
+                </DataTemplate>
+              </dxg:GridColumn.CellTemplate>
+            </dxg:GridColumn>
+            <dxg:GridColumn Width="22"
+                            FieldName="Flag"
+                            Header=" ">
+              <dxg:GridColumn.CellTemplate>
+                <DataTemplate>
+                  <Image Width="22"
+                         Height="22"
+                         HorizontalAlignment="Center"
+                         Source="{Binding RowData.Row.Flag,
+                                          Converter={StaticResource RefusalFlagToImageConverter}}" />
+                </DataTemplate>
+              </dxg:GridColumn.CellTemplate>
+            </dxg:GridColumn>
+            <dxg:GridColumn Width="80"
+                            FieldName="ReasonCode"
+                            FixedWidth="True"
+                            Header="Код отказа" />
+            <dxg:GridColumn Width="100"
+                            FieldName="Amount"
+                            FixedWidth="True"
+                            Header="Сумма">
+              <dxg:GridColumn.EditSettings>
+                <dxe:TextEditSettings DisplayFormat="c2"
+                                      Mask="c2"
+                                      MaskType="Numeric"
+                                      TextWrapping="WrapWithOverflow" />
+              </dxg:GridColumn.EditSettings>
+            </dxg:GridColumn>
+
+          </dxg:GridControl>
+          <dxlc:LayoutItem Label="Сумма отказа" LabelPosition="Top">
+            <dxe:TextEdit DisplayFormatString="c"
+                          EditValue="{Binding Refusal.SelectedRefusal.Amount}"
+                          Foreground="Gray"
+                          IsReadOnly="True"
+                          MaskType="Numeric" />
+          </dxlc:LayoutItem>
+          <dxlc:LayoutItem Label="Код причины отказа" LabelPosition="Top">
+            <dxe:ComboBoxEdit x:Name="F014ComboBoxEdit"
+                              DisplayMember="DisplayName"
+                              EditValue="{Binding Refusal.SelectedRefusal.ReasonId,
+                                                  UpdateSourceTrigger=PropertyChanged}"
+                              Foreground="Gray"
+                              IsReadOnly="True"
+                              NullText="Отсутствует"
+                              ValueMember="Value" />
+          </dxlc:LayoutItem>
+          <dxlc:LayoutItem Label="Комментарий" LabelPosition="Top">
+            <dxe:MemoEdit EditValue="{Binding Refusal.SelectedRefusal.Comments,
+                                              UpdateSourceTrigger=PropertyChanged}"
+                          Foreground="Gray"
+                          IsReadOnly="True"
+                          ShowIcon="False" />
+          </dxlc:LayoutItem>
+        </dxlc:LayoutGroup>
+      </dxlc:LayoutGroup>
+
+    </dxlc:LayoutControl>
+  </Grid>
+
+</UserControl>

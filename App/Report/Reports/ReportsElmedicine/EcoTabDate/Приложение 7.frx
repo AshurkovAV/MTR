@@ -1,0 +1,209 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report ScriptLanguage="CSharp" ReportInfo.Created="04/10/2013 23:47:48" ReportInfo.Modified="03/01/2014 19:43:47" ReportInfo.CreatorVersion="2013.2.13.0">
+  <Dictionary>
+    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqr2sEgbyd/XFgYBeuRgqcA5zt9JXHJfT5fjgDibxBQPpcjFjRPBzWgZ9XB+j7gTiCvu+kbyiwINr+0FFfcMZ2P6DtBCgUjq61T+wS2RRi9GtAfn98DSSVQdTrLJoEu0JqEHqWyINGG+kMaSlud5OBnHxymePyrRasW2+FKdRu30b2urmq6a52raVbJTNnjpl4">
+      <TableDataSource Name="Table" DataType="System.Int32" Enabled="true" SelectCommand="Select * From&#13;&#10;(select isnull(cast(ROUND(sum(sl.SUMV)/1000,2) as float), 0) as s1 from SLUCH sl &#13;&#10;join SCHET sc on sl.SCHET_ID = sc.ID where (sc.[MONTH] &gt;= @M1 and sc.[YEAR] &gt;= @Y1) and (sc.[MONTH] &lt;= @M2 and sc.[YEAR] &lt;= @Y2) &#13;&#10;and sl.OS_SLUCH_REGION in (7,8)) as t1,&#13;&#10;&#13;&#10;(select isnull(count(*), 0) as c2, isnull(cast(ROUND(sum(sl.SUMV)/1000,2) as float), 0) as s2 from SLUCH sl &#13;&#10;join SCHET sc on sl.SCHET_ID = sc.ID where (sc.[MONTH] &gt;= @M1 and sc.[YEAR] &gt;= @Y1) and (sc.[MONTH] &lt;= @M2 and sc.[YEAR] &lt;= @Y2) &#13;&#10;and sl.OS_SLUCH_REGION in (7)) as t2,&#13;&#10;&#13;&#10;(select isnull(count(c3), 0) as c3, isnull(cast(ROUND(sum(s3)/1000,2) as float), 0) as s3 From&#13;&#10;(select count(*) as c3, sum(sl.SUMV) as s3 from SLUCH sl&#13;&#10;join SCHET sc on sl.SCHET_ID = sc.ID where (sc.[MONTH] &gt;= @M1 and sc.[YEAR] &gt;= @Y1) and (sc.[MONTH] &lt;= @M2 and sc.[YEAR] &lt;= @Y2)  &#13;&#10;and sl.OS_SLUCH_REGION in (8)&#13;&#10;group by sl.PID) as t3) as t3,&#13;&#10;&#13;&#10;(select isnull(cast(ROUND(sum(sl.SUMP)/1000,2) as float), 0) as s4 from SLUCH sl &#13;&#10;join SCHET sc on sl.SCHET_ID = sc.ID where (sc.[MONTH] &gt;= @M1 and sc.[YEAR] &gt;= @Y1) and (sc.[MONTH] &lt;= @M2 and sc.[YEAR] &lt;= @Y2)  &#13;&#10;and sl.OS_SLUCH_REGION in (7, 8) and oplata = 1) as t4,&#13;&#10;&#13;&#10;(select isnull(count(*), 0) as c5, isnull(cast(ROUND(sum(sl.SUMP)/1000,2) as float), 0) as s5 from SLUCH sl &#13;&#10;join SCHET sc on sl.SCHET_ID = sc.ID where (sc.[MONTH] &gt;= @M1 and sc.[YEAR] &gt;= @Y1) and (sc.[MONTH] &lt;= @M2 and sc.[YEAR] &lt;= @Y2) &#13;&#10;and sl.OS_SLUCH_REGION in (7) and oplata = 1) as t5,&#13;&#10;&#13;&#10;(select isnull(count(c6), 0) as c6, isnull(cast(ROUND(sum(s6)/1000,2) as float), 0) as s6 From&#13;&#10;(select count(*) as c6, sum(sl.SUMP) as s6 from SLUCH sl &#13;&#10;join SCHET sc on sl.SCHET_ID = sc.ID where (sc.[MONTH] &gt;= @M1 and sc.[YEAR] &gt;= @Y1) and (sc.[MONTH] &lt;= @M2 and sc.[YEAR] &lt;= @Y2) &#13;&#10;and sl.OS_SLUCH_REGION in (8) and oplata = 1&#13;&#10;group by sl.pid) as t6) as t6,&#13;&#10;&#13;&#10;(select isnull(count(*), 0) as c7 from SLUCH sl&#13;&#10;join SCHET sc on sl.SCHET_ID = sc.ID where (sc.[MONTH] &gt;= @M1 and sc.[YEAR] &gt;= @Y1) and (sc.[MONTH] &lt;= @M2 and sc.[YEAR] &lt;= @Y2)  &#13;&#10;and sl.OS_SLUCH_REGION in (7, 8) and (sl.GR_ZDOROV = 1 or sl.RSLT =347)) as t7,&#13;&#10;&#13;&#10;(select isnull(count(*), 0) as c8 from SLUCH sl &#13;&#10;join SCHET sc on sl.SCHET_ID = sc.ID where (sc.[MONTH] &gt;= @M1 and sc.[YEAR] &gt;= @Y1) and (sc.[MONTH] &lt;= @M2 and sc.[YEAR] &lt;= @Y2) &#13;&#10;and sl.OS_SLUCH_REGION in (7, 8) and (sl.GR_ZDOROV = 2 or sl.RSLT =348)) as t8,&#13;&#10;&#13;&#10;(select isnull(count(*), 0) as c9 from SLUCH sl &#13;&#10;join SCHET sc on sl.SCHET_ID = sc.ID where (sc.[MONTH] &gt;= @M1 and sc.[YEAR] &gt;= @Y1) and (sc.[MONTH] &lt;= @M2 and sc.[YEAR] &lt;= @Y2) &#13;&#10;and sl.OS_SLUCH_REGION in (7, 8) and (sl.GR_ZDOROV = 3 or sl.RSLT =349)) as t9,&#13;&#10;&#13;&#10;(select isnull(count(*), 0) as c10 from SLUCH sl &#13;&#10;join SCHET sc on sl.SCHET_ID = sc.ID where (sc.[MONTH] &gt;= @M1 and sc.[YEAR] &gt;= @Y1) and (sc.[MONTH] &lt;= @M2 and sc.[YEAR] &lt;= @Y2)&#13;&#10;and sl.OS_SLUCH_REGION in (7, 8) and (sl.GR_ZDOROV = 4 or sl.RSLT =350)) as t10,&#13;&#10;&#13;&#10;(select isnull(count(*), 0) as c11 from SLUCH sl &#13;&#10;join SCHET sc on sl.SCHET_ID = sc.ID where (sc.[MONTH] &gt;= @M1 and sc.[YEAR] &gt;= @Y1) and (sc.[MONTH] &lt;= @M2 and sc.[YEAR] &lt;= @Y2)&#13;&#10;and sl.OS_SLUCH_REGION in (7, 8) and (sl.GR_ZDOROV = 5 or sl.RSLT =351)) as t11">
+        <Column Name="s1" DataType="System.Decimal"/>
+        <Column Name="c2" DataType="System.Int32"/>
+        <Column Name="s2" DataType="System.Decimal"/>
+        <Column Name="c3" DataType="System.Int32"/>
+        <Column Name="s3" DataType="System.Decimal"/>
+        <Column Name="s4" DataType="System.Decimal"/>
+        <Column Name="c5" DataType="System.Int32"/>
+        <Column Name="s5" DataType="System.Decimal"/>
+        <Column Name="c6" DataType="System.Int32"/>
+        <Column Name="s6" DataType="System.Decimal"/>
+        <Column Name="c7" DataType="System.Int32"/>
+        <Column Name="c8" DataType="System.Int32"/>
+        <Column Name="c9" DataType="System.Int32"/>
+        <Column Name="c10" DataType="System.Int32"/>
+        <Column Name="c11" DataType="System.Int32"/>
+        <CommandParameter Name="@M1" DataType="8" Expression="[@M1]" DefaultValue="5"/>
+        <CommandParameter Name="@M2" DataType="8" Expression="[@M2]" DefaultValue="5"/>
+        <CommandParameter Name="@Y1" DataType="8" Expression="[@Y1]" DefaultValue="2013"/>
+        <CommandParameter Name="@Y2" DataType="8" Expression="[@Y2]" DefaultValue="2013"/>
+      </TableDataSource>
+      <TableDataSource Name="Table3" Alias="mon" DataType="System.Int32" Enabled="true" SelectCommand="select (case @M1&#13;&#10;		when 1 then 'Январь'&#13;&#10;		when 2 then 'Февраль'&#13;&#10;		when 3 then 'Март'&#13;&#10;		when 4 then 'Апрель'&#13;&#10;		when 5 then 'Май'&#13;&#10;		when 6 then 'Июнь'&#13;&#10;		when 7 then 'Июль'&#13;&#10;		when 8 then 'Август'&#13;&#10;		when 9 then 'Сентябрь'&#13;&#10;		when 10 then 'Октябрь'&#13;&#10;		when 11 then 'Ноябрь'&#13;&#10;	    when 12 then 'Декабрь'&#13;&#10;	    else 'Не верно задан месяц'&#13;&#10;	   end) + ' ' + cast(@Y1 as varchar) as m_y ">
+        <Column Name="m_y" DataType="System.String"/>
+        <CommandParameter Name="@M1" DataType="8" Expression="[@M2]" DefaultValue="5"/>
+        <CommandParameter Name="@Y1" DataType="8" Expression="@Y1" DefaultValue="2014"/>
+      </TableDataSource>
+    </MsSqlDataConnection>
+    <Parameter Name="@Y1" DataType="System.Int32"/>
+    <Parameter Name="@Y2" DataType="System.Int32"/>
+    <Parameter Name="@M1" DataType="System.Int32"/>
+    <Parameter Name="@M2" DataType="System.Int32"/>
+    <Total Name="Total" Expression="[Table.c2]" Evaluator="Data1"/>
+    <Total Name="Total1" Expression="[Table.s2]" Evaluator="Data1"/>
+    <Total Name="Total2" Expression="[Table.c3]" Evaluator="Data1"/>
+    <Total Name="Total3" Expression="[Table.s3]" Evaluator="Data1"/>
+    <Total Name="Total4" Expression="[Table.s4]" Evaluator="Data1"/>
+    <Total Name="Total5" Expression="[Table.s5]" Evaluator="Data1"/>
+    <Total Name="Total6" Expression="[Table.s6]" Evaluator="Data1"/>
+    <Total Name="Total7" Expression="[Table.c7]" Evaluator="Data1"/>
+    <Total Name="Total8" Expression="[Table.c8]" Evaluator="Data1"/>
+    <Total Name="Total9" Expression="[Table.c9]" Evaluator="Data1"/>
+    <Total Name="Total10" Expression="[Table.c10]" Evaluator="Data1"/>
+    <Total Name="Total11" Expression="[Table.c11]" Evaluator="Data1"/>
+  </Dictionary>
+  <ReportPage Name="Page1" Landscape="true" PaperWidth="297" PaperHeight="210" RawPaperSize="9" FirstPageSource="15" OtherPagesSource="15" Guides="28.35,37.8,1020.6,510.3">
+    <ReportTitleBand Name="ReportTitle1" Width="1047.06" Height="340.2">
+      <TextObject Name="Text1" Left="37.8" Top="47.25" Width="982.8" Height="37.8" Text="Сведения о результатах проведения диспансеризации пребывающих в стационарных учреждениях детей-сирот, находящихся в трудной жизненой ситуации" HorzAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text5" Left="888.3" Top="9.45" Width="274.05" Height="37.8" Text="Приложение №7"/>
+      <TableObject Name="Table1" Top="132.3" Width="1030.05" Height="207.9">
+        <TableColumn Name="Column153" Width="122.85"/>
+        <TableColumn Name="Column154"/>
+        <TableColumn Name="Column155"/>
+        <TableColumn Name="Column156"/>
+        <TableColumn Name="Column157"/>
+        <TableColumn Name="Column158" Width="113.4"/>
+        <TableColumn Name="Column159" Width="94.5"/>
+        <TableColumn Name="Column160" Width="103.95"/>
+        <TableColumn Name="Column161"/>
+        <TableColumn Name="Column162"/>
+        <TableColumn Name="Column163"/>
+        <TableColumn Name="Column164"/>
+        <TableColumn Name="Column165"/>
+        <TableRow Name="Row54">
+          <TableCell Name="Cell946" Border.Lines="All" Text="Объем средств предъявленных к оплате в рамках диспансеризации за период, тыс. рублей*" HorzAlign="Center" VertAlign="Center" Font="Arial, 9pt" RowSpan="3"/>
+          <TableCell Name="Cell947" Border.Lines="All" Text="в том числе:" HorzAlign="Center" VertAlign="Center" Font="Arial, 9pt" ColSpan="4"/>
+          <TableCell Name="Cell948" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 9pt"/>
+          <TableCell Name="Cell949" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 9pt"/>
+          <TableCell Name="Cell950" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 9pt"/>
+          <TableCell Name="Cell966" Border.Lines="All" Text="Объем средств направленный за проведенную диспансеризацию, за отчетный период, тыс. рублей*" HorzAlign="Center" VertAlign="Center" Font="Arial, 9pt" RowSpan="3"/>
+          <TableCell Name="Cell967" Border.Lines="All" Text="в том числе:" HorzAlign="Center" VertAlign="Center" Font="Arial, 9pt" ColSpan="2"/>
+          <TableCell Name="Cell968" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 9pt"/>
+          <TableCell Name="Cell969" Border.Lines="All" Text="Группы состояния здоровья несовершеннолетних, прошедших диспансеризацию" HorzAlign="Center" VertAlign="Center" Font="Arial, 9pt" ColSpan="5" RowSpan="2"/>
+          <TableCell Name="Cell970" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 9pt"/>
+          <TableCell Name="Cell971" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 9pt"/>
+          <TableCell Name="Cell972" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 9pt"/>
+          <TableCell Name="Cell973" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 9pt"/>
+        </TableRow>
+        <TableRow Name="Row55" Height="94.5">
+          <TableCell Name="Cell951" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 9pt"/>
+          <TableCell Name="Cell952" Border.Lines="All" Text="в рамках законченого случая, состоящего из одного этапа диспансеризации (1 этап)" HorzAlign="Center" VertAlign="Center" Font="Arial, 9pt" ColSpan="2"/>
+          <TableCell Name="Cell953" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 9pt"/>
+          <TableCell Name="Cell954" Border.Lines="All" Text="в рамках законченого случая, состоящего из двух этапов диспансеризации (1 и 2 этапы)" HorzAlign="Center" VertAlign="Center" Font="Arial, 9pt" ColSpan="2"/>
+          <TableCell Name="Cell955" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 9pt"/>
+          <TableCell Name="Cell974" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 9pt"/>
+          <TableCell Name="Cell975" Border.Lines="All" Text="в рамках законченого случая, состоящего из одного этапа диспансеризации (1 этап)" HorzAlign="Center" VertAlign="Center" Font="Arial, 9pt"/>
+          <TableCell Name="Cell976" Border.Lines="All" Text="в рамках законченого случая, состоящего из двух этапов диспансеризации (1 и 2 этапы)" HorzAlign="Center" VertAlign="Center" Font="Arial, 9pt"/>
+          <TableCell Name="Cell977" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 9pt"/>
+          <TableCell Name="Cell978" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 9pt"/>
+          <TableCell Name="Cell979" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 9pt"/>
+          <TableCell Name="Cell980" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 9pt"/>
+          <TableCell Name="Cell981" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 9pt"/>
+        </TableRow>
+        <TableRow Name="Row56" Height="75.6">
+          <TableCell Name="Cell956" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 9pt"/>
+          <TableCell Name="Cell957" Border.Lines="All" Text="кол-во случаев" HorzAlign="Center" VertAlign="Center" Font="Arial, 9pt"/>
+          <TableCell Name="Cell958" Border.Lines="All" Text="тыс. руб." HorzAlign="Center" VertAlign="Center" Font="Arial, 9pt"/>
+          <TableCell Name="Cell959" Border.Lines="All" Text="кол-во случаев" HorzAlign="Center" VertAlign="Center" Font="Arial, 9pt"/>
+          <TableCell Name="Cell960" Border.Lines="All" Text="тыс. руб." HorzAlign="Center" VertAlign="Center" Font="Arial, 9pt"/>
+          <TableCell Name="Cell982" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 9pt"/>
+          <TableCell Name="Cell983" Border.Lines="All" Text="тыс. руб." HorzAlign="Center" VertAlign="Center" Font="Arial, 9pt"/>
+          <TableCell Name="Cell984" Border.Lines="All" Text="тыс. руб." HorzAlign="Center" VertAlign="Center" Font="Arial, 9pt"/>
+          <TableCell Name="Cell985" Border.Lines="All" Text="I группа состояния здоровья, человек" HorzAlign="Center" VertAlign="Center" Font="Arial, 9pt"/>
+          <TableCell Name="Cell986" Border.Lines="All" Text="II группа состояния здоровья, человек" HorzAlign="Center" VertAlign="Center" Font="Arial, 9pt"/>
+          <TableCell Name="Cell987" Border.Lines="All" Text="III группа состояния здоровья, человек" HorzAlign="Center" VertAlign="Center" Font="Arial, 9pt"/>
+          <TableCell Name="Cell988" Border.Lines="All" Text="IV группа состояния здоровья, человек" HorzAlign="Center" VertAlign="Center" Font="Arial, 9pt"/>
+          <TableCell Name="Cell989" Border.Lines="All" Text="V группа состояния здоровья, человек" HorzAlign="Center" VertAlign="Center" Font="Arial, 9pt"/>
+        </TableRow>
+        <TableRow Name="Row57">
+          <TableCell Name="Cell961" Border.Lines="All" Text="1" HorzAlign="Center" VertAlign="Center" Font="Arial, 9pt"/>
+          <TableCell Name="Cell962" Border.Lines="All" Text="2" HorzAlign="Center" VertAlign="Center" Font="Arial, 9pt"/>
+          <TableCell Name="Cell963" Border.Lines="All" Text="3" HorzAlign="Center" VertAlign="Center" Font="Arial, 9pt"/>
+          <TableCell Name="Cell964" Border.Lines="All" Text="4" HorzAlign="Center" VertAlign="Center" Font="Arial, 9pt"/>
+          <TableCell Name="Cell965" Border.Lines="All" Text="5" HorzAlign="Center" VertAlign="Center" Font="Arial, 9pt"/>
+          <TableCell Name="Cell990" Border.Lines="All" Text="6" HorzAlign="Center" VertAlign="Center" Font="Arial, 9pt"/>
+          <TableCell Name="Cell991" Border.Lines="All" Text="7" HorzAlign="Center" VertAlign="Center" Font="Arial, 9pt"/>
+          <TableCell Name="Cell992" Border.Lines="All" Text="8" HorzAlign="Center" VertAlign="Center" Font="Arial, 9pt"/>
+          <TableCell Name="Cell993" Border.Lines="All" Text="9" HorzAlign="Center" VertAlign="Center" Font="Arial, 9pt"/>
+          <TableCell Name="Cell994" Border.Lines="All" Text="10" HorzAlign="Center" VertAlign="Center" Font="Arial, 9pt"/>
+          <TableCell Name="Cell995" Border.Lines="All" Text="11" HorzAlign="Center" VertAlign="Center" Font="Arial, 9pt"/>
+          <TableCell Name="Cell996" Border.Lines="All" Text="12" HorzAlign="Center" VertAlign="Center" Font="Arial, 9pt"/>
+          <TableCell Name="Cell997" Border.Lines="All" Text="13" HorzAlign="Center" VertAlign="Center" Font="Arial, 9pt"/>
+        </TableRow>
+      </TableObject>
+      <TextObject Name="Text28" Left="37.8" Top="9.45" Width="982.8" Height="18.9" Text="Филиал ООО &quot;СК &quot;Ингосстрах-М&quot; в г. Курске" HorzAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text4" Left="37.8" Top="18.9" Width="878.85" Height="28.35" Text="(наименование СМО)" HorzAlign="Center" VertAlign="Center" Font="Arial, 9pt"/>
+      <TextObject Name="Text9" Left="37.8" Top="9.45" Width="982.8" Height="18.9" Text="__________________________________________________________________________________" HorzAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text26" Left="472.5" Top="85.05" Width="160.65" Height="18.9" Text="за [mon.m_y]"/>
+      <TextObject Name="Text2" Left="453.6" Top="85.05" Width="179.55" Height="18.9" Text="_____________________"/>
+      <TextObject Name="Text27" Left="510.3" Top="103.95" Width="66.15" Height="18.9" Text="(месяц)" Font="Arial, 7pt"/>
+    </ReportTitleBand>
+    <DataBand Name="Data1" Top="344.2" Width="1047.06" Height="47.25" DataSource="Table">
+      <TableObject Name="Table2" Width="1030.05" Height="47.25" Border.Lines="All">
+        <TableColumn Name="Column166" Width="122.85"/>
+        <TableColumn Name="Column167"/>
+        <TableColumn Name="Column168"/>
+        <TableColumn Name="Column169"/>
+        <TableColumn Name="Column170"/>
+        <TableColumn Name="Column171" Width="113.4"/>
+        <TableColumn Name="Column172" Width="94.5"/>
+        <TableColumn Name="Column173" Width="103.95"/>
+        <TableColumn Name="Column174"/>
+        <TableColumn Name="Column175"/>
+        <TableColumn Name="Column176"/>
+        <TableColumn Name="Column177"/>
+        <TableColumn Name="Column178"/>
+        <TableRow Name="Row58" Height="47.25">
+          <TableCell Name="Cell998" Border.Lines="All" Text="[Table.s1]"/>
+          <TableCell Name="Cell999" Border.Lines="All" Text="[Table.c2]"/>
+          <TableCell Name="Cell1000" Border.Lines="All" Text="[Table.s2]"/>
+          <TableCell Name="Cell1001" Border.Lines="All" Text="[Table.c3]"/>
+          <TableCell Name="Cell1002" Border.Lines="All" Text="[Table.s3]"/>
+          <TableCell Name="Cell1003" Border.Lines="All" Text="[Table.s4]"/>
+          <TableCell Name="Cell1004" Border.Lines="All" Text="[Table.s5]"/>
+          <TableCell Name="Cell1005" Border.Lines="All" Text="[Table.s6]"/>
+          <TableCell Name="Cell1006" Border.Lines="All" Text="[Table.c7]"/>
+          <TableCell Name="Cell1007" Border.Lines="All" Text="[Table.c8]"/>
+          <TableCell Name="Cell1008" Border.Lines="All" Text="[Table.c9]"/>
+          <TableCell Name="Cell1009" Border.Lines="All" Text="[Table.c10]"/>
+          <TableCell Name="Cell1010" Border.Lines="All" Text="[Table.c11]"/>
+        </TableRow>
+      </TableObject>
+    </DataBand>
+    <ReportSummaryBand Name="ReportSummary1" Top="395.45" Width="1047.06" Height="170.1">
+      <TableObject Name="Table1" Width="1030.05" Height="28.35" Border.Lines="All">
+        <TableColumn Name="Column179" Width="122.85"/>
+        <TableColumn Name="Column180"/>
+        <TableColumn Name="Column181"/>
+        <TableColumn Name="Column182"/>
+        <TableColumn Name="Column183"/>
+        <TableColumn Name="Column184" Width="113.4"/>
+        <TableColumn Name="Column185" Width="94.5"/>
+        <TableColumn Name="Column186" Width="103.95"/>
+        <TableColumn Name="Column187"/>
+        <TableColumn Name="Column188"/>
+        <TableColumn Name="Column189"/>
+        <TableColumn Name="Column190"/>
+        <TableColumn Name="Column191"/>
+        <TableRow Name="Row59" Height="28.35">
+          <TableCell Name="Cell1011" Border.Lines="All" Text="Итого" Font="Arial, 10pt, style=Bold"/>
+          <TableCell Name="Cell1012" Border.Lines="All" Text="[Total]"/>
+          <TableCell Name="Cell1013" Border.Lines="All" Text="[Total1]"/>
+          <TableCell Name="Cell1014" Border.Lines="All" Text="[Total2]"/>
+          <TableCell Name="Cell1015" Border.Lines="All" Text="[Total3]"/>
+          <TableCell Name="Cell1016" Border.Lines="All" Text="[Total4]"/>
+          <TableCell Name="Cell1017" Border.Lines="All" Text="[Total5]"/>
+          <TableCell Name="Cell1018" Border.Lines="All" Text="[Total6]"/>
+          <TableCell Name="Cell1019" Border.Lines="All" Text="[Total7]"/>
+          <TableCell Name="Cell1020" Border.Lines="All" Text="[Total8]"/>
+          <TableCell Name="Cell1021" Border.Lines="All" Text="[Total9]"/>
+          <TableCell Name="Cell1022" Border.Lines="All" Text="[Total10]"/>
+          <TableCell Name="Cell1023" Border.Lines="All" Text="[Total11]"/>
+        </TableRow>
+      </TableObject>
+      <TextObject Name="Text31" Left="37.8" Top="37.8" Width="179.55" Height="28.35" Text="Директор СМО" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text32" Left="510.3" Top="37.8" Width="179.55" Height="28.35" Text="Карманова И.А." VertAlign="Center" Font="Arial, 10pt, style=Bold, Italic"/>
+      <TextObject Name="Text3" Left="453.6" Top="47.25" Width="245.7" Height="18.9" Text="_____________________________" HorzAlign="Center" VertAlign="Center" Font="Arial, 9pt"/>
+      <TextObject Name="Text38" Left="481.95" Top="63.15" Width="179.55" Height="18.9" Text="(расшифровка подписи)" HorzAlign="Center" VertAlign="Center" Font="Arial, 9pt"/>
+      <TextObject Name="Text34" Left="37.8" Top="85.05" Width="179.55" Height="28.35" Text="Главный бухгалтер СМО" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text35" Left="510.3" Top="85.05" Width="179.55" Height="28.35" Text="Хмелевская Т.В." VertAlign="Center" Font="Arial, 10pt, style=Bold, Italic"/>
+      <TextObject Name="Text36" Left="453.6" Top="94.5" Width="245.7" Height="18.9" Text="_____________________________" HorzAlign="Center" VertAlign="Center" Font="Arial, 9pt"/>
+      <TextObject Name="Text37" Left="481.95" Top="110.4" Width="179.55" Height="18.9" Text="(расшифровка подписи)" HorzAlign="Center" VertAlign="Center" Font="Arial, 9pt"/>
+      <TextObject Name="Text33" Left="37.8" Top="132.3" Width="434.7" Height="37.8" Text="Исполнитель Косилова Елена Алексеевна тел. 39-36-18" VertAlign="Center" Font="Arial, 10pt, style=Italic"/>
+    </ReportSummaryBand>
+  </ReportPage>
+</Report>

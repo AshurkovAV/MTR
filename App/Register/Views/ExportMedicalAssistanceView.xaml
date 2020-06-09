@@ -1,0 +1,73 @@
+﻿<UserControl x:Class="Medical.AppLayer.Register.Views.ExportMedicalAssistanceView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol"
+        xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+        xmlns:extToolkit="http://schemas.microsoft.com/winfx/2006/xaml/presentation/toolkit/extended"
+        Height="Auto" 
+        Width="Auto"
+        x:Name="ExportMedicalAssistanceControl">
+    <Grid Background="White">
+        <dxlc:LayoutControl Orientation="Vertical" HorizontalAlignment="Stretch">
+            <dxlc:LayoutGroup Orientation="Horizontal">
+                <dxlc:LayoutGroup Orientation="Vertical">
+                    <dxlc:LayoutItem Label="Параметры" FontSize="16" FontWeight="Bold" />
+                    <dxlc:LayoutItem Label="Тип выгрузки" FontSize="16">
+                        <dxe:ComboBoxEdit NullText="Выберите тип выгрузки"  SelectedIndex="{Binding TypeExport, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding ExportConfig}" DisplayMember="Name" ValueMember="Id" IsTextEditable="False" FontSize="16"/>
+
+                    </dxlc:LayoutItem>
+                    <dxlc:LayoutItem Label="Номер представления" FontSize="16">
+                        <dxe:TextEdit NullText="Введите порядковый номер представления в текущем году" EditValue="{Binding Number, UpdateSourceTrigger=PropertyChanged}" FontSize="16"/>
+
+                    </dxlc:LayoutItem>
+                    <dxlc:LayoutItem Label="Номер решения комиссии" Visibility="{Binding VisibilityType1}" FontSize="16">
+                        <dxe:TextEdit NullText="Введите номер решения комиссии" EditValue="{Binding AcceptNumber}" FontSize="16"/>
+
+                    </dxlc:LayoutItem>
+                    <dxlc:LayoutItem Label="Дата решения комиссии" Visibility="{Binding VisibilityType1}" FontSize="16">
+                        <dxe:DateEdit NullText="Введите дату решения комиссии"  EditValue="{Binding AcceptDate}" FontSize="16"/>
+
+                    </dxlc:LayoutItem>
+
+                    <dxlc:LayoutItem Label="Месяц выгрузки" Visibility="{Binding VisibilityType2}" FontSize="16">
+                        <dxe:ComboBoxEdit NullText="Выберите месяц выгрузки"  EditValue="{Binding SelectedMonth, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding MonthList}" DisplayMember="DisplayField" ValueMember="ValueField" FontSize="16"/>
+
+                    </dxlc:LayoutItem>
+                    <dxlc:LayoutItem Label="Таблица"  Visibility="{Binding VisibilityType2}" FontSize="16">
+                        <dxe:ComboBoxEdit NullText="Выберите таблицу БД с данными"  EditValue="{Binding TableName}" ItemsSource="{Binding TableNameList}" FontSize="16"/>
+
+                    </dxlc:LayoutItem>
+                    <dxlc:LayoutItem Label="Путь выгрузки" FontSize="16">
+                        <dxe:ButtonEdit AllowDefaultButton="False" EditValue="{Binding PathName}" NullText="Выберете путь" FontSize="16">
+                            <dxe:ButtonInfo GlyphKind="Regular" Command="{Binding SelectPathCommand}"/>
+                        </dxe:ButtonEdit>
+
+                    </dxlc:LayoutItem>
+                    <dxlc:LayoutItem Label="Имя файла" FontSize="16">
+                        <TextBlock Text="{Binding FileName, UpdateSourceTrigger=PropertyChanged}" FontWeight="Bold"/>
+                    </dxlc:LayoutItem>
+                </dxlc:LayoutGroup>
+                <dxlc:LayoutGroup Orientation="Vertical">
+                    <dxlc:LayoutItem Label="Результат" FontSize="16" FontWeight="Bold" />
+                    <dxlc:LayoutItem>
+                        <dxe:ButtonEdit AllowDefaultButton="False" ShowText="False" HorizontalAlignment="Right" >
+                            <dxe:ButtonInfo GlyphKind="Edit" Command="{Binding SaveLogCommand}" />
+                        </dxe:ButtonEdit>
+                    </dxlc:LayoutItem>
+                    <extToolkit:RichTextBox x:Name="_richTextBox" BorderBrush="Gray" Padding="10"
+        				Text="{Binding Notes}" 
+        				ScrollViewer.VerticalScrollBarVisibility="Auto" IsReadOnly="True" 
+        				MinHeight="300"
+        				VerticalAlignment="Stretch"/>
+
+                </dxlc:LayoutGroup>
+            </dxlc:LayoutGroup>
+            <Separator Height="12"/>
+
+           <dxlc:LayoutGroup Orientation="Horizontal">
+                <Button Command="{Binding ShowFileCommand}" Content="Показать файл" Height="23" HorizontalAlignment="Left" VerticalAlignment="Top" Width="115" FontSize="12"/>
+                <Button Command="{Binding ExportCommand}" Content="Выполнить" Height="23" HorizontalAlignment="Right" VerticalAlignment="Top" Width="95" FontSize="12" />
+            </dxlc:LayoutGroup>
+        </dxlc:LayoutControl>
+    </Grid>
+</UserControl>

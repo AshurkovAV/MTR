@@ -1,0 +1,519 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report ScriptLanguage="CSharp" DoublePass="true" ReportInfo.Created="06/20/2009 22:40:42" ReportInfo.Modified="04/09/2012 13:37:41" ReportInfo.CreatorVersion="1.8.1.0">
+  <ScriptText>using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Windows.Forms;
+using System.Drawing;
+using System.Data;
+using FastReport;
+using FastReport.Data;
+using FastReport.Dialog;
+using FastReport.Barcode;
+using FastReport.Table;
+using FastReport.Utils;
+
+namespace FastReport
+{
+  public class ReportScript
+  {
+
+    private void btnOk_Click(object sender, EventArgs e)
+    {
+      
+    }
+
+    private void Form1_Load(object sender, EventArgs e)
+    {
+         
+    }
+
+    private void DataSelector1_Click(object sender, EventArgs e)
+    {
+      
+    }
+
+    private void ComboBox1_Click(object sender, EventArgs e)
+    {
+      
+    }
+  }
+}
+</ScriptText>
+  <Dictionary>
+    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqM3/HbiZANEYP3Y6oNtE7mhb00LswZpLPL1nHlNPE8Ttd/PYtJWZHa+Bi6VxY2kO/86yqC3dEAfSOFuAtVHPo27ltpeit54RmWfyB1HPJuDUSBNOELtEhifv9pd5xb8NjHezfLLxa7C+tQPiWNZSeipqAc5Xf2lw4HMB6xevXPAA=">
+      <TableDataSource Name="localEmployee" DataType="System.Int32" Enabled="true" TableName="localEmployee" SelectCommand="SELECT L.Surname, L.EName, L.Patronymic, L.Position, L.Speciality, L.Phone, L.EmployeeId, L.ConfNumber&#13;&#10;FROM &quot;localEmployee&quot; L where L.EmployeeId = @EmployeeId">
+        <Column Name="Surname" DataType="System.String"/>
+        <Column Name="EName" DataType="System.String"/>
+        <Column Name="Patronymic" DataType="System.String"/>
+        <Column Name="Position" DataType="System.String"/>
+        <Column Name="Speciality" DataType="System.String"/>
+        <Column Name="Phone" DataType="System.String"/>
+        <Column Name="EmployeeId" DataType="System.Int32"/>
+        <Column Name="FullNameInitials" DataType="System.String" PropName="Column" Calculated="true" Expression="[localEmployee.Surname] + &quot; &quot;+Substring([localEmployee.EName],0,1) + &quot;.&quot; +Substring([localEmployee.Patronymic],0,1) + &quot;.&quot;"/>
+        <Column Name="FullNamePos" DataType="System.String" PropName="Column" Calculated="true" Expression="LowerCase([localEmployee.Position])+&quot; &quot;+Substring([localEmployee.EName],0,1) + &quot;.&quot; +Substring([localEmployee.Patronymic],0,1) + &quot;. &quot; +[localEmployee.Surname]"/>
+        <Column Name="ConfNumber" DataType="System.String"/>
+        <CommandParameter Name="@EmployeeId" DataType="8" Expression="[EmployeeId]" DefaultValue="1"/>
+      </TableDataSource>
+      <TableDataSource Name="TerritoryAccount" DataType="System.Int32" PropName="Table" Enabled="true" TableName="FactTerritoryAccount" SelectCommand="SELECT F.Date, F.AccountNumber, F.AccountDate, F.Price, F.AcceptPrice, F.MECPenalties, F.MEEPenalties, F.EQMAPenalties, F.Comments, F.Source, F.Destination, F.Status, F.TerritoryAccountId, F.ExternalId&#13;&#10;FROM &quot;FactTerritoryAccount&quot; F WHERE  F.TerritoryAccountId=@AccountParam&#13;&#10;">
+        <Column Name="Date" DataType="System.DateTime"/>
+        <Column Name="AccountNumber" DataType="System.String"/>
+        <Column Name="AccountDate" DataType="System.DateTime"/>
+        <Column Name="Price" DataType="System.Decimal"/>
+        <Column Name="AcceptPrice" DataType="System.Decimal"/>
+        <Column Name="MECPenalties" DataType="System.Decimal"/>
+        <Column Name="MEEPenalties" DataType="System.Decimal"/>
+        <Column Name="EQMAPenalties" DataType="System.Decimal"/>
+        <Column Name="Comments" DataType="System.String"/>
+        <Column Name="Source" DataType="System.String"/>
+        <Column Name="Destination" DataType="System.String"/>
+        <Column Name="Status" DataType="System.Int32"/>
+        <Column Name="TerritoryAccountId" DataType="System.Int32"/>
+        <Column Name="ExternalId" DataType="System.Int32"/>
+        <CommandParameter Name="AccountParam" DataType="22" Expression="[AccountId]" DefaultValue="1"/>
+      </TableDataSource>
+      <TableDataSource Name="EventShortView" DataType="System.Int32" PropName="Table4" Enabled="true" TableName="EventShortView" SelectCommand="SELECT E.ExternalId, E.AccountId, E.EventId, E.PatientId, E.Surname, E.Name, E.Patronymic, E.Birthday, E.Sex, E.BirthPlace, E.INP, E.InsuranceDocNumber, E.InsuranceDocSeries, E.Insurance, E.AssistanceConditions, E.Diagnosis, E.Price, E.Rate, E.Quantity, E.AcceptPrice, E.EventBegin, E.EventEnd, E.Profile, E.Speciality, E.Result, E.Outcome, E.PaymentStatus, E.MEC, E.MEE,E.DocSeries, E.DocNum, E.EQMA,E.EventComments,(SELECT MedicalEventId =&#13;&#10;(&#13;&#10;    SELECT CONVERT(nvarchar(30),F1.Osn) + ','	&#13;&#10;        FROM &quot;FactMEC&quot;&#13;&#10;				INNER JOIN &quot;F014&quot; F1 ON ReasonId = F1.Id &#13;&#10;				WHERE MedicalEventId =  E.EventId &#13;&#10;        ORDER BY ReasonId&#13;&#10;        FOR XML PATH(''), TYPE&#13;&#10;).value('.[1]', 'NVARCHAR(MAX)')) as MecRefusals&#13;&#10;FROM &quot;EventShortView&quot; E WHERE E.AccountId=@AccountParam&#13;&#10;">
+        <Column Name="ExternalId" DataType="System.Int32"/>
+        <Column Name="AccountId" DataType="System.Int32"/>
+        <Column Name="EventId" DataType="System.Int32"/>
+        <Column Name="PatientId" DataType="System.Int32"/>
+        <Column Name="Surname" DataType="System.String"/>
+        <Column Name="Name" DataType="System.String"/>
+        <Column Name="Patronymic" DataType="System.String"/>
+        <Column Name="Birthday" DataType="System.DateTime"/>
+        <Column Name="Sex" DataType="System.String"/>
+        <Column Name="BirthPlace" DataType="System.String"/>
+        <Column Name="INP" DataType="System.String"/>
+        <Column Name="InsuranceDocNumber" DataType="System.String"/>
+        <Column Name="InsuranceDocSeries" DataType="System.String"/>
+        <Column Name="Insurance" DataType="System.String"/>
+        <Column Name="AssistanceConditions" DataType="System.Decimal"/>
+        <Column Name="Diagnosis" DataType="System.String"/>
+        <Column Name="Price" DataType="System.Decimal"/>
+        <Column Name="Rate" DataType="System.Decimal"/>
+        <Column Name="Quantity" DataType="System.Decimal"/>
+        <Column Name="AcceptPrice" DataType="System.Decimal"/>
+        <Column Name="EventBegin" DataType="System.DateTime"/>
+        <Column Name="EventEnd" DataType="System.DateTime"/>
+        <Column Name="Profile" DataType="System.Decimal"/>
+        <Column Name="Speciality" DataType="System.Decimal"/>
+        <Column Name="Result" DataType="System.Decimal"/>
+        <Column Name="Outcome" DataType="System.Decimal"/>
+        <Column Name="PaymentStatus" DataType="System.String"/>
+        <Column Name="MEC" DataType="System.Decimal"/>
+        <Column Name="MEE" DataType="System.Decimal"/>
+        <Column Name="EQMA" DataType="System.Decimal"/>
+        <Column Name="RefusalPrice" DataType="System.Decimal" PropName="Column" Calculated="true" Expression="[EventShortView.Price]-[EventShortView.AcceptPrice]"/>
+        <Column Name="MecRefusals" DataType="System.String"/>
+        <Column Name="DocSeries" DataType="System.String"/>
+        <Column Name="DocNum" DataType="System.String"/>
+        <Column Name="EventComments" DataType="System.String"/>
+        <CommandParameter Name="AccountParam" DataType="8" Expression="[AccountId]" DefaultValue="1"/>
+      </TableDataSource>
+      <TableDataSource Name="localF001" Alias="localF001Source" DataType="System.Int32" Enabled="true" TableName="localF001" SelectCommand="SELECT L.LocalF001Id, L.ShortName, L.PositionName, L.Name, L.Surname, L.Patronymic, L.OKATO, L.Code&#13;&#10;FROM &quot;localF001&quot; L WHERE L.OKATO = @OkatoSource&#13;&#10;">
+        <Column Name="LocalF001Id" DataType="System.Int32"/>
+        <Column Name="ShortName" DataType="System.String"/>
+        <Column Name="PositionName" DataType="System.String"/>
+        <Column Name="Name" DataType="System.String"/>
+        <Column Name="Surname" DataType="System.String"/>
+        <Column Name="Patronymic" DataType="System.String"/>
+        <Column Name="OKATO" DataType="System.String"/>
+        <Column Name="Code" DataType="System.String"/>
+        <CommandParameter Name="OkatoSource" DataType="22" Expression="[TerritoryAccount.Source]"/>
+      </TableDataSource>
+      <TableDataSource Name="Table" Alias="SumEvents" DataType="System.Int32" Enabled="true" SelectCommand="SELECT SUM(E.Price) as Total_Price,SUM(E.AcceptPrice) as Total_AcceptPrice, &#13;&#10;COUNT(*) as TotalPositions,&#13;&#10;(SELECT COUNT(*)&#13;&#10;FROM &quot;EventShortView&quot; E WHERE E.EventEnd BETWEEN @EventBeginParam AND @EventEndParam AND E.Price=E.AcceptPrice) as TotalAcceptPositions&#13;&#10;FROM &quot;EventShortView&quot; E WHERE E.EventEnd  BETWEEN @EventBeginParam AND @EventEndParam&#13;&#10;&#13;&#10;">
+        <Column Name="Total_Price" DataType="System.Decimal"/>
+        <Column Name="Total_AcceptPrice" DataType="System.Decimal"/>
+        <Column Name="TotalPositions" DataType="System.Int32"/>
+        <Column Name="TotalAcceptPositions" DataType="System.Int32"/>
+        <CommandParameter Name="EventEndParam" DataType="4" Expression="[dEnd]" DefaultValue="2012.01.01"/>
+        <CommandParameter Name="EventBeginParam" DataType="4" Expression="[dBeg]" DefaultValue="2012.01.01"/>
+      </TableDataSource>
+      <TableDataSource Name="F003" DataType="System.Int32" Enabled="true" TableName="F003" SelectCommand="SELECT F.Id, F.tf_okato, F.mcod, F.nam_mop, F.nam_mok, F.inn, F.Ogrn, F.KPP, F.index_j, F.addr_j, F.okopf, F.vedpri, F.org, F.fam_ruk, F.im_ruk, F.ot_ruk, F.phone, F.fax, F.e_mail, F.n_doc, F.d_start, F.data_e, F.mp, F.www, F.d_begin, F.d_end, F.name_e, F.DUVED, F.d_edit&#13;&#10;FROM &quot;F003&quot; F&#13;&#10;WHERE F.tf_okato='38000'&#13;&#10;ORDER BY F.mcod Asc&#13;&#10;">
+        <Column Name="Id" DataType="System.Int32"/>
+        <Column Name="tf_okato" DataType="System.String"/>
+        <Column Name="mcod" DataType="System.String"/>
+        <Column Name="nam_mop" DataType="System.String"/>
+        <Column Name="nam_mok" DataType="System.String"/>
+        <Column Name="inn" DataType="System.String"/>
+        <Column Name="Ogrn" DataType="System.String"/>
+        <Column Name="KPP" DataType="System.String"/>
+        <Column Name="index_j" DataType="System.String"/>
+        <Column Name="addr_j" DataType="System.String"/>
+        <Column Name="okopf" DataType="System.String"/>
+        <Column Name="vedpri" DataType="System.Decimal"/>
+        <Column Name="org" DataType="System.Decimal"/>
+        <Column Name="fam_ruk" DataType="System.String"/>
+        <Column Name="im_ruk" DataType="System.String"/>
+        <Column Name="ot_ruk" DataType="System.String"/>
+        <Column Name="phone" DataType="System.String"/>
+        <Column Name="fax" DataType="System.String"/>
+        <Column Name="e_mail" DataType="System.String"/>
+        <Column Name="n_doc" DataType="System.String"/>
+        <Column Name="d_start" DataType="System.DateTime"/>
+        <Column Name="data_e" DataType="System.DateTime"/>
+        <Column Name="mp" DataType="System.String"/>
+        <Column Name="www" DataType="System.String"/>
+        <Column Name="d_begin" DataType="System.DateTime"/>
+        <Column Name="d_end" DataType="System.DateTime"/>
+        <Column Name="name_e" DataType="System.String"/>
+        <Column Name="DUVED" DataType="System.DateTime"/>
+        <Column Name="d_edit" DataType="System.DateTime"/>
+      </TableDataSource>
+      <TableDataSource Name="Table3" Alias="CurrentF003" DataType="System.Int32" Enabled="true" SelectCommand="SELECT F.Id, F.tf_okato, F.mcod, F.nam_mop, F.nam_mok, F.inn, F.Ogrn, F.KPP, F.index_j, F.addr_j, F.okopf, F.vedpri, F.org, F.fam_ruk, F.im_ruk, F.ot_ruk, F.phone, F.fax, F.e_mail, F.n_doc, F.d_start, F.data_e, F.mp, F.www, F.d_begin, F.d_end, F.name_e, F.DUVED, F.d_edit&#13;&#10;FROM &quot;F003&quot; F&#13;&#10;WHERE F.mcod=@MoCodeParam&#13;&#10;">
+        <Column Name="Id" DataType="System.Int32"/>
+        <Column Name="tf_okato" DataType="System.String"/>
+        <Column Name="mcod" DataType="System.String"/>
+        <Column Name="nam_mop" DataType="System.String"/>
+        <Column Name="nam_mok" DataType="System.String"/>
+        <Column Name="inn" DataType="System.String"/>
+        <Column Name="Ogrn" DataType="System.String"/>
+        <Column Name="KPP" DataType="System.String"/>
+        <Column Name="index_j" DataType="System.String"/>
+        <Column Name="addr_j" DataType="System.String"/>
+        <Column Name="okopf" DataType="System.String"/>
+        <Column Name="vedpri" DataType="System.Decimal"/>
+        <Column Name="org" DataType="System.Decimal"/>
+        <Column Name="fam_ruk" DataType="System.String"/>
+        <Column Name="im_ruk" DataType="System.String"/>
+        <Column Name="ot_ruk" DataType="System.String"/>
+        <Column Name="phone" DataType="System.String"/>
+        <Column Name="fax" DataType="System.String"/>
+        <Column Name="e_mail" DataType="System.String"/>
+        <Column Name="n_doc" DataType="System.String"/>
+        <Column Name="d_start" DataType="System.DateTime"/>
+        <Column Name="data_e" DataType="System.DateTime"/>
+        <Column Name="mp" DataType="System.String"/>
+        <Column Name="www" DataType="System.String"/>
+        <Column Name="d_begin" DataType="System.DateTime"/>
+        <Column Name="d_end" DataType="System.DateTime"/>
+        <Column Name="name_e" DataType="System.String"/>
+        <Column Name="DUVED" DataType="System.DateTime"/>
+        <Column Name="d_edit" DataType="System.DateTime"/>
+        <CommandParameter Name="MoCodeParam" DataType="22" Expression="[MoCode]" DefaultValue="460001"/>
+      </TableDataSource>
+    </MsSqlDataConnection>
+    <Parameter Name="AccountId" DataType="System.Int32"/>
+    <Parameter Name="ActDate" DataType="System.DateTime" Expression="[Date]"/>
+    <Parameter Name="ActNumber" DataType="System.Decimal"/>
+    <Parameter Name="EmployeeId" DataType="System.Int32"/>
+    <Parameter Name="dBeg" DataType="System.DateTime"/>
+    <Parameter Name="dEnd" DataType="System.DateTime"/>
+    <Parameter Name="MoCode" DataType="System.String"/>
+    <Total Name="TotalPrice" Expression="[EventShortView.Price]" Evaluator="Data2"/>
+    <Total Name="TotalRefusal" Expression="[EventShortView.RefusalPrice]" Evaluator="Data2" ResetAfterPrint="false"/>
+    <Total Name="TotalPosition" TotalType="Count" Evaluator="Data2"/>
+  </Dictionary>
+  <ReportPage Name="Page1" RawPaperSize="9">
+    <ReportTitleBand Name="ReportTitle1" Width="718.2" Height="226.8">
+      <RichObject Name="Rich2" Width="718.2" Height="226.8" Text="{\rtf1\ansi\ansicpg1251\deff0\deflang1049{\fonttbl{\f0\fnil\fcharset204{\*\fname Times New Roman;}Times New Roman CYR;}{\f1\fnil\fcharset0 Times New Roman;}{\f2\fnil\fcharset204 Tahoma;}}&#13;&#10;{\*\generator Msftedit 5.41.21.2509;}\viewkind4\uc1\pard\qj\f0\fs20\'d0\'e5\'e5\'f1\'f2\'f0 \'e0\'ea\'f2\'ee\'e2 \'ec\'e5\'e4\'e8\'ea\'ee-\'fd\'ea\'ee\'ed\'ee\'ec\'e8\'f7\'e5\'f1\'ea\'ee\'e3\'ee \'ea\'ee\'ed\'f2\'f0\'ee\'eb\'ff\par&#13;&#10;\par&#13;&#10;\'cf\'e5\'f0\'e8\'ee\'e4 [dBeg] \'e3. - [dEnd]\lang1033\f1  \lang1049\f0\'e3.\par&#13;&#10;\'c2\'e8\'e4 \'ec\'e5\'e4\'e8\'ea\'ee-\'fd\'ea\'ee\'ed\'ee\'ec\'e8\'f7\'e5\'f1\'ea\'ee\'e3\'ee \'ea\'ee\'ed\'f2\'f0\'ee\'eb\'ff: ________ (\'ef\'e5\'f0\'e2\'e8\'f7\'ed\'fb\'e9 - 1, \'ef\'ee\'e2\'f2\'ee\'f0\'ed\'fb\'e9 - 2)\par&#13;&#10;\'cd\'e0\'e8\'ec\'e5\'ed\'ee\'e2\'e0\'ed\'e8\'e5 \'e8 \'ea\'ee\'e4 \'d1\'cc\'ce (\'d2\'d4), \'ef\'ee\'eb\'f3\'f7\'e8\'e2\'f8\'e5\'e3\'ee \'f1\'f7\'e5\'f2\'e0 \'ee\'f2 \'ec\'e5\'e4\'e8\'f6\'e8\'ed\'f1\'ea\'ee\'e9 \'ee\'f0\'e3\'e0\'ed\'e8\'e7\'e0\'f6\'e8\'e8\par&#13;&#10;\ul\'d2\'e5\'f0\'f0\'e8\'f2\'ee\'f0\'e8\'e0\'eb\'fc\'ed\'fb\'e9 \'f4\'ee\'ed\'e4 \'ee\'e1\'ff\'e7\'e0\'f2\'e5\'eb\'fc\'ed\'ee\'e3\'ee \'ec\'e5\'e4\'e8\'f6\'e8\'ed\'f1\'ea\'ee\'e3\'ee \'f1\'f2\'f0\'e0\'f5\'ee\'e2\'e0\'ed\'e8\'ff \'ca\'f3\'f0\'f1\'ea\'ee\'e9 \'ee\'e1\'eb\'e0\'f1\'f2\'e8\ulnone\par&#13;&#10;\'cd\'e0\'e7\'e2\'e0\'ed\'e8\'e5 \'e8 \'ea\'ee\'e4 \'f2\'e5\'f0\'f0\'e8\'f2\'ee\'f0\'e8\'e8 \'ec\'e5\'f1\'f2\'ee\'ed\'e0\'f5\'ee\'e6\'e4\'e5\'ed\'e8\'ff \'d1\'cc\'ce (\'d2\'d4)\par&#13;&#10;\ul\'ca\'f3\'f0\'f1\'ea\'e0\'ff \'ee\'e1\'eb\'e0\'f1\'f2\'fc 38000\ulnone\par&#13;&#10;\'cd\'e0\'e8\'ec\'e5\'ed\'ee\'e2\'e0\'ed\'e8\'e5, \'ec\'e5\'f1\'f2\'ee\'ed\'e0\'f5\'ee\'e6\'e4\'e5\'ed\'e8\'e5 \'e8 \'ea\'ee\'e4 \'ec\'e5\'e4\'e8\'f6\'e8\'ed\'f1\'ea\'ee\'e9 \'ee\'f0\'e3\'e0\'ed\'e8\'e7\'e0\'f6\'e8\'e8, \'ef\'f0\'e5\'e4\'ee\'f1\'f2\'e0\'e2\'e8\'e2\'f8\'e5\'e9\par&#13;&#10;\'f1\'f7\'e5\'f2 \lang1033\f1 [CurrentF003.nam_mok],  [CurrentF003.addr_j], [CurrentF003.mcod]\par&#13;&#10;\lang1049\f0\'ca\'ee\'e4 \par&#13;&#10;\'cd\'e0  \'e0\'ed\'e0\'eb\'e8\'e7  \'ef\'f0\'e5\'e4\'ee\'f1\'f2\'e0\'e2\'eb\'e5\'ed\'fb  \'f0\'e5\'e5\'f1\'f2\'f0\'fb  \'f1\'f7\'e5\'f2\'ee\'e2 (\'f1\'f7\'e5\'f2\'e0) \'e7\'e0  \'ec\'e5\'e4\'e8\'f6\'e8\'ed\'f1\'ea\'e8\'e5  \'f3\'f1\'eb\'f3\'e3\'e8,\par&#13;&#10;\'ee\'ea\'e0\'e7\'e0\'ed\'ed\'fb\'e5 \'e7\'e0\'f1\'f2\'f0\'e0\'f5\'ee\'e2\'e0\'ed\'ed\'fb\'ec \'eb\'e8\'f6\'e0\'ec.\par&#13;&#10;\'c2\'f1\'e5\'e3\'ee \'ef\'f0\'e5\'e4\'ee\'f1\'f2\'e0\'e2\'eb\'e5\'ed\'ee \'f1\'f7\'e5\'f2\'ee\'e2 \'ed\'e0 \'f1\'f3\'ec\'ec\'f3 [SumEvents.Total_Price] \'f0\'f3\'e1.\par&#13;&#10;\'cf\'f0\'e5\'e4\'ee\'f1\'f2\'e0\'e2\'eb\'e5\'ed\'ed\'fb\'e5 \'e4\'eb\'ff \'ec\'e5\'e4\'e8\'ea\'ee-\'fd\'ea\'ee\'ed\'ee\'ec\'e8\'f7\'e5\'f1\'ea\'ee\'e3\'ee \'ea\'ee\'ed\'f2\'f0\'ee\'eb\'ff \'f1\'f7\'e5\'f2\'e0 \'e2\'ea\'eb\'fe\'f7\'e0\'fe\'f2:\par&#13;&#10;\pard\f2\fs17\par&#13;&#10;}&#13;&#10;"/>
+    </ReportTitleBand>
+    <DataBand Name="Data2" Top="230.8" Width="718.2" Height="123.85" CanGrow="true" CanShrink="true" DataSource="EventShortView" Filter="[EventShortView.Price]!=[EventShortView.AcceptPrice]" KeepTogether="true">
+      <RichObject Name="Rich3" Width="718.2" Height="122.85" Text="{\rtf1\ansi\ansicpg1251\deff0\deflang1049{\fonttbl{\f0\fnil\fcharset204{\*\fname Times New Roman;}Times New Roman CYR;}{\f1\fnil\fcharset204 Tahoma;}}&#13;&#10;{\*\generator Msftedit 5.41.15.1515;}\viewkind4\uc1\pard\f0\fs20\'c7\'e0 \'f1\'f2\'e0\'f6\'e8\'ee\'ed\'e0\'f0\'ed\'f3\'fe \'ec\'e5\'e4\'e8\'f6\'e8\'ed\'f1\'ea\'f3\'fe \'ef\'ee\'ec\'ee\'f9\'fc:\par&#13;&#10;          \'f1\'f7\'e5\'f2(\'ee\'e2) _________ \'f0\'e5\'e5\'f1\'f2\'f0\'ee\'e2 \'f1\'f7\'e5\'f2\'ee\'e2 ___________\par&#13;&#10;          ______________ \'ed\'e0 \'f1\'f3\'ec\'ec\'f3 ________________________ \'f0\'f3\'e1.\par&#13;&#10;\'c7\'e0 \'ec\'e5\'e4\'e8\'f6\'e8\'ed\'f1\'ea\'f3\'fe \'ef\'ee\'ec\'ee\'f9\'fc, \'ee\'ea\'e0\'e7\'e0\'ed\'ed\'f3\'fe \'e2 \'e4\'ed\'e5\'e2\'ed\'ee\'ec \'f1\'f2\'e0\'f6\'e8\'ee\'ed\'e0\'f0\'e5:\par&#13;&#10;          ______________ \'f0\'e5\'e5\'f1\'f2\'f0\'ee\'e2 \'f1\'f7\'e5\'f2\'ee\'e2\par&#13;&#10;          ______________ \'f1\'f7\'e5\'f2\'ee\'e2 _________ \'ed\'e0 \'f1\'f3\'ec\'ec\'f3 ___________ \'f0\'f3\'e1.\par&#13;&#10;\'c7\'e0 \'e0\'ec\'e1\'f3\'eb\'e0\'f2\'ee\'f0\'ed\'ee-\'ef\'ee\'eb\'e8\'ea\'eb\'e8\'ed\'e8\'f7\'e5\'f1\'ea\'f3\'fe \'ec\'e5\'e4\'e8\'f6\'e8\'ed\'f1\'ea\'f3\'fe \'ef\'ee\'ec\'ee\'f9\'fc (\'e2 \'f2.\'f7. \'f1\'f2\'ee\'ec\'e0\'f2\'ee\'eb\'ee\'e3\'e8\'f7\'e5\'f1\'ea\'e8\'e5\par&#13;&#10;\'e8 \'ef\'e0\'f0\'e0\'ea\'eb\'e8\'ed\'e8\'f7\'e5\'f1\'ea\'e8\'e5 \'f3\'f1\'eb\'f3\'e3\'e8):\par&#13;&#10;                       \'f1\'f7\'e5\'f2(\'ee\'e2) _________ \'f0\'e5\'e5\'f1\'f2\'f0\'ee\'e2 \'f1\'f7\'e5\'f2\'ee\'e2 _________\par&#13;&#10;\'ed\'e0 \'f1\'f3\'ec\'ec\'f3 ___________________ \'f0\'f3\'e1.\f1\fs17\par&#13;&#10;}&#13;&#10;"/>
+      <DataFooterBand Name="DataFooter2" Top="358.65" Width="718.2" Height="189">
+        <RichObject Name="Rich4" Width="718.2" Height="189" Text="{\rtf1\ansi\ansicpg1251\deff0\deflang1049{\fonttbl{\f0\fnil\fcharset204{\*\fname Times New Roman;}Times New Roman CYR;}}&#13;&#10;{\*\generator Msftedit 5.41.15.1515;}\viewkind4\uc1\pard\f0\fs20 1. \'d1\'ee\'e3\'eb\'e0\'f1\'ee\'e2\'e0\'ed\'ee \'ea \'ee\'ef\'eb\'e0\'f2\'e5 \'e2\'f1\'e5\'e3\'ee:\par&#13;&#10;\'d1\'f7\'e5\'f2\'ee\'e2 ____________ \'ed\'e0 \'f1\'f3\'ec\'ec\'f3 ____________ \'f0\'f3\'e1.\par&#13;&#10;\'f0\'e5\'e5\'f1\'f2\'f0\'ee\'e2 \'f1\'f7\'e5\'f2\'ee\'e2 \'ed\'e0 \'f1\'f3\'ec\'ec\'f3: _____________________ \'f0\'f3\'e1.\par&#13;&#10;\'c2 \'f2.\'f7.: \'e7\'e0 \'f1\'f2\'e0\'f6\'e8\'ee\'ed\'e0\'f0\'ed\'f3\'fe \'ec\'e5\'e4\'e8\'f6\'e8\'ed\'f1\'ea\'f3\'fe \'ef\'ee\'ec\'ee\'f9\'fc \'ed\'e0 \'f1\'f3\'ec\'ec\'f3: _____ \'f0\'f3\'e1. ____ \'f1\'f7\'e5\'f2\'ee\'e2\par&#13;&#10;\'e7\'e0 \'ec\'e5\'e4. \'ef\'ee\'ec\'ee\'f9\'fc \'e2 \'e4\'ed\'e5\'e2\'ed\'ee\'ec \'f1\'f2\'e0\'f6\'e8\'ee\'ed\'e0\'f0\'e5 \'ed\'e0 \'f1\'f3\'ec\'ec\'f3: _________ \'f0\'f3\'e1. _______ \'f1\'f7\'e5\'f2\'ee\'e2\par&#13;&#10;\'e7\'e0 \'e0\'ec\'e1\'f3\'eb\'e0\'f2\'ee\'f0\'ed\'ee-\'ef\'ee\'eb\'e8\'ea\'eb\'e8\'ed\'e8\'f7\'e5\'f1\'ea\'f3\'fe \'ec\'e5\'e4. \'ef\'ee\'ec\'ee\'f9\'fc \'ed\'e0 \'f1\'f3\'ec\'ec\'f3: _____ \'f0\'f3\'e1. ____ \'f1\'f7\'e5\'f2\'ee\'e2\par&#13;&#10;2. \'cd\'e5 \'f1\'ee\'e3\'eb\'e0\'f1\'ee\'e2\'e0\'ed\'ee \'ea \'ee\'ef\'eb\'e0\'f2\'e5 \'f0\'e5\'e5\'f1\'f2\'f0\'ee\'e2 \'f1\'f7\'e5\'f2\'ee\'e2 \'ed\'e0 \'f1\'f3\'ec\'ec\'f3: __________ \'f0\'f3\'e1.\par&#13;&#10;\'c2 \'f2.\'f7.: \'e7\'e0 \'f1\'f2\'e0\'f6\'e8\'ee\'ed\'e0\'f0\'ed\'f3\'fe \'ec\'e5\'e4\'e8\'f6\'e8\'ed\'f1\'ea\'f3\'fe \'ef\'ee\'ec\'ee\'f9\'fc \'ed\'e0 \'f1\'f3\'ec\'ec\'f3: _____ \'f0\'f3\'e1. ____ \'f1\'f7\'e5\'f2\'ee\'e2\par&#13;&#10;\'e7\'e0 \'ec\'e5\'e4\'e8\'f6\'e8\'ed\'f1\'ea\'f3\'fe \'ef\'ee\'ec\'ee\'f9\'fc \'e2 \'e4\'ed\'e5\'e2\'ed\'ee\'ec \'f1\'f2\'e0\'f6\'e8\'ee\'ed\'e0\'f0\'e5 \'ed\'e0 \'f1\'f3\'ec\'ec\'f3: _____ \'f0\'f3\'e1. ____ \'f1\'f7\'e5\'f2\'ee\'e2\par&#13;&#10;\'e7\'e0 \'e0\'ec\'e1\'f3\'eb\'e0\'f2\'ee\'f0\'ed\'ee-\'ef\'ee\'eb\'e8\'ea\'eb\'e8\'ed\'e8\'f7\'e5\'f1\'ea\'f3\'fe \'ec\'e5\'e4\'e8\'f6\'e8\'ed\'f1\'ea\'f3\'fe \'ef\'ee\'ec\'ee\'f9\'fc \'ed\'e0 \'f1\'f3\'ec\'ec\'f3: __________ \'f0\'f3\'e1.\par&#13;&#10;______ \'f1\'f7\'e5\'f2\'ee\'e2\par&#13;&#10;\'e7\'e0 \'ef\'f0\'e5\'e2\'fb\'f8\'e5\'ed\'e8\'e5 \'f1\'ee\'e3\'eb\'e0\'f1\'ee\'e2\'e0\'ed\'ed\'fb\'f5 \'ee\'e1\'fa\'e5\'ec\'ee\'e2 \'ec\'e5\'e4\'e8\'f6\'e8\'ed\'f1\'ea\'e8\'f5 \'f3\'f1\'eb\'f3\'e3 \'ed\'e0 \'f1\'f3\'ec\'ec\'f3: ______ \'f0\'f3\'e1.\par&#13;&#10;\par&#13;&#10;}&#13;&#10;"/>
+      </DataFooterBand>
+    </DataBand>
+    <DataBand Name="Data1" Top="773" Width="718.2" Height="18.9" Guides="9.45">
+      <TableObject Name="Table1" Width="718.2" Height="18.9" Border.Lines="All">
+        <TableColumn Name="Column77" Width="56.7"/>
+        <TableColumn Name="Column78"/>
+        <TableColumn Name="Column79"/>
+        <TableColumn Name="Column80" Width="56.7"/>
+        <TableColumn Name="Column81"/>
+        <TableColumn Name="Column82" Width="47.25"/>
+        <TableColumn Name="Column83" Width="56.7"/>
+        <TableColumn Name="Column84"/>
+        <TableColumn Name="Column85" Width="47.25"/>
+        <TableColumn Name="Column86"/>
+        <TableColumn Name="Column87" Width="122.85"/>
+        <TableRow Name="Row19">
+          <TableCell Name="Cell199" Border.Lines="All" Font="Times New Roman, 9pt"/>
+          <TableCell Name="Cell200" Border.Lines="All" Font="Times New Roman, 9pt"/>
+          <TableCell Name="Cell201" Border.Lines="All" Font="Times New Roman, 9pt"/>
+          <TableCell Name="Cell202" Border.Lines="All" Font="Times New Roman, 9pt"/>
+          <TableCell Name="Cell203" Border.Lines="All" Font="Times New Roman, 9pt"/>
+          <TableCell Name="Cell204" Border.Lines="All" Font="Times New Roman, 9pt"/>
+          <TableCell Name="Cell205" Border.Lines="All" Font="Times New Roman, 9pt"/>
+          <TableCell Name="Cell206" Border.Lines="All" Font="Times New Roman, 9pt"/>
+          <TableCell Name="Cell207" Border.Lines="All" Font="Times New Roman, 9pt"/>
+          <TableCell Name="Cell208" Border.Lines="All" Font="Times New Roman, 9pt"/>
+          <TableCell Name="Cell209" Border.Lines="All" Font="Times New Roman, 9pt"/>
+        </TableRow>
+      </TableObject>
+      <DataHeaderBand Name="DataHeader1" Top="551.65" Width="718.2" Height="217.35">
+        <TableObject Name="Table2" Top="37.8" Width="718.2" Height="179.55" Border.Lines="All">
+          <TableColumn Name="Column57" Width="56.7"/>
+          <TableColumn Name="Column58"/>
+          <TableColumn Name="Column59"/>
+          <TableColumn Name="Column60" Width="56.7"/>
+          <TableColumn Name="Column61"/>
+          <TableColumn Name="Column62" Width="47.25"/>
+          <TableColumn Name="Column63" Width="56.7"/>
+          <TableColumn Name="Column64"/>
+          <TableColumn Name="Column65" Width="47.25"/>
+          <TableColumn Name="Column75"/>
+          <TableColumn Name="Column76" Width="122.85"/>
+          <TableRow Name="Row17" Height="160.65">
+            <TableCell Name="Cell144" Border.Lines="All" Text="Код    &#13;&#10;струк- &#13;&#10;турного&#13;&#10;подраз-&#13;&#10;деления" Font="Times New Roman, 9pt"/>
+            <TableCell Name="Cell145" Border.Lines="All" Text="Код     &#13;&#10;отделения  &#13;&#10;или профиля &#13;&#10;коек (для  &#13;&#10;стационарной&#13;&#10;медицинской &#13;&#10;помощи)   " Font="Times New Roman, 9pt"/>
+            <TableCell Name="Cell146" Border.Lines="All" Text="N ин-  &#13;&#10;дивиду-&#13;&#10;ального&#13;&#10;счета  &#13;&#10;" Font="Times New Roman, 9pt"/>
+            <TableCell Name="Cell147" Border.Lines="All" Text="Период &#13;&#10;(месяц)&#13;&#10;" Font="Times New Roman, 9pt"/>
+            <TableCell Name="Cell148" Border.Lines="All" Text="N полиса&#13;&#10;обяза-  &#13;&#10;тельного&#13;&#10;медицин-&#13;&#10;ского   &#13;&#10;страхо- &#13;&#10;вания   &#13;&#10;" Font="Times New Roman, 9pt"/>
+            <TableCell Name="Cell169" Border.Lines="All" Text="Код    &#13;&#10;терри- &#13;&#10;тории  &#13;&#10;страхо-&#13;&#10;вания  &#13;&#10;" Font="Times New Roman, 9pt"/>
+            <TableCell Name="Cell170" Border.Lines="All" Text="Код  &#13;&#10;причины&#13;&#10;отказа &#13;&#10;в   &#13;&#10;оплате &#13;&#10;" Font="Times New Roman, 9pt"/>
+            <TableCell Name="Cell171" Border.Lines="All" Text="Сумма,&#13;&#10;подле-&#13;&#10;жащая &#13;&#10;отказу&#13;&#10;в оп- &#13;&#10;лате  &#13;&#10;" Font="Times New Roman, 9pt"/>
+            <TableCell Name="Cell172" Border.Lines="All" Text="Код   &#13;&#10;финан-&#13;&#10;совых &#13;&#10;санк- &#13;&#10;ций   &#13;&#10;" Font="Times New Roman, 9pt"/>
+            <TableCell Name="Cell195" Border.Lines="All" Text="Сумма &#13;&#10;финан-&#13;&#10;совых &#13;&#10;санк- &#13;&#10;ций   &#13;&#10;" Font="Times New Roman, 9pt"/>
+            <TableCell Name="Cell196" Border.Lines="All" Text="При-&#13;&#10;ме- &#13;&#10;ча- &#13;&#10;ния &#13;&#10;" Font="Times New Roman, 9pt"/>
+          </TableRow>
+          <TableRow Name="Row18">
+            <TableCell Name="Cell149" Border.Lines="All" Text="1" HorzAlign="Center" Font="Times New Roman, 10pt"/>
+            <TableCell Name="Cell150" Border.Lines="All" Text="2" HorzAlign="Center" Font="Times New Roman, 10pt"/>
+            <TableCell Name="Cell151" Border.Lines="All" Text="3" HorzAlign="Center" Font="Times New Roman, 10pt"/>
+            <TableCell Name="Cell152" Border.Lines="All" Text="4" HorzAlign="Center" Font="Times New Roman, 10pt"/>
+            <TableCell Name="Cell153" Border.Lines="All" Text="5" HorzAlign="Center" Font="Times New Roman, 10pt"/>
+            <TableCell Name="Cell173" Border.Lines="All" Text="6" HorzAlign="Center" Font="Times New Roman, 10pt"/>
+            <TableCell Name="Cell174" Border.Lines="All" Text="7" HorzAlign="Center" Font="Times New Roman, 10pt"/>
+            <TableCell Name="Cell175" Border.Lines="All" Text="8" HorzAlign="Center" Font="Times New Roman, 10pt"/>
+            <TableCell Name="Cell176" Border.Lines="All" Text="9" HorzAlign="Center" Font="Times New Roman, 10pt"/>
+            <TableCell Name="Cell197" Border.Lines="All" Text="10" HorzAlign="Center"/>
+            <TableCell Name="Cell198" Border.Lines="All" Text="11" HorzAlign="Center"/>
+          </TableRow>
+        </TableObject>
+        <RichObject Name="Rich5" Width="718.2" Height="37.8" Text="{\rtf1\ansi\ansicpg1251\deff0\deflang1049{\fonttbl{\f0\fnil\fcharset204{\*\fname Times New Roman;}Times New Roman CYR;}{\f1\fnil\fcharset204 Tahoma;}}&#13;&#10;{\*\generator Msftedit 5.41.15.1515;}\viewkind4\uc1\pard\f0\fs20 2.1. \'cd\'e5 \'ef\'ee\'e4\'eb\'e5\'e6\'e8\'f2 \'ee\'ef\'eb\'e0\'f2\'e5 _______ \'f1\'f7\'e5\'f2\'ee\'e2 \'ed\'e0 \'f1\'f3\'ec\'ec\'f3 _________ \'f0\'f3\'e1.\par&#13;&#10;2.1.1. \'e7\'e0 \'f1\'f2\'e0\'f6\'e8\'ee\'ed\'e0\'f0\'ed\'f3\'fe \'ec\'e5\'e4\'e8\'f6\'e8\'ed\'f1\'ea\'f3\'fe \'ef\'ee\'ec\'ee\'f9\'fc \'ed\'e0 \'f1\'f3\'ec\'ec\'f3: ______ \'f0\'f3\'e1. ____ \'f1\'f7\'e5\'f2\'ee\'e2\par&#13;&#10;\pard\f1\fs17\par&#13;&#10;}&#13;&#10;"/>
+      </DataHeaderBand>
+    </DataBand>
+    <DataBand Name="Data3" Top="998.35" Width="718.2" Height="18.9">
+      <TableObject Name="Table1" Width="718.2" Height="18.9" Border.Lines="All">
+        <TableColumn Name="Column110" Width="56.7"/>
+        <TableColumn Name="Column111"/>
+        <TableColumn Name="Column112"/>
+        <TableColumn Name="Column113" Width="56.7"/>
+        <TableColumn Name="Column114"/>
+        <TableColumn Name="Column115" Width="47.25"/>
+        <TableColumn Name="Column116" Width="56.7"/>
+        <TableColumn Name="Column117"/>
+        <TableColumn Name="Column118" Width="47.25"/>
+        <TableColumn Name="Column119"/>
+        <TableColumn Name="Column120" Width="122.85"/>
+        <TableRow Name="Row24">
+          <TableCell Name="Cell254" Border.Lines="All" Font="Times New Roman, 9pt"/>
+          <TableCell Name="Cell255" Border.Lines="All" Font="Times New Roman, 9pt"/>
+          <TableCell Name="Cell256" Border.Lines="All" Font="Times New Roman, 9pt"/>
+          <TableCell Name="Cell257" Border.Lines="All" Font="Times New Roman, 9pt"/>
+          <TableCell Name="Cell258" Border.Lines="All" Font="Times New Roman, 9pt"/>
+          <TableCell Name="Cell259" Border.Lines="All" Font="Times New Roman, 9pt"/>
+          <TableCell Name="Cell260" Border.Lines="All" Font="Times New Roman, 9pt"/>
+          <TableCell Name="Cell261" Border.Lines="All" Font="Times New Roman, 9pt"/>
+          <TableCell Name="Cell262" Border.Lines="All" Font="Times New Roman, 9pt"/>
+          <TableCell Name="Cell263" Border.Lines="All" Font="Times New Roman, 9pt"/>
+          <TableCell Name="Cell264" Border.Lines="All" Font="Times New Roman, 9pt"/>
+        </TableRow>
+      </TableObject>
+      <DataHeaderBand Name="DataHeader2" Top="795.9" Width="718.2" Height="198.45" Guides="160.65,151.2,151.2,151.2,151.2">
+        <TableObject Name="Table1" Top="18.9" Width="718.2" Height="179.55" Border.Lines="All">
+          <TableColumn Name="Column88" Width="56.7"/>
+          <TableColumn Name="Column89"/>
+          <TableColumn Name="Column90"/>
+          <TableColumn Name="Column91" Width="56.7"/>
+          <TableColumn Name="Column92"/>
+          <TableColumn Name="Column93" Width="47.25"/>
+          <TableColumn Name="Column94" Width="56.7"/>
+          <TableColumn Name="Column95"/>
+          <TableColumn Name="Column96" Width="47.25"/>
+          <TableColumn Name="Column97"/>
+          <TableColumn Name="Column98" Width="122.85"/>
+          <TableRow Name="Row20" Height="160.65">
+            <TableCell Name="Cell210" Border.Lines="All" Text="Код    &#13;&#10;струк- &#13;&#10;турного&#13;&#10;подраз-&#13;&#10;деления" Font="Times New Roman, 9pt"/>
+            <TableCell Name="Cell211" Border.Lines="All" Text="Код     &#13;&#10;отделения  &#13;&#10;или профиля &#13;&#10;коек (для  &#13;&#10;стационарной&#13;&#10;медицинской &#13;&#10;помощи)   " Font="Times New Roman, 9pt"/>
+            <TableCell Name="Cell212" Border.Lines="All" Text="N ин-  &#13;&#10;дивиду-&#13;&#10;ального&#13;&#10;счета  &#13;&#10;" Font="Times New Roman, 9pt"/>
+            <TableCell Name="Cell213" Border.Lines="All" Text="Период &#13;&#10;(месяц)&#13;&#10;" Font="Times New Roman, 9pt"/>
+            <TableCell Name="Cell214" Border.Lines="All" Text="N полиса&#13;&#10;обяза-  &#13;&#10;тельного&#13;&#10;медицин-&#13;&#10;ского   &#13;&#10;страхо- &#13;&#10;вания   &#13;&#10;" Font="Times New Roman, 9pt"/>
+            <TableCell Name="Cell215" Border.Lines="All" Text="Код    &#13;&#10;терри- &#13;&#10;тории  &#13;&#10;страхо-&#13;&#10;вания  &#13;&#10;" Font="Times New Roman, 9pt"/>
+            <TableCell Name="Cell216" Border.Lines="All" Text="Код  &#13;&#10;причины&#13;&#10;отказа &#13;&#10;в   &#13;&#10;оплате &#13;&#10;" Font="Times New Roman, 9pt"/>
+            <TableCell Name="Cell217" Border.Lines="All" Text="Сумма,&#13;&#10;подле-&#13;&#10;жащая &#13;&#10;отказу&#13;&#10;в оп- &#13;&#10;лате  &#13;&#10;" Font="Times New Roman, 9pt"/>
+            <TableCell Name="Cell218" Border.Lines="All" Text="Код   &#13;&#10;финан-&#13;&#10;совых &#13;&#10;санк- &#13;&#10;ций   &#13;&#10;" Font="Times New Roman, 9pt"/>
+            <TableCell Name="Cell219" Border.Lines="All" Text="Сумма &#13;&#10;финан-&#13;&#10;совых &#13;&#10;санк- &#13;&#10;ций   &#13;&#10;" Font="Times New Roman, 9pt"/>
+            <TableCell Name="Cell220" Border.Lines="All" Text="При-&#13;&#10;ме- &#13;&#10;ча- &#13;&#10;ния &#13;&#10;" Font="Times New Roman, 9pt"/>
+          </TableRow>
+          <TableRow Name="Row21">
+            <TableCell Name="Cell221" Border.Lines="All" Text="1" HorzAlign="Center" Font="Times New Roman, 10pt"/>
+            <TableCell Name="Cell222" Border.Lines="All" Text="2" HorzAlign="Center" Font="Times New Roman, 10pt"/>
+            <TableCell Name="Cell223" Border.Lines="All" Text="3" HorzAlign="Center" Font="Times New Roman, 10pt"/>
+            <TableCell Name="Cell224" Border.Lines="All" Text="4" HorzAlign="Center" Font="Times New Roman, 10pt"/>
+            <TableCell Name="Cell225" Border.Lines="All" Text="5" HorzAlign="Center" Font="Times New Roman, 10pt"/>
+            <TableCell Name="Cell226" Border.Lines="All" Text="6" HorzAlign="Center" Font="Times New Roman, 10pt"/>
+            <TableCell Name="Cell227" Border.Lines="All" Text="7" HorzAlign="Center" Font="Times New Roman, 10pt"/>
+            <TableCell Name="Cell228" Border.Lines="All" Text="8" HorzAlign="Center" Font="Times New Roman, 10pt"/>
+            <TableCell Name="Cell229" Border.Lines="All" Text="9" HorzAlign="Center" Font="Times New Roman, 10pt"/>
+            <TableCell Name="Cell230" Border.Lines="All" Text="10" HorzAlign="Center"/>
+            <TableCell Name="Cell231" Border.Lines="All" Text="11" HorzAlign="Center"/>
+          </TableRow>
+        </TableObject>
+        <RichObject Name="Rich6" Width="718.2" Height="18.9" Text="{\rtf1\ansi\ansicpg1251\deff0\deflang1049{\fonttbl{\f0\fnil\fcharset204{\*\fname Times New Roman;}Times New Roman CYR;}{\f1\fnil\fcharset0 Times New Roman;}{\f2\fnil\fcharset204 Tahoma;}}&#13;&#10;{\*\generator Msftedit 5.41.15.1515;}\viewkind4\uc1\pard\f0\fs20 2.1.2. \'e7\'e0 \'ec\'e5\'e4\'e8\'f6\'e8\'ed\'f1\'ea\'f3\'fe \'ef\'ee\'ec\'ee\'f9\'fc \'e2 \'e4\'ed\'e5\'e2\'ed\'ee\'ec \'f1\'f2\'e0\'f6\'e8\'ee\'ed\'e0\'f0\'e5 \'ed\'e0 \'f1\'f3\'ec\'ec\'f3: __________ \'f0\'f3\'e1.\lang1033\f1  \lang1049\f0 ____ \'f1\'f7\'e5\'f2\'ee\'e2\f2\fs17\par&#13;&#10;}&#13;&#10;"/>
+      </DataHeaderBand>
+    </DataBand>
+    <DataBand Name="Data4" Top="1223.7" Width="718.2" Height="18.9">
+      <TableObject Name="Table1" Width="718.2" Height="18.9" Border.Lines="All">
+        <TableColumn Name="Column121" Width="56.7"/>
+        <TableColumn Name="Column122"/>
+        <TableColumn Name="Column123"/>
+        <TableColumn Name="Column124" Width="56.7"/>
+        <TableColumn Name="Column125"/>
+        <TableColumn Name="Column126" Width="47.25"/>
+        <TableColumn Name="Column127" Width="56.7"/>
+        <TableColumn Name="Column128"/>
+        <TableColumn Name="Column129" Width="47.25"/>
+        <TableColumn Name="Column130"/>
+        <TableColumn Name="Column131" Width="122.85"/>
+        <TableRow Name="Row25">
+          <TableCell Name="Cell265" Border.Lines="All" Font="Times New Roman, 9pt"/>
+          <TableCell Name="Cell266" Border.Lines="All" Font="Times New Roman, 9pt"/>
+          <TableCell Name="Cell267" Border.Lines="All" Font="Times New Roman, 9pt"/>
+          <TableCell Name="Cell268" Border.Lines="All" Font="Times New Roman, 9pt"/>
+          <TableCell Name="Cell269" Border.Lines="All" Font="Times New Roman, 9pt"/>
+          <TableCell Name="Cell270" Border.Lines="All" Font="Times New Roman, 9pt"/>
+          <TableCell Name="Cell271" Border.Lines="All" Font="Times New Roman, 9pt"/>
+          <TableCell Name="Cell272" Border.Lines="All" Font="Times New Roman, 9pt"/>
+          <TableCell Name="Cell273" Border.Lines="All" Font="Times New Roman, 9pt"/>
+          <TableCell Name="Cell274" Border.Lines="All" Font="Times New Roman, 9pt"/>
+          <TableCell Name="Cell275" Border.Lines="All" Font="Times New Roman, 9pt"/>
+        </TableRow>
+      </TableObject>
+      <DataHeaderBand Name="DataHeader3" Top="1021.25" Width="718.2" Height="198.45">
+        <TableObject Name="Table1" Top="18.9" Width="718.2" Height="179.55" Border.Lines="All">
+          <TableColumn Name="Column99" Width="56.7"/>
+          <TableColumn Name="Column100"/>
+          <TableColumn Name="Column101"/>
+          <TableColumn Name="Column102" Width="56.7"/>
+          <TableColumn Name="Column103"/>
+          <TableColumn Name="Column104" Width="47.25"/>
+          <TableColumn Name="Column105" Width="56.7"/>
+          <TableColumn Name="Column106"/>
+          <TableColumn Name="Column107" Width="47.25"/>
+          <TableColumn Name="Column108"/>
+          <TableColumn Name="Column109" Width="122.85"/>
+          <TableRow Name="Row22" Height="160.65">
+            <TableCell Name="Cell232" Border.Lines="All" Text="Код    &#13;&#10;струк- &#13;&#10;турного&#13;&#10;подраз-&#13;&#10;деления" Font="Times New Roman, 9pt"/>
+            <TableCell Name="Cell233" Border.Lines="All" Text="Код    &#13;&#10;отделения &#13;&#10;или профиля&#13;&#10;коек (для &#13;&#10;ДС)   " Font="Times New Roman, 9pt"/>
+            <TableCell Name="Cell234" Border.Lines="All" Text="N ин-  &#13;&#10;дивиду-&#13;&#10;ального&#13;&#10;счета  &#13;&#10;" Font="Times New Roman, 9pt"/>
+            <TableCell Name="Cell235" Border.Lines="All" Text="Период &#13;&#10;(месяц)&#13;&#10;" Font="Times New Roman, 9pt"/>
+            <TableCell Name="Cell236" Border.Lines="All" Text="N полиса&#13;&#10;обяза-  &#13;&#10;тельного&#13;&#10;медицин-&#13;&#10;ского   &#13;&#10;страхо- &#13;&#10;вания   &#13;&#10;" Font="Times New Roman, 9pt"/>
+            <TableCell Name="Cell237" Border.Lines="All" Text="Код    &#13;&#10;терри- &#13;&#10;тории  &#13;&#10;страхо-&#13;&#10;вания  &#13;&#10;" Font="Times New Roman, 9pt"/>
+            <TableCell Name="Cell238" Border.Lines="All" Text="Код  &#13;&#10;причины&#13;&#10;отказа &#13;&#10;в   &#13;&#10;оплате &#13;&#10;" Font="Times New Roman, 9pt"/>
+            <TableCell Name="Cell239" Border.Lines="All" Text="Сумма,&#13;&#10;подле-&#13;&#10;жащая &#13;&#10;отказу&#13;&#10;в оп- &#13;&#10;лате  &#13;&#10;" Font="Times New Roman, 9pt"/>
+            <TableCell Name="Cell240" Border.Lines="All" Text="Код   &#13;&#10;финан-&#13;&#10;совых &#13;&#10;санк- &#13;&#10;ций   &#13;&#10;" Font="Times New Roman, 9pt"/>
+            <TableCell Name="Cell241" Border.Lines="All" Text="Сумма &#13;&#10;финан-&#13;&#10;совых &#13;&#10;санк- &#13;&#10;ций   &#13;&#10;" Font="Times New Roman, 9pt"/>
+            <TableCell Name="Cell242" Border.Lines="All" Text="При-&#13;&#10;ме- &#13;&#10;ча- &#13;&#10;ния &#13;&#10;" Font="Times New Roman, 9pt"/>
+          </TableRow>
+          <TableRow Name="Row23">
+            <TableCell Name="Cell243" Border.Lines="All" Text="1" HorzAlign="Center" Font="Times New Roman, 10pt"/>
+            <TableCell Name="Cell244" Border.Lines="All" Text="2" HorzAlign="Center" Font="Times New Roman, 10pt"/>
+            <TableCell Name="Cell245" Border.Lines="All" Text="3" HorzAlign="Center" Font="Times New Roman, 10pt"/>
+            <TableCell Name="Cell246" Border.Lines="All" Text="4" HorzAlign="Center" Font="Times New Roman, 10pt"/>
+            <TableCell Name="Cell247" Border.Lines="All" Text="5" HorzAlign="Center" Font="Times New Roman, 10pt"/>
+            <TableCell Name="Cell248" Border.Lines="All" Text="6" HorzAlign="Center" Font="Times New Roman, 10pt"/>
+            <TableCell Name="Cell249" Border.Lines="All" Text="7" HorzAlign="Center" Font="Times New Roman, 10pt"/>
+            <TableCell Name="Cell250" Border.Lines="All" Text="8" HorzAlign="Center" Font="Times New Roman, 10pt"/>
+            <TableCell Name="Cell251" Border.Lines="All" Text="9" HorzAlign="Center" Font="Times New Roman, 10pt"/>
+            <TableCell Name="Cell252" Border.Lines="All" Text="10" HorzAlign="Center"/>
+            <TableCell Name="Cell253" Border.Lines="All" Text="11" HorzAlign="Center"/>
+          </TableRow>
+        </TableObject>
+        <RichObject Name="Rich7" Width="718.2" Height="18.9" Text="{\rtf1\ansi\ansicpg1251\deff0\deflang1049{\fonttbl{\f0\fnil\fcharset204{\*\fname Times New Roman;}Times New Roman CYR;}{\f1\fnil\fcharset0 Times New Roman;}{\f2\fnil\fcharset204 Tahoma;}}&#13;&#10;{\*\generator Msftedit 5.41.15.1515;}\viewkind4\uc1\pard\f0\fs20 2.1.3. \'e7\'e0 \'e0\'ec\'e1\'f3\'eb\'e0\'f2\'ee\'f0\'ed\'ee-\'ef\'ee\'eb\'e8\'ea\'eb\'e8\'ed\'e8\'f7\'e5\'f1\'ea\'f3\'fe \'ec\'e5\'e4\'e8\'f6\'e8\'ed\'f1\'ea\'f3\'fe \'ef\'ee\'ec\'ee\'f9\'fc \'ed\'e0 \'f1\'f3\'ec\'ec\'f3: ___ \'f0\'f3\'e1.\lang1033\f1  \lang1049\f0 ______ \'f1\'f7\'e5\'f2\'ee\'e2\par&#13;&#10;\f2\fs17\par&#13;&#10;}&#13;&#10;"/>
+      </DataHeaderBand>
+    </DataBand>
+    <DataBand Name="Data5" Top="1505.75" Width="718.2" Height="18.9">
+      <TableObject Name="Table1" Width="718.2" Height="18.9" Border.Lines="All">
+        <TableColumn Name="Column141" Width="58.8"/>
+        <TableColumn Name="Column142" Width="68.25"/>
+        <TableColumn Name="Column143" Width="87.15"/>
+        <TableColumn Name="Column144" Width="87.15"/>
+        <TableColumn Name="Column145" Width="87.15"/>
+        <TableColumn Name="Column146" Width="87.15"/>
+        <TableColumn Name="Column147" Width="77.7"/>
+        <TableColumn Name="Column148" Width="87.15"/>
+        <TableColumn Name="Column149" Width="77.7"/>
+        <TableRow Name="Row28">
+          <TableCell Name="Cell296" Border.Lines="All" Font="Times New Roman, 9pt"/>
+          <TableCell Name="Cell297" Border.Lines="All" Font="Times New Roman, 9pt"/>
+          <TableCell Name="Cell298" Border.Lines="All" Font="Times New Roman, 9pt"/>
+          <TableCell Name="Cell299" Border.Lines="All" Font="Times New Roman, 9pt"/>
+          <TableCell Name="Cell300" Border.Lines="All" Font="Times New Roman, 9pt"/>
+          <TableCell Name="Cell301" Border.Lines="All" Font="Times New Roman, 9pt"/>
+          <TableCell Name="Cell302" Border.Lines="All" Font="Times New Roman, 9pt"/>
+          <TableCell Name="Cell303" Border.Lines="All" Font="Times New Roman, 9pt"/>
+          <TableCell Name="Cell304" Border.Lines="All" Font="Times New Roman, 9pt"/>
+        </TableRow>
+      </TableObject>
+      <DataHeaderBand Name="DataHeader4" Top="1246.6" Width="718.2" Height="255.15">
+        <RichObject Name="Rich8" Width="718.2" Height="75.6" Text="{\rtf1\ansi\ansicpg1251\deff0\deflang1049{\fonttbl{\f0\fnil\fcharset204{\*\fname Times New Roman;}Times New Roman CYR;}}&#13;&#10;{\*\generator Msftedit 5.41.15.1515;}\viewkind4\uc1\pard\f0\fs20 2.2. \'cd\'e5 \'ef\'f0\'e8\'ed\'ff\'f2\'ee  \'ea  \'ee\'ef\'eb\'e0\'f2\'e5  \'e2  \'f1\'e2\'ff\'e7\'e8  \'f1  \'ef\'f0\'e5\'e2\'fb\'f8\'e5\'ed\'e8\'e5\'ec  \'f1\'ee\'e3\'eb\'e0\'f1\'ee\'e2\'e0\'ed\'ed\'fb\'f5 \'ee\'e1\'fa\'e5\'ec\'ee\'e2\par&#13;&#10;\'ec\'e5\'e4\'e8\'f6\'e8\'ed\'f1\'ea\'e8\'f5 \'f3\'f1\'eb\'f3\'e3 \'ed\'e0 \'ee\'e1\'f9\'f3\'fe \'f1\'f3\'ec\'ec\'f3 _________________ \'f0\'f3\'e1.:\par&#13;&#10;    \'c2 \'f2.\'f7.: \'e7\'e0 \'f1\'f2\'e0\'f6\'e8\'ee\'ed\'e0\'f0\'ed\'f3\'fe \'ec\'e5\'e4\'e8\'f6\'e8\'ed\'f1\'ea\'f3\'fe \'ef\'ee\'ec\'ee\'f9\'fc \'ed\'e0 \'f1\'f3\'ec\'ec\'f3 _____________ \'f0\'f3\'e1.;\par&#13;&#10;            \'e7\'e0 \'ec\'e5\'e4\'e8\'f6\'e8\'ed\'f1\'ea\'f3\'fe \'ef\'ee\'ec\'ee\'f9\'fc \'e2 \'e4\'ed\'e5\'e2\'ed\'ee\'ec \'f1\'f2\'e0\'f6\'e8\'ee\'ed\'e0\'f0\'e5 \'ed\'e0 \'f1\'f3\'ec\'ec\'f3 _____ \'f0\'f3\'e1.;\par&#13;&#10;            \'e7\'e0 \'e0\'ec\'e1\'f3\'eb\'e0\'f2\'ee\'f0\'ed\'ee-\'ef\'ee\'eb\'e8\'ea\'eb\'e8\'ed\'e8\'f7\'e5\'f1\'ea\'f3\'fe \'ec\'e5\'e4\'e8\'f6\'e8\'ed\'f1\'ea\'f3\'fe \'ef\'ee\'ec\'ee\'f9\'fc \'ed\'e0 \'f1\'f3\'ec\'ec\'f3 ____ \'f0\'f3\'e1.\par&#13;&#10;\par&#13;&#10;}&#13;&#10;"/>
+        <TableObject Name="Table1" Top="75.6" Width="718.2" Height="179.55" Border.Lines="All">
+          <TableColumn Name="Column132" Width="58.8"/>
+          <TableColumn Name="Column133" Width="68.25"/>
+          <TableColumn Name="Column134" Width="87.15"/>
+          <TableColumn Name="Column135" Width="87.15"/>
+          <TableColumn Name="Column136" Width="87.15"/>
+          <TableColumn Name="Column137" Width="87.15"/>
+          <TableColumn Name="Column138" Width="77.7"/>
+          <TableColumn Name="Column139" Width="87.15"/>
+          <TableColumn Name="Column140" Width="77.7"/>
+          <TableRow Name="Row26" Height="160.65">
+            <TableCell Name="Cell276" Border.Lines="All" Text="Код    &#13;&#10;струк- &#13;&#10;турного&#13;&#10;подраз-&#13;&#10;деления" Font="Times New Roman, 9pt"/>
+            <TableCell Name="Cell277" Border.Lines="All" Text="Код    &#13;&#10;отделения &#13;&#10;" Font="Times New Roman, 9pt"/>
+            <TableCell Name="Cell278" Border.Lines="All" Text="Период, в&#13;&#10;котором  &#13;&#10;произошло&#13;&#10;превыше- &#13;&#10;ние со-  &#13;&#10;гласован-&#13;&#10;ных объе-&#13;&#10;мов      &#13;&#10;(квартал)&#13;&#10;&#13;&#10;" Font="Times New Roman, 9pt"/>
+            <TableCell Name="Cell279" Border.Lines="All" Text="Величина &#13;&#10;превыше- &#13;&#10;ния со-  &#13;&#10;гласован-&#13;&#10;ных объе-&#13;&#10;мов меди-&#13;&#10;цинских  &#13;&#10;услуг    &#13;&#10;(к/д.,   &#13;&#10;посеще-  &#13;&#10;ний, УЕТ)&#13;&#10;" Font="Times New Roman, 9pt"/>
+            <TableCell Name="Cell280" Border.Lines="All" Text="Сумма,  &#13;&#10;не под- &#13;&#10;лежащая &#13;&#10;оплате в&#13;&#10;связи с &#13;&#10;превыше-&#13;&#10;нием со-&#13;&#10;гласо-  &#13;&#10;ванных  &#13;&#10;объемов &#13;&#10;" Font="Times New Roman, 9pt"/>
+            <TableCell Name="Cell281" Border.Lines="All" Text="Сумма, &#13;&#10;не при-&#13;&#10;нятая к&#13;&#10;оплате &#13;&#10;в связи&#13;&#10;с пре- &#13;&#10;вышени-&#13;&#10;ем со- &#13;&#10;гласо- &#13;&#10;ванных &#13;&#10;объемов&#13;&#10;" Font="Times New Roman, 9pt"/>
+            <TableCell Name="Cell282" Border.Lines="All" Text="В т.ч.:&#13;&#10;до про-&#13;&#10;ведения&#13;&#10;повтор-&#13;&#10;ного   &#13;&#10;МЭК    &#13;&#10;" Font="Times New Roman, 9pt"/>
+            <TableCell Name="Cell283" Border.Lines="All" Text="Сумма, &#13;&#10;удержи-&#13;&#10;ваемая &#13;&#10;в теку-&#13;&#10;щем    &#13;&#10;месяце &#13;&#10;" Font="Times New Roman, 9pt"/>
+            <TableCell Name="Cell284" Border.Lines="All" Text="Сумма,  &#13;&#10;подлежа-&#13;&#10;щая     &#13;&#10;удержа- &#13;&#10;нию в   &#13;&#10;последу-&#13;&#10;ющий пе-&#13;&#10;риод    &#13;&#10;" Font="Times New Roman, 9pt"/>
+          </TableRow>
+          <TableRow Name="Row27">
+            <TableCell Name="Cell287" Border.Lines="All" Text="1" HorzAlign="Center" Font="Times New Roman, 10pt"/>
+            <TableCell Name="Cell288" Border.Lines="All" Text="2" HorzAlign="Center" Font="Times New Roman, 10pt"/>
+            <TableCell Name="Cell289" Border.Lines="All" Text="3" HorzAlign="Center" Font="Times New Roman, 10pt"/>
+            <TableCell Name="Cell290" Border.Lines="All" Text="4" HorzAlign="Center" Font="Times New Roman, 10pt"/>
+            <TableCell Name="Cell291" Border.Lines="All" Text="5" HorzAlign="Center" Font="Times New Roman, 10pt"/>
+            <TableCell Name="Cell292" Border.Lines="All" Text="6" HorzAlign="Center" Font="Times New Roman, 10pt"/>
+            <TableCell Name="Cell293" Border.Lines="All" Text="7" HorzAlign="Center" Font="Times New Roman, 10pt"/>
+            <TableCell Name="Cell294" Border.Lines="All" Text="8" HorzAlign="Center" Font="Times New Roman, 10pt"/>
+            <TableCell Name="Cell295" Border.Lines="All" Text="9" HorzAlign="Center" Font="Times New Roman, 10pt"/>
+          </TableRow>
+        </TableObject>
+      </DataHeaderBand>
+      <DataFooterBand Name="DataFooter3" Top="1528.65" Width="718.2" Height="122.85">
+        <TableObject Name="Table1" Left="18.9" Top="85.05" Width="670.95" Height="37.8">
+          <TableColumn Name="Column42" Width="204.75"/>
+          <TableColumn Name="Column43" Width="242.55"/>
+          <TableColumn Name="Column44" Width="223.65"/>
+          <TableRow Name="Row13" AutoSize="true">
+            <TableCell Name="Cell118" Text="[localEmployee.Position]" Font="Times New Roman, 10pt"/>
+            <TableCell Name="Cell119" Border.Lines="Bottom" Padding="0, 0, 0, 0" HorzAlign="Center" Font="Times New Roman, 10pt"/>
+            <TableCell Name="Cell120" Text="[localEmployee.FullNameInitials]" Font="Times New Roman, 10pt"/>
+          </TableRow>
+          <TableRow Name="Row14">
+            <TableCell Name="Cell121" Font="Times New Roman, 10pt"/>
+            <TableCell Name="Cell122" HorzAlign="Center" Font="Times New Roman, 8pt"/>
+            <TableCell Name="Cell123" Font="Times New Roman, 10pt"/>
+          </TableRow>
+        </TableObject>
+        <RichObject Name="Rich1" Width="718.2" Height="47.25" Text="{\rtf1\ansi\ansicpg1251\deff0\deflang1049{\fonttbl{\f0\fnil\fcharset204{\*\fname Times New Roman;}Times New Roman CYR;}{\f1\fnil\fcharset0 Times New Roman;}{\f2\fnil\fcharset204 Tahoma;}}&#13;&#10;{\*\generator Msftedit 5.41.15.1515;}\viewkind4\uc1\pard\f0\fs20\'c4\'e0\'f2\'e0 \'ef\'f0\'e5\'e4\'ee\'f1\'f2\'e0\'e2\'eb\'e5\'ed\'e8\'ff \'f1\'f7\'e5\'f2\'ee\'e2 \'d1\'cc\'ce (\'d2\'d4) \'ec\'e5\'e4\'e8\'f6\'e8\'ed\'f1\'ea\'ee\'e9 \'ee\'f0\'e3\'e0\'ed\'e8\'e7\'e0\'f6\'e8\'e5\'e9\lang1033\f1  \lang1049\f0 &quot;__&quot; ____________ 201_ \'e3.\par&#13;&#10;\par&#13;&#10;\'c4\'e0\'f2\'e0 \'ef\'f0\'ee\'e2\'e5\'f0\'ea\'e8 \'f1\'f7\'e5\'f2\'ee\'e2 (\'f0\'e5\'e5\'f1\'f2\'f0\'ee\'e2) &quot;__&quot; _____________ 201_ \'e3.\par&#13;&#10;\f2\fs17\par&#13;&#10;}&#13;&#10;"/>
+      </DataFooterBand>
+    </DataBand>
+    <ReportSummaryBand Name="ReportSummary1" Top="1655.5" Width="718.2" Height="47.25" PrintOnBottom="true"/>
+    <PageFooterBand Name="PageFooter1" Top="1706.75" Width="718.2" Height="18.9"/>
+  </ReportPage>
+  <DialogPage Name="Form1" Width="306" Height="154" AcceptButton="btnOk" CancelButton="btnCancel" LoadEvent="Form1_Load">
+    <ButtonControl Name="btnOk" Left="134" Top="95" Anchor="Bottom, Right" Font="Tahoma, 8pt" TabIndex="0" Text="ОК" ClickEvent="btnOk_Click" DialogResult="OK"/>
+    <ButtonControl Name="btnCancel" Left="217" Top="95" Anchor="Bottom, Right" Font="Tahoma, 8pt" TabIndex="1" Text="Отмена" DialogResult="Cancel"/>
+    <LabelControl Name="Label1" Left="12" Top="12" Width="53" Height="13" Font="Tahoma, 8pt" TabIndex="2" Text="Период с"/>
+    <LabelControl Name="Label2" Left="48" Top="36" Width="19" Height="13" Font="Tahoma, 8pt" TabIndex="3" Text="по"/>
+    <DateTimePickerControl Name="DateTimePicker1" Left="68" Top="8" Width="124" Font="Tahoma, 8pt" TabIndex="4" Text="27 февраля 2012 г." Value="02/27/2012 10:36:07"/>
+    <DateTimePickerControl Name="DateTimePicker2" Left="68" Top="32" Width="124" Font="Tahoma, 8pt" TabIndex="5" Text="27 февраля 2012 г." Value="02/27/2012 10:36:11"/>
+    <ComboBoxControl Name="ComboBox1" Left="68" Top="60" Width="229" Font="Tahoma, 8pt" TabIndex="6" Text="ComboBox" ClickEvent="ComboBox1_Click" DataColumn="F003.mcod" ReportParameter="MoCode" DropDownWidth="229" ItemHeight="13"/>
+    <LabelControl Name="Label3" Left="36" Top="64" Width="28" Height="13" Font="Tahoma, 8pt" TabIndex="7" Text="ЛПУ"/>
+  </DialogPage>
+</Report>

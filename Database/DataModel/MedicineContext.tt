@@ -1,0 +1,77 @@
+﻿ <#@ template debug="false" language="C#" hostspecific="True" #>
+<#@ output extension=".generated.cs"     #>
+<#@ include file="BLToolkit.ttinclude"   #>
+
+<#@ include file="MSSQL.ttinclude"       #> 
+<# 
+	                                             
+	var allowTables = new List<string>  
+    {
+        "F001","F002","F003","F003_no","F004","F005","F006","F007","F008","F009","F010","F011","F012","F013","F014", "F015", 
+		"M001","M001Classes","M001Sections", 
+		"O001","O002","O003","O004","O005",             
+		"R001","R002","R003","R004",  
+		"N001","N002","N003","N004","N005","N006","N007","N008","N009", "N010", "N011", "N012", "N013", "N014", "N015", "N016", "N017", "N018", "N019", "N020",
+		"V001","V002","V003","V004","V005","V006","V007","V008","V009","V010","V012", "V014", "V015", "V017", "V018", "V019", "V020", "V021", "V022", "V023", "V024", "V025", "V026", "V027", "V028", "V029",
+		"FactExpertCriterion","FactPreparedReport", "FactReport","FactExchange","FactActEqma","FactActMee","FactAddress","FactClassifierVersion", "FactDocument", 
+		"FactEQMA", "FactMEE", "FactExternalRefuse", "FactMEC", "FactMedicalAccount",  
+		"FactSrzQuery", 
+		"FactActExpertise",
+		"FactEconomicAccount","FactEconomicRefuse", "FactEconomicRefuseDetail", "FactEconomicSurcharge", "FactEconomicSurchargeDetail", "FactEconomicPayment", "FactEconomicPaymentDetail", "FactEconomicDebt",
+		"FactPatient", "FactPerson",
+		"FactMedicalEvent", "FactMedicalServices", "FactTerritoryAccount", 
+		"FactProcessing", "FactInsuredRegister", 
+		"globalVidControl","globalActExpertiseStatus",
+		"globalSchetType",
+		"globalExaminationType","globalScope","globalParam", "globalOldProfile", "globalPcel", "globalKslp",
+		"globalMetIssl", "globalDirectionView", "globalConsultationOnk", "globalReportType",
+		"globalEquivalentData","globalAccountType","globalAccountStatus", "globalExaminationGroup", "globalVersion", "globalRefusalSource", "globalMedicalAssistanceVolume",
+		"globalParticularSign", "globalProcessingType", "globalPaymentStatus", "globalMedicalOrganizationIndicator", "globalLicenseEntry", "globalLicense", "globalIDC10Modernization",
+		"globalV015EqV002", "globalRefusalPenalty", "globalRegionalAttribute", "globalEqmaOutcomes", "globalClinicalExamination", "globalObsoleteData", "globalMedicalEventType", "globalIDCToEventType",
+		"localOptionsDictionary", "localLogin","localEmployee", "localUser", "localSettings", "localUserSettings", "localRole", "localF003", "localF001", "localPaymentSource", "localParticularSignComposition",
+		"localIDC10GroupComposition", "localIDC10Group", 
+		"MedicalAccountView", "PatientShortView", "TerritoryAccountView", "EventExtendedView", "EventShortView",
+		"shareDoctor", "shareMedicalDepartment", "shareOperatingSchedule", "shareRate", "shareMedicalSubdivision", "shareMedicalOrganizationProfile",
+		"subExpertAcademicDegree", "subExpertCertificate", "subQualificationCategory",  "subAcademicDegree", "FactExpertCriterion_copy","EconomicPartner",
+		"Version",
+		"ZFactDiagnosisSecondary", 
+		"ZslFactMedicalEvent", "ZslEventShortView",
+		"GeneralEventShortView", "ZslEventView",
+		"ActExpertiseShortView",
+		"SankShortView",
+		"ZFactAnticancerDrug","ZFactConsultations",
+		"ZFactContraindications", "ZFactDiagBlok",
+		"ZFactDirection", "ZFactExternalRefuse",
+		"ZFactKsgKpg", "ZFactMedicalEvent",
+		"ZFactMedicalEventOnk", "ZFactMedicalServices", 		 				                    
+		"ZFactMedicalServicesOnk", "ZFactSank",
+		"ZFactSlKoef","ZFactCrit", "ZFactDs"
+    };                                   
+	 										   						   
+    ConnectionString = "Server=server_elmed;Database=medicine_ins;User Id=sa;Password=Otuds[key;";   
+	//ConnectionString = "Server=.\\SQLEXPRESS;Database=medicine_ins;Integrated Security=SSPI";          
+    DataContextName  = "MedicineContext";                           
+	BaseDataContextClass = "DatabaseContext";   
+	BaseEntityClass = "BaseEntity";            
+	Usings.Add("Medical.DatabaseCore.Services.Database");
+	LoadMetadata();   
+	
+	var tablesToRemove = Tables.Where(f => !allowTables.Contains(f.Key)).Select(f=>f.Key).ToList();
+
+	//TODO complete allowed tables
+	foreach (var t in tablesToRemove)
+	{
+		Tables.Remove(t);
+	}
+
+	//удаление точек из имен внешних ключей
+	foreach (var t in Tables.Values){
+		foreach (var c in t.ForeignKeys.Values){
+			c.MemberName = c.MemberName.Replace(".","_");
+		}
+	}
+
+	
+	
+    GenerateModel();               
+#>

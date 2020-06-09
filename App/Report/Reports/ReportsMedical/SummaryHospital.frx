@@ -1,0 +1,398 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report ScriptLanguage="CSharp" ReportInfo.Created="06/20/2009 22:40:42" ReportInfo.Modified="03/21/2012 02:55:10" ReportInfo.CreatorVersion="1.8.1.0">
+  <ScriptText>using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Windows.Forms;
+using System.Drawing;
+using System.Data;
+using FastReport;
+using FastReport.Data;
+using FastReport.Dialog;
+using FastReport.Barcode;
+using FastReport.Table;
+using FastReport.Utils;
+
+namespace FastReport
+{
+  public class ReportScript
+  {
+
+    private void Data1_AfterData(object sender, EventArgs e)
+    {
+      
+    }
+
+    private void Data2_AfterData(object sender, EventArgs e)
+    {
+      
+    }
+  }
+}
+</ScriptText>
+  <Dictionary>
+    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqM3/HbiZANEYP3Y6oNtE7mrUmT0ytl94C6DYS4DXvgc8JqhVjVQGe7Sc2pOMNI3eDZu4y6+BLf6/PCErp5V5iYO+NhUsLGHVpiKUoEc7fdRAKM3dC4G3zKvHq63vBaaJuNWt1RaEUDxyLLh6IMbjf+Iqjj5s+Su4iyajqSNb5u2kTo41zY1PMtMx7adeDfmmF">
+      <TableDataSource Name="FactTerritoryAccount" DataType="System.Int32" Enabled="true" TableName="FactTerritoryAccount" SelectCommand="SELECT F.Date, F.AccountNumber, F.AccountDate, F.Price, F.AcceptPrice, F.MECPenalties, F.MEEPenalties, F.EQMAPenalties, F.Comments, F.Source, F.Destination, F.Status, F.ExternalId, F.PacketNumber, F.Type, F.Direction, F.Parent, F.Generation, F.TerritoryAccountId, F.RegisterId&#13;&#10;FROM &quot;FactTerritoryAccount&quot; F&#13;&#10;WHERE F.TerritoryAccountId=@AccountParam">
+        <Column Name="Date" DataType="System.DateTime"/>
+        <Column Name="AccountNumber" DataType="System.String"/>
+        <Column Name="AccountDate" DataType="System.DateTime"/>
+        <Column Name="Price" DataType="System.Decimal"/>
+        <Column Name="AcceptPrice" DataType="System.Decimal"/>
+        <Column Name="MECPenalties" DataType="System.Decimal"/>
+        <Column Name="MEEPenalties" DataType="System.Decimal"/>
+        <Column Name="EQMAPenalties" DataType="System.Decimal"/>
+        <Column Name="Comments" DataType="System.String"/>
+        <Column Name="Source" DataType="System.String"/>
+        <Column Name="Destination" DataType="System.String"/>
+        <Column Name="Status" DataType="System.Int32"/>
+        <Column Name="ExternalId" DataType="System.Int32"/>
+        <Column Name="PacketNumber" DataType="System.Int32"/>
+        <Column Name="Type" DataType="System.Int32"/>
+        <Column Name="Direction" DataType="System.Int32"/>
+        <Column Name="Parent" DataType="System.Int32"/>
+        <Column Name="Generation" DataType="System.Int32"/>
+        <Column Name="TerritoryAccountId" DataType="System.Int32"/>
+        <Column Name="RegisterId" DataType="System.Int32"/>
+        <CommandParameter Name="AccountParam" DataType="8" Expression="[AccountId]" DefaultValue="1"/>
+      </TableDataSource>
+      <TableDataSource Name="localPayment" DataType="System.Int32" Enabled="true" TableName="localPayment" SelectCommand="SELECT L.PaymentId, L.Code, L.Type, L.Name, L.Inn, L.Ogrn, L.KPP, L.Account, L.CorrespondentAccount, L.BIK, L.BankName, L.AgreementNumber, L.AgreementDate, L.Director, L.Accounter, L.Address, L.DateBegin, L.DateEnd&#13;&#10;FROM &quot;localPayment&quot; L&#13;&#10;WHERE L.Code=@CodeParam&#13;&#10;">
+        <Column Name="PaymentId" DataType="System.Int32"/>
+        <Column Name="Code" DataType="System.Int32"/>
+        <Column Name="Type" DataType="System.Int32"/>
+        <Column Name="Name" DataType="System.String"/>
+        <Column Name="Inn" DataType="System.String"/>
+        <Column Name="Ogrn" DataType="System.String"/>
+        <Column Name="KPP" DataType="System.String"/>
+        <Column Name="Account" DataType="System.String"/>
+        <Column Name="CorrespondentAccount" DataType="System.String"/>
+        <Column Name="BIK" DataType="System.String"/>
+        <Column Name="BankName" DataType="System.String"/>
+        <Column Name="AgreementNumber" DataType="System.String"/>
+        <Column Name="AgreementDate" DataType="System.DateTime"/>
+        <Column Name="Director" DataType="System.String"/>
+        <Column Name="Accounter" DataType="System.String"/>
+        <Column Name="Address" DataType="System.String"/>
+        <Column Name="DateBegin" DataType="System.DateTime"/>
+        <Column Name="DateEnd" DataType="System.DateTime"/>
+        <CommandParameter Name="CodeParam" DataType="22" Expression="[FactTerritoryAccount.Source]" DefaultValue="460006"/>
+      </TableDataSource>
+      <TableDataSource Name="EventShortView" DataType="System.Int32" Enabled="true" TableName="EventShortView" SelectCommand="SELECT  DISTINCT Count(E.PatientId) AS CountPatients,Sum(E.Price) AS Price, Sum(E.Quantity) AS Quantity,Avg(E.Quantity) AS AvgQuantity,Sum(E.AcceptPrice) AS AcceptPrice,E.ProfileName,E.Profile&#13;&#10;FROM &quot;EventShortView&quot; E&#13;&#10;WHERE E.AccountId=@AccountIdParam AND E.AssistanceConditions=1&#13;&#10;GROUP BY E.ProfileName,E.Profile&#13;&#10;">
+        <Column Name="Price" DataType="System.Decimal"/>
+        <Column Name="Quantity" DataType="System.Decimal"/>
+        <Column Name="ProfileName" DataType="System.String"/>
+        <Column Name="CountPatients" DataType="System.Int32"/>
+        <Column Name="AcceptPrice" DataType="System.Decimal"/>
+        <Column Name="Profile" DataType="System.Decimal"/>
+        <Column Name="AvgQuantity" DataType="System.Decimal"/>
+        <Column Name="Std" DataType="System.Decimal" PropName="Column" Calculated="true" Expression="[EventShortView.AvgQuantity]-[globalCurePeriod.Duration]"/>
+        <CommandParameter Name="AccountIdParam" DataType="8" Expression="[AccountId]" DefaultValue="1"/>
+      </TableDataSource>
+      <TableDataSource Name="Table" Alias="localPaymentDestination" DataType="System.Int32" Enabled="true" SelectCommand="SELECT L.PaymentId, L.Code, L.Type, L.Name, L.Inn, L.Ogrn, L.KPP, L.Account, L.CorrespondentAccount, L.BIK, L.BankName, L.AgreementNumber, L.AgreementDate, L.Director, L.Accounter, L.Address, L.DateBegin, L.DateEnd&#13;&#10;FROM &quot;localPayment&quot; L&#13;&#10;WHERE L.Code=@CodeParam">
+        <Column Name="PaymentId" DataType="System.Int32"/>
+        <Column Name="Code" DataType="System.Int32"/>
+        <Column Name="Type" DataType="System.Int32"/>
+        <Column Name="Name" DataType="System.String"/>
+        <Column Name="Inn" DataType="System.String"/>
+        <Column Name="Ogrn" DataType="System.String"/>
+        <Column Name="KPP" DataType="System.String"/>
+        <Column Name="Account" DataType="System.String"/>
+        <Column Name="CorrespondentAccount" DataType="System.String"/>
+        <Column Name="BIK" DataType="System.String"/>
+        <Column Name="BankName" DataType="System.String"/>
+        <Column Name="AgreementNumber" DataType="System.String"/>
+        <Column Name="AgreementDate" DataType="System.DateTime"/>
+        <Column Name="Director" DataType="System.String"/>
+        <Column Name="Accounter" DataType="System.String"/>
+        <Column Name="Address" DataType="System.String"/>
+        <Column Name="DateBegin" DataType="System.DateTime"/>
+        <Column Name="DateEnd" DataType="System.DateTime"/>
+        <CommandParameter Name="CodeParam" DataType="22" Expression="[FactTerritoryAccount.Destination]" DefaultValue="46001"/>
+      </TableDataSource>
+      <TableDataSource Name="Table9" Alias="EventShortViewTotal" DataType="System.Int32" Enabled="true" SelectCommand="SELECT  DISTINCT Count(E.PatientId) AS CountPatients,Sum(E.Price) AS Price, Sum(E.Quantity) AS Quantity&#13;&#10;FROM &quot;EventShortView&quot; E&#13;&#10;WHERE E.AccountId=@AccountIdParam AND E.AssistanceConditions=1&#13;&#10;">
+        <Column Name="CountPatients" DataType="System.Int32"/>
+        <Column Name="Price" DataType="System.Decimal"/>
+        <Column Name="Quantity" DataType="System.Decimal"/>
+        <CommandParameter Name="AccountIdParam" DataType="8" Expression="[AccountId]" DefaultValue="1"/>
+      </TableDataSource>
+      <TableDataSource Name="Table10" Alias="EventShortView2" DataType="System.Int32" Enabled="true" SelectCommand="SELECT  DISTINCT Count(E.PatientId) AS CountPatients,Sum(E.Price) AS Price, Sum(E.Quantity) AS Quantity,Avg(E.Quantity) AS AvgQuantity,Sum(E.AcceptPrice) AS AcceptPrice,E.ProfileName,E.Profile&#13;&#10;FROM &quot;EventShortView&quot; E&#13;&#10;WHERE E.AccountId=@AccountIdParam AND E.AssistanceConditions=2&#13;&#10;GROUP BY E.ProfileName,E.Profile&#13;&#10;">
+        <Column Name="CountPatients" DataType="System.Int32"/>
+        <Column Name="Price" DataType="System.Decimal"/>
+        <Column Name="Quantity" DataType="System.Decimal"/>
+        <Column Name="ProfileName" DataType="System.String"/>
+        <Column Name="AvgQuantity" DataType="System.Decimal"/>
+        <Column Name="AcceptPrice" DataType="System.Decimal"/>
+        <Column Name="Profile" DataType="System.Decimal"/>
+        <Column Name="Std" DataType="System.Int32" PropName="Column" Calculated="true" Expression="[EventShortView2.AvgQuantity]-[globalCurePeriod2.Duration]"/>
+        <CommandParameter Name="AccountIdParam" DataType="8" Expression="[AccountId]" DefaultValue="1"/>
+      </TableDataSource>
+      <TableDataSource Name="Table11" Alias="EventShortView2Total" DataType="System.Int32" Enabled="true" SelectCommand="SELECT  DISTINCT Count(E.PatientId) AS CountPatients,Sum(E.Price) AS Price, Sum(E.Quantity) AS Quantity&#13;&#10;FROM &quot;EventShortView&quot; E&#13;&#10;WHERE E.AccountId=@AccountIdParam AND E.AssistanceConditions=2">
+        <Column Name="CountPatients" DataType="System.Int32"/>
+        <Column Name="Price" DataType="System.Decimal"/>
+        <Column Name="Quantity" DataType="System.Decimal"/>
+        <CommandParameter Name="AccountIdParam" DataType="22" Expression="[AccountId]" DefaultValue="1"/>
+      </TableDataSource>
+      <TableDataSource Name="globalCurePeriod" DataType="System.Int32" Enabled="true" TableName="globalCurePeriod" SelectCommand="SELECT G.Duration, V.IDPR&#13;&#10;FROM &quot;globalCurePeriod&quot; G INNER JOIN &quot;V002&quot; V ON G.ProfileId = V.Id &#13;&#10;&#13;&#10;WHERE V.IDPR=@ProfileCodeParam&#13;&#10;">
+        <Column Name="Duration" DataType="System.Decimal"/>
+        <Column Name="IDPR" DataType="System.Decimal"/>
+        <CommandParameter Name="ProfileCodeParam" DataType="8" Expression="[EventShortView.Profile]" DefaultValue="1"/>
+      </TableDataSource>
+      <TableDataSource Name="Table6" Alias="globalCurePeriod2" DataType="System.Int32" Enabled="true" SelectCommand="SELECT G.Duration, V.IDPR&#13;&#10;FROM &quot;globalCurePeriod&quot; G INNER JOIN &quot;V002&quot; V ON G.ProfileId = V.Id &#13;&#10;&#13;&#10;WHERE V.IDPR=@ProfileCodeParam&#13;&#10;">
+        <Column Name="Duration" DataType="System.Decimal"/>
+        <Column Name="IDPR" DataType="System.Decimal"/>
+        <CommandParameter Name="ProfileCodeParam" DataType="12" Expression="[EventShortView2.Profile]" DefaultValue="0"/>
+      </TableDataSource>
+    </MsSqlDataConnection>
+    <Parameter Name="AccountId" DataType="System.Int32"/>
+  </Dictionary>
+  <ReportPage Name="Page1" RawPaperSize="9" LeftMargin="5" TopMargin="5" RightMargin="5" BottomMargin="5">
+    <PageHeaderBand Name="PageHeader1" Width="756" Height="179.55">
+      <TextObject Name="Text7" Left="-1.89" Top="1.89" Width="708.75" Height="18.9" Text="[localPayment.Name]" Font="Arial, 10pt, style=Bold">
+        <Formats>
+          <DateFormat/>
+          <DateFormat/>
+        </Formats>
+      </TextObject>
+      <TableObject Name="Table2" Top="77.49" Width="754.11" Height="102.06" Border.Lines="All">
+        <TableColumn Name="Column18" Width="134.19"/>
+        <TableColumn Name="Column19" Width="43.47"/>
+        <TableColumn Name="Column20"/>
+        <TableColumn Name="Column21" Width="49.14"/>
+        <TableColumn Name="Column22" Width="45.36"/>
+        <TableColumn Name="Column58" Width="51.03"/>
+        <TableColumn Name="Column59" Width="43.47"/>
+        <TableColumn Name="Column77" Width="43.47"/>
+        <TableColumn Name="Column78" Width="45.36"/>
+        <TableColumn Name="Column79" Width="39.69"/>
+        <TableColumn Name="Column80" Width="68.04"/>
+        <TableColumn Name="Column81" Width="64.26"/>
+        <TableColumn Name="Column82" Width="60.48"/>
+        <TableRow Name="Row4" Height="47.25">
+          <TableCell Name="Cell64" Border.Lines="All" Text="Профиль" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold" RowSpan="2"/>
+          <TableCell Name="Cell65" Border.Lines="All" Text="Кол-во коек" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt" RowSpan="2"/>
+          <TableCell Name="Cell66" Border.Lines="All" Text="Кол-во больных по реестру" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt" RowSpan="2"/>
+          <TableCell Name="Cell67" Border.Lines="All" Text="Средний к/день&#13;&#10;" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt" ColSpan="2"/>
+          <TableCell Name="Cell68" Border.Lines="All" HorzAlign="Center" VertAlign="Center"/>
+          <TableCell Name="Cell126" Border.Lines="All" Text="Отклонение" Font="Arial, 8pt" RowSpan="2"/>
+          <TableCell Name="Cell127" Border.Lines="All" Text="Допустимое отклонение" Font="Arial, 8pt" RowSpan="2"/>
+          <TableCell Name="Cell154" Text="Коэффициент" Font="Arial, 8pt" RowSpan="2"/>
+          <TableCell Name="Cell155" Border.Lines="All" Text="Койко дней " Font="Arial, 8pt" ColSpan="2"/>
+          <TableCell Name="Cell156"/>
+          <TableCell Name="Cell157" Border.Lines="All" Text="Сумма по реестру " HorzAlign="Center" Font="Arial, 8pt" ColSpan="2"/>
+          <TableCell Name="Cell158"/>
+          <TableCell Name="Cell159" Border.Lines="All" Text="Удержано согласно коэфф. превыш." Font="Arial, 8pt" RowSpan="2"/>
+        </TableRow>
+        <TableRow Name="Row13" Height="54.81">
+          <TableCell Name="Cell121"/>
+          <TableCell Name="Cell122"/>
+          <TableCell Name="Cell123" Border.Lines="All"/>
+          <TableCell Name="Cell124" Border.Lines="All" Text="Норма" Font="Arial, 8pt"/>
+          <TableCell Name="Cell125" Text="Факт" Font="Arial, 8pt"/>
+          <TableCell Name="Cell128" Border.Lines="All"/>
+          <TableCell Name="Cell129"/>
+          <TableCell Name="Cell160"/>
+          <TableCell Name="Cell161" Border.Lines="All" Text="Предъявлено к оплате" Font="Arial, 8pt"/>
+          <TableCell Name="Cell162" Border.Lines="All" Text="Фактически проведено" Font="Arial, 8pt"/>
+          <TableCell Name="Cell163" Border.Lines="All" Text="Предъявленная к оплате" Font="Arial, 8pt"/>
+          <TableCell Name="Cell164" Border.Lines="All" Text="Принятая к оплате" Font="Arial, 8pt"/>
+          <TableCell Name="Cell165"/>
+        </TableRow>
+      </TableObject>
+      <TextObject Name="Text3" Top="47.25" Width="708.75" Height="18.9" Text="Основные показатели деятельности стационара за [FactTerritoryAccount.Date]" Format="Date" Format.Format="MMMM yyyy" HorzAlign="Center" Font="Arial, 10pt, style=Bold"/>
+    </PageHeaderBand>
+    <DataBand Name="Data1" Top="183.55" Width="756" Height="18.9" CanGrow="true" CanShrink="true" AfterDataEvent="Data1_AfterData" DataSource="EventShortView" MaxRows="1">
+      <TableObject Name="Table1" Width="754.19" Height="18.9">
+        <TableColumn Name="Column23" Width="192.55"/>
+        <TableColumn Name="Column24" Width="145.3"/>
+        <TableColumn Name="Column25" Width="135.85"/>
+        <TableColumn Name="Column26" Width="1"/>
+        <TableColumn Name="Column27" Width="279.49"/>
+        <TableRow Name="Row6" AutoSize="true">
+          <TableCell Name="Cell86" Border.Lines="All" Text="Стационар" HorzAlign="Center" VertAlign="Center" ColSpan="5"/>
+          <TableCell Name="Cell87" Border.Lines="All" Format="Number" Format.UseLocale="false" Format.DecimalDigits="0" Format.DecimalSeparator="," Format.GroupSeparator=" " Format.NegativePattern="1" HorzAlign="Center" VertAlign="Center"/>
+          <TableCell Name="Cell88" Border.Lines="All" Format="Number" Format.UseLocale="false" Format.DecimalDigits="0" Format.DecimalSeparator="," Format.GroupSeparator=" " Format.NegativePattern="1" HorzAlign="Center" VertAlign="Center"/>
+          <TableCell Name="Cell89" Border.Lines="All" Format="Number" Format.UseLocale="false" Format.DecimalDigits="0" Format.DecimalSeparator="," Format.GroupSeparator=" " Format.NegativePattern="1" HorzAlign="Center" VertAlign="Center"/>
+          <TableCell Name="Cell90" Border.Lines="All" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center"/>
+        </TableRow>
+      </TableObject>
+      <DataBand Name="Data4" Top="206.45" Width="756" Height="18.9" CanGrow="true" Guides="92.61" DataSource="EventShortView">
+        <TableObject Name="Table5" Width="754.11" Height="18.9">
+          <TableColumn Name="Column38" Width="134.19"/>
+          <TableColumn Name="Column39" Width="43.47"/>
+          <TableColumn Name="Column40"/>
+          <TableColumn Name="Column41" Width="51.03"/>
+          <TableColumn Name="Column42" Width="43.47"/>
+          <TableColumn Name="Column60" Width="51.03"/>
+          <TableColumn Name="Column61" Width="43.47"/>
+          <TableColumn Name="Column83" Width="41.58"/>
+          <TableColumn Name="Column84" Width="47.25"/>
+          <TableColumn Name="Column85" Width="37.8"/>
+          <TableColumn Name="Column86" Width="69.93"/>
+          <TableColumn Name="Column87" Width="62.37"/>
+          <TableColumn Name="Column88" Width="62.37"/>
+          <TableRow Name="Row9" AutoSize="true">
+            <TableCell Name="Cell101" Border.Lines="Left, Right, Top" Text="[EventShortView.ProfileName]" VertAlign="Center"/>
+            <TableCell Name="Cell102" Border.Lines="Left, Right, Top" Format="Number" Format.UseLocale="false" Format.DecimalDigits="0" Format.DecimalSeparator="," Format.GroupSeparator=" " Format.NegativePattern="1" HorzAlign="Center" VertAlign="Center"/>
+            <TableCell Name="Cell103" Border.Lines="Left, Right, Top" Text="[EventShortView.CountPatients]" Format="Number" Format.UseLocale="false" Format.DecimalDigits="0" Format.DecimalSeparator="," Format.GroupSeparator=" " Format.NegativePattern="1" HorzAlign="Center" VertAlign="Center"/>
+            <TableCell Name="Cell104" Border.Lines="Left, Right, Top" Text="[globalCurePeriod.Duration]" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center"/>
+            <TableCell Name="Cell105" Border.Lines="Left, Right, Top" Text="[EventShortView.AvgQuantity]" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center"/>
+            <TableCell Name="Cell130" Border.Lines="Left, Right, Top" Text="[EventShortView.Std]" Format="Number" Format.UseLocale="true" HorzAlign="Center"/>
+            <TableCell Name="Cell131" Border.Lines="Left, Right, Top"/>
+            <TableCell Name="Cell166" Border.Lines="Left, Right, Top" Format="Number" Format.UseLocale="true"/>
+            <TableCell Name="Cell167" Border.Lines="Left, Right, Top" Text="[EventShortView.Quantity]" Format="Number" Format.UseLocale="true"/>
+            <TableCell Name="Cell168" Border.Lines="Left, Right, Top" Format="Number" Format.UseLocale="true"/>
+            <TableCell Name="Cell169" Border.Lines="Left, Right, Top" Text="[EventShortView.Price]" Format="Number" Format.UseLocale="true"/>
+            <TableCell Name="Cell170" Border.Lines="Left, Right, Top" Format="Number" Format.UseLocale="true"/>
+            <TableCell Name="Cell171" Border.Lines="Left, Right, Top"/>
+          </TableRow>
+        </TableObject>
+        <DataFooterBand Name="DataFooter3" Top="229.35" Width="756" Height="20.79" CanGrow="true">
+          <TableObject Name="Table12" Width="754.11" Height="20.79">
+            <TableColumn Name="Column89" Width="134.19"/>
+            <TableColumn Name="Column90" Width="43.47"/>
+            <TableColumn Name="Column91"/>
+            <TableColumn Name="Column92" Width="51.03"/>
+            <TableColumn Name="Column93" Width="43.47"/>
+            <TableColumn Name="Column94" Width="51.03"/>
+            <TableColumn Name="Column95" Width="43.47"/>
+            <TableColumn Name="Column96" Width="41.58"/>
+            <TableColumn Name="Column97" Width="47.25"/>
+            <TableColumn Name="Column98" Width="37.8"/>
+            <TableColumn Name="Column99" Width="69.93"/>
+            <TableColumn Name="Column100" Width="62.37"/>
+            <TableColumn Name="Column101" Width="62.37"/>
+            <TableRow Name="Row14" Height="20.79" AutoSize="true">
+              <TableCell Name="Cell172" Border.Lines="All" Text="Итого" VertAlign="Center"/>
+              <TableCell Name="Cell173" Border.Lines="All" Format="Number" Format.UseLocale="false" Format.DecimalDigits="0" Format.DecimalSeparator="," Format.GroupSeparator=" " Format.NegativePattern="1" HorzAlign="Center" VertAlign="Center"/>
+              <TableCell Name="Cell174" Border.Lines="All" Text="[EventShortViewTotal.CountPatients]" Format="Number" Format.UseLocale="false" Format.DecimalDigits="0" Format.DecimalSeparator="," Format.GroupSeparator=" " Format.NegativePattern="1" HorzAlign="Center" VertAlign="Center"/>
+              <TableCell Name="Cell175" Border.Lines="All" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center"/>
+              <TableCell Name="Cell176" Border.Lines="All" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center"/>
+              <TableCell Name="Cell177" Border.Lines="All" Format="Number" Format.UseLocale="true" HorzAlign="Center"/>
+              <TableCell Name="Cell178" Border.Lines="All"/>
+              <TableCell Name="Cell179" Border.Lines="All"/>
+              <TableCell Name="Cell180" Border.Lines="All" Text="[EventShortViewTotal.Quantity]" Format="Number" Format.UseLocale="true"/>
+              <TableCell Name="Cell181" Border.Lines="All" Format="Number" Format.UseLocale="true"/>
+              <TableCell Name="Cell182" Border.Lines="All" Text="[EventShortViewTotal.Price]" Format="Number" Format.UseLocale="true"/>
+              <TableCell Name="Cell183" Border.Lines="All" Format="Number" Format.UseLocale="true"/>
+              <TableCell Name="Cell184" Border.Lines="All"/>
+            </TableRow>
+          </TableObject>
+        </DataFooterBand>
+      </DataBand>
+    </DataBand>
+    <DataBand Name="Data2" Top="254.14" Width="756" Height="18.9" AfterDataEvent="Data2_AfterData" DataSource="Table10" MaxRows="1">
+      <TableObject Name="Table7" Width="754.3" Height="18.9">
+        <TableColumn Name="Column48" Width="154.64"/>
+        <TableColumn Name="Column49" Width="107.39"/>
+        <TableColumn Name="Column50" Width="97.94"/>
+        <TableColumn Name="Column51" Width="230.24"/>
+        <TableColumn Name="Column52" Width="164.09"/>
+        <TableRow Name="Row11" AutoSize="true">
+          <TableCell Name="Cell111" Border.Lines="Left, Right" Text="Стационарозамещающие" HorzAlign="Center" VertAlign="Center" ColSpan="5"/>
+          <TableCell Name="Cell112" Border.Lines="All" Format="Number" Format.UseLocale="false" Format.DecimalDigits="0" Format.DecimalSeparator="," Format.GroupSeparator=" " Format.NegativePattern="1" HorzAlign="Center" VertAlign="Center"/>
+          <TableCell Name="Cell113" Border.Lines="All" Format="Number" Format.UseLocale="false" Format.DecimalDigits="0" Format.DecimalSeparator="," Format.GroupSeparator=" " Format.NegativePattern="1" HorzAlign="Center" VertAlign="Center"/>
+          <TableCell Name="Cell114" Border.Lines="All" Format="Number" Format.UseLocale="false" Format.DecimalDigits="0" Format.DecimalSeparator="," Format.GroupSeparator=" " Format.NegativePattern="1" HorzAlign="Center" VertAlign="Center"/>
+          <TableCell Name="Cell115" Border.Lines="All" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center"/>
+        </TableRow>
+      </TableObject>
+      <DataBand Name="Data3" Top="277.04" Width="756" Height="18.9" CanGrow="true" DataSource="Table10">
+        <TableObject Name="Table12" Width="754.11" Height="18.9">
+          <TableColumn Name="Column102" Width="134.19"/>
+          <TableColumn Name="Column103" Width="43.47"/>
+          <TableColumn Name="Column104"/>
+          <TableColumn Name="Column105" Width="51.03"/>
+          <TableColumn Name="Column106" Width="43.47"/>
+          <TableColumn Name="Column107" Width="51.03"/>
+          <TableColumn Name="Column108" Width="43.47"/>
+          <TableColumn Name="Column109" Width="41.58"/>
+          <TableColumn Name="Column110" Width="47.25"/>
+          <TableColumn Name="Column111" Width="37.8"/>
+          <TableColumn Name="Column112" Width="69.93"/>
+          <TableColumn Name="Column113" Width="62.37"/>
+          <TableColumn Name="Column114" Width="62.37"/>
+          <TableRow Name="Row15" AutoSize="true">
+            <TableCell Name="Cell185" Border.Lines="Left, Right, Top" Text="[EventShortView2.ProfileName]" VertAlign="Center"/>
+            <TableCell Name="Cell186" Border.Lines="Left, Right, Top" Format="Number" Format.UseLocale="false" Format.DecimalDigits="0" Format.DecimalSeparator="," Format.GroupSeparator=" " Format.NegativePattern="1" HorzAlign="Center" VertAlign="Center"/>
+            <TableCell Name="Cell187" Border.Lines="Left, Right, Top" Text="[EventShortView2.CountPatients]" Format="Number" Format.UseLocale="false" Format.DecimalDigits="0" Format.DecimalSeparator="," Format.GroupSeparator=" " Format.NegativePattern="1" HorzAlign="Center" VertAlign="Center"/>
+            <TableCell Name="Cell188" Border.Lines="Left, Right, Top" Text="[globalCurePeriod2.Duration]" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center"/>
+            <TableCell Name="Cell189" Border.Lines="Left, Right, Top" Text="[EventShortView2.AvgQuantity]" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center"/>
+            <TableCell Name="Cell190" Border.Lines="Left, Right, Top" Text="[EventShortView2.Std]" Format="Number" Format.UseLocale="true" HorzAlign="Center"/>
+            <TableCell Name="Cell191" Border.Lines="Left, Right, Top"/>
+            <TableCell Name="Cell192" Border.Lines="Left, Right, Top" Format="Number" Format.UseLocale="true"/>
+            <TableCell Name="Cell193" Border.Lines="Left, Right, Top" Text="[EventShortView2.Quantity]" Format="Number" Format.UseLocale="true"/>
+            <TableCell Name="Cell194" Border.Lines="Left, Right, Top" Format="Number" Format.UseLocale="true"/>
+            <TableCell Name="Cell195" Border.Lines="Left, Right, Top" Text="[EventShortView2.Price]" Format="Number" Format.UseLocale="true"/>
+            <TableCell Name="Cell196" Border.Lines="Left, Right, Top" Format="Number" Format.UseLocale="true"/>
+            <TableCell Name="Cell197" Border.Lines="Left, Right, Top"/>
+          </TableRow>
+        </TableObject>
+        <DataFooterBand Name="DataFooter2" Top="299.94" Width="756" Height="18.9" CanGrow="true">
+          <TableObject Name="Table12" Top="-1.89" Width="754.11" Height="20.79">
+            <TableColumn Name="Column115" Width="134.19"/>
+            <TableColumn Name="Column116" Width="43.47"/>
+            <TableColumn Name="Column117"/>
+            <TableColumn Name="Column118" Width="51.03"/>
+            <TableColumn Name="Column119" Width="43.47"/>
+            <TableColumn Name="Column120" Width="51.03"/>
+            <TableColumn Name="Column121" Width="43.47"/>
+            <TableColumn Name="Column122" Width="41.58"/>
+            <TableColumn Name="Column123" Width="47.25"/>
+            <TableColumn Name="Column124" Width="37.8"/>
+            <TableColumn Name="Column125" Width="69.93"/>
+            <TableColumn Name="Column126" Width="62.37"/>
+            <TableColumn Name="Column127" Width="62.37"/>
+            <TableRow Name="Row16" Height="20.79" AutoSize="true">
+              <TableCell Name="Cell198" Border.Lines="Left, Right, Top" Text="Итого" VertAlign="Center"/>
+              <TableCell Name="Cell199" Border.Lines="Left, Right, Top" Format="Number" Format.UseLocale="false" Format.DecimalDigits="0" Format.DecimalSeparator="," Format.GroupSeparator=" " Format.NegativePattern="1" HorzAlign="Center" VertAlign="Center"/>
+              <TableCell Name="Cell200" Border.Lines="Left, Right, Top" Text="[EventShortView2Total.CountPatients]" Format="Number" Format.UseLocale="false" Format.DecimalDigits="0" Format.DecimalSeparator="," Format.GroupSeparator=" " Format.NegativePattern="1" HorzAlign="Center" VertAlign="Center"/>
+              <TableCell Name="Cell201" Border.Lines="Left, Right, Top" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center"/>
+              <TableCell Name="Cell202" Border.Lines="Left, Right, Top" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center"/>
+              <TableCell Name="Cell203" Border.Lines="Left, Right, Top" Format="Number" Format.UseLocale="true" HorzAlign="Center"/>
+              <TableCell Name="Cell204" Border.Lines="Left, Right, Top"/>
+              <TableCell Name="Cell205" Border.Lines="Left, Right, Top"/>
+              <TableCell Name="Cell206" Border.Lines="Left, Right, Top" Text="[EventShortView2Total.Quantity]" Format="Number" Format.UseLocale="true"/>
+              <TableCell Name="Cell207" Border.Lines="Left, Right, Top" Format="Number" Format.UseLocale="true"/>
+              <TableCell Name="Cell208" Border.Lines="Left, Right, Top" Text="[EventShortView2Total.Price]" Format="Number" Format.UseLocale="true"/>
+              <TableCell Name="Cell209" Border.Lines="Left, Right, Top" Format="Number" Format.UseLocale="true"/>
+              <TableCell Name="Cell210" Border.Lines="Left, Right, Top"/>
+            </TableRow>
+          </TableObject>
+        </DataFooterBand>
+      </DataBand>
+    </DataBand>
+    <ReportSummaryBand Name="ReportSummary1" Top="322.84" Width="756" Height="292.95">
+      <TextObject Name="Text2" Left="134.19" Top="189" Width="621.81" Height="103.95" Text="[localPayment.Director]____________________Главный врач     &#13;&#10;                           &#13;&#10;&#13;&#10;[localPayment.Accounter]___________________Главный бухгалтер&#13;&#10;&#13;&#10;&#13;&#10;&#13;&#10;&#13;&#10;&#13;&#10;"/>
+      <TableObject Name="Table12" Top="-1.89" Width="754.11" Height="20.79">
+        <TableColumn Name="Column128" Width="134.19"/>
+        <TableColumn Name="Column129" Width="43.47"/>
+        <TableColumn Name="Column130"/>
+        <TableColumn Name="Column131" Width="51.03"/>
+        <TableColumn Name="Column132" Width="43.47"/>
+        <TableColumn Name="Column133" Width="51.03"/>
+        <TableColumn Name="Column134" Width="43.47"/>
+        <TableColumn Name="Column135" Width="41.58"/>
+        <TableColumn Name="Column136" Width="47.25"/>
+        <TableColumn Name="Column137" Width="37.8"/>
+        <TableColumn Name="Column138" Width="69.93"/>
+        <TableColumn Name="Column139" Width="62.37"/>
+        <TableColumn Name="Column140" Width="62.37"/>
+        <TableRow Name="Row17" Height="20.79" AutoSize="true">
+          <TableCell Name="Cell211" Border.Lines="All" Text="Всего по реестру" VertAlign="Center"/>
+          <TableCell Name="Cell212" Border.Lines="All" Format="Number" Format.UseLocale="false" Format.DecimalDigits="0" Format.DecimalSeparator="," Format.GroupSeparator=" " Format.NegativePattern="1" HorzAlign="Center" VertAlign="Center"/>
+          <TableCell Name="Cell213" Border.Lines="All" Text="[[EventShortView2Total.CountPatients]+[EventShortViewTotal.CountPatients]]" Format="Number" Format.UseLocale="false" Format.DecimalDigits="0" Format.DecimalSeparator="," Format.GroupSeparator=" " Format.NegativePattern="1" HorzAlign="Center" VertAlign="Center"/>
+          <TableCell Name="Cell214" Border.Lines="All" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center"/>
+          <TableCell Name="Cell215" Border.Lines="All" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center"/>
+          <TableCell Name="Cell216" Border.Lines="All" Format="Number" Format.UseLocale="true" HorzAlign="Center"/>
+          <TableCell Name="Cell217" Border.Lines="All"/>
+          <TableCell Name="Cell218" Border.Lines="All"/>
+          <TableCell Name="Cell219" Border.Lines="All" Text="[[EventShortView2Total.Quantity]+[EventShortViewTotal.Quantity]]" Format="Number" Format.UseLocale="true"/>
+          <TableCell Name="Cell220" Border.Lines="All" Format="Number" Format.UseLocale="true"/>
+          <TableCell Name="Cell221" Border.Lines="All" Text="[[EventShortView2Total.Price]+[EventShortViewTotal.Price]]" Format="Number" Format.UseLocale="true"/>
+          <TableCell Name="Cell222" Border.Lines="All" Format="Number" Format.UseLocale="true"/>
+          <TableCell Name="Cell223" Border.Lines="All"/>
+        </TableRow>
+      </TableObject>
+    </ReportSummaryBand>
+    <PageFooterBand Name="PageFooter1" Top="619.79" Width="756" Height="18.9"/>
+  </ReportPage>
+</Report>

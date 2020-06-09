@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="DataService" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import schemaLocation="http://localhost:8000/?xsd=xsd0" namespace="http://tempuri.org/" />
+      <xsd:import schemaLocation="http://localhost:8000/?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://localhost:8000/?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/SrzService.DataModel" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="IDataService_CheckConfig_InputMessage">
+    <wsdl:part name="parameters" element="tns:CheckConfig" />
+  </wsdl:message>
+  <wsdl:message name="IDataService_CheckConfig_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CheckConfigResponse" />
+  </wsdl:message>
+  <wsdl:message name="IDataService_Auth_InputMessage">
+    <wsdl:part name="parameters" element="tns:Auth" />
+  </wsdl:message>
+  <wsdl:message name="IDataService_Auth_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AuthResponse" />
+  </wsdl:message>
+  <wsdl:message name="IDataService_CheckPolicy_InputMessage">
+    <wsdl:part name="parameters" element="tns:CheckPolicy" />
+  </wsdl:message>
+  <wsdl:message name="IDataService_CheckPolicy_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CheckPolicyResponse" />
+  </wsdl:message>
+  <wsdl:message name="IDataService_GetPeopleListByPolicy_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetPeopleListByPolicy" />
+  </wsdl:message>
+  <wsdl:message name="IDataService_GetPeopleListByPolicy_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetPeopleListByPolicyResponse" />
+  </wsdl:message>
+  <wsdl:message name="IDataService_GetPeopleListByPersonal_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetPeopleListByPersonal" />
+  </wsdl:message>
+  <wsdl:message name="IDataService_GetPeopleListByPersonal_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetPeopleListByPersonalResponse" />
+  </wsdl:message>
+  <wsdl:message name="IDataService_GetPeopleByPolicy_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetPeopleByPolicy" />
+  </wsdl:message>
+  <wsdl:message name="IDataService_GetPeopleByPolicy_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetPeopleByPolicyResponse" />
+  </wsdl:message>
+  <wsdl:message name="IDataService_GetPeopleByPolicyObj_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetPeopleByPolicyObj" />
+  </wsdl:message>
+  <wsdl:message name="IDataService_GetPeopleByPolicyObj_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetPeopleByPolicyObjResponse" />
+  </wsdl:message>
+  <wsdl:message name="IDataService_GetPeopleById_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetPeopleById" />
+  </wsdl:message>
+  <wsdl:message name="IDataService_GetPeopleById_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetPeopleByIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="IDataService_GetPolicyByPeopleId_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetPolicyByPeopleId" />
+  </wsdl:message>
+  <wsdl:message name="IDataService_GetPolicyByPeopleId_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetPolicyByPeopleIdResponse" />
+  </wsdl:message>
+  <wsdl:portType name="IDataService">
+    <wsdl:operation name="CheckConfig">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDataService/CheckConfig" message="tns:IDataService_CheckConfig_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDataService/CheckConfigResponse" message="tns:IDataService_CheckConfig_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Auth">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDataService/Auth" message="tns:IDataService_Auth_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDataService/AuthResponse" message="tns:IDataService_Auth_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CheckPolicy">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDataService/CheckPolicy" message="tns:IDataService_CheckPolicy_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDataService/CheckPolicyResponse" message="tns:IDataService_CheckPolicy_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPeopleListByPolicy">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDataService/GetPeopleListByPolicy" message="tns:IDataService_GetPeopleListByPolicy_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDataService/GetPeopleListByPolicyResponse" message="tns:IDataService_GetPeopleListByPolicy_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPeopleListByPersonal">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDataService/GetPeopleListByPersonal" message="tns:IDataService_GetPeopleListByPersonal_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDataService/GetPeopleListByPersonalResponse" message="tns:IDataService_GetPeopleListByPersonal_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPeopleByPolicy">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDataService/GetPeopleByPolicy" message="tns:IDataService_GetPeopleByPolicy_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDataService/GetPeopleByPolicyResponse" message="tns:IDataService_GetPeopleByPolicy_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPeopleByPolicyObj">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDataService/GetPeopleByPolicyObj" message="tns:IDataService_GetPeopleByPolicyObj_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDataService/GetPeopleByPolicyObjResponse" message="tns:IDataService_GetPeopleByPolicyObj_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPeopleById">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDataService/GetPeopleById" message="tns:IDataService_GetPeopleById_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDataService/GetPeopleByIdResponse" message="tns:IDataService_GetPeopleById_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPolicyByPeopleId">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDataService/GetPolicyByPeopleId" message="tns:IDataService_GetPolicyByPeopleId_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDataService/GetPolicyByPeopleIdResponse" message="tns:IDataService_GetPolicyByPeopleId_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BasicHttpBinding_IDataService" type="tns:IDataService">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="CheckConfig">
+      <soap:operation soapAction="http://tempuri.org/IDataService/CheckConfig" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Auth">
+      <soap:operation soapAction="http://tempuri.org/IDataService/Auth" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CheckPolicy">
+      <soap:operation soapAction="http://tempuri.org/IDataService/CheckPolicy" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPeopleListByPolicy">
+      <soap:operation soapAction="http://tempuri.org/IDataService/GetPeopleListByPolicy" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPeopleListByPersonal">
+      <soap:operation soapAction="http://tempuri.org/IDataService/GetPeopleListByPersonal" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPeopleByPolicy">
+      <soap:operation soapAction="http://tempuri.org/IDataService/GetPeopleByPolicy" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPeopleByPolicyObj">
+      <soap:operation soapAction="http://tempuri.org/IDataService/GetPeopleByPolicyObj" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPeopleById">
+      <soap:operation soapAction="http://tempuri.org/IDataService/GetPeopleById" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPolicyByPeopleId">
+      <soap:operation soapAction="http://tempuri.org/IDataService/GetPolicyByPeopleId" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="DataService">
+    <wsdl:port name="BasicHttpBinding_IDataService" binding="tns:BasicHttpBinding_IDataService">
+      <soap:address location="http://localhost:8000/" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

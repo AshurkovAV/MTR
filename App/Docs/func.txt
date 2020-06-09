@@ -1,0 +1,17 @@
+﻿ //TODO see ??????
+private static readonly Func<object, string> ToStringFunc = p => p.ToString();
+private static readonly Func<object, int?> ToIntNullableFunc = p => p.ToInt32Nullable();
+private static readonly Func<object, DateTime?> ToDateTimeNullableFunc = p => p.ToDateTimeNullable();
+private static readonly Func<object, bool> ToBoolFunc = p => p.ToBool();
+
+public static Dictionary<int, object> Converters = new Dictionary<int, object>
+{
+    { InsuranceNumber, ToStringFunc },
+    { Id, ToIntNullableFunc },
+    { Name, ToStringFunc },
+    { Surname, ToStringFunc },
+    { Patronymic, ToStringFunc },
+    { BirthDate, ToDateTimeNullableFunc },
+    { Sex, ToIntNullableFunc },
+    { IsError, ToBoolFunc }
+};

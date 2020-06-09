@@ -1,0 +1,213 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report ScriptLanguage="CSharp" DoublePass="true" ReportInfo.Created="06/20/2009 22:40:42" ReportInfo.Modified="02/27/2012 11:55:35" ReportInfo.CreatorVersion="1.8.1.0">
+  <ScriptText>using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Windows.Forms;
+using System.Drawing;
+using System.Data;
+using FastReport;
+using FastReport.Data;
+using FastReport.Dialog;
+using FastReport.Barcode;
+using FastReport.Table;
+using FastReport.Utils;
+
+namespace FastReport
+{
+  public class ReportScript
+  {
+
+    private void Label1_Click(object sender, EventArgs e)
+    {
+      
+    }
+
+    private void TextBox1_TextChanged(object sender, EventArgs e)
+    {
+      //Report.Parameters.FindByName(&quot;enc_3_chk&quot;).Value = true;
+      CheckBox1.Checked = true;
+    }
+
+    private void TextBox2_TextChanged(object sender, EventArgs e)
+    {
+      //Report.Parameters.FindByName(&quot;enc_4_chk&quot;).Value = true;
+      CheckBox2.Checked = true;
+    }
+  }
+}
+</ScriptText>
+  <Dictionary>
+    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqM3/HbiZANEYP3Y6oNtE7mhb00LswZpLPL1nHlNPE8Ttd/PYtJWZHa+Bi6VxY2kO/86yqC3dEAfSOFuAtVHPo27ltpeit54RmWfyB1HPJuDUSBNOELtEhifv9pd5xb8NjHezfLLxa7C+tQPiWNZSeitoUZKtPtKD1+VlvMfrGRE4=">
+      <TableDataSource Name="localEmployee" DataType="System.Int32" Enabled="true" TableName="localEmployee" SelectCommand="SELECT L.Surname, L.EName, L.Patronymic, L.Position, L.Speciality, L.Phone, L.EmployeeId, L.ConfNumber&#13;&#10;FROM &quot;localEmployee&quot; L WHERE L.EmployeeId=@EmployeeIdParam&#13;&#10;">
+        <Column Name="Surname" DataType="System.String"/>
+        <Column Name="EName" DataType="System.String"/>
+        <Column Name="Patronymic" DataType="System.String"/>
+        <Column Name="Position" DataType="System.String"/>
+        <Column Name="Speciality" DataType="System.String"/>
+        <Column Name="Phone" DataType="System.String"/>
+        <Column Name="EmployeeId" DataType="System.Int32"/>
+        <Column Name="ConfNumber" DataType="System.String"/>
+        <Column Name="FullNameInitials" DataType="System.Int32" PropName="Column" Calculated="true" Expression="[localEmployee.Surname] + &quot; &quot;+Substring([localEmployee.EName],0,1) + &quot;.&quot; +Substring([localEmployee.Patronymic],0,1) + &quot;.&quot;"/>
+        <CommandParameter Name="EmployeeIdParam" DataType="8" DefaultValue="1"/>
+      </TableDataSource>
+      <TableDataSource Name="localF001" Alias="localF001Destination" DataType="System.Int32" Enabled="true" TableName="localF001" SelectCommand="SELECT L.LocalF001Id, L.ShortName, L.PositionName, L.Name, L.Surname, L.Patronymic, L.OKATO, L.Code, L.RegionName, L.FullAddress&#13;&#10;FROM &quot;localF001&quot; L WHERE L.OKATO=@OkatoParam&#13;&#10;">
+        <Column Name="LocalF001Id" DataType="System.Int32"/>
+        <Column Name="ShortName" DataType="System.String"/>
+        <Column Name="PositionName" DataType="System.String"/>
+        <Column Name="Name" DataType="System.String"/>
+        <Column Name="Surname" DataType="System.String"/>
+        <Column Name="Patronymic" DataType="System.String"/>
+        <Column Name="OKATO" DataType="System.String"/>
+        <Column Name="Code" DataType="System.String"/>
+        <Column Name="RegionName" DataType="System.String"/>
+        <Column Name="FullNameInitials" DataType="System.Int32" PropName="Column" Calculated="true" Expression="[localF001Destination.Surname] + &quot; &quot; + Substring([localF001Destination.Name],0,1) + &quot;. &quot; + Substring([localF001Destination.Patronymic],0,1)+ &quot;. &quot;"/>
+        <Column Name="FullAddress" DataType="System.String"/>
+        <CommandParameter Name="OkatoParam" DataType="9" Expression="[FactTerritoryAccount.Destination]" DefaultValue="1"/>
+      </TableDataSource>
+      <TableDataSource Name="FactTerritoryAccount" DataType="System.Int32" Enabled="true" TableName="FactTerritoryAccount" SelectCommand="SELECT F.Date, F.AccountNumber, F.AccountDate, F.Price, F.AcceptPrice, F.MECPenalties, F.MEEPenalties, F.EQMAPenalties, F.Comments, F.Source, F.Destination, F.Status, F.TerritoryAccountId, F.ExternalId, F.PacketNumber, F.Type&#13;&#10;FROM &quot;FactTerritoryAccount&quot; F WHERE F.TerritoryAccountId=@AccountIdParam&#13;&#10;">
+        <Column Name="Date" DataType="System.DateTime"/>
+        <Column Name="AccountNumber" DataType="System.String"/>
+        <Column Name="AccountDate" DataType="System.DateTime"/>
+        <Column Name="Price" DataType="System.Decimal"/>
+        <Column Name="AcceptPrice" DataType="System.Decimal"/>
+        <Column Name="MECPenalties" DataType="System.Decimal"/>
+        <Column Name="MEEPenalties" DataType="System.Decimal"/>
+        <Column Name="EQMAPenalties" DataType="System.Decimal"/>
+        <Column Name="Comments" DataType="System.String"/>
+        <Column Name="Source" DataType="System.String"/>
+        <Column Name="Destination" DataType="System.String"/>
+        <Column Name="Status" DataType="System.Int32"/>
+        <Column Name="TerritoryAccountId" DataType="System.Int32"/>
+        <Column Name="ExternalId" DataType="System.Int32"/>
+        <Column Name="PacketNumber" DataType="System.Int32"/>
+        <Column Name="Type" DataType="System.Int32"/>
+        <CommandParameter Name="AccountIdParam" DataType="8" Expression="[AccountId]" DefaultValue="18"/>
+      </TableDataSource>
+      <TableDataSource Name="Table" Alias="Summary" DataType="System.Int32" Enabled="true" SelectCommand="SELECT E.AssistanceConditions, Sum(E.Price) AS Price, Sum(E.AcceptPrice) AS AcceptPrice&#13;&#10;FROM &quot;EventShortView&quot; E&#13;&#10;&#13;&#10;WHERE E.AccountId=@AccountIdParam&#13;&#10;GROUP BY E.AssistanceConditions&#13;&#10;">
+        <Column Name="AssistanceConditions" DataType="System.Decimal"/>
+        <Column Name="Price" DataType="System.Decimal"/>
+        <Column Name="AcceptPrice" DataType="System.Decimal"/>
+        <CommandParameter Name="AccountIdParam" DataType="8" Expression="[AccountId]" DefaultValue="18"/>
+      </TableDataSource>
+      <TableDataSource Name="Table1" Alias="FactTerritoryAccount_type1" DataType="System.Int32" Enabled="true" SelectCommand="SELECT ac.[Date] ,ac.[AccountNumber] ,ac.[AccountDate] ,ac.[Price] ,ac.[AcceptPrice] ,ac.[MECPenalties] ,ac.[MEEPenalties] ,ac.[EQMAPenalties] ,ac.[Comments],ac.[Source],ac.[Destination],ac.[Status],ac.[TerritoryAccountId],ac.[ExternalId],ac.[PacketNumber],ac.[Type] FROM [FactTerritoryAccount] ac inner join [FactTerritoryAccount] ac1 on ac.AccountNumber = ac1.AccountNumber and ac.AccountDate = ac1.AccountDate and ac.Source = ac1.Source and ac.Destination = ac1.Destination&#13;&#10;and ac.TerritoryAccountId &lt;&gt; ac1.TerritoryAccountId and ac.Type = 1 &#13;&#10;and ac1.TerritoryAccountId = @TerritoryAccountId">
+        <Column Name="Date" DataType="System.DateTime"/>
+        <Column Name="AccountNumber" DataType="System.String"/>
+        <Column Name="AccountDate" DataType="System.DateTime"/>
+        <Column Name="Price" DataType="System.Decimal"/>
+        <Column Name="AcceptPrice" DataType="System.Decimal"/>
+        <Column Name="MECPenalties" DataType="System.Decimal"/>
+        <Column Name="MEEPenalties" DataType="System.Decimal"/>
+        <Column Name="EQMAPenalties" DataType="System.Decimal"/>
+        <Column Name="Comments" DataType="System.String"/>
+        <Column Name="Source" DataType="System.String"/>
+        <Column Name="Destination" DataType="System.String"/>
+        <Column Name="Status" DataType="System.Int32"/>
+        <Column Name="TerritoryAccountId" DataType="System.Int32"/>
+        <Column Name="ExternalId" DataType="System.Int32"/>
+        <Column Name="PacketNumber" DataType="System.Int32"/>
+        <Column Name="Type" DataType="System.Int32"/>
+        <CommandParameter Name="@TerritoryAccountId" DataType="8" Expression="[AccountId]" DefaultValue="18"/>
+      </TableDataSource>
+    </MsSqlDataConnection>
+    <Parameter Name="EmployeeId" DataType="System.Int32"/>
+    <Parameter Name="DestinationF001Id" DataType="System.Int32"/>
+    <Parameter Name="AccountId" DataType="System.Int32"/>
+    <Parameter Name="KB_number" DataType="System.String"/>
+    <Parameter Name="Account_pages" DataType="System.String"/>
+    <Parameter Name="enc_3_chk" DataType="System.Boolean"/>
+    <Parameter Name="enc_4_chk" DataType="System.Boolean"/>
+    <Parameter Name="enc_3" DataType="System.String"/>
+    <Parameter Name="enc_4" DataType="System.String"/>
+  </Dictionary>
+  <ReportPage Name="Page1" RawPaperSize="9" LeftMargin="20" TopMargin="20" BottomMargin="20">
+    <ReportTitleBand Name="ReportTitle1" Width="680.4" Height="570.78">
+      <PictureObject Name="Picture1" Width="189" Height="132.3" Image="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"/>
+      <TextObject Name="Text1" Top="349.65" Width="198.45" Height="28.35" Text="О предоставлении информации&#13;&#10;по межтерриториальным расчетам" Font="Times New Roman, 8pt, style=Bold"/>
+      <TextObject Name="Text2" Top="160.65" Width="366.66" Height="66.15" Text="______________№ [localEmployee.ConfNumber]/К-Б/ ______&#13;&#10;&#13;&#10;На №___________от____________" Font="Times New Roman, 10pt"/>
+      <TextObject Name="Text3" Left="160.65" Top="85.05" Width="519.75" Height="47.25" Text="Ломакина ул. 17-А, г.Курск, 305029, тел./факс: 8 (4712) 53-58-30,&#13;&#10;www.kurskoms.ru; foms@kursktelecom.ru&#13;&#10;ОКПО 11102790, ОГРН 1034637016501 ИНН/КПП 4629026970/463201001" HorzAlign="Center" Font="Times New Roman, 10pt"/>
+      <TextObject Name="Text4" Left="160.65" Width="519.75" Height="85.05" Text="АДМИНИСТРАЦИЯ КУРСКОЙ ОБЛАСТИ&#13;&#10;ТЕРРИТОРИАЛЬНЫЙ ФОНД ОБЯЗАТЕЛЬНОГО&#13;&#10;МЕДИЦИНСКОГО СТРАХОВАНИЯ КУРСКОЙ ОБЛАСТИ&#13;&#10;(ТФОМС Курской области)" HorzAlign="Center" Font="Times New Roman, 10pt, style=Bold"/>
+      <LineObject Name="Line1" Left="189" Top="66.15" Width="463.05" Border.Width="2"/>
+      <TextObject Name="Text5" Left="406.35" Top="226.8" Width="274.05" Height="126.63" Text="[localF001Destination.PositionName]&#13;&#10;[localF001Destination.ShortName]&#13;&#10;[localF001Destination.FullNameInitials]&#13;&#10;&#13;&#10;[localF001Destination.FullAddress]" Font="Times New Roman, 11pt, style=Bold"/>
+      <TextObject Name="Text8" Left="406.35" Top="160.65" Width="272.16" Height="66.15" Text="Конфиденциально&#13;&#10;Экз. №&#13;&#10;Без приложения&#13;&#10;не конфиденциально" Font="Times New Roman, 10pt, style=Bold"/>
+      <LineObject Name="Line2" Left="189" Top="71.6" Width="463.05"/>
+      <TextObject Name="Text12" Left="1.89" Top="387.45" Width="676.62" Height="183.33" CanGrow="true" CanShrink="true" Text="	ТФОМС Курской области для проведения первичной медико-экономической экспертизы по межтерриториальным расчётам предлагает представить в срок до ______________ истории болезни (учетные формы №25/у-04 «Медицинская карта амбулаторного больного») пациентов, пролеченных в стационаре (поликлинике) по реестру за (месяц, год оказания медицинской помощи) (далее по списку) и медицинское обоснование ( в машинописном варианте ) пребывания пациентов в стационаре (поликлинике) с уточнением показания к госпитализации, обоснованием длительности и объема оказанных медицинских услуг.&#13;&#10;При отсутствии медицинской документации в указанный срок оплата по случаю лечения будет удержана при медико-экономической экспертизе." Font="Times New Roman, 12pt">
+        <Formats>
+          <GeneralFormat/>
+          <DateFormat/>
+          <GeneralFormat/>
+          <DateFormat/>
+          <GeneralFormat/>
+          <DateFormat/>
+          <CurrencyFormat/>
+        </Formats>
+      </TextObject>
+    </ReportTitleBand>
+    <DataBand Name="Data1" Top="596.58" Width="680.4" Height="18.9" DataSource="Table" KeepTogether="true">
+      <TextObject Name="Text11" Width="680.4" Height="18.9" CanGrow="true" Text="[Switch([Summary.AssistanceConditions] == 1, &quot;Стационарная помощь&quot;,[Summary.AssistanceConditions] == 2, &quot;Стационарозамещающая помощь&quot;,[Summary.AssistanceConditions] == 3, &quot;Амбулаторная помощь&quot;)] - [Summary.Price]" Font="Times New Roman, 12pt">
+        <Formats>
+          <GeneralFormat/>
+          <CurrencyFormat/>
+        </Formats>
+      </TextObject>
+      <DataHeaderBand Name="DataHeader1" Top="574.23" Width="680.4" Height="18.9" CanGrow="true" CanShrink="true" KeepWithData="true">
+        <TextObject Name="Text7" Width="94.5" Height="18.9" Text="Отделение" Font="Times New Roman, 12pt"/>
+      </DataHeaderBand>
+      <DataBand Name="Data3" Top="618.92" Width="680.4" Height="18.9">
+        <TextObject Name="Text15" Width="94.5" Height="18.9" Text="Профиль" Font="Times New Roman, 12pt"/>
+        <DataBand Name="Data4" Top="641.27" Width="680.4" Height="18.9">
+          <TextObject Name="Text16" Width="66.15" Height="18.9" Text="[Row#]" Font="Times New Roman, 12pt"/>
+          <TextObject Name="Text17" Left="66.15" Width="614.25" Height="18.9" Text="ФИО" Font="Times New Roman, 12pt"/>
+        </DataBand>
+      </DataBand>
+      <DataFooterBand Name="DataFooter1" Top="663.62" Width="680.4" Height="90.72" CanGrow="true" CanShrink="true" KeepWithData="true">
+        <TableObject Name="Table2" Left="11.34" Top="34.02" Width="676.4" Height="56.7">
+          <TableColumn Name="Column31" Width="248.85"/>
+          <TableColumn Name="Column32" Width="295.25"/>
+          <TableColumn Name="Column33" Width="132.3"/>
+          <TableRow Name="Row9" AutoSize="true">
+            <TableCell Name="Cell97" Text="Директор" Font="Times New Roman, 11pt"/>
+            <TableCell Name="Cell98" Padding="0, 0, 0, 0" HorzAlign="Center" Font="Times New Roman, 10pt"/>
+            <TableCell Name="Cell99" Text="А.В. Курцев" Font="Times New Roman, 11pt"/>
+          </TableRow>
+          <TableRow Name="Row10">
+            <TableCell Name="Cell100" Font="Times New Roman, 10pt"/>
+            <TableCell Name="Cell101" HorzAlign="Center" Font="Times New Roman, 8pt"/>
+            <TableCell Name="Cell102" Font="Times New Roman, 10pt"/>
+          </TableRow>
+          <TableRow Name="Row11">
+            <TableCell Name="Cell103" Font="Times New Roman, 11pt"/>
+            <TableCell Name="Cell104" Font="Times New Roman, 10pt"/>
+            <TableCell Name="Cell105" Font="Times New Roman, 11pt"/>
+          </TableRow>
+        </TableObject>
+      </DataFooterBand>
+    </DataBand>
+    <ReportSummaryBand Name="ReportSummary1" Top="757.79" Width="680.4" Height="18.9" PrintOnBottom="true"/>
+    <PageFooterBand Name="PageFooter1" Top="780.14" Width="680.4" Height="51.03">
+      <TextObject Name="Text9" Width="266.49" Height="51.03" Text="[localEmployee.FullNameInitials]&#13;&#10;[localEmployee.Phone]" Font="Times New Roman, 10pt"/>
+    </PageFooterBand>
+  </ReportPage>
+  <ReportPage Name="Page2">
+    <ReportTitleBand Name="ReportTitle2" Width="718.2" Height="37.8"/>
+    <PageHeaderBand Name="PageHeader1" Top="41.25" Width="718.2" Height="28.35"/>
+    <DataBand Name="Data2" Top="73.05" Width="718.2" Height="75.6"/>
+    <PageFooterBand Name="PageFooter2" Top="152.09" Width="718.2" Height="126.63">
+      <TextObject Name="Text14" Width="446.04" Height="126.63" Text="№ [localEmployee.ConfNumber]/К-Б/ ______&#13;&#10;Отп. 2 экз., на [Round(([TotalPages]) /2.0 + 0.1)]  [IIf( [TotalPages] &lt;= 2,&quot;листе&quot;,&quot;листах&quot;)] каждый &#13;&#10;Экз. №1 - адресату&#13;&#10;Экз. №2 - в дело&#13;&#10;[localEmployee.FullNameInitials]&#13;&#10;[localEmployee.Phone]&#13;&#10;Дата " Font="Times New Roman, 10pt"/>
+    </PageFooterBand>
+  </ReportPage>
+  <DialogPage Name="Form1" Width="554" Height="242" AcceptButton="btnOk" CancelButton="btnCancel">
+    <ButtonControl Name="btnOk" Left="382" Top="179" Anchor="Bottom, Right" Font="Tahoma, 8pt" TabIndex="0" Text="ОК" DialogResult="OK"/>
+    <ButtonControl Name="btnCancel" Left="465" Top="179" Anchor="Bottom, Right" Font="Tahoma, 8pt" TabIndex="1" Text="Отмена" DialogResult="Cancel"/>
+    <LabelControl Name="Label1" Left="12" Top="88" Width="202" Height="13" Font="Tahoma, 8pt" TabIndex="2" Text="Введите информацию о приложениях:" ClickEvent="Label1_Click"/>
+    <TextBoxControl Name="TextBox1" Left="28" Top="112" Width="512" Font="Tahoma, 8pt" TabIndex="3" Text="3. &quot;Акт_ медико-экономической экспертизы&quot;, конфиденциально, №__/К-Б/__, экз. ___, на __ л." TextChangedEvent="TextBox1_TextChanged" ReportParameter="enc_3"/>
+    <CheckBoxControl Name="CheckBox1" Left="12" Top="116" Width="15" Height="14" Font="Tahoma, 8pt" TabIndex="4" ReportParameter="enc_3_chk"/>
+    <TextBoxControl Name="TextBox2" Left="28" Top="136" Width="512" Font="Tahoma, 8pt" TabIndex="3" Text="4. Приложение к реестрам счетам в г. ______ копии полисов (103) №____/К-Б/___ на ____ л." TextChangedEvent="TextBox2_TextChanged" ReportParameter="enc_4"/>
+    <CheckBoxControl Name="CheckBox2" Left="12" Top="140" Width="15" Height="14" Font="Tahoma, 8pt" TabIndex="4" ReportParameter="enc_4_chk"/>
+    <LabelControl Name="Label2" Left="12" Top="20" Width="116" Height="13" Font="Tahoma, 8pt" TabIndex="5" Text="К-Б № реестра счета"/>
+    <TextBoxControl Name="TextBox3" Left="176" Top="16" Font="Tahoma, 8pt" TabIndex="6" ReportParameter="KB_number"/>
+    <LabelControl Name="Label3" Left="12" Top="44" Width="162" Height="13" Font="Tahoma, 8pt" TabIndex="5" Text="Кол-во страниц реестра счета"/>
+    <TextBoxControl Name="TextBox4" Left="176" Top="40" Font="Tahoma, 8pt" TabIndex="6" ReportParameter="Account_pages"/>
+  </DialogPage>
+</Report>

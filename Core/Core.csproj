@@ -1,0 +1,282 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{3D0AD1D2-D4F2-40FB-8ED4-F9EF3A48DE2A}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Core</RootNamespace>
+    <AssemblyName>Core</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Autofac, Version=4.0.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.4.0.0\lib\net451\Autofac.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="GalaSoft.MvvmLight, Version=5.3.0.19026, Culture=neutral, PublicKeyToken=e7570ab207bcb616, processorArchitecture=MSIL">
+      <HintPath>..\packages\MvvmLightLibs.5.3.0.0\lib\net45\GalaSoft.MvvmLight.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="GalaSoft.MvvmLight.Extras, Version=5.3.0.19032, Culture=neutral, PublicKeyToken=669f0b5e8f868abf, processorArchitecture=MSIL">
+      <HintPath>..\packages\MvvmLightLibs.5.3.0.0\lib\net45\GalaSoft.MvvmLight.Extras.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="GalaSoft.MvvmLight.Platform, Version=5.3.0.19032, Culture=neutral, PublicKeyToken=5f873c45e98af8a1, processorArchitecture=MSIL">
+      <HintPath>..\packages\MvvmLightLibs.5.3.0.0\lib\net45\GalaSoft.MvvmLight.Platform.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib, Version=0.86.0.518, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
+      <HintPath>..\packages\SharpZipLib.0.86.0\lib\20\ICSharpCode.SharpZipLib.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\CommonServiceLocator.1.3\lib\portable-net4+sl5+netcore45+wpa81+wp8\Microsoft.Practices.ServiceLocation.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Attributes\ModuleAttribute.cs" />
+    <Compile Include="Auto.cs">
+      <DependentUpon>Auto.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Builders\HtmlBuilder.cs" />
+    <Compile Include="Constants.cs" />
+    <Compile Include="DataStructure\CommonTuple.cs" />
+    <Compile Include="Extensions\ComparerExtentions.cs" />
+    <Compile Include="Extensions\BoolExtension.cs" />
+    <Compile Include="Extensions\ClassExtensions.cs" />
+    <Compile Include="Extensions\CollectionExtension.cs" />
+    <Compile Include="Extensions\CommonExtensions.cs" />
+    <Compile Include="Extensions\DateTimeExtensions.cs" />
+    <Compile Include="Extensions\DecimalExtensions.cs" />
+    <Compile Include="Extensions\DoubleExtension.cs" />
+    <Compile Include="Extensions\FlagExtension.cs" />
+    <Compile Include="Extensions\Int32Extension.cs" />
+    <Compile Include="Extensions\Linq.cs" />
+    <Compile Include="Extensions\MathExtension.cs" />
+    <Compile Include="Extensions\ObjectExtension.cs" />
+    <Compile Include="Extensions\StringExtensions.cs" />
+    <Compile Include="GlobalConfig.cs" />
+    <Compile Include="Helpers\CryptoHelpers.cs" />
+    <Compile Include="Helpers\FileHelpers.cs" />
+    <Compile Include="Helpers\ReflectionHelper.cs" />
+    <Compile Include="Helpers\BackgroundHelper.cs" />
+    <Compile Include="Helpers\CollectionHelpers.cs" />
+    <Compile Include="Helpers\ConverterHelpers.cs" />
+    <Compile Include="Helpers\ImageSourceHelper.cs" />
+    <Compile Include="Helpers\PathHelper.cs" />
+    <Compile Include="Helpers\SafeConvertHelpers.cs" />
+    <Compile Include="Helpers\SecurityHelpers.cs" />
+    <Compile Include="Helpers\SerializeHelpers.cs" />
+    <Compile Include="Helpers\StreamHelper.cs" />
+    <Compile Include="Helpers\ThemeHelpers.cs" />
+    <Compile Include="Helpers\UIHelpers.cs" />
+    <Compile Include="Helpers\UnityHelpers.cs" />
+    <Compile Include="Helpers\XmlFileNameHelpers.cs" />
+    <Compile Include="Helpers\XmlHelpers.cs" />
+    <Compile Include="Helpers\ZipHelpers.cs" />
+    <Compile Include="Extensions\Aop.cs" />
+    <Compile Include="Infrastructure\Compiler\CompilerAttributes.cs" />
+    <Compile Include="Infrastructure\Compiler\IScriptCompiler.cs" />
+    <Compile Include="Infrastructure\Compiler\ScriptCompiler.cs" />
+    <Compile Include="Infrastructure\ContextCommand.cs" />
+    <Compile Include="Infrastructure\ICallbackable.cs" />
+    <Compile Include="Infrastructure\IContextCommandContainer.cs" />
+    <Compile Include="Infrastructure\IContextCommand.cs" />
+    <Compile Include="Infrastructure\CoreMessages.cs" />
+    <Compile Include="Infrastructure\IDataConverter.cs" />
+    <Compile Include="Infrastructure\IdFactory.cs" />
+    <Compile Include="Infrastructure\IErrorMessage.cs" />
+    <Compile Include="Infrastructure\IHash.cs" />
+    <Compile Include="Infrastructure\IIdFactory.cs" />
+    <Compile Include="Infrastructure\IModuleActivator.cs" />
+    <Compile Include="Infrastructure\ITestable.cs" />
+    <Compile Include="Infrastructure\IOperationResult.cs" />
+    <Compile Include="Infrastructure\ITransactionResult.cs" />
+    <Compile Include="Infrastructure\IError.cs" />
+    <Compile Include="Infrastructure\MappingResult.cs" />
+    <Compile Include="Infrastructure\OperationResult.cs" />
+    <Compile Include="Infrastructure\TransactionResult.cs" />
+    <Compile Include="Infrastructure\UserRole.cs" />
+    <Compile Include="InitCommand.cs" />
+    <Compile Include="Linq\LinqExtension.cs" />
+    <Compile Include="Linq\PredicateBuilder.cs" />
+    <Compile Include="MarkupConverter\MarkupConverter.cs" />
+    <Compile Include="MarkupConverter\HtmlCssParser.cs" />
+    <Compile Include="MarkupConverter\HtmlFromXamlConverter.cs" />
+    <Compile Include="MarkupConverter\HtmlLexicalAnalyzer.cs" />
+    <Compile Include="MarkupConverter\HtmlParser.cs" />
+    <Compile Include="MarkupConverter\HtmlSchema.cs" />
+    <Compile Include="MarkupConverter\HtmlTokenType.cs" />
+    <Compile Include="MarkupConverter\HtmlToXamlConverter.cs" />
+    <Compile Include="Perfomance\BooleanBoxes.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\AppShareSettings.cs" />
+    <Compile Include="Services\AppLocalSettings.cs" />
+    <Compile Include="Services\Di.cs" />
+    <Compile Include="Services\IAppShareSettings.cs" />
+    <Compile Include="Services\IAppLocalSettings.cs" />
+    <Compile Include="Utils\CommandLine.cs" />
+    <Compile Include="Utils\ControlResourcesLoger.cs" />
+    <Compile Include="Utils\EnumerableUtility.cs" />
+    <Compile Include="Utils\StringUtil.cs" />
+    <Compile Include="Utils\SubTypeComparer.cs" />
+    <Compile Include="Utils\TempFileRef.cs" />
+    <Compile Include="Utils\Transliteration.cs" />
+    <Compile Include="Utils\TypeUtil.cs" />
+    <Compile Include="Utils\CommonUtils.cs" />
+    <Compile Include="Validation\DataErrorInfoExtensions.cs" />
+    <Compile Include="Validation\DataErrorInfoSupport.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Auto.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Auto.cs</LastGenOutput>
+      <LastOutputs>.\Properties\AssemblyInfo.cs</LastOutputs>
+    </None>
+    <None Include="Auto.tt.log">
+      <DependentUpon>Auto.tt</DependentUpon>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\64\application-xml.png" />
+    <Resource Include="Images\64\applications-office-2.png" />
+    <Resource Include="Images\64\applications-office.png" />
+    <Resource Include="Images\64\applications-other-3.png" />
+    <Resource Include="Images\64\applications-utilities-3.png" />
+    <Resource Include="Images\64\blockdevice.png" />
+    <Resource Include="Images\64\blockdevice2.png" />
+    <Resource Include="Images\64\bookmark-4.png" />
+    <Resource Include="Images\64\bookmark-new-7.png" />
+    <Resource Include="Images\64\bookmarks-organize.png" />
+    <Resource Include="Images\64\db-settings.png" />
+    <Resource Include="Images\64\db.png" />
+    <Resource Include="Images\64\emblem-new.png" />
+    <Resource Include="Images\64\go-down-search.png" />
+    <Resource Include="Images\64\go-up-search.png" />
+    <Resource Include="Images\64\journal.png" />
+    <Resource Include="Images\64\link.png" />
+    <Resource Include="Images\64\lockoverlay.png" />
+    <Resource Include="Images\64\mail-send-receive.png" />
+    <Resource Include="Images\64\office-chart-bar.png" />
+    <Resource Include="Images\64\office-chart-pie.png" />
+    <Resource Include="Images\64\printer-5.png" />
+    <Resource Include="Images\64\share.png" />
+    <Resource Include="Images\64\system-run-2.png" />
+    <Resource Include="Images\64\system-search.png" />
+    <Resource Include="Images\64\system-settings.png" />
+    <Resource Include="Images\64\text-x-changelog.png" />
+    <Resource Include="Images\64\text-x-copying.png" />
+    <Resource Include="Images\64\text-x-credits.png" />
+    <Resource Include="Images\64\text-x-log.png" />
+    <Resource Include="Images\64\text-xml.png" />
+    <Resource Include="Images\64\user-home.png" />
+    <Resource Include="Images\64\user-trash.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

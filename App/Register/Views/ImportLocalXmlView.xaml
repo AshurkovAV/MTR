@@ -1,0 +1,150 @@
+﻿<UserControl x:Class="Medical.AppLayer.Register.Views.ImportLocalXmlView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:converters="clr-namespace:Medical.AppLayer.Converters"
+             xmlns:core="clr-namespace:Core;assembly=Core"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+             xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol"
+             xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm"
+             xmlns:extToolkit="http://schemas.microsoft.com/winfx/2006/xaml/presentation/toolkit/extended"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             x:Name="ImportLocalXmlControl"
+             Width="Auto"
+             Height="Auto"
+             d:DesignHeight="500"
+             d:DesignWidth="800"
+             mc:Ignorable="d">
+  <UserControl.Resources>
+    <converters:TypeLoadConverter x:Key="TypeLoadConverter" />
+    <dxmvvm:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" Inverse="True" />
+
+  </UserControl.Resources>
+  <Grid Background="White">
+    <dxlc:LayoutControl HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch"
+                        Orientation="Vertical">
+      <dxlc:LayoutGroup>
+
+        <dxlc:LayoutGroup HorizontalAlignment="Stretch"
+                          dxlc:LayoutControl.AllowHorizontalSizing="True"
+                          Orientation="Vertical">
+          <dxlc:LayoutItem FontWeight="Bold" Label="Параметры загрузки">
+            <Separator />
+          </dxlc:LayoutItem>
+          <dxlc:LayoutGroup>
+            <dxlc:LayoutItem>
+              <dxe:ComboBoxEdit EditValue="{Binding SelectedTypeLoad}"
+                                ItemsSource="{dxe:EnumItemsSource EnumType=core:TypeLoad,
+                                                                  NameConverter={StaticResource TypeLoadConverter}}"
+                                NullText="Способ загрузки" />
+            </dxlc:LayoutItem>
+            <dxlc:LayoutItem>
+              <dxe:ComboBoxEdit NullText="Расширение файлов" SelectedIndex="{Binding FileExt}">
+                <dxe:ComboBoxEditItem Content=".oms" />
+                <dxe:ComboBoxEditItem Content=".xml" />
+              </dxe:ComboBoxEdit>
+            </dxlc:LayoutItem>
+          </dxlc:LayoutGroup>
+          <dxlc:LayoutItem>
+
+            <dxe:ButtonEdit AllowDefaultButton="False"
+                            EditValue="{Binding FileName}"
+                            NullText="Выберете файл">
+              <dxe:ButtonInfo Command="{Binding SelectFileCommand}" GlyphKind="Regular" />
+            </dxe:ButtonEdit>
+
+          </dxlc:LayoutItem>
+          <dxlc:LayoutItem>
+            <dxe:ComboBoxEdit IsTextEditable="False"
+                              NullText="Версия"
+                              SelectedIndex="{Binding Version}">
+              <dxe:ComboBoxEditItem Content="Авто" />
+              <dxe:ComboBoxEditItem Content="v 2.1К" />
+              <dxe:ComboBoxEditItem Content="v 3.0" />
+              <dxe:ComboBoxEditItem Content="v 3.1" />
+              <dxe:ComboBoxEditItem Content="v 3.2" />
+            </dxe:ComboBoxEdit>
+          </dxlc:LayoutItem>
+          <dxlc:LayoutItem VerticalAlignment="Stretch"
+                           Label="Опции загрузки"
+                           LabelPosition="Top">
+            <dxe:ListBoxEdit AllowItemHighlighting="True"
+                             DisplayMember="DisplayName"
+                             EditValue="{Binding SelectedOptionsList,
+                                                 NotifyOnValidationError=true,
+                                                 ValidatesOnDataErrors=true,
+                                                 ValidatesOnExceptions=true}"
+                             ItemsSource="{Binding AllOptionsList}"
+                             SelectionMode="Multiple"
+                             ShowCustomItems="True"
+                             ValueMember="Value">
+              <dxe:ListBoxEdit.StyleSettings>
+                <dxe:CheckedListBoxEditStyleSettings />
+              </dxe:ListBoxEdit.StyleSettings>
+            </dxe:ListBoxEdit>
+          </dxlc:LayoutItem>
+          <dxlc:LayoutItem VerticalAlignment="Stretch"
+                           Label="Обработка данных"
+                           LabelPosition="Top"
+                           Visibility="{Binding IsChecked,
+                                                ElementName=IsTestLoadCheckBox,
+                                                Converter={StaticResource BooleanToVisibilityConverter}}">
+            <dxe:ListBoxEdit AllowItemHighlighting="True"
+                             DisplayMember="Name"
+                             EditValue="{Binding SelectedProcessingsList,
+                                                 NotifyOnValidationError=true,
+                                                 ValidatesOnDataErrors=true,
+                                                 ValidatesOnExceptions=true}"
+                             ItemsSource="{Binding AllProcessingsList}"
+                             SelectionMode="Multiple"
+                             ShowCustomItems="True"
+                             ValueMember="ProcessingId">
+              <dxe:ListBoxEdit.StyleSettings>
+                <dxe:CheckedListBoxEditStyleSettings />
+              </dxe:ListBoxEdit.StyleSettings>
+            </dxe:ListBoxEdit>
+          </dxlc:LayoutItem>
+          <CheckBox Name="IsTestLoadCheckBox"
+                    Height="18"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    Content="Пробная загрузка"
+                    IsChecked="{Binding IsTestLoad,
+                                        UpdateSourceTrigger=PropertyChanged}" />
+          <Separator Height="12" VerticalAlignment="Bottom" />
+
+        </dxlc:LayoutGroup>
+
+        <dxlc:LayoutGroup Orientation="Vertical">
+          <dxlc:LayoutItem FontWeight="Bold" Label="Результаты загрузки">
+            <Separator />
+          </dxlc:LayoutItem>
+          <dxlc:LayoutItem />
+          <dxlc:LayoutGroup Orientation="Horizontal">
+
+            <dxlc:LayoutItem>
+              <dxe:ButtonEdit HorizontalAlignment="Right"
+                              AllowDefaultButton="False"
+                              ShowText="False">
+                <dxe:ButtonInfo Command="{Binding SaveLogCommand}" GlyphKind="Edit" />
+              </dxe:ButtonEdit>
+            </dxlc:LayoutItem>
+          </dxlc:LayoutGroup>
+          <extToolkit:RichTextBox BorderBrush="Gray"
+                                  IsReadOnly="True"
+                                  Padding="10"
+                                  ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                  Text="{Binding Notes}" />
+          <Separator Height="12" VerticalAlignment="Bottom" />
+        </dxlc:LayoutGroup>
+      </dxlc:LayoutGroup>
+      <Button Width="75"
+              Height="23"
+              HorizontalAlignment="Right"
+              VerticalAlignment="Top"
+              Command="{Binding ImportCommand}"
+              Content="Выполнить" />
+    </dxlc:LayoutControl>
+  </Grid>
+</UserControl>

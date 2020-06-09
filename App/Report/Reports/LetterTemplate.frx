@@ -1,0 +1,170 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report ScriptLanguage="CSharp" DoublePass="true" StartReportEvent="_StartReport" ReportInfo.Created="06/20/2009 22:40:42" ReportInfo.Modified="03/02/2012 12:28:34" ReportInfo.CreatorVersion="1.8.1.0">
+  <ScriptText>using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Windows.Forms;
+using System.Drawing;
+using System.Data;
+using FastReport;
+using FastReport.Data;
+using FastReport.Dialog;
+using FastReport.Barcode;
+using FastReport.Table;
+using FastReport.Utils;
+
+namespace FastReport
+{
+  public class ReportScript
+  {
+    private void _StartReport(object sender, EventArgs e)
+    {
+        
+    }
+
+    
+  }
+}
+</ScriptText>
+  <Dictionary>
+    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqM3/HbiZANEYP3Y6oNtE7mhb00LswZpLPL1nHlNPE8Ttd/PYtJWZHa+Bi6VxY2kO/86yqC3dEAfSOFuAtVHPo27ltpeit54RmWfyB1HPJuDUSBNOELtEhifv9pd5xb8NjHezfLLxa7C+tQPiWNZSeii+o0UA69TMsvyfNN7K8XtI=">
+      <TableDataSource Name="localEmployee" DataType="System.Int32" Enabled="true" TableName="localEmployee" SelectCommand="SELECT L.Surname, L.EName, L.Patronymic, L.Position, L.Speciality, L.Phone, L.EmployeeId, L.ConfNumber&#13;&#10;FROM &quot;localEmployee&quot; L WHERE L.EmployeeId=@EmployeeIdParam&#13;&#10;">
+        <Column Name="Surname" DataType="System.String"/>
+        <Column Name="EName" DataType="System.String"/>
+        <Column Name="Patronymic" DataType="System.String"/>
+        <Column Name="Position" DataType="System.String"/>
+        <Column Name="Speciality" DataType="System.String"/>
+        <Column Name="Phone" DataType="System.String"/>
+        <Column Name="EmployeeId" DataType="System.Int32"/>
+        <Column Name="ConfNumber" DataType="System.String"/>
+        <Column Name="FullNameInitials" DataType="System.Int32" PropName="Column" Calculated="true" Expression="[localEmployee.Surname] + &quot; &quot;+Substring([localEmployee.EName],0,1) + &quot;.&quot; +Substring([localEmployee.Patronymic],0,1) + &quot;.&quot;"/>
+        <CommandParameter Name="EmployeeIdParam" DataType="8" DefaultValue="1"/>
+      </TableDataSource>
+      <TableDataSource Name="localF001" Alias="localF001Destination" DataType="System.Int32" Enabled="true" TableName="localF001" SelectCommand="SELECT L.LocalF001Id, L.ShortName, L.PositionName, L.Name, L.Surname, L.Patronymic, L.OKATO, L.Code, L.RegionName, L.FullAddress&#13;&#10;FROM &quot;localF001&quot; L WHERE L.OKATO=@OkatoParam&#13;&#10;">
+        <Column Name="LocalF001Id" DataType="System.Int32"/>
+        <Column Name="ShortName" DataType="System.String"/>
+        <Column Name="PositionName" DataType="System.String"/>
+        <Column Name="Name" DataType="System.String"/>
+        <Column Name="Surname" DataType="System.String"/>
+        <Column Name="Patronymic" DataType="System.String"/>
+        <Column Name="OKATO" DataType="System.String"/>
+        <Column Name="Code" DataType="System.String"/>
+        <Column Name="RegionName" DataType="System.String"/>
+        <Column Name="FullNameInitials" DataType="System.Int32" PropName="Column" Calculated="true" Expression="[localF001Destination.Surname] + &quot; &quot; + Substring([localF001Destination.Name],0,1) + &quot;. &quot; + Substring([localF001Destination.Patronymic],0,1)+ &quot;. &quot;"/>
+        <Column Name="FullAddress" DataType="System.String"/>
+        <CommandParameter Name="OkatoParam" DataType="9" Expression="[FactTerritoryAccount.Destination]" DefaultValue="38000"/>
+      </TableDataSource>
+      <TableDataSource Name="FactTerritoryAccount" DataType="System.Int32" Enabled="true" TableName="FactTerritoryAccount" SelectCommand="SELECT F.Date, F.AccountNumber, F.AccountDate, F.Price, F.AcceptPrice, F.MECPenalties, F.MEEPenalties, F.EQMAPenalties, F.Comments, F.Source, F.Destination, F.Status, F.TerritoryAccountId, F.ExternalId, F.PacketNumber, F.Type&#13;&#10;FROM &quot;FactTerritoryAccount&quot; F WHERE F.TerritoryAccountId=@AccountIdParam&#13;&#10;">
+        <Column Name="Date" DataType="System.DateTime"/>
+        <Column Name="AccountNumber" DataType="System.String"/>
+        <Column Name="AccountDate" DataType="System.DateTime"/>
+        <Column Name="Price" DataType="System.Decimal"/>
+        <Column Name="AcceptPrice" DataType="System.Decimal"/>
+        <Column Name="MECPenalties" DataType="System.Decimal"/>
+        <Column Name="MEEPenalties" DataType="System.Decimal"/>
+        <Column Name="EQMAPenalties" DataType="System.Decimal"/>
+        <Column Name="Comments" DataType="System.String"/>
+        <Column Name="Source" DataType="System.String"/>
+        <Column Name="Destination" DataType="System.String"/>
+        <Column Name="Status" DataType="System.Int32"/>
+        <Column Name="TerritoryAccountId" DataType="System.Int32"/>
+        <Column Name="ExternalId" DataType="System.Int32"/>
+        <Column Name="PacketNumber" DataType="System.Int32"/>
+        <Column Name="Type" DataType="System.Int32"/>
+        <CommandParameter Name="AccountIdParam" DataType="8" Expression="[AccountId]" DefaultValue="2"/>
+      </TableDataSource>
+      <TableDataSource Name="Table1" Alias="ReportReestr" DataType="System.Int32" Enabled="true" SelectCommand="SELECT F.ExternalId, F.Scope, F.Number, F.ReportId, F.Date, F.PageCount&#13;&#10;FROM &quot;FactPreparedReport&quot; F WHERE F.ExternalId=@AccountIdParam AND  F.Scope=@ScopeParam AND F.ReportId=6">
+        <Column Name="ExternalId" DataType="System.Int32"/>
+        <Column Name="Scope" DataType="System.Int32"/>
+        <Column Name="ReportId" DataType="System.Int32"/>
+        <Column Name="Date" DataType="System.DateTime"/>
+        <Column Name="PageCount" DataType="System.Int32"/>
+        <Column Name="Number" DataType="System.Int32"/>
+        <CommandParameter Name="@AccountIdParam " DataType="8" Expression="[AccountId]" DefaultValue="2"/>
+        <CommandParameter Name="@ScopeParam" DataType="8" Expression="[Scope]" DefaultValue="2"/>
+      </TableDataSource>
+    </MsSqlDataConnection>
+    <Parameter Name="EmployeeId" DataType="System.Int32"/>
+    <Parameter Name="DestinationF001Id" DataType="System.Int32"/>
+    <Parameter Name="AccountId" DataType="System.Int32"/>
+    <Parameter Name="KB_number" DataType="System.String"/>
+    <Parameter Name="Account_pages" DataType="System.String"/>
+    <Parameter Name="enc_3" DataType="System.String"/>
+    <Parameter Name="enc_4" DataType="System.String"/>
+    <Parameter Name="enc_3_chk" DataType="System.Boolean"/>
+    <Parameter Name="enc_4_chk" DataType="System.Boolean"/>
+    <Parameter Name="Scope" DataType="System.Int32"/>
+    <Parameter Name="LetterDate" DataType="System.DateTime"/>
+    <Parameter Name="LetterInDate" DataType="System.DateTime"/>
+    <Parameter Name="LetterInNumber" DataType="System.String"/>
+  </Dictionary>
+  <ReportPage Name="Page1" RawPaperSize="9" LeftMargin="20" TopMargin="20" BottomMargin="20">
+    <ReportTitleBand Name="ReportTitle1" Width="680.4" Height="425.25">
+      <PictureObject Name="Picture1" Width="189" Height="132.3" Image="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"/>
+      <TextObject Name="Text1" Top="368.55" Width="122.85" Height="18.9" Text="О ...................." Font="Times New Roman, 8pt, style=Bold"/>
+      <TextObject Name="Text3" Left="160.65" Top="85.05" Width="519.75" Height="47.25" Text="Ломакина ул. 17-А, г.Курск, 305029, тел./факс: 8 (4712) 53-58-30,&#13;&#10;www.kurskoms.ru; foms@kursktelecom.ru&#13;&#10;ОКПО 11102790, ОГРН 1034637016501 ИНН/КПП 4629026970/463201001" HorzAlign="Center" Font="Times New Roman, 10pt"/>
+      <TextObject Name="Text4" Left="160.65" Width="519.75" Height="85.05" Text="АДМИНИСТРАЦИЯ КУРСКОЙ ОБЛАСТИ&#13;&#10;ТЕРРИТОРИАЛЬНЫЙ ФОНД ОБЯЗАТЕЛЬНОГО&#13;&#10;МЕДИЦИНСКОГО СТРАХОВАНИЯ КУРСКОЙ ОБЛАСТИ&#13;&#10;(ТФОМС Курской области)" HorzAlign="Center" Font="Times New Roman, 10pt, style=Bold"/>
+      <LineObject Name="Line1" Left="189" Top="66.15" Width="463.05" Border.Width="2"/>
+      <TextObject Name="Text5" Left="406.35" Top="226.8" Width="274.05" Height="126.63" Text="[localF001Destination.PositionName]&#13;&#10;[localF001Destination.ShortName]&#13;&#10;[localF001Destination.FullNameInitials]&#13;&#10;&#13;&#10;[localF001Destination.FullAddress]" Font="Times New Roman, 11pt, style=Bold">
+        <Formats>
+          <GeneralFormat/>
+          <GeneralFormat/>
+          <GeneralFormat/>
+          <GeneralFormat/>
+        </Formats>
+      </TextObject>
+      <TextObject Name="Text7" Top="387.45" Width="680.4" Height="37.8" Text="Уважаем[IIf(Substring( [localF001Destination.Patronymic],Length( [localF001Destination.Patronymic])-1,1) == &quot;а&quot;,&quot;ая&quot;,&quot;ый&quot;)] [localF001Destination.Name] [localF001Destination.Patronymic]!&#13;&#10;" HorzAlign="Center" Font="Times New Roman, 12pt, style=Bold"/>
+      <TextObject Name="Text8" Left="406.35" Top="160.65" Width="272.16" Height="66.15" Text="Конфиденциально&#13;&#10;Экз. №&#13;&#10;Без приложения&#13;&#10;не конфиденциально" Font="Times New Roman, 10pt, style=Bold"/>
+      <LineObject Name="Line2" Left="189" Top="71.6" Width="463.05"/>
+      <TextObject Name="Text2" Top="160.65" Width="347.76" Height="66.15" Text="[LetterDate] № [localEmployee.ConfNumber]/К-Б/[KB_number]&#13;&#10;&#13;&#10;На № [LetterInNumber]  от  [LetterInDate]" Font="Times New Roman, 10pt">
+        <Formats>
+          <DateFormat/>
+          <GeneralFormat/>
+          <GeneralFormat/>
+          <DateFormat/>
+        </Formats>
+      </TextObject>
+    </ReportTitleBand>
+    <DataBand Name="Data1" Top="484.28" Width="680.4" Height="56.7" CanGrow="true" KeepTogether="true">
+      <DataHeaderBand Name="DataHeader1" Top="429.25" Width="680.4" Height="51.03" KeepWithData="true"/>
+      <DataFooterBand Name="DataFooter1" Top="544.98" Width="680.4" Height="51.03" CanGrow="true" KeepWithData="true"/>
+    </DataBand>
+    <ReportSummaryBand Name="ReportSummary1" Top="600.01" Width="680.4" Height="26.46" PrintOnBottom="true" KeepWithData="true">
+      <TableObject Name="Table2" Left="-1.89" Top="1.89" Width="676.4" Height="18.9">
+        <TableColumn Name="Column31" Width="248.85"/>
+        <TableColumn Name="Column32" Width="295.25"/>
+        <TableColumn Name="Column33" Width="132.3"/>
+        <TableRow Name="Row9" AutoSize="true">
+          <TableCell Name="Cell97" Text="Директор" Font="Times New Roman, 11pt"/>
+          <TableCell Name="Cell98" Padding="0, 0, 0, 0" HorzAlign="Center" Font="Times New Roman, 10pt"/>
+          <TableCell Name="Cell99" Text="А.В. Курцев" Font="Times New Roman, 11pt"/>
+        </TableRow>
+      </TableObject>
+    </ReportSummaryBand>
+    <PageFooterBand Name="PageFooter1" Top="630.47" Width="680.4" Height="22.68">
+      <TextObject Name="Text9" Width="446.04" Height="22.68" Text="№ [localEmployee.ConfNumber]/К-Б/[KB_number]" Font="Times New Roman, 10pt"/>
+    </PageFooterBand>
+  </ReportPage>
+  <ReportPage Name="Page2">
+    <PageFooterBand Name="PageFooter2" Width="718.2" Height="126.63">
+      <TextObject Name="Text14" Width="446.04" Height="126.63" Text="№ [localEmployee.ConfNumber]/К-Б/[KB_number]&#13;&#10;Отп. 2 экз., на [Round(([TotalPages]) /2.0 + 0.1)]  [IIf( [TotalPages] &lt;= 2,&quot;листе&quot;,&quot;листах&quot;)] каждый &#13;&#10;Экз. №1 - адресату&#13;&#10;Экз. №2 - в дело&#13;&#10;[localEmployee.FullNameInitials]&#13;&#10;[localEmployee.Phone]" Font="Times New Roman, 10pt"/>
+    </PageFooterBand>
+  </ReportPage>
+  <DialogPage Name="Form1" Width="546" Height="230" AcceptButton="btnOk" CancelButton="btnCancel">
+    <ButtonControl Name="btnOk" Left="374" Top="167" Anchor="Bottom, Right" Font="Tahoma, 8pt" TabIndex="0" Text="ОК" DialogResult="OK"/>
+    <ButtonControl Name="btnCancel" Left="457" Top="167" Anchor="Bottom, Right" Font="Tahoma, 8pt" TabIndex="1" Text="Отмена" DialogResult="Cancel"/>
+    <LabelControl Name="Label1" Left="16" Top="56" Width="116" Height="13" Font="Tahoma, 8pt" TabIndex="2" Text="К-Б № реестра счета"/>
+    <LabelControl Name="Label2" Left="16" Top="80" Width="162" Height="13" Font="Tahoma, 8pt" TabIndex="3" Text="Кол-во страниц реестра счета"/>
+    <TextBoxControl Name="TextBox1" Left="184" Top="52" Font="Tahoma, 8pt" TabIndex="4" ReportParameter="KB_number"/>
+    <TextBoxControl Name="TextBox2" Left="184" Top="76" Font="Tahoma, 8pt" TabIndex="5" DataColumn="ReportReestr.PageCount" ReportParameter="Account_pages"/>
+    <DateTimePickerControl Name="DateTimePicker1" Left="84" Top="24" Font="Tahoma, 8pt" TabIndex="9" Text="2 марта 2012 г." ReportParameter="LetterDate" FilterOperation="GreaterThanOrEqual" Value="03/02/2012 10:32:22"/>
+    <LabelControl Name="Label4" Left="16" Top="28" Width="71" Height="13" Font="Tahoma, 8pt" TabIndex="10" Text="Дата письма"/>
+    <LabelControl Name="Label5" Left="16" Top="104" Width="200" Height="13" Font="Tahoma, 8pt, style=Bold" TabIndex="11" Text="Информация о входящем письме"/>
+    <DateTimePickerControl Name="DateTimePicker2" Left="84" Top="124" Font="Tahoma, 8pt" TabIndex="12" Text="2 марта 2012 г." ReportParameter="LetterInDate" FilterOperation="LessThanOrEqual" Value="03/02/2012 10:39:35"/>
+    <LabelControl Name="Label6" Left="16" Top="124" Width="33" Height="13" Font="Tahoma, 8pt" TabIndex="13" Text="Дата"/>
+    <LabelControl Name="Label7" Left="16" Top="148" Width="38" Height="13" Font="Tahoma, 8pt" TabIndex="15" Text="Номер"/>
+    <TextBoxControl Name="TextBox11" Left="84" Top="148" Width="200" Font="Tahoma, 8pt" TabIndex="16" ReportParameter="LetterInNumber"/>
+    <LabelControl Name="Label8" Left="16" Top="4" Width="121" Height="13" Font="Tahoma, 8pt, style=Bold" TabIndex="17" Text="Общая информация"/>
+  </DialogPage>
+</Report>

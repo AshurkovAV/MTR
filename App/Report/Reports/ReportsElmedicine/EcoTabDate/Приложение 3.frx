@@ -1,0 +1,293 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report ScriptLanguage="CSharp" ReportInfo.Created="04/10/2013 23:47:48" ReportInfo.Modified="11/10/2013 01:53:26" ReportInfo.CreatorVersion="2013.2.5.0">
+  <Dictionary>
+    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqr2sEgbyd/XFgYBeuRgqcA5zt9JXHJfT5fjgDibxBQPpcjFjRPBzWgZ9XB+j7gTiCvu+kbyiwINr+0FFfcMZ2P6DtBCgUjq61T+wS2RRi9GtAfn98DSSVQdTrLJoEu0JqEHqWyINGG+kMaSlud5OBnHxymePyrRasW2+FKdRu30YUy5Ds30C9ZDSn+8rHQtCbdbqv97SScHKa1zLaOzmgBloHL9XoGLJBqEMwdRXnZGg=">
+      <TableDataSource Name="Table" DataType="System.Int32" Enabled="true" SelectCommand="declare @kolslm1 int, @kolsly1 int, @kolhm1 int, @kolhy1 int, &#13;&#10;	@sumvm1 numeric(15, 2), @sumvy1 numeric(15, 2),&#13;&#10;	@kolslm3 int, @kolsly3 int, @kolhm3 int, @kolhy3 int,&#13;&#10;	@sumvm3 numeric(15, 2), @sumvy3 numeric(15, 2),&#13;&#10;	@kolslm2 int, @kolsly2 int, @kolhm2 int, @kolhy2 int,&#13;&#10;	@sumvm2 numeric(15, 2), @sumvy2 numeric(15, 2)&#13;&#10;&#13;&#10;DECLARE cursor_m CURSOR FOR &#13;&#10;select sum(kolsl) as kolslm, sum(sumv) as sumvm&#13;&#10;from(&#13;&#10;select count(sl.pid) as kolsl, sum(sumv) as sumv, vidpom&#13;&#10;from sluch as sl&#13;&#10;join schet as sc on sl.SCHET_ID = sc.ID &#13;&#10;where (sc.[MONTH] &gt;= @M1 and sc.[YEAR] &gt;= @Y1) and (sc.[MONTH] &lt;= @M2 and sc.[YEAR] &lt;= @Y2)&#13;&#10;and (vidpom in (1, 2, 3))&#13;&#10;group by sl.pid, vidpom) as t&#13;&#10;group by vidpom&#13;&#10;order by VIDPOM&#13;&#10;&#13;&#10;OPEN cursor_m;&#13;&#10;&#13;&#10;FETCH NEXT FROM cursor_m &#13;&#10;INTO @kolslm1, @sumvm1;&#13;&#10;&#13;&#10;FETCH NEXT FROM cursor_m &#13;&#10;INTO @kolslm2, @sumvm2;&#13;&#10;&#13;&#10;FETCH NEXT FROM cursor_m &#13;&#10;INTO @kolslm3, @sumvm3;&#13;&#10;&#13;&#10;CLOSE cursor_m;&#13;&#10;DEALLOCATE cursor_m;&#13;&#10;&#13;&#10;&#13;&#10;DECLARE cursor_m_ CURSOR FOR &#13;&#10;select sum(kolh) as kolhm&#13;&#10;from(&#13;&#10;select  1 as kolh, vidpom&#13;&#10;from sluch as sl&#13;&#10;join schet as sc on sl.SCHET_ID = sc.ID &#13;&#10;where (sc.[MONTH] &gt;= @M1 and sc.[YEAR] &gt;= @Y1) and (sc.[MONTH] &lt;= @M2 and sc.[YEAR] &lt;= @Y2)&#13;&#10;and (vidpom in (1, 2, 3))&#13;&#10;and sank_it = 0&#13;&#10;group by sl.pid, vidpom) as t&#13;&#10;group by vidpom&#13;&#10;order by VIDPOM&#13;&#10;&#13;&#10;OPEN cursor_m_;&#13;&#10;&#13;&#10;FETCH NEXT FROM cursor_m_ &#13;&#10;INTO @kolhm1;&#13;&#10;&#13;&#10;FETCH NEXT FROM cursor_m_ &#13;&#10;INTO @kolhm2;&#13;&#10;&#13;&#10;FETCH NEXT FROM cursor_m_ &#13;&#10;INTO @kolhm3;&#13;&#10;&#13;&#10;CLOSE cursor_m_;&#13;&#10;DEALLOCATE cursor_m_;&#13;&#10;&#13;&#10;&#13;&#10;DECLARE cursor_y CURSOR FOR &#13;&#10;select sum(kolsl) as kolslm, sum(sumv) as sumvm&#13;&#10;from(&#13;&#10;select count(sl.pid) as kolsl, sum(sumv) as sumv, vidpom&#13;&#10;from sluch as sl&#13;&#10;join schet as sc on sl.SCHET_ID = sc.ID &#13;&#10;where (sc.[YEAR] &gt;= @Y1 and sc.[YEAR] &lt;= @Y2)&#13;&#10;and (vidpom in (1, 2, 3))&#13;&#10;group by sl.pid, vidpom) as t&#13;&#10;group by vidpom&#13;&#10;order by VIDPOM&#13;&#10;&#13;&#10;OPEN cursor_y;&#13;&#10;&#13;&#10;FETCH NEXT FROM cursor_y&#13;&#10;INTO @kolsly1, @sumvy1;&#13;&#10;&#13;&#10;FETCH NEXT FROM cursor_y &#13;&#10;INTO @kolsly2, @sumvy2;&#13;&#10;&#13;&#10;FETCH NEXT FROM cursor_y &#13;&#10;INTO @kolsly3, @sumvy3;&#13;&#10;&#13;&#10;CLOSE cursor_y;&#13;&#10;DEALLOCATE cursor_y;&#13;&#10;&#13;&#10;&#13;&#10;DECLARE cursor_y_ CURSOR FOR &#13;&#10;select sum(kolh) as kolhm&#13;&#10;from(&#13;&#10;select 1 as kolh, vidpom&#13;&#10;from sluch as sl&#13;&#10;join schet as sc on sl.SCHET_ID = sc.ID &#13;&#10;where (sc.[YEAR] &gt;= @Y1 and sc.[YEAR] &lt;= @Y2)&#13;&#10;and (vidpom in (1, 2, 3))&#13;&#10;and sank_it = 0&#13;&#10;group by sl.pid, vidpom) as t&#13;&#10;group by vidpom&#13;&#10;order by VIDPOM&#13;&#10;&#13;&#10;OPEN cursor_y_;&#13;&#10;&#13;&#10;FETCH NEXT FROM cursor_y_&#13;&#10;INTO @kolhy1;&#13;&#10;&#13;&#10;FETCH NEXT FROM cursor_y_ &#13;&#10;INTO @kolhy2;&#13;&#10;&#13;&#10;FETCH NEXT FROM cursor_y_ &#13;&#10;INTO @kolhy3;&#13;&#10;&#13;&#10;CLOSE cursor_y_;&#13;&#10;DEALLOCATE cursor_y_;&#13;&#10;&#13;&#10;&#13;&#10;&#13;&#10;select @kolslm1 as kolslm1, @kolsly1 as kolsly1, &#13;&#10;	@kolhm1 as kolhm1, @kolhy1 as kolhy1,&#13;&#10;	@sumvm1 as sumvm1, @sumvy1 as sumvy1,&#13;&#10;	@kolslm3 as kolslm3, @kolsly3 as kolsly3,&#13;&#10;	@kolhm3 as kolhm3, @kolhy3 as kolhy3,&#13;&#10;	@sumvm3 as sumvm3, @sumvy3 as sumvy3,&#13;&#10;	@kolslm2 as kolslm2, @kolsly2 as kolsly2,&#13;&#10;	@kolhm2 as kolhm2, @kolhy2 as kolhy2, &#13;&#10;	@sumvm2 as sumvm2, @sumvy2 as sumvy2">
+        <Column Name="kolslm1" DataType="System.Int32"/>
+        <Column Name="kolsly1" DataType="System.Int32"/>
+        <Column Name="kolhm1" DataType="System.Int32"/>
+        <Column Name="kolhy1" DataType="System.Int32"/>
+        <Column Name="sumvm1" DataType="System.Decimal"/>
+        <Column Name="sumvy1" DataType="System.Decimal"/>
+        <Column Name="kolslm3" DataType="System.Int32"/>
+        <Column Name="kolsly3" DataType="System.Int32"/>
+        <Column Name="kolhm3" DataType="System.Int32"/>
+        <Column Name="kolhy3" DataType="System.Int32"/>
+        <Column Name="sumvm3" DataType="System.Decimal"/>
+        <Column Name="sumvy3" DataType="System.Decimal"/>
+        <Column Name="kolslm2" DataType="System.Int32"/>
+        <Column Name="kolsly2" DataType="System.Int32"/>
+        <Column Name="kolhm2" DataType="System.Int32"/>
+        <Column Name="kolhy2" DataType="System.Int32"/>
+        <Column Name="sumvm2" DataType="System.Decimal"/>
+        <Column Name="sumvy2" DataType="System.Decimal"/>
+        <CommandParameter Name="@M1" DataType="8" DefaultValue="8"/>
+        <CommandParameter Name="@M2" DataType="8" DefaultValue="8"/>
+        <CommandParameter Name="@Y1" DataType="8" DefaultValue="2013"/>
+        <CommandParameter Name="@Y2" DataType="8" DefaultValue="2013"/>
+      </TableDataSource>
+      <TableDataSource Name="Table3" DataType="System.Int32" Enabled="true" SelectCommand="			   select * from (&#13;&#10;--Амбулаторная&#13;&#10;select isnull(sum(kolsl), 0) as kolslm_a, isnull(sum(sumv), 0) as sumvm_a&#13;&#10;from(&#13;&#10;select count(sl.pid) as kolsl, sum(sumv) as sumv&#13;&#10;from sluch as sl&#13;&#10;join schet as sc on sl.SCHET_ID = sc.ID &#13;&#10;where (sc.[MONTH] &gt;= @M1 and sc.[YEAR] &gt;= @Y1) and (sc.[MONTH] &lt;= @M2 and sc.[YEAR] &lt;= @Y2)&#13;&#10;and vidpom in (1)&#13;&#10;and usl_ok in (3)&#13;&#10;group by sl.pid) as t) t,&#13;&#10;&#13;&#10;(select isnull(sum(kolh), 0) as kolhm_a &#13;&#10;from(&#13;&#10;select 1 as kolh&#13;&#10;from sluch as sl&#13;&#10;join schet as sc on sl.SCHET_ID = sc.ID &#13;&#10;where (sc.[MONTH] &gt;= @M1 and sc.[YEAR] &gt;= @Y1) and (sc.[MONTH] &lt;= @M2 and sc.[YEAR] &lt;= @Y2)&#13;&#10;and vidpom in (1)&#13;&#10;and usl_ok in (3)&#13;&#10;and sank_it = 0&#13;&#10;group by sl.pid) as t) t1,&#13;&#10;&#13;&#10;--стационарная&#13;&#10;(select isnull(sum(kolsl), 0) as kolslm_s, isnull(sum(sumv), 0) as sumvm_s&#13;&#10;from(&#13;&#10;select count(sl.pid) as kolsl, sum(sumv) as sumv&#13;&#10;from sluch as sl&#13;&#10;join schet as sc on sl.SCHET_ID = sc.ID &#13;&#10;where (sc.[MONTH] &gt;= @M1 and sc.[YEAR] &gt;= @Y1) and (sc.[MONTH] &lt;= @M2 and sc.[YEAR] &lt;= @Y2)&#13;&#10;and (vidpom in (1))&#13;&#10;and usl_ok in (1)&#13;&#10;group by sl.pid) as t) t2,&#13;&#10;&#13;&#10;(select isnull(sum(kolh), 0) as kolhm_s&#13;&#10;from(&#13;&#10;select 1 as kolh&#13;&#10;from sluch as sl&#13;&#10;join schet as sc on sl.SCHET_ID = sc.ID &#13;&#10;where (sc.[MONTH] &gt;= @M1 and sc.[YEAR] &gt;= @Y1) and (sc.[MONTH] &lt;= @M2 and sc.[YEAR] &lt;= @Y2)&#13;&#10;and (vidpom in (1))&#13;&#10;and usl_ok in (1)&#13;&#10;group by sl.pid) as t) t3,&#13;&#10;&#13;&#10;--в условия дневных стационаров всех типов&#13;&#10;(select isnull(sum(kolsl), 0) as kolslm_all, isnull(sum(sumv), 0) as sumvm_all&#13;&#10;from(&#13;&#10;select count(sl.pid) as kolsl, sum(sumv) as sumv&#13;&#10;from sluch as sl&#13;&#10;join schet as sc on sl.SCHET_ID = sc.ID &#13;&#10;where (sc.[MONTH] &gt;= @M1 and sc.[YEAR] &gt;= @Y1) and (sc.[MONTH] &lt;= @M2 and sc.[YEAR] &lt;= @Y2)&#13;&#10;and (vidpom in (1))&#13;&#10;and usl_ok in (1, 2, 3)&#13;&#10;group by sl.pid) as t) t4,&#13;&#10;&#13;&#10;(select isnull(sum(kolh), 0) as kolhm_all&#13;&#10;from(&#13;&#10;select 1 as kolh&#13;&#10;from sluch as sl&#13;&#10;join schet as sc on sl.SCHET_ID = sc.ID &#13;&#10;where (sc.[MONTH] &gt;= @M1 and sc.[YEAR] &gt;= @Y1) and (sc.[MONTH] &lt;= @M2 and sc.[YEAR] &lt;= @Y2)&#13;&#10;and (vidpom in (1))&#13;&#10;and usl_ok in (1, 2, 3)&#13;&#10;group by sl.pid) as t) t5,&#13;&#10;&#13;&#10;--стомат&#13;&#10;(select isnull(sum(kolsl), 0) as kolslm_sto, isnull(sum(sumv), 0) as sumvm_sto&#13;&#10;from(&#13;&#10;select count(sl.pid) as kolsl, sum(sumv) as sumv&#13;&#10;from sluch as sl&#13;&#10;join schet as sc on sl.SCHET_ID = sc.ID &#13;&#10;where (sc.[MONTH] &gt;= @M1 and sc.[YEAR] &gt;= @Y1) and (sc.[MONTH] &lt;= @M2 and sc.[YEAR] &lt;= @Y2)&#13;&#10;and (vidpom in (1))&#13;&#10;and profil in (85,86,87,88,89,90,140,171)&#13;&#10;group by sl.pid) as t) t6,&#13;&#10;&#13;&#10;(select isnull(sum(kolh), 0) as kolhm_sto&#13;&#10;from(&#13;&#10;select 1 as kolh&#13;&#10;from sluch as sl&#13;&#10;join schet as sc on sl.SCHET_ID = sc.ID &#13;&#10;where (sc.[MONTH] &gt;= @M1 and sc.[YEAR] &gt;= @Y1) and (sc.[MONTH] &lt;= @M2 and sc.[YEAR] &lt;= @Y2)&#13;&#10;and (vidpom in (1))&#13;&#10;and profil in (85,86,87,88,89,90,140,171)&#13;&#10;group by sl.pid) as t) t7">
+        <Column Name="kolslm_a" DataType="System.Int32"/>
+        <Column Name="sumvm_a" DataType="System.Decimal"/>
+        <Column Name="kolhm_a" DataType="System.Int32"/>
+        <Column Name="kolslm_s" DataType="System.Int32"/>
+        <Column Name="sumvm_s" DataType="System.Decimal"/>
+        <Column Name="kolhm_s" DataType="System.Int32"/>
+        <Column Name="kolslm_all" DataType="System.Int32"/>
+        <Column Name="sumvm_all" DataType="System.Decimal"/>
+        <Column Name="kolhm_all" DataType="System.Int32"/>
+        <Column Name="kolslm_sto" DataType="System.Int32"/>
+        <Column Name="sumvm_sto" DataType="System.Decimal"/>
+        <Column Name="kolhm_sto" DataType="System.Int32"/>
+        <CommandParameter Name="@M1" DataType="8" DefaultValue="8"/>
+        <CommandParameter Name="@M2" DataType="8" DefaultValue="8"/>
+        <CommandParameter Name="@Y1" DataType="8" DefaultValue="2013"/>
+        <CommandParameter Name="@Y2" DataType="8" DefaultValue="2013"/>
+      </TableDataSource>
+      <TableDataSource Name="Table4" DataType="System.Int32" Enabled="true" SelectCommand="						   select * from (&#13;&#10;--Амбулаторная&#13;&#10;select isnull(sum(kolsl), 0) as kolsly_a, isnull(sum(sumv), 0) as sumvy_a&#13;&#10;from(&#13;&#10;select count(sl.pid) as kolsl, sum(sumv) as sumv&#13;&#10;from sluch as sl&#13;&#10;join schet as sc on sl.SCHET_ID = sc.ID &#13;&#10;where (sc.[YEAR] &gt;= @Y1 and sc.[YEAR] &lt;= @Y2)&#13;&#10;and vidpom in (1)&#13;&#10;and usl_ok in (3)&#13;&#10;group by sl.pid) as t) t,&#13;&#10;&#13;&#10;(select isnull(sum(kolh), 0) as kolhy_a &#13;&#10;from(&#13;&#10;select 1 as kolh&#13;&#10;from sluch as sl&#13;&#10;join schet as sc on sl.SCHET_ID = sc.ID &#13;&#10;where (sc.[YEAR] &gt;= @Y1 and sc.[YEAR] &lt;= @Y2)&#13;&#10;and vidpom in (1)&#13;&#10;and usl_ok in (3)&#13;&#10;and sank_it = 0&#13;&#10;group by sl.pid) as t) t1,&#13;&#10;&#13;&#10;--стационарная&#13;&#10;(select isnull(sum(kolsl), 0) as kolsly_s, isnull(sum(sumv), 0) as sumvy_s&#13;&#10;from(&#13;&#10;select count(sl.pid) as kolsl, sum(sumv) as sumv&#13;&#10;from sluch as sl&#13;&#10;join schet as sc on sl.SCHET_ID = sc.ID &#13;&#10;where (sc.[YEAR] &gt;= @Y1 and sc.[YEAR] &lt;= @Y2)&#13;&#10;and (vidpom in (1))&#13;&#10;and usl_ok in (1)&#13;&#10;group by sl.pid) as t) t2,&#13;&#10;&#13;&#10;(select isnull(sum(kolh), 0) as kolhy_s&#13;&#10;from(&#13;&#10;select 1 as kolh&#13;&#10;from sluch as sl&#13;&#10;join schet as sc on sl.SCHET_ID = sc.ID &#13;&#10;where (sc.[YEAR] &gt;= @Y1 and sc.[YEAR] &lt;= @Y2)&#13;&#10;and (vidpom in (1))&#13;&#10;and usl_ok in (1)&#13;&#10;group by sl.pid) as t) t3,&#13;&#10;&#13;&#10;--в условия дневных стационаров всех типов&#13;&#10;(select isnull(sum(kolsl), 0) as kolsly_all, isnull(sum(sumv), 0) as sumvy_all&#13;&#10;from(&#13;&#10;select count(sl.pid) as kolsl, sum(sumv) as sumv&#13;&#10;from sluch as sl&#13;&#10;join schet as sc on sl.SCHET_ID = sc.ID &#13;&#10;where (sc.[YEAR] &gt;= @Y1 and sc.[YEAR] &lt;= @Y2)&#13;&#10;and (vidpom in (1))&#13;&#10;and usl_ok in (1, 2, 3)&#13;&#10;group by sl.pid) as t) t4,&#13;&#10;&#13;&#10;(select isnull(sum(kolh), 0) as kolhy_all&#13;&#10;from(&#13;&#10;select 1 as kolh&#13;&#10;from sluch as sl&#13;&#10;join schet as sc on sl.SCHET_ID = sc.ID &#13;&#10;where (sc.[YEAR] &gt;= @Y1 and sc.[YEAR] &lt;= @Y2)&#13;&#10;and (vidpom in (1))&#13;&#10;and usl_ok in (1, 2, 3)&#13;&#10;group by sl.pid) as t) t5,&#13;&#10;&#13;&#10;--стомат&#13;&#10;(select isnull(sum(kolsl), 0) as kolsly_sto, isnull(sum(sumv), 0) as sumvy_sto&#13;&#10;from(&#13;&#10;select count(sl.pid) as kolsl, sum(sumv) as sumv&#13;&#10;from sluch as sl&#13;&#10;join schet as sc on sl.SCHET_ID = sc.ID &#13;&#10;where (sc.[YEAR] &gt;= @Y1 and sc.[YEAR] &lt;= @Y2)&#13;&#10;and (vidpom in (1))&#13;&#10;and profil in (85,86,87,88,89,90,140,171)&#13;&#10;group by sl.pid) as t) t6,&#13;&#10;&#13;&#10;(select isnull(sum(kolh), 0) as kolhy_sto&#13;&#10;from(&#13;&#10;select 1 as kolh&#13;&#10;from sluch as sl&#13;&#10;join schet as sc on sl.SCHET_ID = sc.ID &#13;&#10;where (sc.[YEAR] &gt;= @Y1 and sc.[YEAR] &lt;= @Y2)&#13;&#10;and (vidpom in (1))&#13;&#10;and profil in (85,86,87,88,89,90,140,171)&#13;&#10;group by sl.pid) as t) t7">
+        <Column Name="kolsly_a" DataType="System.Int32"/>
+        <Column Name="sumvy_a" DataType="System.Decimal"/>
+        <Column Name="kolhy_a" DataType="System.Int32"/>
+        <Column Name="kolsly_s" DataType="System.Int32"/>
+        <Column Name="sumvy_s" DataType="System.Decimal"/>
+        <Column Name="kolhy_s" DataType="System.Int32"/>
+        <Column Name="kolsly_all" DataType="System.Int32"/>
+        <Column Name="sumvy_all" DataType="System.Decimal"/>
+        <Column Name="kolhy_all" DataType="System.Int32"/>
+        <Column Name="kolsly_sto" DataType="System.Int32"/>
+        <Column Name="sumvy_sto" DataType="System.Decimal"/>
+        <Column Name="kolhy_sto" DataType="System.Int32"/>
+        <CommandParameter Name="@Y1" DataType="8" DefaultValue="2013"/>
+        <CommandParameter Name="@Y2" DataType="8" DefaultValue="2013"/>
+      </TableDataSource>
+      <TableDataSource Name="Table5" DataType="System.Int32" Enabled="true" SelectCommand="select * from (&#13;&#10;--Амбулаторная&#13;&#10;select isnull(sum(kolsl), 0) as kolslm_a, isnull(sum(sumv), 0) as sumvm_a&#13;&#10;from(&#13;&#10;select count(sl.pid) as kolsl, sum(sumv) as sumv&#13;&#10;from sluch as sl&#13;&#10;join schet as sc on sl.SCHET_ID = sc.ID &#13;&#10;where (sc.[MONTH] &gt;= @M1 and sc.[YEAR] &gt;= @Y1) and (sc.[MONTH] &lt;= @M2 and sc.[YEAR] &lt;= @Y2)&#13;&#10;and vidpom in (3)&#13;&#10;and usl_ok in (3)&#13;&#10;group by sl.pid) as t) t,&#13;&#10;&#13;&#10;(select isnull(sum(kolh), 0) as kolhm_a &#13;&#10;from(&#13;&#10;select 1 as kolh&#13;&#10;from sluch as sl&#13;&#10;join schet as sc on sl.SCHET_ID = sc.ID &#13;&#10;where (sc.[MONTH] &gt;= @M1 and sc.[YEAR] &gt;= @Y1) and (sc.[MONTH] &lt;= @M2 and sc.[YEAR] &lt;= @Y2)&#13;&#10;and vidpom in (3)&#13;&#10;and usl_ok in (3)&#13;&#10;and sank_it = 0&#13;&#10;group by sl.pid) as t) t1,&#13;&#10;&#13;&#10;--стационарная&#13;&#10;(select isnull(sum(kolsl), 0) as kolslm_s, isnull(sum(sumv), 0) as sumvm_s&#13;&#10;from(&#13;&#10;select count(sl.pid) as kolsl, sum(sumv) as sumv&#13;&#10;from sluch as sl&#13;&#10;join schet as sc on sl.SCHET_ID = sc.ID &#13;&#10;where (sc.[MONTH] &gt;= @M1 and sc.[YEAR] &gt;= @Y1) and (sc.[MONTH] &lt;= @M2 and sc.[YEAR] &lt;= @Y2)&#13;&#10;and (vidpom in (3))&#13;&#10;and usl_ok in (1)&#13;&#10;group by sl.pid) as t) t2,&#13;&#10;&#13;&#10;(select isnull(sum(kolh), 0) as kolhm_s&#13;&#10;from(&#13;&#10;select 1 as kolh&#13;&#10;from sluch as sl&#13;&#10;join schet as sc on sl.SCHET_ID = sc.ID &#13;&#10;where (sc.[MONTH] &gt;= @M1 and sc.[YEAR] &gt;= @Y1) and (sc.[MONTH] &lt;= @M2 and sc.[YEAR] &lt;= @Y2)&#13;&#10;and (vidpom in (3))&#13;&#10;and usl_ok in (1)&#13;&#10;group by sl.pid) as t) t3,&#13;&#10;&#13;&#10;--в условия дневных стационаров всех типов&#13;&#10;(select isnull(sum(kolsl), 0) as kolslm_all, isnull(sum(sumv), 0) as sumvm_all&#13;&#10;from(&#13;&#10;select count(sl.pid) as kolsl, sum(sumv) as sumv&#13;&#10;from sluch as sl&#13;&#10;join schet as sc on sl.SCHET_ID = sc.ID &#13;&#10;where (sc.[MONTH] &gt;= @M1 and sc.[YEAR] &gt;= @Y1) and (sc.[MONTH] &lt;= @M2 and sc.[YEAR] &lt;= @Y2)&#13;&#10;and (vidpom in (3))&#13;&#10;and usl_ok in (1, 2, 3)&#13;&#10;group by sl.pid) as t) t4,&#13;&#10;&#13;&#10;(select isnull(sum(kolh), 0) as kolhm_all&#13;&#10;from(&#13;&#10;select 1 as kolh&#13;&#10;from sluch as sl&#13;&#10;join schet as sc on sl.SCHET_ID = sc.ID &#13;&#10;where (sc.[MONTH] &gt;= @M1 and sc.[YEAR] &gt;= @Y1) and (sc.[MONTH] &lt;= @M2 and sc.[YEAR] &lt;= @Y2)&#13;&#10;and (vidpom in (3))&#13;&#10;and usl_ok in (1, 2, 3)&#13;&#10;group by sl.pid) as t) t5,&#13;&#10;&#13;&#10;--стомат&#13;&#10;(select isnull(sum(kolsl), 0) as kolslm_sto, isnull(sum(sumv), 0) as sumvm_sto&#13;&#10;from(&#13;&#10;select count(sl.pid) as kolsl, sum(sumv) as sumv&#13;&#10;from sluch as sl&#13;&#10;join schet as sc on sl.SCHET_ID = sc.ID &#13;&#10;where (sc.[MONTH] &gt;= @M1 and sc.[YEAR] &gt;= @Y1) and (sc.[MONTH] &lt;= @M2 and sc.[YEAR] &lt;= @Y2)&#13;&#10;and (vidpom in (3))&#13;&#10;and profil in (85,86,87,88,89,90,140,171)&#13;&#10;group by sl.pid) as t) t6,&#13;&#10;&#13;&#10;(select isnull(sum(kolh), 0) as kolhm_sto&#13;&#10;from(&#13;&#10;select 1 as kolh&#13;&#10;from sluch as sl&#13;&#10;join schet as sc on sl.SCHET_ID = sc.ID &#13;&#10;where (sc.[MONTH] &gt;= @M1 and sc.[YEAR] &gt;= @Y1) and (sc.[MONTH] &lt;= @M2 and sc.[YEAR] &lt;= @Y2)&#13;&#10;and (vidpom in (3))&#13;&#10;and profil in (85,86,87,88,89,90,140,171)&#13;&#10;group by sl.pid) as t) t7">
+        <Column Name="kolslm_a" DataType="System.Int32"/>
+        <Column Name="sumvm_a" DataType="System.Decimal"/>
+        <Column Name="kolhm_a" DataType="System.Int32"/>
+        <Column Name="kolslm_s" DataType="System.Int32"/>
+        <Column Name="sumvm_s" DataType="System.Decimal"/>
+        <Column Name="kolhm_s" DataType="System.Int32"/>
+        <Column Name="kolslm_all" DataType="System.Int32"/>
+        <Column Name="sumvm_all" DataType="System.Decimal"/>
+        <Column Name="kolhm_all" DataType="System.Int32"/>
+        <Column Name="kolslm_sto" DataType="System.Int32"/>
+        <Column Name="sumvm_sto" DataType="System.Decimal"/>
+        <Column Name="kolhm_sto" DataType="System.Int32"/>
+        <CommandParameter Name="@M1" DataType="8" DefaultValue="8"/>
+        <CommandParameter Name="@M2" DataType="8" DefaultValue="8"/>
+        <CommandParameter Name="@Y1" DataType="8" DefaultValue="2013"/>
+        <CommandParameter Name="@Y2" DataType="8" DefaultValue="2013"/>
+      </TableDataSource>
+      <TableDataSource Name="Table6" DataType="System.Int32" Enabled="true" SelectCommand="select * from (&#13;&#10;--Амбулаторная&#13;&#10;select isnull(sum(kolsl), 0) as kolsly_a, isnull(sum(sumv), 0) as sumvy_a&#13;&#10;from(&#13;&#10;select count(sl.pid) as kolsl, sum(sumv) as sumv&#13;&#10;from sluch as sl&#13;&#10;join schet as sc on sl.SCHET_ID = sc.ID &#13;&#10;where (sc.[YEAR] &gt;= @Y1 and sc.[YEAR] &lt;= @Y2)&#13;&#10;and vidpom in (3)&#13;&#10;and usl_ok in (3)&#13;&#10;group by sl.pid) as t) t,&#13;&#10;&#13;&#10;(select isnull(sum(kolh), 0) as kolhy_a &#13;&#10;from(&#13;&#10;select 1 as kolh&#13;&#10;from sluch as sl&#13;&#10;join schet as sc on sl.SCHET_ID = sc.ID &#13;&#10;where (sc.[YEAR] &gt;= @Y1 and sc.[YEAR] &lt;= @Y2)&#13;&#10;and vidpom in (3)&#13;&#10;and usl_ok in (3)&#13;&#10;and sank_it = 0&#13;&#10;group by sl.pid) as t) t1,&#13;&#10;&#13;&#10;--стационарная&#13;&#10;(select isnull(sum(kolsl), 0) as kolsly_s, isnull(sum(sumv), 0) as sumvy_s&#13;&#10;from(&#13;&#10;select count(sl.pid) as kolsl, sum(sumv) as sumv&#13;&#10;from sluch as sl&#13;&#10;join schet as sc on sl.SCHET_ID = sc.ID &#13;&#10;where (sc.[YEAR] &gt;= @Y1 and sc.[YEAR] &lt;= @Y2)&#13;&#10;and (vidpom in (3))&#13;&#10;and usl_ok in (1)&#13;&#10;group by sl.pid) as t) t2,&#13;&#10;&#13;&#10;(select isnull(sum(kolh), 0) as kolhy_s&#13;&#10;from(&#13;&#10;select 1 as kolh&#13;&#10;from sluch as sl&#13;&#10;join schet as sc on sl.SCHET_ID = sc.ID &#13;&#10;where (sc.[YEAR] &gt;= @Y1 and sc.[YEAR] &lt;= @Y2)&#13;&#10;and (vidpom in (3))&#13;&#10;and usl_ok in (1)&#13;&#10;group by sl.pid) as t) t3,&#13;&#10;&#13;&#10;--в условия дневных стационаров всех типов&#13;&#10;(select isnull(sum(kolsl), 0) as kolsly_all, isnull(sum(sumv), 0) as sumvy_all&#13;&#10;from(&#13;&#10;select count(sl.pid) as kolsl, sum(sumv) as sumv&#13;&#10;from sluch as sl&#13;&#10;join schet as sc on sl.SCHET_ID = sc.ID &#13;&#10;where (sc.[YEAR] &gt;= @Y1 and sc.[YEAR] &lt;= @Y2)&#13;&#10;and (vidpom in (3))&#13;&#10;and usl_ok in (1, 2, 3)&#13;&#10;group by sl.pid) as t) t4,&#13;&#10;&#13;&#10;(select isnull(sum(kolh), 0) as kolhy_all&#13;&#10;from(&#13;&#10;select 1 as kolh&#13;&#10;from sluch as sl&#13;&#10;join schet as sc on sl.SCHET_ID = sc.ID &#13;&#10;where (sc.[YEAR] &gt;= @Y1 and sc.[YEAR] &lt;= @Y2)&#13;&#10;and (vidpom in (3))&#13;&#10;and usl_ok in (1, 2, 3)&#13;&#10;group by sl.pid) as t) t5,&#13;&#10;&#13;&#10;--стомат&#13;&#10;(select isnull(sum(kolsl), 0) as kolsly_sto, isnull(sum(sumv), 0) as sumvy_sto&#13;&#10;from(&#13;&#10;select count(sl.pid) as kolsl, sum(sumv) as sumv&#13;&#10;from sluch as sl&#13;&#10;join schet as sc on sl.SCHET_ID = sc.ID &#13;&#10;where (sc.[YEAR] &gt;= @Y1 and sc.[YEAR] &lt;= @Y2)&#13;&#10;and (vidpom in (3))&#13;&#10;and profil in (85,86,87,88,89,90,140,171)&#13;&#10;group by sl.pid) as t) t6,&#13;&#10;&#13;&#10;(select isnull(sum(kolh), 0) as kolhy_sto&#13;&#10;from(&#13;&#10;select 1 as kolh&#13;&#10;from sluch as sl&#13;&#10;join schet as sc on sl.SCHET_ID = sc.ID &#13;&#10;where (sc.[YEAR] &gt;= @Y1 and sc.[YEAR] &lt;= @Y2)&#13;&#10;and (vidpom in (3))&#13;&#10;and profil in (85,86,87,88,89,90,140,171)&#13;&#10;group by sl.pid) as t) t7">
+        <Column Name="kolsly_a" DataType="System.Int32"/>
+        <Column Name="sumvy_a" DataType="System.Decimal"/>
+        <Column Name="kolhy_a" DataType="System.Int32"/>
+        <Column Name="kolsly_s" DataType="System.Int32"/>
+        <Column Name="sumvy_s" DataType="System.Decimal"/>
+        <Column Name="kolhy_s" DataType="System.Int32"/>
+        <Column Name="kolsly_all" DataType="System.Int32"/>
+        <Column Name="sumvy_all" DataType="System.Decimal"/>
+        <Column Name="kolhy_all" DataType="System.Int32"/>
+        <Column Name="kolsly_sto" DataType="System.Int32"/>
+        <Column Name="sumvy_sto" DataType="System.Decimal"/>
+        <Column Name="kolhy_sto" DataType="System.Int32"/>
+        <CommandParameter Name="@Y1" DataType="8" DefaultValue="2013"/>
+        <CommandParameter Name="@Y2" DataType="8" DefaultValue="2013"/>
+      </TableDataSource>
+    </MsSqlDataConnection>
+    <Parameter Name="@M1" DataType="System.Int32"/>
+    <Parameter Name="@M2" DataType="System.Int32"/>
+    <Parameter Name="@Y1" DataType="System.Int32"/>
+    <Parameter Name="@Y2" DataType="System.Int32"/>
+  </Dictionary>
+  <ReportPage Name="Page1" Landscape="true" PaperWidth="297" PaperHeight="210" RawPaperSize="9" FirstPageSource="15" OtherPagesSource="15">
+    <ReportTitleBand Name="ReportTitle1" Width="1047.06" Height="189">
+      <TextObject Name="Text1" Left="75.6" Top="47.25" Width="831.6" Height="37.8" Text="Раздел 2. Сведения об оказанной застрахованному лицу медицинской помощи" HorzAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text5" Left="888.3" Top="9.45" Width="274.05" Height="37.8" Text="Приложение №3" Font="Arial, 10pt, style=Bold"/>
+      <TableObject Name="Table1" Top="94.5" Width="1039.5" Height="94.5">
+        <TableColumn Name="Column127" Width="292.95"/>
+        <TableColumn Name="Column128" Width="56.7"/>
+        <TableColumn Name="Column129" Width="132.3"/>
+        <TableColumn Name="Column130" Width="94.5"/>
+        <TableColumn Name="Column131" Width="94.5"/>
+        <TableColumn Name="Column132" Width="94.5"/>
+        <TableColumn Name="Column133" Width="94.5"/>
+        <TableColumn Name="Column147" Width="94.5"/>
+        <TableColumn Name="Column148" Width="85.05"/>
+        <TableRow Name="Row46" Height="47.25">
+          <TableCell Name="Cell832" Border.Lines="All" Text="Наименование ЛПУ" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt, style=Bold" RowSpan="2"/>
+          <TableCell Name="Cell833" Border.Lines="All" Text="№ строки" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt" RowSpan="2"/>
+          <TableCell Name="Cell834" Border.Lines="All" Text="Единица измерения объема медицинской помощи" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt" RowSpan="2"/>
+          <TableCell Name="Cell835" Border.Lines="All" Text="Объем медицинской помощи" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt" ColSpan="2"/>
+          <TableCell Name="Cell836" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell857" Border.Lines="All" Text="Количество посещений (по принятым к оплате счетам)" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt" ColSpan="2"/>
+          <TableCell Name="Cell858" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell960" Border.Lines="All" Text="Стоимость оказанной медицинской помощи, руб" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt" ColSpan="2"/>
+          <TableCell Name="Cell961" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+        </TableRow>
+        <TableRow Name="Row47" Height="28.35">
+          <TableCell Name="Cell837" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell838" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell839" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell840" Border.Lines="All" Text="за отчетный месяц" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell841" Border.Lines="All" Text="с начала года" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell865" Border.Lines="All" Text="за отчетный месяц" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell866" Border.Lines="All" Text="с начала года" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell962" Border.Lines="All" Text="за отчетный месяц" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell963" Border.Lines="All" Text="с начала года" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+        </TableRow>
+        <TableRow Name="Row55">
+          <TableCell Name="Cell953" Border.Lines="All" Text="1" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell954" Border.Lines="All" Text="2" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell955" Border.Lines="All" Text="3" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell956" Border.Lines="All" Text="4" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell957" Border.Lines="All" Text="5" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell958" Border.Lines="All" Text="6" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell959" Border.Lines="All" Text="7" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell964" Border.Lines="All" Text="8" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell965" Border.Lines="All" Text="9" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+        </TableRow>
+      </TableObject>
+    </ReportTitleBand>
+    <DataBand Name="Data1" Top="193" Width="1047.06" Height="245.7" DataSource="Table">
+      <TableObject Name="Table2" Width="1039.5" Height="245.7" Border.Lines="All">
+        <TableColumn Name="Column140" Width="292.95"/>
+        <TableColumn Name="Column141" Width="56.7"/>
+        <TableColumn Name="Column142" Width="132.3"/>
+        <TableColumn Name="Column143" Width="94.5"/>
+        <TableColumn Name="Column144" Width="94.5"/>
+        <TableColumn Name="Column145" Width="94.5"/>
+        <TableColumn Name="Column146" Width="94.5"/>
+        <TableColumn Name="Column149" Width="94.5"/>
+        <TableColumn Name="Column150" Width="85.05"/>
+        <TableRow Name="Row49">
+          <TableCell Name="Cell881" Border.Lines="All" Text="Первичная медико-санитарная помощь" Font="Arial, 8pt"/>
+          <TableCell Name="Cell882" Border.Lines="All" Text="18" HorzAlign="Center" VertAlign="Bottom" Font="Arial, 8pt"/>
+          <TableCell Name="Cell883" Border.Lines="All" HorzAlign="Center" VertAlign="Bottom" Font="Arial, 8pt"/>
+          <TableCell Name="Cell884" Border.Lines="All" Text="[Table.kolslm1]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell885" Border.Lines="All" Text="[Table.kolsly1]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell906" Border.Lines="All" Text="[Table.kolhm1]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell907" Border.Lines="All" Text="[Table.kolhy1]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell966" Border.Lines="All" Text="[Table.sumvm1]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell967" Border.Lines="All" Text="[Table.sumvy1]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+        </TableRow>
+        <TableRow Name="Row50" Height="28.35">
+          <TableCell Name="Cell886" Border.Lines="All" Text="в том числе:&#13;&#10;амбулаторная помощь" HorzAlign="Right" Font="Arial, 8pt"/>
+          <TableCell Name="Cell887" Border.Lines="All" Text="19&#13;&#10;" HorzAlign="Center" VertAlign="Bottom" Font="Arial, 8pt"/>
+          <TableCell Name="Cell888" Border.Lines="All" Text="посещений, единиц" HorzAlign="Center" VertAlign="Bottom" Font="Arial, 8pt"/>
+          <TableCell Name="Cell889" Border.Lines="All" Text="[Table3.kolslm_a]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell890" Border.Lines="All" Text="[Table4.kolsly_a]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell914" Border.Lines="All" Text="[Table3.kolhm_a]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell915" Border.Lines="All" Text="[Table4.kolhy_a]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell968" Border.Lines="All" Text="[Table3.sumvm_a]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell969" Border.Lines="All" Text="[Table4.sumvy_a]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+        </TableRow>
+        <TableRow Name="Row51">
+          <TableCell Name="Cell891" Border.Lines="All" Text="стоматологическая" HorzAlign="Right" Font="Arial, 8pt"/>
+          <TableCell Name="Cell892" Border.Lines="All" Text="20" HorzAlign="Center" VertAlign="Bottom" Font="Arial, 8pt"/>
+          <TableCell Name="Cell893" Border.Lines="All" Text="УЕТ, единиц" HorzAlign="Center" VertAlign="Bottom" Font="Arial, 8pt"/>
+          <TableCell Name="Cell894" Border.Lines="All" Text="[Table3.kolslm_sto]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell895" Border.Lines="All" Text="[Table4.kolsly_sto]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell922" Border.Lines="All" Text="[Table3.kolhm_sto]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell923" Border.Lines="All" Text="[Table4.kolhy_sto]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell970" Border.Lines="All" Text="[Table3.sumvm_sto]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell971" Border.Lines="All" Text="[Table4.sumvy_sto]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+        </TableRow>
+        <TableRow Name="Row52" Height="28.35">
+          <TableCell Name="Cell896" Border.Lines="All" Text="помощь, оказанная в условиях дневных стационаров всех типов" HorzAlign="Right" Font="Arial, 8pt"/>
+          <TableCell Name="Cell897" Border.Lines="All" Text="21" HorzAlign="Center" VertAlign="Bottom" Font="Arial, 8pt"/>
+          <TableCell Name="Cell898" Border.Lines="All" Text="пациенто-дней, единиц" HorzAlign="Center" VertAlign="Bottom" Font="Arial, 8pt"/>
+          <TableCell Name="Cell899" Border.Lines="All" Text="[Table3.kolslm_all]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell900" Border.Lines="All" Text="[Table4.kolsly_all]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell930" Border.Lines="All" Text="[Table3.kolhm_all]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell931" Border.Lines="All" Text="[Table4.kolhy_all]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell972" Border.Lines="All" Text="[Table3.sumvm_all]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell973" Border.Lines="All" Text="[Table4.sumvy_all]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+        </TableRow>
+        <TableRow Name="Row53">
+          <TableCell Name="Cell901" Border.Lines="All" Text="стационарная помощь" HorzAlign="Right" Font="Arial, 8pt"/>
+          <TableCell Name="Cell902" Border.Lines="All" Text="22" HorzAlign="Center" VertAlign="Bottom" Font="Arial, 8pt"/>
+          <TableCell Name="Cell903" Border.Lines="All" Text="койко-дней, единиц" HorzAlign="Center" VertAlign="Bottom" Font="Arial, 8pt"/>
+          <TableCell Name="Cell904" Border.Lines="All" Text="[Table3.kolslm_s]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell905" Border.Lines="All" Text="[Table4.kolsly_s]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell938" Border.Lines="All" Text="[Table3.kolhm_s]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell939" Border.Lines="All" Text="[Table4.kolhy_s]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell974" Border.Lines="All" Text="[Table3.sumvm_s]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell975" Border.Lines="All" Text="[Table4.sumvy_s]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+        </TableRow>
+        <TableRow Name="Row54">
+          <TableCell Name="Cell946" Border.Lines="All" Text="Специализированная медицинская помощь" Font="Arial, 8pt"/>
+          <TableCell Name="Cell947" Border.Lines="All" Text="23" HorzAlign="Center" VertAlign="Bottom" Font="Arial, 8pt"/>
+          <TableCell Name="Cell948" Border.Lines="All" HorzAlign="Center" VertAlign="Bottom" Font="Arial, 8pt"/>
+          <TableCell Name="Cell949" Border.Lines="All" Text="[Table.kolslm3]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell950" Border.Lines="All" Text="[Table.kolsly3]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell951" Border.Lines="All" Text="[Table.kolhm3]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell952" Border.Lines="All" Text="[Table.kolhy3]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell976" Border.Lines="All" Text="[Table.sumvm3]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell977" Border.Lines="All" Text="[Table.sumvy3]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+        </TableRow>
+        <TableRow Name="Row56" Height="28.35">
+          <TableCell Name="Cell978" Border.Lines="All" Text="в том числе:&#13;&#10;амбулаторная помощь" HorzAlign="Right" Font="Arial, 8pt"/>
+          <TableCell Name="Cell979" Border.Lines="All" Text="24" HorzAlign="Center" VertAlign="Bottom" Font="Arial, 8pt"/>
+          <TableCell Name="Cell980" Border.Lines="All" Text="посещений, единиц" HorzAlign="Center" VertAlign="Bottom" Font="Arial, 8pt"/>
+          <TableCell Name="Cell981" Border.Lines="All" Text="[Table5.kolslm_a]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell982" Border.Lines="All" Text="[Table6.kolsly_a]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell983" Border.Lines="All" Text="[Table5.kolhm_a]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell984" Border.Lines="All" Text="[Table6.kolhy_a]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell985" Border.Lines="All" Text="[Table5.sumvm_a]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell986" Border.Lines="All" Text="[Table6.sumvy_a]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+        </TableRow>
+        <TableRow Name="Row57">
+          <TableCell Name="Cell987" Border.Lines="All" Text="стоматологическая" HorzAlign="Right" Font="Arial, 8pt"/>
+          <TableCell Name="Cell988" Border.Lines="All" Text="25" HorzAlign="Center" VertAlign="Bottom" Font="Arial, 8pt"/>
+          <TableCell Name="Cell989" Border.Lines="All" Text="УЕТ, единиц" HorzAlign="Center" VertAlign="Bottom" Font="Arial, 8pt"/>
+          <TableCell Name="Cell990" Border.Lines="All" Text="[Table5.kolslm_sto]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell991" Border.Lines="All" Text="[Table6.kolsly_sto]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell992" Border.Lines="All" Text="[Table5.kolhm_sto]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell993" Border.Lines="All" Text="[Table6.kolhy_sto]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell994" Border.Lines="All" Text="[Table5.sumvm_sto]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell995" Border.Lines="All" Text="[Table6.sumvy_sto]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+        </TableRow>
+        <TableRow Name="Row58" Height="28.35">
+          <TableCell Name="Cell996" Border.Lines="All" Text="помощь, оказанная в условиях дневных стационаров всех типов" HorzAlign="Right" Font="Arial, 8pt"/>
+          <TableCell Name="Cell997" Border.Lines="All" Text="26" HorzAlign="Center" VertAlign="Bottom" Font="Arial, 8pt"/>
+          <TableCell Name="Cell998" Border.Lines="All" Text="пациенто-дней, единиц" HorzAlign="Center" VertAlign="Bottom" Font="Arial, 8pt"/>
+          <TableCell Name="Cell999" Border.Lines="All" Text="[Table5.kolslm_all]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1000" Border.Lines="All" Text="[Table6.kolsly_all]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1001" Border.Lines="All" Text="[Table5.kolhm_all]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1002" Border.Lines="All" Text="[Table6.kolhy_all]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1003" Border.Lines="All" Text="[Table5.sumvm_all]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1004" Border.Lines="All" Text="[Table6.sumvy_all]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+        </TableRow>
+        <TableRow Name="Row59">
+          <TableCell Name="Cell1005" Border.Lines="All" Text="стационарная помощь" HorzAlign="Right" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1006" Border.Lines="All" Text="27" HorzAlign="Center" VertAlign="Bottom" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1007" Border.Lines="All" Text="койко-дней, единиц" HorzAlign="Center" VertAlign="Bottom" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1008" Border.Lines="All" Text="[Table5.kolslm_s]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1009" Border.Lines="All" Text="[Table6.kolsly_s]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1010" Border.Lines="All" Text="[Table5.kolhm_s]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1011" Border.Lines="All" Text="[Table6.kolhy_s]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1012" Border.Lines="All" Text="[Table5.sumvm_s]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1013" Border.Lines="All" Text="[Table6.sumvy_s]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+        </TableRow>
+        <TableRow Name="Row60">
+          <TableCell Name="Cell1014" Border.Lines="All" Text="Скорая медицинская помощь" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1015" Border.Lines="All" Text="28" HorzAlign="Center" VertAlign="Bottom" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1016" Border.Lines="All" Text="число вызовов, единиц" HorzAlign="Center" VertAlign="Bottom" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1017" Border.Lines="All" Text="[Table.kolslm2]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1018" Border.Lines="All" Text="[Table.kolsly2]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1019" Border.Lines="All" Text="[Table.kolhm2]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1020" Border.Lines="All" Text="[Table.kolhy2]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1021" Border.Lines="All" Text="[Table.sumvm2]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1022" Border.Lines="All" Text="[Table.sumvy2]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+        </TableRow>
+      </TableObject>
+    </DataBand>
+    <ReportSummaryBand Name="ReportSummary1" Top="442.7" Width="1047.06" Height="113.4" Guides="9.45">
+      <TextObject Name="Text8" Left="9.45" Top="9.45" Width="189" Height="47.25" Text="Руководитель организации" VertAlign="Center" Font="Arial, 8pt"/>
+      <TextObject Name="Text12" Left="207.9" Top="18.9" Width="189" Height="18.9" Text="text8" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+      <TextObject Name="Text13" Left="207.9" Top="18.9" Width="189" Height="18.9" Text="________________________" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+      <TextObject Name="Text18" Left="9.45" Top="56.7" Width="189" Height="47.25" Text="Должностное лицо, ответственное за составление формы" VertAlign="Center" Font="Arial, 8pt"/>
+    </ReportSummaryBand>
+  </ReportPage>
+</Report>

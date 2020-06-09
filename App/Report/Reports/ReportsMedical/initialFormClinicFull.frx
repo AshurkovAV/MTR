@@ -1,0 +1,513 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report ScriptLanguage="CSharp" ReportInfo.Created="06/20/2009 22:40:42" ReportInfo.Modified="09/08/2011 14:30:02" ReportInfo.CreatorVersion="1.7.1.0">
+  <Dictionary>
+    <BusinessObjectDataSource Name="initialForm" ReferenceName="initialForm" DataType="null" Enabled="true">
+      <Column Name="Patient" DataType="null">
+        <Column Name="INP" DataType="System.String"/>
+        <Column Name="PatientId" DataType="System.Int32"/>
+        <Column Name="InsuranceId" DataType="System.Nullable`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+        <Column Name="InsuranceDocType" DataType="System.Nullable`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+        <Column Name="InsuranceDocSeries" DataType="System.String"/>
+        <Column Name="InsuranceDocNumber" DataType="System.String"/>
+      </Column>
+      <Column Name="Person" DataType="null">
+        <Column Name="PName" DataType="System.String"/>
+        <Column Name="Surname" DataType="System.String"/>
+        <Column Name="Patronymic" DataType="System.String"/>
+        <Column Name="Sex" DataType="System.Nullable`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+        <Column Name="Birthday" DataType="System.Nullable`1[[System.DateTime, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+      </Column>
+      <Column Name="Event" DataType="null">
+        <Column Name="ProfileCodeId" DataType="System.Nullable`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+        <Column Name="DoctorId" DataType="System.Nullable`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+        <Column Name="DoctorInitials" DataType="System.String"/>
+      </Column>
+    </BusinessObjectDataSource>
+  </Dictionary>
+  <ReportPage Name="Page1" RawPaperSize="9" LeftMargin="5" TopMargin="5" RightMargin="5" BottomMargin="5">
+    <ReportTitleBand Name="ReportTitle1" Width="756" Height="501.85">
+      <BarcodeObject Name="Barcode1" Left="661.5" Top="18.9" Width="83.75" Height="56.7" DataColumn="initialForm.Patient.PatientId" Barcode="EAN8"/>
+      <TextObject Name="Text1" Top="18.9" Width="538.65" Height="18.9" Text="Министерство здравохранения и социального развития Российской федерации" VertAlign="Center"/>
+      <TextObject Name="Text2" Top="37.8" Width="538.65" Height="18.9" Text="Название ЛПУ" VertAlign="Center"/>
+      <TextObject Name="Text3" Top="56.7" Width="94.5" Height="18.9" Text="Адрес ЛПУ" VertAlign="Center"/>
+      <TextObject Name="Text4" Top="75.6" Width="94.5" Height="18.9" Text="Код ОГРН" VertAlign="Center"/>
+      <CellularTextObject Name="CellularText1" Left="94.5" Top="75.6" Width="255.15" Height="28.35" VertAlign="Center" Font="Arial, 8.25pt"/>
+      <TextObject Name="Text5" Top="103.95" Width="718.2" Height="18.9" Text="ТАЛОН АМБУЛАТОРНОГО ПАЦИЕНТА" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text6" Left="160.65" Top="122.85" Width="160.65" Height="18.9" Text="№ медицинской карты" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text7" Left="349.65" Top="122.85" Width="141.75" Height="18.9" Text="Дата посещения" HorzAlign="Center" VertAlign="Center"/>
+      <TableObject Name="Table1" Top="141.75" Width="755.96" Height="350.65" Border.Lines="All" Border.Color="Transparent">
+        <TableColumn Name="Column1" Width="122.85"/>
+        <TableColumn Name="Column2" Width="28.35"/>
+        <TableColumn Name="Column3" Width="28.35"/>
+        <TableColumn Name="Column4" Width="28.35"/>
+        <TableColumn Name="Column5" Width="113.39"/>
+        <TableColumn Name="Column6" Width="56.7"/>
+        <TableColumn Name="Column7" Width="141.75"/>
+        <TableColumn Name="Column8" Width="37.79"/>
+        <TableColumn Name="Column9" Width="103.94"/>
+        <TableColumn Name="Column10" Width="94.49"/>
+        <TableRow Name="Row1">
+          <TableCell Name="Cell1" Border.Lines="All" Text="1. Код категории&#13;&#10;льготы" RowSpan="2"/>
+          <TableCell Name="Cell2" Border.Lines="All" RowSpan="2"/>
+          <TableCell Name="Cell3" Border.Lines="All" RowSpan="2"/>
+          <TableCell Name="Cell4" Border.Lines="All" RowSpan="2"/>
+          <TableCell Name="Cell5" Border.Lines="All" Text="2.Страховой полис ОМС" ColSpan="2"/>
+          <TableCell Name="Cell26" Border.Lines="All"/>
+          <TableCell Name="Cell27" Border.Lines="All" ColSpan="4"/>
+          <TableCell Name="Cell28"/>
+          <TableCell Name="Cell29"/>
+          <TableCell Name="Cell30"/>
+        </TableRow>
+        <TableRow Name="Row2" Height="19.9">
+          <TableCell Name="Cell6"/>
+          <TableCell Name="Cell7" Border.Lines="All"/>
+          <TableCell Name="Cell8"/>
+          <TableCell Name="Cell9" Border.Lines="All"/>
+          <TableCell Name="Cell10" Border.Lines="All" Text="3.СНИЛС" ColSpan="2"/>
+          <TableCell Name="Cell31" Border.Lines="All"/>
+          <TableCell Name="Cell32" Border.Lines="All" ColSpan="4"/>
+          <TableCell Name="Cell33" Border.Lines="Bottom"/>
+          <TableCell Name="Cell34" Border.Lines="Bottom"/>
+          <TableCell Name="Cell35" Border.Lines="Bottom"/>
+        </TableRow>
+        <TableRow Name="Row3">
+          <TableCell Name="Cell11" Border.Lines="All" Text="4.Пациент ф.и.о."/>
+          <TableCell Name="Cell12" Border.Lines="All" ColSpan="7"/>
+          <TableCell Name="Cell13"/>
+          <TableCell Name="Cell14"/>
+          <TableCell Name="Cell15"/>
+          <TableCell Name="Cell36"/>
+          <TableCell Name="Cell37"/>
+          <TableCell Name="Cell38"/>
+          <TableCell Name="Cell39" Border.Lines="All" Text="5. Пол: 1-м;2-ж;" ColSpan="2"/>
+          <TableCell Name="Cell40" Border.Lines="Right, Bottom"/>
+        </TableRow>
+        <TableRow Name="Row4">
+          <TableCell Name="Cell605" Border.Lines="All" Text="6. Дата рождения"/>
+          <TableCell Name="Cell17" Border.Lines="Left, Top, Bottom" ColSpan="4">
+            <CellularTextObject Name="CellularText15" Width="189" Height="18.9" Text="12.12.2011" Format="Date" Format.Format="dd.MM.yyyy" HorzAlign="Center" VertAlign="Center" Font="Arial, 8.25pt, style=Bold"/>
+          </TableCell>
+          <TableCell Name="Cell18"/>
+          <TableCell Name="Cell19"/>
+          <TableCell Name="Cell20"/>
+          <TableCell Name="Cell41" Border.Lines="Right, Top, Bottom" Text="Адрес:" ColSpan="5"/>
+          <TableCell Name="Cell42"/>
+          <TableCell Name="Cell43"/>
+          <TableCell Name="Cell44"/>
+          <TableCell Name="Cell45"/>
+        </TableRow>
+        <TableRow Name="Row5" Height="37.8">
+          <TableCell Name="Cell606" Border.Lines="All" Text="7.Социальный статус, в т.ч. занятость: дошкольник: 1-организован, 2-неорганизован; 3-учится; 4-работает; 5-не работает; 6-пенсионер; 7-военнослуж.; код:	член семьи военнослуж.; 9-БОМЖ" ColSpan="10"/>
+          <TableCell Name="Cell106"/>
+          <TableCell Name="Cell107"/>
+          <TableCell Name="Cell108"/>
+          <TableCell Name="Cell109"/>
+          <TableCell Name="Cell110"/>
+          <TableCell Name="Cell111"/>
+          <TableCell Name="Cell48"/>
+          <TableCell Name="Cell49"/>
+          <TableCell Name="Cell50"/>
+        </TableRow>
+        <TableRow Name="Row6" Height="37.8">
+          <TableCell Name="Cell604" Border.Lines="All" Text="8. Инвалидность: 1-I группы; 2-II группы; 3-III группы; 4-ребенок-инвалид; 5-инвалид детства; 6-установлена впервые в жизни; 7-снята" ColSpan="10"/>
+          <TableCell Name="Cell590"/>
+          <TableCell Name="Cell591"/>
+          <TableCell Name="Cell592"/>
+          <TableCell Name="Cell593"/>
+          <TableCell Name="Cell594"/>
+          <TableCell Name="Cell595"/>
+          <TableCell Name="Cell58"/>
+          <TableCell Name="Cell59"/>
+          <TableCell Name="Cell60"/>
+        </TableRow>
+        <TableRow Name="Row7" Height="37.8">
+          <TableCell Name="Cell596" Border.Lines="Left, Top, Bottom" Text="9.Специалист: ф.и.о." ColSpan="2"/>
+          <TableCell Name="Cell597"/>
+          <TableCell Name="Cell598" Border.Lines="Right, Top, Bottom" ColSpan="4"/>
+          <TableCell Name="Cell599"/>
+          <TableCell Name="Cell600"/>
+          <TableCell Name="Cell601"/>
+          <TableCell Name="Cell602" Border.Lines="All" Text="10.Вид оплаты: ОМС, Бюджет; Платные услуги, в т.ч.- ДМС; Другие." ColSpan="4"/>
+          <TableCell Name="Cell68"/>
+          <TableCell Name="Cell69"/>
+          <TableCell Name="Cell70"/>
+        </TableRow>
+        <TableRow Name="Row8" Height="37.8">
+          <TableCell Name="Cell582" Border.Lines="All" Text="11. Место обслуживания: 1-поликлиника; 2- на дому в т.ч. 3- актив." ColSpan="6"/>
+          <TableCell Name="Cell583"/>
+          <TableCell Name="Cell584"/>
+          <TableCell Name="Cell585"/>
+          <TableCell Name="Cell586"/>
+          <TableCell Name="Cell587"/>
+          <TableCell Name="Cell588" Border.Lines="All" Text="12. Цель посещения: 1-заболевание; 2- профосмотр; 3-патронаж; 4-другое" ColSpan="4"/>
+          <TableCell Name="Cell78"/>
+          <TableCell Name="Cell79"/>
+          <TableCell Name="Cell80"/>
+        </TableRow>
+        <TableRow Name="Row9" Height="47.25">
+          <TableCell Name="Cell574" Border.Lines="All" Text="13. Результат обращения: случай закончен: 1-выздоровление; 2-улучшение; 3-динамическое наблюдение; направлен: 4-на госпитализацию; 5-дневной стационар; 6-стационар на дому; 7-на консультацию; 8-на консультацию в др. ЛПУ; 9-справка для получения путевки; 10-санаторно-курортная карта" ColSpan="10"/>
+          <TableCell Name="Cell554"/>
+          <TableCell Name="Cell555"/>
+          <TableCell Name="Cell556"/>
+          <TableCell Name="Cell557"/>
+          <TableCell Name="Cell558"/>
+          <TableCell Name="Cell559"/>
+          <TableCell Name="Cell560"/>
+          <TableCell Name="Cell561"/>
+          <TableCell Name="Cell562"/>
+        </TableRow>
+        <TableRow Name="Row10">
+          <TableCell Name="Cell563" Border.Lines="All" Text="14. Диагноз"/>
+          <TableCell Name="Cell564" Border.Lines="All" ColSpan="7"/>
+          <TableCell Name="Cell565"/>
+          <TableCell Name="Cell566"/>
+          <TableCell Name="Cell567"/>
+          <TableCell Name="Cell568"/>
+          <TableCell Name="Cell569"/>
+          <TableCell Name="Cell570"/>
+          <TableCell Name="Cell571" Border.Lines="All" Text="Код МКБ10"/>
+          <TableCell Name="Cell572">
+            <CellularTextObject Name="CellularText2" Width="94.5" Height="18.9" HorzAlign="Center" VertAlign="Center" Font="Arial, 8.25pt, style=Bold"/>
+          </TableCell>
+        </TableRow>
+        <TableRow Name="Row11">
+          <TableCell Name="Cell543" Border.Lines="All" Text="15. Код мед. услуги (посещения, СМП, КЭС)" ColSpan="5"/>
+          <TableCell Name="Cell544"/>
+          <TableCell Name="Cell545"/>
+          <TableCell Name="Cell546"/>
+          <TableCell Name="Cell547"/>
+          <TableCell Name="Cell548" Border.Lines="All" ColSpan="4">
+            <CellularTextObject Name="CellularText5" Width="340.2" Height="18.9" HorzAlign="Center" VertAlign="Center" Font="Arial, 8.25pt, style=Bold"/>
+          </TableCell>
+          <TableCell Name="Cell549"/>
+          <TableCell Name="Cell550"/>
+          <TableCell Name="Cell551"/>
+          <TableCell Name="Cell552" Border.Lines="All"/>
+        </TableRow>
+        <TableRow Name="Row12">
+          <TableCell Name="Cell523" Border.Lines="All" ColSpan="5"/>
+          <TableCell Name="Cell524"/>
+          <TableCell Name="Cell525"/>
+          <TableCell Name="Cell526"/>
+          <TableCell Name="Cell527"/>
+          <TableCell Name="Cell528" Border.Lines="All" ColSpan="4">
+            <CellularTextObject Name="CellularText14" Width="340.2" Height="18.9" HorzAlign="Center" VertAlign="Center" Font="Arial, 8.25pt, style=Bold"/>
+          </TableCell>
+          <TableCell Name="Cell529"/>
+          <TableCell Name="Cell530"/>
+          <TableCell Name="Cell531"/>
+          <TableCell Name="Cell532" Border.Lines="All"/>
+        </TableRow>
+        <TableRow Name="Row36">
+          <TableCell Name="Cell502" Border.Lines="All" ColSpan="5"/>
+          <TableCell Name="Cell492"/>
+          <TableCell Name="Cell493"/>
+          <TableCell Name="Cell494"/>
+          <TableCell Name="Cell495"/>
+          <TableCell Name="Cell508" Border.Lines="All" ColSpan="4">
+            <CellularTextObject Name="CellularText13" Width="340.2" Height="18.9" HorzAlign="Center" VertAlign="Center" Font="Arial, 8.25pt, style=Bold"/>
+          </TableCell>
+          <TableCell Name="Cell509"/>
+          <TableCell Name="Cell510"/>
+          <TableCell Name="Cell511"/>
+          <TableCell Name="Cell512" Border.Lines="All"/>
+        </TableRow>
+      </TableObject>
+      <TextObject Name="Text8" Left="642.6" Top="75.6" Width="103.95" Height="18.9" Border.Lines="All" Text="ID "/>
+    </ReportTitleBand>
+  </ReportPage>
+  <ReportPage Name="Page2" RawPaperSize="9" LeftMargin="5" TopMargin="5" RightMargin="5" BottomMargin="5">
+    <ReportTitleBand Name="ReportTitle2" Width="756" Height="511.3">
+      <TableObject Name="Table2" Top="18.9" Width="756" Height="492.4" Border.Lines="All" Border.Color="Transparent">
+        <TableColumn Name="Column11" Width="103.95"/>
+        <TableColumn Name="Column12" Width="28.35"/>
+        <TableColumn Name="Column13" Width="28.35"/>
+        <TableColumn Name="Column14" Width="28.35"/>
+        <TableColumn Name="Column15" Width="113.4"/>
+        <TableColumn Name="Column16" Width="56.7"/>
+        <TableColumn Name="Column17" Width="141.75"/>
+        <TableColumn Name="Column18"/>
+        <TableColumn Name="Column19" Width="94.5"/>
+        <TableColumn Name="Column20" Width="94.5"/>
+        <TableRow Name="Row13" Height="28.35">
+          <TableCell Name="Cell261" Border.Lines="All" Text="16. Характер заболевания: 1-острое(+), впервые в жизни установленное хроническое(+); 2-диагноз установлен в предыдущем году или ранее (-)" Font="Arial, 9pt" ColSpan="10"/>
+          <TableCell Name="Cell262"/>
+          <TableCell Name="Cell263"/>
+          <TableCell Name="Cell264"/>
+          <TableCell Name="Cell265"/>
+          <TableCell Name="Cell266"/>
+          <TableCell Name="Cell267"/>
+          <TableCell Name="Cell268"/>
+          <TableCell Name="Cell269"/>
+          <TableCell Name="Cell270"/>
+        </TableRow>
+        <TableRow Name="Row14" Height="19.9">
+          <TableCell Name="Cell271" Border.Lines="All" Text="17. Диспансерный учет: 1-состоит; 2-взят; 3-снят, в т.ч. по выздоровлению." ColSpan="10"/>
+          <TableCell Name="Cell272"/>
+          <TableCell Name="Cell273"/>
+          <TableCell Name="Cell274"/>
+          <TableCell Name="Cell275"/>
+          <TableCell Name="Cell276"/>
+          <TableCell Name="Cell277"/>
+          <TableCell Name="Cell278"/>
+          <TableCell Name="Cell279"/>
+          <TableCell Name="Cell280"/>
+        </TableRow>
+        <TableRow Name="Row15" Height="47.25">
+          <TableCell Name="Cell281" Border.Lines="All" Text="18. травма - производственная: 1-промышленная; 2-транспортная, в .т.ч. 3-ДТП; 4-с/хозяйственная; 5-прочие;&#13;&#10;не производственная; 6-бытовая; 7-уличная; 8-транспортная, в .т.ч. 9-ДТП; 10-школьная; 11-спорт; 12-прочие;&#13;&#10;13-получена в результате террористических действий" ColSpan="10"/>
+          <TableCell Name="Cell282"/>
+          <TableCell Name="Cell283"/>
+          <TableCell Name="Cell284"/>
+          <TableCell Name="Cell285"/>
+          <TableCell Name="Cell286"/>
+          <TableCell Name="Cell287"/>
+          <TableCell Name="Cell288"/>
+          <TableCell Name="Cell289"/>
+          <TableCell Name="Cell290"/>
+        </TableRow>
+        <TableRow Name="Row16">
+          <TableCell Name="Cell291" Border.Lines="All" Text="19. Диагноз"/>
+          <TableCell Name="Cell292" Border.Lines="All" ColSpan="7"/>
+          <TableCell Name="Cell293"/>
+          <TableCell Name="Cell294"/>
+          <TableCell Name="Cell295"/>
+          <TableCell Name="Cell296"/>
+          <TableCell Name="Cell297"/>
+          <TableCell Name="Cell298"/>
+          <TableCell Name="Cell299" Border.Lines="All" Text="МКБ-10"/>
+          <TableCell Name="Cell300" Border.Lines="All">
+            <CellularTextObject Name="CellularText6" Width="103.95" Height="18.9" HorzAlign="Center" VertAlign="Center" Font="Arial, 8.25pt, style=Bold"/>
+          </TableCell>
+        </TableRow>
+        <TableRow Name="Row17">
+          <TableCell Name="Cell301" Border.Lines="All" Text="20. Код медицинской услуги (посещение)" ColSpan="5"/>
+          <TableCell Name="Cell302"/>
+          <TableCell Name="Cell303"/>
+          <TableCell Name="Cell304"/>
+          <TableCell Name="Cell305"/>
+          <TableCell Name="Cell306" Border.Lines="All" ColSpan="4">
+            <CellularTextObject Name="CellularText7" Width="359.1" Height="18.9" HorzAlign="Center" VertAlign="Center" Font="Arial, 8.25pt, style=Bold"/>
+          </TableCell>
+          <TableCell Name="Cell307"/>
+          <TableCell Name="Cell308"/>
+          <TableCell Name="Cell309"/>
+          <TableCell Name="Cell310" Border.Lines="All"/>
+        </TableRow>
+        <TableRow Name="Row18">
+          <TableCell Name="Cell311" Border.Lines="All" ColSpan="5"/>
+          <TableCell Name="Cell312"/>
+          <TableCell Name="Cell313"/>
+          <TableCell Name="Cell314"/>
+          <TableCell Name="Cell315"/>
+          <TableCell Name="Cell316" Border.Lines="All" ColSpan="4">
+            <CellularTextObject Name="CellularText8" Width="359.1" Height="18.9" HorzAlign="Center" VertAlign="Center" Font="Arial, 8.25pt, style=Bold"/>
+          </TableCell>
+          <TableCell Name="Cell317"/>
+          <TableCell Name="Cell318"/>
+          <TableCell Name="Cell319"/>
+          <TableCell Name="Cell320" Border.Lines="All"/>
+        </TableRow>
+        <TableRow Name="Row19" Height="37.8">
+          <TableCell Name="Cell321" Border.Lines="All" Text="21. Характер заболевания: 1-сотрое(+), впервые в жизни установленное хроническое(+); 2-диагноз установлен в предыдущем году или ранее (-)" ColSpan="10"/>
+          <TableCell Name="Cell322"/>
+          <TableCell Name="Cell323"/>
+          <TableCell Name="Cell324"/>
+          <TableCell Name="Cell325"/>
+          <TableCell Name="Cell326"/>
+          <TableCell Name="Cell327"/>
+          <TableCell Name="Cell328"/>
+          <TableCell Name="Cell329"/>
+          <TableCell Name="Cell330"/>
+        </TableRow>
+        <TableRow Name="Row20">
+          <TableCell Name="Cell331" Border.Lines="All" Text="22. Диспансерный учет: 1-состоит; 2-взят; 3-снят, в т.ч. по выздоровлению." ColSpan="10"/>
+          <TableCell Name="Cell332"/>
+          <TableCell Name="Cell333"/>
+          <TableCell Name="Cell334"/>
+          <TableCell Name="Cell335"/>
+          <TableCell Name="Cell336"/>
+          <TableCell Name="Cell337"/>
+          <TableCell Name="Cell338"/>
+          <TableCell Name="Cell339"/>
+          <TableCell Name="Cell340"/>
+        </TableRow>
+        <TableRow Name="Row21">
+          <TableCell Name="Cell341" Border.Lines="All" Text="23. Документ, удостоверяющий личность (название, серия и номер)" ColSpan="10"/>
+          <TableCell Name="Cell342"/>
+          <TableCell Name="Cell343"/>
+          <TableCell Name="Cell344"/>
+          <TableCell Name="Cell345"/>
+          <TableCell Name="Cell346"/>
+          <TableCell Name="Cell347"/>
+          <TableCell Name="Cell348"/>
+          <TableCell Name="Cell349"/>
+          <TableCell Name="Cell350"/>
+        </TableRow>
+        <TableRow Name="Row22">
+          <TableCell Name="Cell351" Border.Lines="All" Text="24. Адрес регистрации по месту жительства:" ColSpan="10"/>
+          <TableCell Name="Cell352"/>
+          <TableCell Name="Cell353"/>
+          <TableCell Name="Cell354"/>
+          <TableCell Name="Cell355"/>
+          <TableCell Name="Cell356"/>
+          <TableCell Name="Cell357"/>
+          <TableCell Name="Cell358"/>
+          <TableCell Name="Cell359"/>
+          <TableCell Name="Cell360"/>
+        </TableRow>
+        <TableRow Name="Row23">
+          <TableCell Name="Cell361" Border.Lines="All" ColSpan="5"/>
+          <TableCell Name="Cell362"/>
+          <TableCell Name="Cell363"/>
+          <TableCell Name="Cell364"/>
+          <TableCell Name="Cell365"/>
+          <TableCell Name="Cell366" Border.Lines="All" ColSpan="3">
+            <CellularTextObject Name="CellularText9" Width="264.6" Height="18.9" HorzAlign="Center" VertAlign="Center" Font="Arial, 8.25pt, style=Bold"/>
+          </TableCell>
+          <TableCell Name="Cell367"/>
+          <TableCell Name="Cell368"/>
+          <TableCell Name="Cell369" Border.Lines="All" Text="25. житель: 1-город, 2-село" ColSpan="2"/>
+          <TableCell Name="Cell370"/>
+        </TableRow>
+        <TableRow Name="Row24">
+          <TableCell Name="Cell371" Border.Lines="All" Text="26. Заполняется только при изменении диагноза: ранее зарегистрированный диагноз" ColSpan="10"/>
+          <TableCell Name="Cell372"/>
+          <TableCell Name="Cell373"/>
+          <TableCell Name="Cell374"/>
+          <TableCell Name="Cell375"/>
+          <TableCell Name="Cell376"/>
+          <TableCell Name="Cell377"/>
+          <TableCell Name="Cell378"/>
+          <TableCell Name="Cell379"/>
+          <TableCell Name="Cell380"/>
+        </TableRow>
+        <TableRow Name="Row25">
+          <TableCell Name="Cell381" Border.Lines="All" Text="Код МКБ-10"/>
+          <TableCell Name="Cell382" Border.Lines="All" ColSpan="7"/>
+          <TableCell Name="Cell383"/>
+          <TableCell Name="Cell384"/>
+          <TableCell Name="Cell385"/>
+          <TableCell Name="Cell386"/>
+          <TableCell Name="Cell387"/>
+          <TableCell Name="Cell388"/>
+          <TableCell Name="Cell389" Border.Lines="All">
+            <CellularTextObject Name="CellularText10" Width="103.95" Height="18.9" HorzAlign="Center" VertAlign="Center" Font="Arial, 8.25pt, style=Bold"/>
+          </TableCell>
+          <TableCell Name="Cell390" Border.Lines="All"/>
+        </TableRow>
+        <TableRow Name="Row26">
+          <TableCell Name="Cell391" Border.Lines="All" Text="Дата регистрации изменяемого диагноза" ColSpan="5"/>
+          <TableCell Name="Cell392"/>
+          <TableCell Name="Cell393"/>
+          <TableCell Name="Cell394"/>
+          <TableCell Name="Cell395"/>
+          <TableCell Name="Cell396" ColSpan="3">
+            <CellularTextObject Name="CellularText11" Width="264.6" Height="18.9" HorzAlign="Center" VertAlign="Center" Font="Arial, 8.25pt, style=Bold"/>
+          </TableCell>
+          <TableCell Name="Cell397"/>
+          <TableCell Name="Cell398"/>
+          <TableCell Name="Cell399" Border.Lines="All" ColSpan="2"/>
+          <TableCell Name="Cell400" Border.Lines="All"/>
+        </TableRow>
+        <TableRow Name="Row27">
+          <TableCell Name="Cell401" Border.Lines="All" Text="27. Документ временной нетрудоспособности: 1-открыт; 2-закрыт; число дней нетрудоспособности:" ColSpan="10"/>
+          <TableCell Name="Cell402"/>
+          <TableCell Name="Cell403"/>
+          <TableCell Name="Cell404"/>
+          <TableCell Name="Cell405"/>
+          <TableCell Name="Cell406"/>
+          <TableCell Name="Cell407"/>
+          <TableCell Name="Cell408"/>
+          <TableCell Name="Cell409"/>
+          <TableCell Name="Cell410"/>
+        </TableRow>
+        <TableRow Name="Row28" Height="37.8">
+          <TableCell Name="Cell411" Border.Lines="All" Text="28. Причина выдачи: 1-заболевание; 2-по уходу; 3-карантин; 4-прерывание беременности; 5-отпуск по беременности и родам; 7-санаторно-курортное лечение" ColSpan="10"/>
+          <TableCell Name="Cell412"/>
+          <TableCell Name="Cell413"/>
+          <TableCell Name="Cell414"/>
+          <TableCell Name="Cell415"/>
+          <TableCell Name="Cell416"/>
+          <TableCell Name="Cell417"/>
+          <TableCell Name="Cell418"/>
+          <TableCell Name="Cell419"/>
+          <TableCell Name="Cell420"/>
+        </TableRow>
+        <TableRow Name="Row29">
+          <TableCell Name="Cell421" Border.Lines="All" Text="28.1 по уходу: 1-муж; 2-жен; полных лет -" ColSpan="5"/>
+          <TableCell Name="Cell422"/>
+          <TableCell Name="Cell423"/>
+          <TableCell Name="Cell424"/>
+          <TableCell Name="Cell425"/>
+          <TableCell Name="Cell426">
+            <CellularTextObject Name="CellularText12" Width="56.7" Height="18.9" HorzAlign="Center" VertAlign="Center" Font="Arial, 8.25pt, style=Bold"/>
+          </TableCell>
+          <TableCell Name="Cell427" Border.Lines="All" Text="(возраст лица, получившего листок в/н)" ColSpan="4"/>
+          <TableCell Name="Cell428"/>
+          <TableCell Name="Cell429"/>
+          <TableCell Name="Cell430"/>
+        </TableRow>
+        <TableRow Name="Row30">
+          <TableCell Name="Cell431" Border.Lines="All" Text="29. Рецептурный бланк, дата выписки, серия и №, название препарата, доза:" ColSpan="10"/>
+          <TableCell Name="Cell432"/>
+          <TableCell Name="Cell433"/>
+          <TableCell Name="Cell434"/>
+          <TableCell Name="Cell435"/>
+          <TableCell Name="Cell436"/>
+          <TableCell Name="Cell437"/>
+          <TableCell Name="Cell438"/>
+          <TableCell Name="Cell439"/>
+          <TableCell Name="Cell440"/>
+        </TableRow>
+        <TableRow Name="Row31">
+          <TableCell Name="Cell441" Border.Lines="All" Text="29.1" ColSpan="10"/>
+          <TableCell Name="Cell442"/>
+          <TableCell Name="Cell443"/>
+          <TableCell Name="Cell444"/>
+          <TableCell Name="Cell445"/>
+          <TableCell Name="Cell446"/>
+          <TableCell Name="Cell447"/>
+          <TableCell Name="Cell448"/>
+          <TableCell Name="Cell449"/>
+          <TableCell Name="Cell450"/>
+        </TableRow>
+        <TableRow Name="Row32">
+          <TableCell Name="Cell451" Border.Lines="All" Text="29.2" ColSpan="10"/>
+          <TableCell Name="Cell452"/>
+          <TableCell Name="Cell453"/>
+          <TableCell Name="Cell454"/>
+          <TableCell Name="Cell455"/>
+          <TableCell Name="Cell456"/>
+          <TableCell Name="Cell457"/>
+          <TableCell Name="Cell458"/>
+          <TableCell Name="Cell459"/>
+          <TableCell Name="Cell460"/>
+        </TableRow>
+        <TableRow Name="Row33">
+          <TableCell Name="Cell461" Border.Lines="All" Text="29.3" ColSpan="10"/>
+          <TableCell Name="Cell462"/>
+          <TableCell Name="Cell463"/>
+          <TableCell Name="Cell464"/>
+          <TableCell Name="Cell465"/>
+          <TableCell Name="Cell466"/>
+          <TableCell Name="Cell467"/>
+          <TableCell Name="Cell468"/>
+          <TableCell Name="Cell469"/>
+          <TableCell Name="Cell470"/>
+        </TableRow>
+        <TableRow Name="Row34">
+          <TableCell Name="Cell471" Border.Lines="All" Text="29.4" ColSpan="10"/>
+          <TableCell Name="Cell472"/>
+          <TableCell Name="Cell473"/>
+          <TableCell Name="Cell474"/>
+          <TableCell Name="Cell475"/>
+          <TableCell Name="Cell476"/>
+          <TableCell Name="Cell477"/>
+          <TableCell Name="Cell478"/>
+          <TableCell Name="Cell479"/>
+          <TableCell Name="Cell480"/>
+        </TableRow>
+      </TableObject>
+    </ReportTitleBand>
+  </ReportPage>
+</Report>

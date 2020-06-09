@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<ZL_LIST>
+  <ZGLV>
+    <VERSION>2.1</VERSION>
+    <DATA>2011-09-02</DATA>
+    <C_OKATO1>97000</C_OKATO1>
+    <OKATO_OMS>79000</OKATO_OMS>
+  </ZGLV>
+  <SCHET>
+    <CODE>1</CODE>
+    <YEAR>2011</YEAR>
+    <MONTH>8</MONTH>
+    <NSCHET>1</NSCHET>
+    <DSCHET>2011-09-02</DSCHET>
+    <SUMMAV>377.20</SUMMAV>
+    <COMENTS>Комментарий к счету</COMENTS>
+    <SUMMAP>377.20</SUMMAP>
+    <SANK_MEK>0.1</SANK_MEK>
+    <SANK_MEE>0.2</SANK_MEE>
+    <SANK_EKMP>0.3</SANK_EKMP>
+  </SCHET>
+  <ZAP>
+    <N_ZAP>12345678</N_ZAP>
+    <PACIENT>
+      <VPOLIS>1</VPOLIS>
+      <SPOLIS>3333</SPOLIS>
+      <NPOLIS>88888888</NPOLIS>
+      <ENP>9999999999</ENP>
+      <ST_OKATO>38000</ST_OKATO>
+      <FAM>ПЕТРОВ</FAM>
+      <IM>ПЁТР</IM>
+      <OT>ПЕТРОВИЧ</OT>
+      <W>1</W>
+      <DR>1981-01-12</DR>
+      <DOST>1</DOST>
+      <DOST>2</DOST>
+      <FAM_P>Фамилия представителя</FAM_P>
+      <IM_P>Имя представителя</IM_P>
+      <OT_P>Отчество представителя</OT_P>
+      <W_P>1</W_P>
+      <DR_P>1990-10-10</DR_P>
+      <DOST_P>3</DOST_P>
+      <DOST_P>4</DOST_P>
+      <MR>Место рождения</MR>
+      <DOCTYPE>14</DOCTYPE>
+      <DOCSER>12 12</DOCSER>
+      <DOCNUM>121212</DOCNUM>
+      <SNILS>000-000-000 00</SNILS>
+      <OKATOG>79000000000</OKATOG>
+      <OKATOP>97000000000</OKATOP>
+      <NOVOR>101121412</NOVOR>
+      <VNOV_D>1234</VNOV_D>
+      <COMENTP>Комментарий к персональным данным</COMENTP>
+  </PACIENT>
+    <SLUCH>
+      <IDCASE>1</IDCASE>
+      <USL_OK>3</USL_OK>
+      <VIDPOM>3</VIDPOM>
+      <FOR_POM>1</FOR_POM>
+      <VID_HMP>01.00.002</VID_HMP>
+      <METOD_HMP>2</METOD_HMP>
+      <EXTR>2</EXTR>
+      <LPU>210012</LPU>
+      <PROFIL>89</PROFIL>
+      <DET>1</DET>
+      <NHISTORY>1468654</NHISTORY>
+      <DATE_1>2011-08-15</DATE_1>
+      <DATE_2>2011-08-15</DATE_2>
+      <DS0>K04.0</DS0>
+      <DS1>K04.5</DS1>
+      <DS2>K04.2</DS2>
+      <DS2>K04.3</DS2>
+      <DS2>K04.4</DS2>
+      <DS3>K04.5</DS3>
+      <DS3>K04.6</DS3>
+      <VNOV_M>1234</VNOV_M>
+      <VNOV_M>3456</VNOV_M>
+      <CODE_MES1>код МЭС</CODE_MES1>
+      <CODE_MES1>код2 МЭС</CODE_MES1>
+      <CODE_MES2>код МЭС соп</CODE_MES2>
+      <RSLT>301</RSLT>
+      <ISHOD>301</ISHOD>
+      <PRVS>10</PRVS>
+      <VERS_SPEC>V015</VERS_SPEC>
+      <IDSP>9</IDSP>
+      <ED_COL>3.00</ED_COL>
+      <TARIF>51.44</TARIF>
+      <SUMV>115.74</SUMV>
+      <OPLATA>1</OPLATA>
+      <SUMP>115.74</SUMP>
+      <SANK_IT>100.11</SANK_IT>
+      <SANK>
+        <S_CODE>1</S_CODE>
+        <S_SUM>10.11</S_SUM>
+        <S_TIP>1</S_TIP>
+        <S_OSN>20</S_OSN>
+        <S_COM>Тестовый мэк</S_COM>
+        <S_IST>1</S_IST>
+      </SANK>
+      <SANK>
+        <S_CODE>2</S_CODE>
+        <S_SUM>12.11</S_SUM>
+        <S_TIP>2</S_TIP>
+        <S_OSN>21</S_OSN>
+        <S_COM>Тестовый мээ</S_COM>
+        <S_IST>1</S_IST>
+      </SANK>
+      <SANK>
+        <S_CODE>3</S_CODE>
+        <S_SUM>13.11</S_SUM>
+        <S_TIP>3</S_TIP>
+        <S_OSN>21</S_OSN>
+        <S_COM>Тестовый экмп</S_COM>
+        <S_IST>1</S_IST>
+      </SANK>
+      <USL>
+        <IDSERV>7D3A931BD62141D7A41AE6D863DF63AC----</IDSERV>
+        <LPU>460003</LPU>
+        <PROFIL>89</PROFIL>
+        <VID_VME>мед вмешательство</VID_VME>
+        <DET>1</DET>
+        <DATE_IN>2011-08-15</DATE_IN>
+        <DATE_OUT>2011-08-15</DATE_OUT>
+        <DS>K04.5</DS>
+        <USL>Налож.пломб.из композ.матер.хим.отвержден.,эвикрола II,IVкл.</USL>
+        <KOL_USL>2.00</KOL_USL>
+        <TARIF>51.44</TARIF>
+        <SUMV_USL>102.88</SUMV_USL>
+        <PRVS>1401</PRVS>
+        <COMENTU>Zub=35</COMENTU>
+      </USL>
+      <COMENTSL>Комментарий к случаю</COMENTSL>
+    </SLUCH>
+  </ZAP>
+</ZL_LIST>

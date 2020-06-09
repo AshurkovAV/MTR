@@ -1,0 +1,197 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report ScriptLanguage="CSharp" ReportInfo.Created="06/20/2009 22:40:42" ReportInfo.Modified="04/11/2012 04:17:28" ReportInfo.CreatorVersion="1.8.1.0">
+  <Dictionary>
+    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqM3/HbiZANEYP3Y6oNtE7mrUmT0ytl94C6DYS4DXvgc8JqhVjVQGe7Sc2pOMNI3eDZu4y6+BLf6/PCErp5V5iYO+NhUsLGHVpiKUoEc7fdRAKM3dC4G3zKvHq63vBaaJuNWt1RaEUDxyLLh6IMbjf+Iqjj5s+Su4iyajqSNb5u2lwKVbRFUJ7RIt6w6JZCEm3BwgF1V9EYO6tCZevCoCguBou3z+l3FwPu3k6UFGd7Xfnx/foxQV552Oz9PsEBYLx">
+      <TableDataSource Name="FactTerritoryAccount" DataType="System.Int32" Enabled="true" TableName="FactTerritoryAccount" SelectCommand="SELECT F.Date, F.AccountNumber, F.AccountDate, F.Price, F.AcceptPrice, F.MECPenalties, F.MEEPenalties, F.EQMAPenalties, F.Comments, F.Source, F.Destination, F.Status, F.ExternalId, F.PacketNumber, F.Type, F.Direction, F.Parent, F.Generation, F.TerritoryAccountId, F.RegisterId&#13;&#10;FROM &quot;FactTerritoryAccount&quot; F&#13;&#10;WHERE F.TerritoryAccountId=@AccountParam&#13;&#10;">
+        <Column Name="Date" DataType="System.DateTime"/>
+        <Column Name="AccountNumber" DataType="System.String"/>
+        <Column Name="AccountDate" DataType="System.DateTime"/>
+        <Column Name="Price" DataType="System.Decimal"/>
+        <Column Name="AcceptPrice" DataType="System.Decimal"/>
+        <Column Name="MECPenalties" DataType="System.Decimal"/>
+        <Column Name="MEEPenalties" DataType="System.Decimal"/>
+        <Column Name="EQMAPenalties" DataType="System.Decimal"/>
+        <Column Name="Comments" DataType="System.String"/>
+        <Column Name="Source" DataType="System.String"/>
+        <Column Name="Destination" DataType="System.String"/>
+        <Column Name="Status" DataType="System.Int32"/>
+        <Column Name="ExternalId" DataType="System.Int32"/>
+        <Column Name="PacketNumber" DataType="System.Int32"/>
+        <Column Name="Type" DataType="System.Int32"/>
+        <Column Name="Direction" DataType="System.Int32"/>
+        <Column Name="Parent" DataType="System.Int32"/>
+        <Column Name="Generation" DataType="System.Int32"/>
+        <Column Name="TerritoryAccountId" DataType="System.Int32"/>
+        <Column Name="RegisterId" DataType="System.Int32"/>
+        <CommandParameter Name="AccountParam" DataType="8" Expression="[AccountId]" DefaultValue="1"/>
+      </TableDataSource>
+      <TableDataSource Name="Table" Alias="localPaymentSource" DataType="System.Int32" Enabled="true" TableName="localPaymentSource" SelectCommand="SELECT L.PaymentId, L.Code, L.Type, L.Name, L.Inn, L.Ogrn, L.KPP, L.Account, L.CorrespondentAccount, L.BIK, L.BankName, L.AgreementNumber, L.AgreementDate, L.Director, L.Accounter, L.Address, L.DateBegin, L.DateEnd&#13;&#10;FROM &quot;localPayment&quot; L&#13;&#10;WHERE L.Code=@CodeParam&#13;&#10;">
+        <Column Name="PaymentId" DataType="System.Int32"/>
+        <Column Name="Code" DataType="System.Int32"/>
+        <Column Name="Type" DataType="System.Int32"/>
+        <Column Name="Name" DataType="System.String"/>
+        <Column Name="Inn" DataType="System.String"/>
+        <Column Name="Ogrn" DataType="System.String"/>
+        <Column Name="KPP" DataType="System.String"/>
+        <Column Name="Account" DataType="System.String"/>
+        <Column Name="CorrespondentAccount" DataType="System.String"/>
+        <Column Name="BIK" DataType="System.String"/>
+        <Column Name="BankName" DataType="System.String"/>
+        <Column Name="AgreementNumber" DataType="System.String"/>
+        <Column Name="AgreementDate" DataType="System.DateTime"/>
+        <Column Name="Director" DataType="System.String"/>
+        <Column Name="Accounter" DataType="System.String"/>
+        <Column Name="Address" DataType="System.String"/>
+        <Column Name="DateBegin" DataType="System.DateTime"/>
+        <Column Name="DateEnd" DataType="System.DateTime"/>
+        <CommandParameter Name="CodeParam" DataType="22" Expression="[FactTerritoryAccount.Source]" DefaultValue="460006"/>
+      </TableDataSource>
+      <TableDataSource Name="Table3" Alias="localPaymentDestination" DataType="System.Int32" Enabled="true" TableName="localPaymentDestination" SelectCommand="SELECT L.PaymentId, L.Code, L.Type, L.Name, L.Inn, L.Ogrn, L.KPP, L.Account, L.CorrespondentAccount, L.BIK, L.BankName, L.AgreementNumber, L.AgreementDate, L.Director, L.Accounter, L.Address, L.DateBegin, L.DateEnd&#13;&#10;FROM &quot;localPayment&quot; L&#13;&#10;WHERE L.Code=@CodeParam&#13;&#10;">
+        <Column Name="PaymentId" DataType="System.Int32"/>
+        <Column Name="Code" DataType="System.Int32"/>
+        <Column Name="Type" DataType="System.Int32"/>
+        <Column Name="Name" DataType="System.String"/>
+        <Column Name="Inn" DataType="System.String"/>
+        <Column Name="Ogrn" DataType="System.String"/>
+        <Column Name="KPP" DataType="System.String"/>
+        <Column Name="Account" DataType="System.String"/>
+        <Column Name="CorrespondentAccount" DataType="System.String"/>
+        <Column Name="BIK" DataType="System.String"/>
+        <Column Name="BankName" DataType="System.String"/>
+        <Column Name="AgreementNumber" DataType="System.String"/>
+        <Column Name="AgreementDate" DataType="System.DateTime"/>
+        <Column Name="Director" DataType="System.String"/>
+        <Column Name="Accounter" DataType="System.String"/>
+        <Column Name="Address" DataType="System.String"/>
+        <Column Name="DateBegin" DataType="System.DateTime"/>
+        <Column Name="DateEnd" DataType="System.DateTime"/>
+        <CommandParameter Name="CodeParam" DataType="22" Expression="[FactTerritoryAccount.Destination]" DefaultValue="46001"/>
+      </TableDataSource>
+      <TableDataSource Name="EventShortView" DataType="System.Int32" Enabled="true" TableName="EventShortView" SelectCommand="SELECT E.AssistanceConditions, Sum(E.Price)&#13;&#10;FROM &quot;EventShortView&quot; E&#13;&#10;WHERE E.AccountId=@AccountIdParam&#13;&#10;GROUP BY E.AssistanceConditions&#13;&#10;">
+        <Column Name="AssistanceConditions" DataType="System.Decimal"/>
+        <Column Name="Column1" DataType="System.Decimal"/>
+        <CommandParameter Name="AccountIdParam" DataType="8" Expression="[AccountId]" DefaultValue="1"/>
+      </TableDataSource>
+    </MsSqlDataConnection>
+    <Parameter Name="AccountId" DataType="System.Int32"/>
+    <Total Name="TotalPrice" Expression="[EventShortView.Column1]" Evaluator="Data1"/>
+  </Dictionary>
+  <ReportPage Name="Page1" RawPaperSize="9">
+    <ReportTitleBand Name="ReportTitle1" Width="718.2" Height="444.15">
+      <TextObject Name="Text4" Width="718.2" Height="37.8" Text="Поставщик:[localPaymentSource.Name]">
+        <Formats>
+          <GeneralFormat/>
+          <DateFormat/>
+          <GeneralFormat/>
+          <GeneralFormat/>
+        </Formats>
+      </TextObject>
+      <TextObject Name="Text8" Top="37.8" Width="670.95" Height="18.9" Text="Адрес:[localPaymentSource.Address]"/>
+      <TableObject Name="Table1" Left="9.45" Top="66.15" Width="697.82" Height="103.95">
+        <TableColumn Name="Column54" Width="377.15"/>
+        <TableColumn Name="Column55" Width="70.56"/>
+        <TableColumn Name="Column56" Width="250.11"/>
+        <TableRow Name="Row7" Height="31.5">
+          <TableCell Name="Cell118" Border.Lines="All" Text="ИНН [localPaymentSource.Inn] КПП [localPaymentSource.KPP]" VertAlign="Center"/>
+          <TableCell Name="Cell119" Border.Lines="All" Text="СЧЕТ №" HorzAlign="Center" VertAlign="Center"/>
+          <TableCell Name="Cell120" Border.Lines="All" Text="[localPaymentSource.Account]" VertAlign="Center"/>
+        </TableRow>
+        <TableRow Name="Row8" Height="31.5">
+          <TableCell Name="Cell123" Border.Lines="Left" Text="Банк получателя" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+          <TableCell Name="Cell124" Border.Lines="All" Text="БИК" HorzAlign="Center" VertAlign="Center"/>
+          <TableCell Name="Cell125" Border.Lines="All" Text="[localPaymentSource.BIK]" VertAlign="Center"/>
+        </TableRow>
+        <TableRow Name="Row9" Height="40.95">
+          <TableCell Name="Cell128" Border.Lines="Left, Bottom" Text="[localPaymentSource.BankName]" VertAlign="Center"/>
+          <TableCell Name="Cell129" Border.Lines="All" Text="КОР. &#13;&#10;СЧЕТ №" HorzAlign="Center" VertAlign="Center"/>
+          <TableCell Name="Cell130" Border.Lines="All" Text="[localPaymentSource.CorrespondentAccount]" VertAlign="Center"/>
+        </TableRow>
+      </TableObject>
+      <TextObject Name="Text9" Top="179.55" Width="718.2" Height="37.8" Text="Покупатель: [localPaymentDestination.Name]">
+        <Formats>
+          <GeneralFormat/>
+          <DateFormat/>
+          <GeneralFormat/>
+          <GeneralFormat/>
+        </Formats>
+      </TextObject>
+      <TextObject Name="Text10" Top="217.35" Width="718.2" Height="18.9" Text="Адрес: [localPaymentDestination.Address]"/>
+      <TableObject Name="Table4" Left="9.45" Top="236.25" Width="697.82" Height="103.95">
+        <TableColumn Name="Column57" Width="377.15"/>
+        <TableColumn Name="Column58" Width="70.56"/>
+        <TableColumn Name="Column59" Width="250.11"/>
+        <TableRow Name="Row10" Height="31.5">
+          <TableCell Name="Cell131" Border.Lines="All" Text="ИНН [localPaymentDestination.Inn] КПП [localPaymentDestination.KPP]" VertAlign="Center"/>
+          <TableCell Name="Cell132" Border.Lines="All" Text="СЧЕТ №" HorzAlign="Center" VertAlign="Center"/>
+          <TableCell Name="Cell133" Border.Lines="All" Text="[localPaymentDestination.Account]" VertAlign="Center"/>
+        </TableRow>
+        <TableRow Name="Row11" Height="31.5">
+          <TableCell Name="Cell134" Border.Lines="Left" Text="Банк получателя" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+          <TableCell Name="Cell135" Border.Lines="All" Text="БИК" HorzAlign="Center" VertAlign="Center"/>
+          <TableCell Name="Cell136" Border.Lines="All" Text="[localPaymentDestination.BIK]" VertAlign="Center"/>
+        </TableRow>
+        <TableRow Name="Row12" Height="40.95">
+          <TableCell Name="Cell137" Border.Lines="Left, Bottom" Text="[localPaymentDestination.BankName]" VertAlign="Center"/>
+          <TableCell Name="Cell138" Border.Lines="All" Text="КОР. &#13;&#10;СЧЕТ №" HorzAlign="Center" VertAlign="Center"/>
+          <TableCell Name="Cell139" Border.Lines="All" Text="[localPaymentDestination.CorrespondentAccount]" VertAlign="Center"/>
+        </TableRow>
+      </TableObject>
+      <TextObject Name="Text3" Top="396.9" Width="706.86" Height="18.9" Text="СЧЕТ №[FactTerritoryAccount.AccountNumber] от [FactTerritoryAccount.AccountDate]" VertAlign="Center" Font="Arial, 14pt">
+        <Formats>
+          <GeneralFormat/>
+          <DateFormat/>
+        </Formats>
+      </TextObject>
+      <TableObject Name="Table2" Left="9.45" Top="425.25" Width="699.3" Height="18.9" Border.Lines="Left">
+        <TableColumn Name="Column60" Width="47.25"/>
+        <TableColumn Name="Column61" Width="472.5"/>
+        <TableColumn Name="Column62" Width="179.55"/>
+        <TableRow Name="Row13">
+          <TableCell Name="Cell140" Border.Lines="Top, Bottom" Text="№ п/п"/>
+          <TableCell Name="Cell141" Border.Lines="All" Text="Наименование услуг"/>
+          <TableCell Name="Cell142" Border.Lines="All" Text="Сумма к оплате"/>
+        </TableRow>
+      </TableObject>
+      <TextObject Name="Text1" Left="9.45" Top="349.65" Width="697.41" Height="18.9" Text="Условия оплаты по договору № [localPaymentDestination.AgreementNumber] от [localPaymentDestination.AgreementDate]"/>
+    </ReportTitleBand>
+    <DataBand Name="Data1" Top="448.15" Width="718.2" Height="18.9" CanGrow="true" DataSource="EventShortView">
+      <TableObject Name="Table6" Left="9.45" Width="699.3" Height="18.9" Border.Lines="Left">
+        <TableColumn Name="Column66" Width="47.25"/>
+        <TableColumn Name="Column67" Width="472.5"/>
+        <TableColumn Name="Column68" Width="179.55"/>
+        <TableRow Name="Row15" AutoSize="true">
+          <TableCell Name="Cell146" Border.Lines="Top, Bottom" Text="[Row#]"/>
+          <TableCell Name="Cell147" Border.Lines="All" Text="Медицинские услуги, оказанные гражданам [Switch([EventShortView.AssistanceConditions]==1,&quot; в отделениях круглосуточного пребывания&quot;, [EventShortView.AssistanceConditions]==2,&quot; по стационарозамещающим технологиям&quot;,[EventShortView.AssistanceConditions]==3,&quot; амбулаторно поликлинически&quot;)] за [FactTerritoryAccount.Date]&#13;&#10;">
+            <Formats>
+              <GeneralFormat/>
+              <DateFormat Format="MMMM yyyy"/>
+            </Formats>
+          </TableCell>
+          <TableCell Name="Cell148" Border.Lines="All" Text="[EventShortView.Column1]" Format="Number" Format.UseLocale="true" HorzAlign="Right"/>
+        </TableRow>
+      </TableObject>
+    </DataBand>
+    <ReportSummaryBand Name="ReportSummary1" Top="471.05" Width="718.2" Height="228.69">
+      <TextObject Name="Text6" Top="209.79" Width="141.75" Height="18.9" Text="Дата [Date]" Format="Date" Format.Format="d"/>
+      <TableObject Name="Table5" Left="9.45" Width="699.3" Height="56.7" Border.Lines="Left">
+        <TableColumn Name="Column63" Width="47.25"/>
+        <TableColumn Name="Column64" Width="472.5"/>
+        <TableColumn Name="Column65" Width="179.55"/>
+        <TableRow Name="Row14" Height="56.7">
+          <TableCell Name="Cell143" Border.Lines="All" Text="Итого к оплате: [TotalPrice] ([ToWordsRu([TotalPrice])])" ColSpan="3">
+            <Formats>
+              <NumberFormat/>
+              <GeneralFormat/>
+            </Formats>
+          </TableCell>
+          <TableCell Name="Cell144" Border.Lines="All"/>
+          <TableCell Name="Cell145" Border.Lines="All"/>
+        </TableRow>
+      </TableObject>
+      <TextObject Name="Text2" Left="151.2" Top="102.06" Width="559.44" Height="107.73" Text="Главный врач_________________________[localPaymentSource.Director]&#13;&#10;                 (подпись, расшифровка   подписи)                            &#13;&#10;&#13;&#10;&#13;&#10;&#13;&#10;Главный бухгалтер ____________________________[localPaymentSource.Accounter]&#13;&#10;                          (подпись, расшифровка подписи)" HorzAlign="Right"/>
+    </ReportSummaryBand>
+    <PageFooterBand Name="PageFooter1" Top="703.74" Width="718.2" Height="18.9">
+      <TextObject Name="Text5" Left="803.25" Width="245.7" Height="18.9" Text="[PageN] из [TotalPages#]" HorzAlign="Right"/>
+    </PageFooterBand>
+  </ReportPage>
+</Report>

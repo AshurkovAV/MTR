@@ -1,0 +1,1051 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{9B4B4BCB-9C66-4FD4-8FD4-848BAEEB98C7}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Medical.AppLayer</RootNamespace>
+    <AssemblyName>AppLayer</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Autofac, Version=4.0.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.4.0.0\lib\net451\Autofac.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="BLToolkit.4, Version=4.3.4.0, Culture=neutral, PublicKeyToken=b1d3f6ab3aadaca3, processorArchitecture=MSIL">
+      <HintPath>..\packages\BLToolkit.4.3.4\lib\net40\BLToolkit.4.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Charts.v16.1.Core, Version=16.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Data.v16.1, Version=16.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Images.v16.1, Version=16.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Mvvm.v16.1, Version=16.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Office.v16.1.Core, Version=16.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Printing.v16.1.Core, Version=16.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.RichEdit.v16.1.Core, Version=16.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Xpf.Charts.v16.1, Version=16.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Xpf.Controls.v16.1, Version=16.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Xpf.Core.v16.1, Version=16.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Xpf.Docking.v16.1, Version=16.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Xpf.Grid.v16.1, Version=16.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Xpf.Grid.v16.1.Core, Version=16.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Xpf.Layout.v16.1.Core, Version=16.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Xpf.LayoutControl.v16.1, Version=16.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Xpf.NavBar.v16.1, Version=16.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Xpf.Printing.v16.1, Version=16.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Xpf.PropertyGrid.v16.1, Version=16.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Xpf.Ribbon.v16.1, Version=16.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Xpf.RichEdit.v16.1, Version=16.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="FastReport">
+      <HintPath>..\..\Lib\FastReport.dll</HintPath>
+    </Reference>
+    <Reference Include="FastReport.Bars">
+      <HintPath>..\..\Lib\FastReport.Bars.dll</HintPath>
+    </Reference>
+    <Reference Include="FastReport.Editor">
+      <HintPath>..\..\Lib\FastReport.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="FluentValidation, Version=6.2.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\FluentValidation.6.2.1.0\lib\Net45\FluentValidation.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="GalaSoft.MvvmLight, Version=5.3.0.19026, Culture=neutral, PublicKeyToken=e7570ab207bcb616, processorArchitecture=MSIL">
+      <HintPath>..\packages\MvvmLightLibs.5.3.0.0\lib\net45\GalaSoft.MvvmLight.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="GalaSoft.MvvmLight.Extras, Version=5.3.0.19032, Culture=neutral, PublicKeyToken=669f0b5e8f868abf, processorArchitecture=MSIL">
+      <HintPath>..\packages\MvvmLightLibs.5.3.0.0\lib\net45\GalaSoft.MvvmLight.Extras.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="GalaSoft.MvvmLight.Platform, Version=5.3.0.19032, Culture=neutral, PublicKeyToken=5f873c45e98af8a1, processorArchitecture=MSIL">
+      <HintPath>..\packages\MvvmLightLibs.5.3.0.0\lib\net45\GalaSoft.MvvmLight.Platform.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ICSharpCode.AvalonEdit, Version=5.0.3.0, Culture=neutral, PublicKeyToken=9cc39be672370310, processorArchitecture=MSIL">
+      <HintPath>..\packages\AvalonEdit.5.0.3\lib\Net40\ICSharpCode.AvalonEdit.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MahApps.Metro, Version=1.2.4.0, Culture=neutral, PublicKeyToken=f4fb5a3c4d1e5b4f, processorArchitecture=MSIL">
+      <HintPath>..\packages\MahApps.Metro.1.2.4.0\lib\net45\MahApps.Metro.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Expression.Interactions, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\CommonServiceLocator.1.3\lib\portable-net4+sl5+netcore45+wpa81+wp8\Microsoft.Practices.ServiceLocation.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.Activities" />
+    <Reference Include="System.Activities.Core.Presentation" />
+    <Reference Include="System.Activities.Presentation" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Printing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Windows.Presentation" />
+    <Reference Include="System.Workflow.Activities" />
+    <Reference Include="System.Workflow.ComponentModel" />
+    <Reference Include="System.Workflow.Runtime" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="WPFToolkit.Extended, Version=1.6.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\NotNugetLibs\WPFToolkit.Extended.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Admin\ViewModels\EditUserViewModel.cs" />
+    <Compile Include="Admin\ViewModels\UsersManagementViewModel.cs" />
+    <Compile Include="Admin\Views\UsersManagementView.xaml.cs">
+      <DependentUpon>UsersManagementView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Attributes\CustomEditorAttribute.cs" />
+    <Compile Include="Auth\ViewModels\LoginViewModel.cs" />
+    <Compile Include="Auth\Views\LoginView.xaml.cs">
+      <DependentUpon>LoginView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Auto.cs">
+      <DependentUpon>Auto.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Classifiers\ViewModels\ClassifierViewModel.cs" />
+    <Compile Include="Classifiers\Views\ClassifierView.xaml.cs">
+      <DependentUpon>ClassifierView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Converters\AssistanceTypeConverter.cs" />
+    <Compile Include="Converters\ExaminationTypeConverter.cs" />
+    <Compile Include="Converters\RoleConverter.cs" />
+    <Compile Include="Converters\InsuranceConverter.cs" />
+    <Compile Include="Converters\BoolToTextConverter.cs" />
+    <Compile Include="Converters\DiagnosisConverter.cs" />
+    <Compile Include="Converters\AccountStatusConverter.cs" />
+    <Compile Include="Converters\AssistanceConditionsConverter.cs" />
+    <Compile Include="Converters\ChildProfileConverter.cs" />
+    <Compile Include="Converters\DateTimeConverter.cs" />
+    <Compile Include="Converters\DiagnosisRuToEnConverter.cs" />
+    <Compile Include="Converters\BoolToImageConverter.cs" />
+    <Compile Include="Converters\MedicalOrganizationIdConverter.cs" />
+    <Compile Include="Converters\PolicyTypeToImageConverter.cs" />
+    <Compile Include="Converters\ProcessingTypeToImageConverter.cs" />
+    <Compile Include="Converters\RefusalSourceToImageConverter.cs" />
+    <Compile Include="Converters\RefusalDestToImageConverter.cs" />
+    <Compile Include="Converters\RefusalTypeToImageConverter.cs" />
+    <Compile Include="Converters\RefusalFlagToImageConverter.cs" />
+    <Compile Include="Converters\DirectionConverter.cs" />
+    <Compile Include="Converters\ExaminationGroupConverter.cs" />
+    <Compile Include="Converters\RefusalTypeToColorConverter.cs" />
+    <Compile Include="Converters\ProfileConverter.cs" />
+    <Compile Include="Converters\SpecialityV004Converter.cs" />
+    <Compile Include="Converters\TerritoryCodeConverter.cs" />
+    <Compile Include="Converters\ThreeFourthConverter.cs" />
+    <Compile Include="Converters\HalfConverter.cs" />
+    <Compile Include="Converters\IntoToColorConverter.cs" />
+    <Compile Include="Converters\IntoToColorConverter2.cs" />
+    <Compile Include="Converters\MedicalOrganizationConverter.cs" />
+    <Compile Include="Converters\PaymentStatusConverter.cs" />
+    <Compile Include="Converters\ReasonConverter.cs" />
+    <Compile Include="Converters\ScopeConverter.cs" />
+    <Compile Include="Converters\SpecialityV015Converter.cs" />
+    <Compile Include="Converters\TerritoryConverter.cs" />
+    <Compile Include="Converters\TypeAccountConverter.cs" />
+    <Compile Include="Converters\TypeLoadConverter.cs" />
+    <Compile Include="Converters\VersionConverter.cs" />
+    <Compile Include="Economic\Globals.cs" />
+    <Compile Include="Economic\Models\EconomicAccountCustomModel.cs" />
+    <Compile Include="Economic\Models\EconomicJournalCustomModel.cs" />
+    <Compile Include="Economic\Models\EconomicRefuseCustomModel.cs" />
+    <Compile Include="Economic\Models\EconomicStatisticsCustomModel.cs" />
+    <Compile Include="Economic\Models\EconomicSurchargeCustomModel.cs" />
+    <Compile Include="Economic\Models\Helpers\AssistanceDetailsSums.cs" />
+    <Compile Include="Economic\Models\Helpers\AssistanceSums.cs" />
+    <Compile Include="Economic\Models\Helpers\PaymentByAssistanceDetails.cs" />
+    <Compile Include="Economic\Models\PaymentCustomModel.cs" />
+    <Compile Include="Economic\Models\RefuseCustomModel.cs" />
+    <Compile Include="Economic\Models\Reports\ReportForm2CustomModel.cs" />
+    <Compile Include="Economic\Models\Reports\ReportReviseBalanceCustomModel.cs" />
+    <Compile Include="Economic\Models\Reports\ReportReviseCustomModel.cs" />
+    <Compile Include="Economic\Models\SurchargeCustomModel.cs" />
+    <Compile Include="Economic\ViewModels\AddPaymentViewModel.cs" />
+    <Compile Include="Economic\ViewModels\EconomicAccountViewModel.cs" />
+    <Compile Include="Economic\ViewModels\EconomicJournalViewModel.cs" />
+    <Compile Include="Economic\ViewModels\AddRefuseViewModel.cs" />
+    <Compile Include="Economic\ViewModels\EconomicRefuseViewModel.cs" />
+    <Compile Include="Economic\ViewModels\AddSurchargeViewModel.cs" />
+    <Compile Include="Economic\ViewModels\EconomicSurchargeViewModel.cs" />
+    <Compile Include="Economic\ViewModels\EcoReportForm2PrefilterViewModel.cs" />
+    <Compile Include="Economic\ViewModels\EcoReportRevisePrefilterViewModel.cs" />
+    <Compile Include="Economic\Views\AddPaymentView.xaml.cs">
+      <DependentUpon>AddPaymentView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Editors\AvalonEditBindable.cs" />
+    <Compile Include="Editors\AvalonTextBehavior.cs" />
+    <Compile Include="Editors\CommonWindow.xaml.cs">
+      <DependentUpon>CommonWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Editors\CommonDialogControl.xaml.cs">
+      <DependentUpon>CommonDialogControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Editors\CommonWindowControl.xaml.cs">
+      <DependentUpon>CommonWindowControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Editors\SyntaxHighlighting\SyntaxHIghlightingHelper.cs" />
+    <Compile Include="Editors\XmlEditor.xaml.cs">
+      <DependentUpon>XmlEditor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Editors\XmlEditViewModel.cs" />
+    <Compile Include="Economic\Views\EconomicAccountView.xaml.cs">
+      <DependentUpon>EconomicAccountView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Economic\Views\EconomicJournalView.xaml.cs">
+      <DependentUpon>EconomicJournalView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Economic\Views\AddRefuseView.xaml.cs">
+      <DependentUpon>AddRefuseView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Economic\Views\EconomicRefuseView.xaml.cs">
+      <DependentUpon>EconomicRefuseView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Economic\Views\AddSurchargeView.xaml.cs">
+      <DependentUpon>AddSurchargeView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Economic\Views\EconomicSurchargeView.xaml.cs">
+      <DependentUpon>EconomicSurchargeView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Economic\Views\EcoReportForm2PrefilterView.xaml.cs">
+      <DependentUpon>EcoReportForm2PrefilterView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Economic\Views\EcoReportRevisePrefilterView.xaml.cs">
+      <DependentUpon>EcoReportRevisePrefilterView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Economic\Views\EconomicReportView.xaml.cs">
+      <DependentUpon>EconomicReportView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Economic\Views\ReportNavigationView.xaml.cs">
+      <DependentUpon>ReportNavigationView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Editors\DataControl.xaml.cs">
+      <DependentUpon>DataControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Editors\ReportControl.xaml.cs">
+      <DependentUpon>ReportControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Editors\ReportControl2.cs" />
+    <Compile Include="Editors\ToDo.xaml.cs">
+      <DependentUpon>ToDo.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Examination\ViewModels\EditCriterionViewModel.cs" />
+    <Compile Include="Examination\ViewModels\CriterionViewModel.cs" />
+    <Compile Include="Examination\ViewModels\ExamResultModel.cs" />
+    <Compile Include="Examination\ViewModels\RunExaminationViewModel.cs" />
+    <Compile Include="Examination\Views\CriterionView.xaml.cs">
+      <DependentUpon>CriterionView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Examination\Views\RunExaminationView.xaml.cs">
+      <DependentUpon>RunExaminationView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="InitCommand.cs" />
+    <Compile Include="Linq\Classifiers\PLinqF004List.cs" />
+    <Compile Include="Linq\Classifiers\PLinqIDCToEventTypeList.cs" />
+    <Compile Include="Linq\Classifiers\PLinqLicenseList.cs" />
+    <Compile Include="Linq\Classifiers\PLinqLocalF003List.cs" />
+    <Compile Include="Linq\Classifiers\PLinqObsoleteDataList.cs" />
+    <Compile Include="Linq\Classifiers\PLinqGlobalRegionalAttributeList.cs" />
+    <Compile Include="Linq\Classifiers\PLinqClinicalExaminationList.cs" />
+    <Compile Include="Linq\Classifiers\PLinqV015EqV002List.cs" />
+    <Compile Include="Linq\Classifiers\PLinqV017List.cs" />
+    <Compile Include="Linq\Classifiers\PLinqF015List.cs" />
+    <Compile Include="Linq\Classifiers\PLinqF014List.cs" />
+    <Compile Include="Linq\Classifiers\PLinqGlobalMedicalEventTypeList.cs" />
+    <Compile Include="Linq\Classifiers\PLinqLocalF001List.cs" />
+    <Compile Include="Linq\Log\PLinqMedicineLogBase.cs" />
+    <Compile Include="Linq\Log\PLinqLogList.cs" />
+    <Compile Include="Linq\PLinqActsList.cs" />
+    <Compile Include="Linq\PLinqEventExtendedList.cs" />
+    <Compile Include="Linq\PLinqRefusalPenaltyList.cs" />
+    <Compile Include="Linq\PLinqDoctorList.cs" />
+    <Compile Include="Linq\PLinqProcessingList.cs" />
+    <Compile Include="Linq\PLinqUserList.cs" />
+    <Compile Include="Linq\PLinqListBase.cs" />
+    <Compile Include="Linq\PLinqPreparedReportList.cs" />
+    <Compile Include="Linq\PLinqReportList.cs" />
+    <Compile Include="Linq\PLinqAccountList.cs" />
+    <Compile Include="Linq\PLinqEconomicAccountList.cs" />
+    <Compile Include="Linq\PLinqEconomicJournalList.cs" />
+    <Compile Include="Linq\PLinqEconomicRefuseList.cs" />
+    <Compile Include="Linq\PLinqEconomicSurchargeList.cs" />
+    <Compile Include="Linq\PLinqEventDetailList.cs" />
+    <Compile Include="Linq\PLinqEventList.cs" />
+    <Compile Include="Linq\PLinqExaminationList.cs" />
+    <Compile Include="Linq\PLinqExchangeList.cs" />
+    <Compile Include="Linq\PLinqMedicalAccountList.cs" />
+    <Compile Include="Linq\PLinqMedicalEventList.cs" />
+    <Compile Include="Linq\PLinqPatientDetailList.cs" />
+    <Compile Include="Managers\IDockLayoutManager.cs" />
+    <Compile Include="Managers\IOverlayManager.cs" />
+    <Compile Include="Managers\INotifyManager.cs" />
+    <Compile Include="Managers\OperatorManager.cs" />
+    <Compile Include="Managers\SearchManager.cs" />
+    <Compile Include="Migration\ViewModels\MigrationsViewModel.cs" />
+    <Compile Include="Migration\Views\MigrationView.xaml.cs">
+      <DependentUpon>MigrationView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SampleData\MigrationObservableCollectionData.cs" />
+    <Compile Include="Models\ClassifierModels\ClassifierModel.cs" />
+    <Compile Include="Models\ClassifierModels\EditIDCToEventType.cs" />
+    <Compile Include="Models\ClassifierModels\EditLicenseEntry.cs" />
+    <Compile Include="Models\ClassifierModels\EditF004.cs" />
+    <Compile Include="Models\ClassifierModels\EditLocalF003.cs" />
+    <Compile Include="Models\ClassifierModels\EditObsoleteData.cs" />
+    <Compile Include="Models\ClassifierModels\EditLicense.cs" />
+    <Compile Include="Models\ClassifierModels\EditV015EqV002.cs" />
+    <Compile Include="Models\ClassifierModels\EditRegionalAttribute.cs" />
+    <Compile Include="Models\ClassifierModels\EditClinicalExamination.cs" />
+    <Compile Include="Models\ClassifierModels\EditV017.cs" />
+    <Compile Include="Models\ClassifierModels\EditF015.cs" />
+    <Compile Include="Models\ClassifierModels\EditF014.cs" />
+    <Compile Include="Models\ClassifierModels\EditMedicalEventType.cs" />
+    <Compile Include="Models\ClassifierModels\EditRefusalPenalty.cs" />
+    <Compile Include="Models\ClassifierModels\EditLocalF001.cs" />
+    <Compile Include="Models\ClassifierModels\EditShareDoctor.cs" />
+    <Compile Include="Models\CommonAccountModel.cs" />
+    <Compile Include="Models\EditableModels\RefusalModel.cs" />
+    <Compile Include="Models\EditableModels\RefusalContainer.cs" />
+    <Compile Include="Models\EditableModels\MedicalServiceContainer.cs" />
+    <Compile Include="Models\EditableModels\MedicalEventContainer.cs" />
+    <Compile Include="Models\EditableModels\MedicalServiceModel.cs" />
+    <Compile Include="Models\EditableModels\MedicalEventModel.cs" />
+    <Compile Include="Models\EventCustomModel.cs" />
+    <Compile Include="Models\EventDetailView.cs" />
+    <Compile Include="Models\MedicalEventCompleted.cs" />
+    <Compile Include="Models\MigrationModel.cs" />
+    <Compile Include="Models\OperatorModels\OperatorAction.cs" />
+    <Compile Include="Models\PatientDetailView.cs" />
+    <Compile Include="Models\EditableModels\DocumentModel.cs" />
+    <Compile Include="Models\EditableModels\PersonModel.cs" />
+    <Compile Include="Models\EditableModels\PatientModel.cs" />
+    <Compile Include="Models\PolicySearch\PolicyCheckPatientModel.cs" />
+    <Compile Include="Models\PolicySearch\PolicyCheckTortillaResultModel.cs" />
+    <Compile Include="Models\PolicySearch\PolicyByPeopleModel.cs" />
+    <Compile Include="Models\PolicySearch\SearchPeopleByPolicyModel.cs" />
+    <Compile Include="Models\RegisterModels\FileDataExchange.cs" />
+    <Compile Include="Models\SearchFormModel.cs" />
+    <Compile Include="Models\PatientSearch\SearchResultModel.cs" />
+    <Compile Include="Models\TerritoryAccountCustom.cs" />
+    <Compile Include="Models\UserInfoModel.cs" />
+    <Compile Include="Models\Validators\DocumentValidator.cs" />
+    <Compile Include="Models\Validators\RefusalValidator.cs" />
+    <Compile Include="Models\Validators\MedicalServiceValidator.cs" />
+    <Compile Include="Models\Validators\MedicalEventValidator.cs" />
+    <Compile Include="Models\Validators\PersonValidator.cs" />
+    <Compile Include="Models\Validators\PatientValidator.cs" />
+    <Compile Include="Operator\ViewModel\EditEqmaViewModel.cs" />
+    <Compile Include="Operator\ViewModel\EditMeeViewModel.cs" />
+    <Compile Include="Operator\ViewModel\OperatorFullViewModel.cs" />
+    <Compile Include="Operator\ViewModel\SearchDoctorViewModel.cs" />
+    <Compile Include="Operator\ViewModel\SearchMedicalOrganizationViewModel.cs" />
+    <Compile Include="Operator\ViewModel\SearchInsuranceViewModel.cs" />
+    <Compile Include="Operator\ViewModel\SearchPolicyViewModel.cs" />
+    <Compile Include="Operator\ViewModel\CopyPatientViewModel.cs" />
+    <Compile Include="Operator\ViewModel\CreateAccountViewModel.cs" />
+    <Compile Include="Operator\ViewModel\CreateSrzQueryViewModel.cs" />
+    <Compile Include="Operator\ViewModel\DepartmentViewModel.cs" />
+    <Compile Include="Operator\ViewModel\DoctorViewModel.cs" />
+    <Compile Include="Operator\Views\OperatorFullView.xaml.cs">
+      <DependentUpon>OperatorFullView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Register\ViewModels\EqmaActViewModel.cs" />
+    <Compile Include="Register\ViewModels\MeeActViewModel.cs" />
+    <Compile Include="Operator\ViewModel\MovePatientViewModel.cs" />
+    <Compile Include="Operator\ViewModel\OperatorViewModel.cs" />
+    <Compile Include="Operator\ViewModel\SrzAnswerViewModel.cs" />
+    <Compile Include="Operator\ViewModel\SrzErrorViewModel.cs" />
+    <Compile Include="Operator\ViewModel\SrzQueryViewModel.cs" />
+    <Compile Include="Operator\ViewModel\SearchDiagnosisViewModel.cs" />
+    <Compile Include="Operator\ViewModel\SrzResultViewModel.cs" />
+    <Compile Include="Operator\Views\SearchDoctorView.xaml.cs">
+      <DependentUpon>SearchDoctorView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Operator\Views\SearchMedicalOrganizationView.xaml.cs">
+      <DependentUpon>SearchMedicalOrganizationView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Operator\Views\SearchInsuranceView.xaml.cs">
+      <DependentUpon>SearchInsuranceView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Operator\Views\SearchPolicyView.xaml.cs">
+      <DependentUpon>SearchPolicyView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Operator\Views\CopyPatientView.xaml.cs">
+      <DependentUpon>CopyPatientView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Operator\Views\CreateAccountView.xaml.cs">
+      <DependentUpon>CreateAccountView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Operator\Views\DepartmentView.xaml.cs">
+      <DependentUpon>DepartmentView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Operator\Views\DoctorView.xaml.cs">
+      <DependentUpon>DoctorView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Register\ViewModels\ActsViewModel.cs" />
+    <Compile Include="Register\Views\EqmaView.xaml.cs">
+      <DependentUpon>EqmaView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Register\Views\MeeActView.xaml.cs">
+      <DependentUpon>MeeActView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Operator\Views\MovePatientView.xaml.cs">
+      <DependentUpon>MovePatientView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Operator\Views\OperatorView.xaml.cs">
+      <DependentUpon>OperatorView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Operator\Views\SearchDiagnosisView.xaml.cs">
+      <DependentUpon>SearchDiagnosisView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Operator\Views\CreateSrzQueryView.xaml.cs">
+      <DependentUpon>CreateSrzQueryView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Operator\Views\SrzResultView.xaml.cs">
+      <DependentUpon>SrzResultView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Processing\ViewModels\EditProcessingViewModel.cs" />
+    <Compile Include="Processing\ViewModels\ProcessingResultModel.cs" />
+    <Compile Include="Processing\ViewModels\ProcessingViewModel.cs" />
+    <Compile Include="Processing\ViewModels\RunProcessingViewModel.cs" />
+    <Compile Include="Processing\Views\CheckPolicyInTortillaView.xaml.cs">
+      <DependentUpon>CheckPolicyInTortillaView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Processing\Views\CheckPolicyView.xaml.cs">
+      <DependentUpon>CheckPolicyView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Processing\ViewModels\CheckPolicyInTortillaViewModel.cs" />
+    <Compile Include="Processing\ViewModels\CheckPolicyViewModel.cs" />
+    <Compile Include="Processing\Views\ChildNodesSelector.cs" />
+    <Compile Include="Processing\Views\ProcessingView.xaml.cs">
+      <DependentUpon>ProcessingView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Processing\Views\RunProcessingView.xaml.cs">
+      <DependentUpon>RunProcessingView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Processing\Workflow\ConsoleManager.cs" />
+    <Compile Include="Processing\Workflow\WF4Designer.xaml.cs">
+      <DependentUpon>WF4Designer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Processing\Workflow\Wf4DesignerExt.xaml.cs">
+      <DependentUpon>Wf4DesignerExt.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Operator\ViewModel\EditMecViewModel.cs" />
+    <Compile Include="Register\ViewModels\FilesViewModel.cs" />
+    <Compile Include="Register\ViewModels\MakeTerritoryAccountsViewModel.cs" />
+    <Compile Include="Register\ViewModels\EditMedicalAccountViewModel.cs" />
+    <Compile Include="Register\ViewModels\ExchangeViewModel.cs" />
+    <Compile Include="Register\ViewModels\EditTerritoryAccountViewModel.cs" />
+    <Compile Include="Register\ViewModels\ExportMedicalAssistanceViewModel.cs" />
+    <Compile Include="Register\ViewModels\ExportXmlViewModel.cs" />
+    <Compile Include="Register\ViewModels\ImportLocalXmlViewModel.cs" />
+    <Compile Include="Register\ViewModels\ImportXmlViewModel.cs" />
+    <Compile Include="Register\ViewModels\InfoViewModel.cs" />
+    <Compile Include="Register\ViewModels\MedicalAccountViewModel.cs" />
+    <Compile Include="Register\ViewModels\MedicalAccountSummaryViewModel.cs" />
+    <Compile Include="Register\ViewModels\BreakUpByPeriodViewModel.cs" />
+    <Compile Include="Register\ViewModels\TerritoryAccountSummaryViewModel.cs" />
+    <Compile Include="Register\ViewModels\TerritoryAccountViewModel.cs" />
+    <Compile Include="Register\Views\BreakUpByPeriodView.xaml.cs">
+      <DependentUpon>BreakUpByPeriodView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Register\Views\FilesView.xaml.cs">
+      <DependentUpon>FilesView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Register\Views\TerritoryAccountView.xaml.cs">
+      <DependentUpon>TerritoryAccountView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Register\Views\MakeTerritoryAccountsView.xaml.cs">
+      <DependentUpon>MakeTerritoryAccountsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Register\Views\ExchangeView.xaml.cs">
+      <DependentUpon>ExchangeView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Register\Views\ExportMedicalAssistanceView.xaml.cs">
+      <DependentUpon>ExportMedicalAssistanceView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Register\Views\ExportXmlView.xaml.cs">
+      <DependentUpon>ExportXmlView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Register\Views\ImportLocalXmlView.xaml.cs">
+      <DependentUpon>ImportLocalXmlView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Register\Views\ImportXmlView.xaml.cs">
+      <DependentUpon>ImportXmlView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Register\Views\InfoView.xaml.cs">
+      <DependentUpon>InfoView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Register\Views\MedicalAccountView.xaml.cs">
+      <DependentUpon>MedicalAccountView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Register\Views\TerritoryAccountSummaryView.xaml.cs">
+      <DependentUpon>TerritoryAccountSummaryView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Register\Views\ActsView.xaml.cs">
+      <DependentUpon>ActsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Report\Helpers\ReportTemplate.cs" />
+    <Compile Include="Report\ViewModels\EditPreparedReportViewModel.cs" />
+    <Compile Include="Report\ViewModels\PreparedReportViewModel.cs" />
+    <Compile Include="Report\ViewModels\ReportViewModel.cs" />
+    <Compile Include="Report\ViewModels\EditReportViewModel.cs" />
+    <Compile Include="Report\ViewModels\PrintReportViewModel.cs" />
+    <Compile Include="Report\ViewModels\RunReportViewModel.cs" />
+    <Compile Include="Report\Views\PreparedReportView.xaml.cs">
+      <DependentUpon>PreparedReportView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Report\Views\ReportView.xaml.cs">
+      <DependentUpon>ReportView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Report\Views\PrintReportView.xaml.cs">
+      <DependentUpon>PrintReportView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Report\Views\RunReportView.xaml.cs">
+      <DependentUpon>RunReportView.xaml</DependentUpon>
+    </Compile>
+    <None Include="app.config" />
+    <None Include="Auto.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Auto.cs</LastGenOutput>
+      <LastOutputs>.\Properties\AssemblyInfo.cs</LastOutputs>
+    </None>
+    <None Include="Auto.tt.log">
+      <DependentUpon>Auto.tt</DependentUpon>
+    </None>
+    <Compile Include="Resources\IAppLayerResourceCatalog.cs" />
+    <Compile Include="Scripts\ActIds.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Scripts\DefaultOmsVersion.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Scripts\ElmedicineConnectionString.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Scripts\FFomsReportConnectionString.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Scripts\MedicineLogConnectionString.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Scripts\RegisterPath.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Scripts\ScriptHelpers.cs" />
+    <Compile Include="Scripts\SrzServiceConnectionString.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Scripts\TortillaConnectionString.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Search\Converters\SexEnumConv.cs" />
+    <Compile Include="Search\ViewModels\EventSearchFormViewModel.cs" />
+    <Compile Include="Search\ViewModels\PatientSearchFormViewModel.cs" />
+    <Compile Include="Search\ViewModels\SearchViewModel.cs" />
+    <Compile Include="Search\Views\SearchView.xaml.cs">
+      <DependentUpon>SearchView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Services\AdminService.cs" />
+    <Compile Include="Services\IOperatorService.cs" />
+    <Compile Include="Services\IProcessingService.cs" />
+    <Compile Include="Services\IRemoteService.cs" />
+    <Compile Include="Services\OperatorService.cs" />
+    <Compile Include="Services\ProcessingService.cs" />
+    <Compile Include="Services\RemoteService.cs" />
+    <Compile Include="Services\ScriptCodeGenerator.cs" />
+    <Compile Include="Services\CommonService.cs" />
+    <Compile Include="Services\ComplexReportRepository.cs" />
+    <Compile Include="Services\DataService.cs" />
+    <Compile Include="Services\ExaminationService.cs" />
+    <Compile Include="Services\FIleService.cs" />
+    <Compile Include="Services\IAdminService.cs" />
+    <Compile Include="Services\ICommonService.cs" />
+    <Compile Include="Services\IComplexReportRepository.cs" />
+    <Compile Include="Services\IDataService.cs" />
+    <Compile Include="Services\IExaminationService.cs" />
+    <Compile Include="Services\IFIleService.cs" />
+    <Compile Include="Services\IReportService.cs" />
+    <Compile Include="Services\ISearchService.cs" />
+    <Compile Include="Services\ITextService.cs" />
+    <Compile Include="Services\IUserRemoteSettings.cs" />
+    <Compile Include="Services\IUserService.cs" />
+    <Compile Include="Services\ReportService.cs" />
+    <Compile Include="Services\SearchService.cs" />
+    <Compile Include="Services\TextService.cs" />
+    <Compile Include="Services\UserRemoteSettings.cs" />
+    <Compile Include="Services\UserService.cs" />
+    <Compile Include="Settings\ViewModels\SettingsViewModel.cs" />
+    <Compile Include="Settings\Views\SettingsView.xaml.cs">
+      <DependentUpon>SettingsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="StartPage\StartPageViewContent.cs" />
+    <Compile Include="StartPage\ViewModels\StartPageViewModel.cs" />
+    <Compile Include="StartPage\Views\StartPageView.xaml.cs">
+      <DependentUpon>StartPageView.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Data\Assemblies_4_0.cfg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Economic\Queries\EconomicAccountJournal.linq" />
+    <None Include="Economic\Queries\EconomicCalcSum.linq" />
+    <None Include="Economic\Reports\ActRevise.frx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Economic\Reports\Form2.frx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <EmbeddedResource Include="Editors\SyntaxHighlighting\Sql.xshd" />
+    <None Include="packages.config" />
+    <None Include="Report\Reports\AccountToTerritory.frx" />
+    <None Include="Report\Reports\AccountToTerritoryEmergency.frx" />
+    <None Include="Report\Reports\ActEQMA.frx" />
+    <None Include="Report\Reports\ActEQMAMedicalOrganization.frx" />
+    <None Include="Report\Reports\ActMec.frx" />
+    <None Include="Report\Reports\ActMec2.frx" />
+    <None Include="Report\Reports\actMEC2a.frx" />
+    <None Include="Report\Reports\ActMECCorrectPart.frx" />
+    <None Include="Report\Reports\ActMecLPU.frx" />
+    <None Include="Report\Reports\ActMecLPURegister.frx" />
+    <None Include="Report\Reports\ActMEE.frx" />
+    <None Include="Report\Reports\ActMEEMedicalOrganization.frx" />
+    <None Include="Report\Reports\ActNotRefund.frx" />
+    <None Include="Report\Reports\ActNotRefundPeriod.frx" />
+    <None Include="Report\Reports\LetterAccount.frx" />
+    <None Include="Report\Reports\LetterAccountCorrect.frx" />
+    <None Include="Report\Reports\LetterAccountCorrectEmergency.frx" />
+    <None Include="Report\Reports\LetterAccountEmergency.frx" />
+    <None Include="Report\Reports\LetterPaymentAccount.frx" />
+    <None Include="Report\Reports\LetterPaymentAccountCorrect.frx" />
+    <None Include="Report\Reports\LetterPaymentAccountEmergency.frx" />
+    <None Include="Report\Reports\LetterTemplate.frx" />
+    <None Include="Report\Reports\LetterTemplateWithApp.frx" />
+    <None Include="Report\Reports\MecResult.frx" />
+    <None Include="Report\Reports\MedicalReportRequestPrimaryMEE.frx" />
+    <None Include="Report\Reports\MedicalReportRequestReject.frx" />
+    <None Include="Report\Reports\RegisterToTerritory.frx" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CoreLayer\CoreLayer.csproj">
+      <Project>{74298f56-160f-44cb-808f-077b69a3e53b}</Project>
+      <Name>CoreLayer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Core\Core.csproj">
+      <Project>{3D0AD1D2-D4F2-40FB-8ED4-F9EF3A48DE2A}</Project>
+      <Name>Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Database\Database.csproj">
+      <Project>{7c69d4fb-3db0-4b3d-9c9a-35eb8ddca4a9}</Project>
+      <Name>Database</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DataCore\Data.csproj">
+      <Project>{680D983E-450D-419A-A9B2-48AC15A976F0}</Project>
+      <Name>Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Remote\Remote.csproj">
+      <Project>{0eb143b8-4f86-40dc-b30e-5b06593a809a}</Project>
+      <Name>Remote</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Admin\Views\UsersManagementView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Auth\Views\LoginView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Classifiers\Views\ClassifierView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Economic\Views\AddPaymentView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Editors\CommonWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Editors\CommonDialogControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Editors\CommonWindowControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Editors\XmlEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Economic\Views\EconomicAccountView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Economic\Views\EconomicJournalView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Economic\Views\AddRefuseView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Economic\Views\EconomicRefuseView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Economic\Views\AddSurchargeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Economic\Views\EconomicSurchargeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Economic\Views\EcoReportForm2PrefilterView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Economic\Views\EcoReportRevisePrefilterView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Economic\Views\EconomicReportView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Economic\Views\ReportNavigationView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Editors\DataControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Editors\ReportControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Editors\ToDo.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Examination\Views\CriterionView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Examination\Views\RunExaminationView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Migration\Views\MigrationView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Operator\Views\OperatorFullView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Operator\Views\SearchDoctorView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Operator\Views\SearchMedicalOrganizationView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Operator\Views\SearchInsuranceView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Operator\Views\SearchPolicyView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Operator\Views\CopyPatientView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Operator\Views\CreateAccountView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Operator\Views\DepartmentView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Operator\Views\DoctorView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Register\Views\EqmaView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Register\Views\MeeActView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Operator\Views\MovePatientView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Operator\Views\OperatorView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Operator\Views\SearchDiagnosisView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Operator\Views\CreateSrzQueryView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Operator\Views\SrzResultView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Processing\Views\CheckPolicyInTortillaView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Processing\Views\CheckPolicyView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Processing\Views\ProcessingView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Processing\Views\RunProcessingView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Register\Views\BreakUpByPeriodView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Register\Views\FilesView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Register\Views\ActsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Search\Views\SearchView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Settings\Views\SettingsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="StartPage\Views\StartPageView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Theme\Generic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <XamlAppDef Include="Processing\Workflow\Activity\ActivityTestService.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </XamlAppDef>
+    <Page Include="Processing\Workflow\WF4Designer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Processing\Workflow\Wf4DesignerExt.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Processing\Workflow\WFTemplate.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Register\Views\TerritoryAccountView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Register\Views\MakeTerritoryAccountsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Register\Views\ExchangeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Register\Views\ExportMedicalAssistanceView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Register\Views\ExportXmlView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Register\Views\ImportLocalXmlView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Register\Views\ImportXmlView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Register\Views\InfoView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Register\Views\MedicalAccountView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Register\Views\TerritoryAccountSummaryView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Report\Views\PreparedReportView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Report\Views\ReportView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Report\Views\PrintReportView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Report\Views\RunReportView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\error.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Licenses.licx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Examination\Queries\Inter-territorial\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\dialog-apply.png" />
+    <Resource Include="Resources\Icons\dialog-cancel.png" />
+    <Resource Include="Resources\Icons\edit-delete.png" />
+    <Resource Include="Resources\Icons\eqma.png" />
+    <Resource Include="Resources\Icons\lock.png" />
+    <Resource Include="Resources\Icons\mec.png" />
+    <Resource Include="Resources\Icons\mee.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\go-next16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Docs\Examples.txt" />
+    <Content Include="Docs\func.txt" />
+    <Content Include="Docs\zoom.txt" />
+    <Content Include="Examination\Queries\Local\CheckServiceRequired.sql" />
+    <Content Include="Examination\Queries\Local\CheckMedicalEventRequired.sql" />
+    <Content Include="Examination\Queries\Local\CheckPatientRequired.sql" />
+    <Content Include="Processing\Queries\FixResultAndOutcome.sql" />
+    <Content Include="Processing\Queries\FixTerritoryOkatoFromInsuranceId.sql" />
+    <Content Include="Processing\Queries\FixRepresentative.sql" />
+    <Content Include="Processing\Queries\FixObsoleteProfile.sql" />
+    <Content Include="Processing\Queries\FixAssistanceTypeAndPaymentMethod.sql" />
+    <Content Include="Processing\Queries\FixAssistanceForm.sql" />
+    <Content Include="Processing\Queries\FixHistory.sql" />
+    <Content Include="Processing\TerritoryQueries\FixPaymentStatus.sql" />
+    <Resource Include="Resources\Icons\buildin22.png" />
+    <Resource Include="Resources\Icons\csharp22.png" />
+    <Resource Include="Resources\Icons\sql22.png" />
+    <Resource Include="Resources\Icons\user-away22.png" />
+    <Resource Include="Resources\Icons\user-online22.png" />
+    <Resource Include="Resources\Icons\user-trash-full22.png" />
+    <Resource Include="Resources\Icons\go-down22.png" />
+    <Resource Include="Resources\Icons\go-up22.png" />
+    <Resource Include="Resources\Icons\help22.png" />
+    <Resource Include="Resources\Icons\view-refresh22.png" />
+    <Resource Include="Resources\Icons\edit.png" />
+    <Resource Include="Resources\Icons\eqma22.png" />
+    <Resource Include="Resources\Icons\mec22.png" />
+    <Resource Include="Resources\Icons\mee22.png" />
+    <Resource Include="Resources\Icons\dialog-apply22.png" />
+    <Resource Include="Resources\Icons\dialog-block22.png" />
+    <Resource Include="Resources\Icons\lock22.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

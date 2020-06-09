@@ -1,0 +1,19 @@
+﻿<dxlc:LayoutItem Height="25">
+    <dxe:TrackBarEdit Name="ScaleSlider" 
+		VerticalAlignment="Bottom" 
+		HorizontalAlignment="Right"  
+		Width="200" 
+		Minimum="1" 
+		Maximum="3" 
+		TickFrequency="0.5" 
+		SmallStep="0.5" 
+		LargeStep="1.0">
+        <dxe:TrackBarEdit.StyleSettings>
+            <dxe:TrackBarZoomStyleSettings/>
+        </dxe:TrackBarEdit.StyleSettings>
+    </dxe:TrackBarEdit>
+</dxlc:LayoutItem>
+
+<dxlc:LayoutControl.LayoutTransform>
+    <ScaleTransform ScaleX="{Binding ZoomFactor100}" ScaleY="{Binding ZoomFactor100}"/>
+</dxlc:LayoutControl.LayoutTransform>

@@ -1,0 +1,311 @@
+﻿<UserControl x:Class="Medical.AppLayer.Operator.Views.SearchKsgKpgView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:converters="clr-namespace:Medical.AppLayer.Converters"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+             xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+             xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:system="clr-namespace:System;assembly=mscorlib"
+             Height="auto"
+             d:DesignHeight="650"
+             d:DesignWidth="800"
+             mc:Ignorable="d">
+
+  <UserControl.Resources>
+    <converters:BoolToImageConverter x:Key="BoolToImageConverter" />
+    <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+  </UserControl.Resources>
+
+  <Grid Background="White">
+
+    <dxlc:LayoutControl Header="Header"
+                        Orientation="Vertical"
+                        UseLayoutRounding="True"
+                        View="GroupBox">
+      <dxlc:LayoutItem>
+        <TextBlock MaxWidth="500"
+                   Margin="5"
+                   FontSize="16"
+                   Text="Сведения о КСГ/КПГ"
+                   TextTrimming="CharacterEllipsis"
+                   TextWrapping="NoWrap"
+                   ToolTip="{Binding SelectedKsgKpgText}" />
+      </dxlc:LayoutItem>
+      <dxlc:LayoutGroup Orientation="Vertical">
+        <dxlc:LayoutGroup HorizontalAlignment="Stretch" VerticalAlignment="Top">
+          <dxlc:LayoutItem Label="Условия оказания помощи"
+                           LabelPosition="Top"
+                           Visibility="Collapsed">
+            <dxe:ComboBoxEdit x:Name="V006ComboBoxEdit"
+                              AllowNullInput="True"
+                              DisplayMember="DisplayField"
+                              EditValue="{Binding KsgKpg.AssistanceCondition,
+                                                  NotifyOnValidationError=True,
+                                                  UpdateSourceTrigger=PropertyChanged,
+                                                  ValidatesOnDataErrors=True}"
+                              NullText="Отсутствует"
+                              NullValueButtonPlacement="EditBox"
+                              ValueMember="ValueField" />
+          </dxlc:LayoutItem>
+          <dxlc:LayoutItem Label="Номер КСГ" LabelPosition="Top">
+            <dxe:ComboBoxEdit x:Name="V023ComboBoxEdit"
+                              AllowUpdateTwoWayBoundPropertiesOnSynchronization="False"
+                              DisplayMember="DisplayName"
+                              EditValue="{Binding KsgKpg.Kksg,
+                                                  NotifyOnValidationError=True,
+                                                  UpdateSourceTrigger=PropertyChanged,
+                                                  ValidatesOnDataErrors=True}"
+                              ItemsSource="{Binding SelectedItem.DataField.Item3,
+                                                    ElementName=V006ComboBoxEdit}"
+                              NullText="Отсутствует"
+                              NullValueButtonPlacement="EditBox"
+                              ValueMember="Value">
+              <dxe:ComboBoxEdit.Buttons>
+                <dxe:ButtonInfo Command="{Binding SelectKsgKpgCommand}" GlyphKind="Regular" />
+              </dxe:ComboBoxEdit.Buttons>
+            </dxe:ComboBoxEdit>
+          </dxlc:LayoutItem>
+          <dxlc:LayoutItem Label="Номер КПГ" LabelPosition="Top">
+            <dxe:ComboBoxEdit AllowUpdateTwoWayBoundPropertiesOnSynchronization="False"
+                              DisplayMember="DisplayName"
+                              EditValue="{Binding KsgKpg.Kkpg,
+                                                  NotifyOnValidationError=True,
+                                                  UpdateSourceTrigger=PropertyChanged,
+                                                  ValidatesOnDataErrors=True}"
+                              ItemsSource="{Binding SelectedItem.DataField.Item4,
+                                                    ElementName=V006ComboBoxEdit}"
+                              NullText="Отсутствует"
+                              NullValueButtonPlacement="EditBox"
+                              ValueMember="Value">
+              <dxe:ComboBoxEdit.Buttons>
+                <dxe:ButtonInfo Command="{Binding SelectKsgKpgCommand}" GlyphKind="Regular" />
+              </dxe:ComboBoxEdit.Buttons>
+            </dxe:ComboBoxEdit>
+          </dxlc:LayoutItem>
+        </dxlc:LayoutGroup>
+        <dxlc:LayoutGroup HorizontalAlignment="Stretch" VerticalAlignment="Top">
+          <dxlc:LayoutItem Label="Версия КСГ" LabelPosition="Top">
+            <dxe:TextEdit EditValue="{Binding KsgKpg.VersionKsg, UpdateSourceTrigger=PropertyChanged}" />
+          </dxlc:LayoutItem>
+          <dxlc:LayoutItem Label="Признак использования подгруппы КСГ" LabelPosition="Top">
+            <CheckBox Height="18"
+                      HorizontalAlignment="Left"
+                      VerticalAlignment="Top"
+                      IsChecked="{Binding KsgKpg.IndicationPgKsg,
+                                          NotifyOnValidationError=True,
+                                          UpdateSourceTrigger=PropertyChanged,
+                                          ValidatesOnDataErrors=True}" />
+          </dxlc:LayoutItem>
+        </dxlc:LayoutGroup>
+        <dxlc:LayoutGroup HorizontalAlignment="Stretch" VerticalAlignment="Top">
+          <dxlc:LayoutItem Label="Коэффициент затратоемкости" LabelPosition="Top">
+            <dxe:TextEdit EditValue="{Binding KsgKpg.KoefZ, UpdateSourceTrigger=PropertyChanged, NotifyOnValidationError=True, ValidatesOnDataErrors=True}"
+                          Mask="n5"
+                          MaskType="Numeric" />
+          </dxlc:LayoutItem>
+          <dxlc:LayoutItem Label="Управленческий коэффициент" LabelPosition="Top">
+            <dxe:TextEdit EditValue="{Binding KsgKpg.KoefUp, UpdateSourceTrigger=PropertyChanged, NotifyOnValidationError=True, ValidatesOnDataErrors=True}" 
+                          Mask="n5"
+                          MaskType="Numeric" />
+          </dxlc:LayoutItem>
+        </dxlc:LayoutGroup>
+        <dxlc:LayoutGroup HorizontalAlignment="Stretch" VerticalAlignment="Top">
+          <dxlc:LayoutItem Label="Коэффициент дифференциации" LabelPosition="Top">
+            <dxe:TextEdit EditValue="{Binding KsgKpg.KoefD, UpdateSourceTrigger=PropertyChanged, NotifyOnValidationError=True, ValidatesOnDataErrors=True}" 
+                          Mask="n5"
+                          MaskType="Numeric" />
+          </dxlc:LayoutItem>
+          <dxlc:LayoutItem Label="Коэффициент уровня/подуровня оказания медицинской помощи" LabelPosition="Top">
+            <dxe:TextEdit EditValue="{Binding KsgKpg.KoefU, UpdateSourceTrigger=PropertyChanged, NotifyOnValidationError=True, ValidatesOnDataErrors=True}" 
+                          Mask="n5"
+                          MaskType="Numeric"/>
+          </dxlc:LayoutItem>
+        </dxlc:LayoutGroup>
+        <dxlc:LayoutGroup HorizontalAlignment="Stretch" VerticalAlignment="Top">
+          <dxlc:LayoutItem Label="Базовая ставка" LabelPosition="Top">
+            <dxe:TextEdit EditValue="{Binding KsgKpg.BaseRate, UpdateSourceTrigger=PropertyChanged, NotifyOnValidationError=True, ValidatesOnDataErrors=True}" 
+                          Mask="n5"
+                          MaskType="Numeric"/>
+          </dxlc:LayoutItem>
+          <dxlc:LayoutItem Label="Признак использования КСЛП" LabelPosition="Top">
+            <CheckBox Height="18"
+                      HorizontalAlignment="Left"
+                      VerticalAlignment="Top"
+                      IsChecked="{Binding KsgKpg.IndicationKslp,
+                                          NotifyOnValidationError=True,
+                                          UpdateSourceTrigger=PropertyChanged,
+                                          ValidatesOnDataErrors=True}" />
+          </dxlc:LayoutItem>
+        </dxlc:LayoutGroup>
+        <dxlc:LayoutGroup HorizontalAlignment="Stretch" VerticalAlignment="Top">
+          <dxlc:LayoutItem Label="Дополнительный классификационный критерий"
+                           LabelPosition="Top"
+                           ToolTip="Дополнительный классификационный критерий (V024), в том числе установленный субъектом  Российской Федерации.  Обязателен к заполнению: -  в случае применения при оплате случая лечения по КСГ; - в случае применения при оплате случая лечения по КПГ, если применен региональный дополнительный классификационный критерий; - в случае применения схемы лекарственной терапии, указанной в группировщике КСГ, при злокачественном новообразовании независимо от способа оплаты случая лечения ">
+            <dxe:TextEdit EditValue="{Binding KsgKpg.AdditionСlassificatoryСriterion, UpdateSourceTrigger=PropertyChanged}" />
+          </dxlc:LayoutItem>
+          <dxlc:LayoutItem Label="Дополнительный классификационный критерий 2"
+                           LabelPosition="Top"
+                           ToolTip="Заполняется кодом схемы лекарственной терапии (только для комбинированных схем лечения при злокачественном новообразовании независимо от способа оплаты случая лечения)">
+            <dxe:TextEdit EditValue="{Binding KsgKpg.AdditionСlassificatoryСriterion2, UpdateSourceTrigger=PropertyChanged}" />
+          </dxlc:LayoutItem>
+        </dxlc:LayoutGroup>
+        <dxlc:LayoutGroup Orientation="Vertical" View="Tabs">
+          <dxlc:LayoutGroup Header="Коэффициенты сложности лечения пациента" Orientation="Vertical">
+            <dxlc:LayoutGroup>
+              <dxlc:LayoutItem HorizontalAlignment="Left">
+                <dxe:ButtonEdit Width="70"
+                                Height="36"
+                                HorizontalAlignment="Left"
+                                AllowDefaultButton="False"
+                                ShowText="False">
+                  <dxe:ButtonInfo Command="{Binding AddSlKoefCommand}"
+                                  Content="Добавить"
+                                  GlyphKind="Custom"
+                                  ToolTip="Добавить коэффициент">
+                    <!--<Image Source="../../Resources/Icons/mec.png" />-->
+                  </dxe:ButtonInfo>
+                </dxe:ButtonEdit>
+              </dxlc:LayoutItem>
+              <dxlc:LayoutItem HorizontalAlignment="Left">
+                <dxe:ButtonEdit Width="70"
+                                Height="36"
+                                HorizontalAlignment="Left"
+                                AllowDefaultButton="False"
+                                ShowText="False">
+                  <dxe:ButtonInfo Command="{Binding DeleteSlKoefCommand}"
+                                  Content="Удалить"
+                                  GlyphKind="Custom"
+                                  ToolTip="Удалить коэффициент">
+                    <!--<Image Source="../../Resources/Icons/mec.png" />-->
+                  </dxe:ButtonInfo>
+                </dxe:ButtonEdit>
+              </dxlc:LayoutItem>
+            </dxlc:LayoutGroup>
+            <dxlc:LayoutItem>
+              <dxg:GridControl Height="150"
+                               ItemsSource="{Binding Slkoef.MedicalSlkoef,
+                                                     UpdateSourceTrigger=PropertyChanged}"
+                               ShowBorder="True">
+                <dxg:GridControl.View>
+                  <dxg:TableView AllowEditing="True"
+                                 AllowMoveColumnToDropArea="False"
+                                 AutoWidth="True"
+                                 FocusedRow="{Binding Slkoef.SelectedSlkoef,
+                                                      Mode=TwoWay,
+                                                      UpdateSourceTrigger=PropertyChanged}"
+                                 HeaderPanelMinHeight="35"
+                                 ShowGroupPanel="False" />
+                </dxg:GridControl.View>
+                <dxg:GridColumn Name="ColumnNumberDifficultyTreatment"
+                                FieldName="NumberDifficultyTreatment"
+                                Header="Номер коэффициента"
+                                ReadOnly="False">
+                  <dxg:GridColumn.EditSettings>
+                    <dxe:ComboBoxEditSettings AutoComplete="True"
+                                              DisplayMember="DisplayName"
+                                              ItemsSource="{Binding UpdateSourceTrigger=PropertyChanged}"
+                                              NullValueButtonPlacement="EditBox"
+                                              ValueMember="Value" />
+                  </dxg:GridColumn.EditSettings>
+                </dxg:GridColumn>
+                <dxg:GridColumn Width="100"
+                                FieldName="ValueDifficultyTreatment"
+                                FixedWidth="True"
+                                Header="Значение"
+                                ReadOnly="False">
+                  <dxg:GridColumn.EditSettings>
+                    <dxe:TextEditSettings DisplayFormat="c2"
+                                          Mask="c2"
+                                          MaskType="Numeric"
+                                          TextWrapping="WrapWithOverflow" />
+                  </dxg:GridColumn.EditSettings>
+                </dxg:GridColumn>
+
+              </dxg:GridControl>
+            </dxlc:LayoutItem>
+          </dxlc:LayoutGroup>
+          <dxlc:LayoutGroup Header="Классификационный критерий" Orientation="Vertical">
+            <dxlc:LayoutGroup>
+              <dxlc:LayoutItem HorizontalAlignment="Left">
+                <dxe:ButtonEdit Width="70"
+                                Height="36"
+                                HorizontalAlignment="Left"
+                                AllowDefaultButton="False"
+                                ShowText="False">
+                  <dxe:ButtonInfo Command="{Binding AddSlCritCommand}"
+                                  Content="Добавить"
+                                  GlyphKind="Custom"
+                                  ToolTip="Добавить критерий">
+                    <!--<Image Source="../../Resources/Icons/mec.png" />-->
+                  </dxe:ButtonInfo>
+                </dxe:ButtonEdit>
+              </dxlc:LayoutItem>
+              <dxlc:LayoutItem HorizontalAlignment="Left">
+                <dxe:ButtonEdit Width="70"
+                                Height="36"
+                                HorizontalAlignment="Left"
+                                AllowDefaultButton="False"
+                                ShowText="False">
+                  <dxe:ButtonInfo Command="{Binding DeleteSlCritCommand}"
+                                  Content="Удалить"
+                                  GlyphKind="Custom"
+                                  ToolTip="Удалить критерий">
+                    <!--<Image Source="../../Resources/Icons/mec.png" />-->
+                  </dxe:ButtonInfo>
+                </dxe:ButtonEdit>
+              </dxlc:LayoutItem>
+            </dxlc:LayoutGroup>
+            <dxlc:LayoutItem>
+              <dxg:GridControl Height="150"
+                               ItemsSource="{Binding Slcrit.MedicalCrit,
+                                                     UpdateSourceTrigger=PropertyChanged}"
+                               ShowBorder="True">
+                <dxg:GridControl.View>
+                  <dxg:TableView AllowEditing="True"
+                                 AllowMoveColumnToDropArea="False"
+                                 AutoWidth="True"
+                                 FocusedRow="{Binding Slcrit.SelectedCrit,
+                                                      Mode=TwoWay,
+                                                      UpdateSourceTrigger=PropertyChanged}"
+                                 HeaderPanelMinHeight="35"
+                                 ShowGroupPanel="False" />
+                </dxg:GridControl.View>
+                <dxg:GridColumn Name="CritColumn"
+                                FieldName="IdDkk"
+                                Header="Классификационный критерий (V024)"
+                                ReadOnly="False">
+                  <dxg:GridColumn.EditSettings>
+                    <dxe:ComboBoxEditSettings AutoComplete="True"
+                                              DisplayMember="DisplayName"
+                                              ItemsSource="{Binding UpdateSourceTrigger=PropertyChanged}"
+                                              NullValueButtonPlacement="EditBox"
+                                              ValueMember="Value" />
+                  </dxg:GridColumn.EditSettings>
+                </dxg:GridColumn>
+              </dxg:GridControl>
+            </dxlc:LayoutItem>
+          </dxlc:LayoutGroup>
+        </dxlc:LayoutGroup>
+
+      </dxlc:LayoutGroup>
+      <dxlc:LayoutItem>
+        <Separator VerticalAlignment="Bottom" />
+      </dxlc:LayoutItem>
+      <dxlc:LayoutGroup VerticalAlignment="Bottom" Orientation="Horizontal">
+        <Button HorizontalAlignment="Left"
+                VerticalAlignment="Bottom"
+                Command="{Binding ApplyCommand}"
+                Content="Применить"
+                Visibility="{Binding IsApplyable,
+                                     Converter={StaticResource BooleanToVisibilityConverter},
+                                     Mode=OneWay}" />
+        <Button HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"
+                Command="{Binding CloseCommand}"
+                Content="Закрыть" />
+      </dxlc:LayoutGroup>
+    </dxlc:LayoutControl>
+  </Grid>
+</UserControl>

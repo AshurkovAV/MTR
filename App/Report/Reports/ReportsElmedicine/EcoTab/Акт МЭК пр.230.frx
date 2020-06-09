@@ -1,0 +1,447 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report ScriptLanguage="CSharp" ReportInfo.Created="07/22/2013 16:59:53" ReportInfo.Modified="02/21/2014 15:28:58" ReportInfo.CreatorVersion="2013.4.4.0">
+  <Styles Name="Серый">
+    <Style Name="Залоговок отчета" Font="Arial, 12pt, style=Bold"/>
+    <Style Name="Заголовок данных" Fill.Color="Gainsboro" Font="Arial, 10pt, style=Bold"/>
+    <Style Name="Группа" Font="Arial, 10pt, style=Bold"/>
+    <Style Name="Данные"/>
+    <Style Name="Подвал" Fill.Color="Gainsboro"/>
+    <Style Name="Четные строки" Fill.Color="WhiteSmoke"/>
+  </Styles>
+  <Dictionary>
+    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlq+rW0RkboK+/8CKGGYUID3ctBV8q9SvKYxl3iiE7vBnh7Tgou0+4WFf3NfmPSvHVFiP7sZHSiwNNsEUn1Dsg2FSoDHpyjCDCjw8n4hdqxuyqvWRsOYbhvFD/xKvz7+FgSCDrzcSpRZZQLUAuDTmJiTy+jQiifLgwqXWR2CV6s7E63gmkizMekqwwd2ZPyngWRWGHGa0V5EeNKWQpp0bKAvg==">
+      <TableDataSource Name="Table" DataType="System.Int32" Enabled="true" SelectCommand="WITH cte&#13;&#10;     AS (SELECT ROW_NUMBER() OVER (PARTITION BY sl.ID&#13;&#10;                                       ORDER BY sl.ID) RN, sl.NHISTORY, pa.NPOLIS, pa.SPOLIS, sl.SANK_IT,&#13;&#10;                                        s.S_OSN, s.S_COM, sl.DS1, sl.DATE_1, sl.DATE_2,&#13;&#10;                                        v6.UMPNAME, st.Name, os.Name as os&#13;&#10;		from SLUCH sl&#13;&#10;		join SANK s on sl.ID = s.SLID&#13;&#10;		join PACIENT pa on sl.PID = pa.ID&#13;&#10;		left join V006 v6 on sl.USL_OK = v6.Id&#13;&#10;		left join TypeSluchDb st on sl.SLUCH_TYPE = st.Id&#13;&#10;		left join OsobSluchDb os on sl.OS_SLUCH_REGION = os.Id&#13;&#10;		Where sl.SCHET_ID = @p and (pa.SMO is null or pa.SMO not like '46%') and s.S_DATE in ('__date__'))&#13;&#10;select NHISTORY, NPOLIS, SPOLIS, (CASE WHEN RN = 1 THEN SANK_IT ELSE NULL END)SANK_IT, S_OSN, S_COM, DS1, DATE_1, DATE_2,&#13;&#10;UMPNAME, Name, ISNULL(os, '-') as os&#13;&#10;FROM cte">
+        <Column Name="NPOLIS" DataType="System.String"/>
+        <Column Name="SPOLIS" DataType="System.String"/>
+        <Column Name="S_OSN" DataType="System.String"/>
+        <Column Name="SANK_IT" DataType="System.Decimal"/>
+        <Column Name="DS1" DataType="System.String"/>
+        <Column Name="DATE_1" DataType="System.DateTime"/>
+        <Column Name="DATE_2" DataType="System.DateTime"/>
+        <Column Name="S_COM" DataType="System.String"/>
+        <Column Name="UMPNAME" DataType="System.String"/>
+        <Column Name="Name" DataType="System.String"/>
+        <Column Name="os" DataType="System.String"/>
+        <Column Name="NHISTORY" DataType="System.String"/>
+        <CommandParameter Name="@p" DataType="8" Expression="[@p]" DefaultValue="859"/>
+      </TableDataSource>
+      <TableDataSource Name="Table3" DataType="System.Int32" Enabled="true" SelectCommand="Select nam_mok , NSCHET, DSCHET&#13;&#10;From SCHET s&#13;&#10;Join F003 f&#13;&#10;on s.CODE_MO = f.mcod&#13;&#10;where s.ID = @p">
+        <Column Name="nam_mok" DataType="System.String"/>
+        <Column Name="NSCHET" DataType="System.String"/>
+        <Column Name="DSCHET" DataType="System.DateTime"/>
+        <CommandParameter Name="@p" DataType="8" Expression="[@p]" DefaultValue="28"/>
+      </TableDataSource>
+      <TableDataSource Name="Table2" DataType="System.Int32" Enabled="true" SelectCommand="&#13;&#10;WITH cte&#13;&#10;     AS (SELECT ROW_NUMBER() OVER (PARTITION BY sl.ID&#13;&#10;                                       ORDER BY sl.ID) RN, s.S_OSN, f.Comments, sl.SANK_IT&#13;&#10;		from SLUCH sl&#13;&#10;		join PACIENT pa on sl.PID = pa.ID&#13;&#10;		join SANK s on sl.ID = s.SLID&#13;&#10;		left join F014 f on s.S_OSN = f.Osn&#13;&#10;		 Where sl.SCHET_ID = @p and (pa.SMO is null or pa.SMO not like '46%') and s.S_DATE in ('__date__'))&#13;&#10;select S_OSN, Comments, sum(SANK_IT) as SANK_IT&#13;&#10;FROM cte&#13;&#10;WHERE  RN = 1&#13;&#10;Group By S_OSN, Comments">
+        <Column Name="Comments" DataType="System.String"/>
+        <Column Name="S_OSN" DataType="System.String"/>
+        <Column Name="SANK_IT" DataType="System.Decimal"/>
+        <CommandParameter Name="@p" DataType="8" Expression="[@p]" DefaultValue="859"/>
+      </TableDataSource>
+      <TableDataSource Name="Table6" DataType="System.Int32" Enabled="true" SelectCommand="Declare @t TABLE&#13;&#10;(&#13;&#10;USL Varchar(300),&#13;&#10;TypeSl varchar(300),&#13;&#10;os varchar(300),&#13;&#10;PROFIL varchar(300),&#13;&#10;count_vist int,&#13;&#10;sum_vist numeric (15,2),&#13;&#10;count_otkaz int,&#13;&#10;sum_otkaz numeric (15,2)&#13;&#10;)&#13;&#10;&#13;&#10;Declare @t1 TABLE&#13;&#10;(&#13;&#10;RN int,&#13;&#10;USL Varchar(300),&#13;&#10;TypeSl varchar(300),&#13;&#10;os varchar(300),&#13;&#10;PROFIL varchar(300),&#13;&#10;SUMV numeric (15,2),&#13;&#10;S_DATE datetime,&#13;&#10;SUMP numeric (15,2),&#13;&#10;SANK_IT numeric (15,2),&#13;&#10;UMPNAME Varchar(300),&#13;&#10;stName Varchar(300),&#13;&#10;osName Varchar(300),&#13;&#10;NameWithID Varchar(300)&#13;&#10;)&#13;&#10;INSERT INTO @t1&#13;&#10;SELECT ROW_NUMBER() OVER (PARTITION BY sl.ID&#13;&#10;                                       ORDER BY sl.ID) RN, v6.UMPNAME as USL, st.Name as TypeSl, ISNULL(os.Name, '-') as os,&#13;&#10;                                       v.NameWithID as PROFIL, ISNULL(sl.SUMV, 0), s.S_DATE, ISNULL(sl.SUMP, 0), ISNULL(sl.SANK_IT, 0),&#13;&#10;                                       v6.UMPNAME, st.Name as stName, os.Name as osName, v.NameWithID &#13;&#10;FROM SLUCH sl&#13;&#10;	join PACIENT pa on sl.PID = pa.ID&#13;&#10;	left join V002 v on sl.PROFIL = v.Id&#13;&#10;	left join V006 v6 on sl.USL_OK = v6.Id&#13;&#10;	left join TypeSluchDb st on sl.SLUCH_TYPE = st.Id&#13;&#10;	left join OsobSluchDb os on sl.OS_SLUCH_REGION = os.Id&#13;&#10;	left join SANK s on sl.ID = s.SLID&#13;&#10;Where sl.SCHET_ID = @p and (pa.SMO is null or pa.SMO not like '46%')&#13;&#10;&#13;&#10;Insert INTO @t&#13;&#10;SELECT&#13;&#10;	UMPNAME as USL, stName as TypeSl, ISNULL(osName, '-') as os,&#13;&#10;	NameWithID as PROFIL, &#13;&#10;	count(*) as count_vist,&#13;&#10;	sum(SUMV) as sum_vist,&#13;&#10;	sum((CASE WHEN ISNULL(SANK_IT, 0) &gt; 0 and S_DATE in ('__date__') THEN 1 END)) as count_otkaz,&#13;&#10;	sum((CASE WHEN ISNULL(SANK_IT, 0) &gt; 0 and S_DATE in ('__date__') THEN SANK_IT END)) as sum_otkaz&#13;&#10;FROM @t1 Where RN = 1&#13;&#10;Group By UMPNAME, stName, osName, NameWithID&#13;&#10;&#13;&#10;Select USL, TypeSl, os, PROFIL, count_vist, sum_vist, ISNULL(count_otkaz, 0) as count_otkaz, ISNULL(sum_otkaz, 0) as sum_otkaz, &#13;&#10;count_vist - ISNULL(count_otkaz, 0) as count_prin, sum_vist - ISNULL(sum_otkaz, 0) as sum_prin  FROM @t ">
+        <Column Name="PROFIL" DataType="System.Int32"/>
+        <Column Name="count_vist" DataType="System.Int32"/>
+        <Column Name="sum_vist" DataType="System.Decimal"/>
+        <Column Name="count_otkaz" DataType="System.Int32"/>
+        <Column Name="sum_otkaz" DataType="System.Decimal"/>
+        <Column Name="count_prin" DataType="System.Int32"/>
+        <Column Name="sum_prin" DataType="System.Decimal"/>
+        <Column Name="USL" DataType="System.String"/>
+        <Column Name="TypeSl" DataType="System.String"/>
+        <Column Name="os" DataType="System.String"/>
+        <CommandParameter Name="@p" DataType="8" Expression="[@p]" DefaultValue="859"/>
+      </TableDataSource>
+      <TableDataSource Name="Table8" DataType="System.Int32" Enabled="true" SelectCommand="Declare @t TABLE&#13;&#10;(&#13;&#10;USL Varchar(300),&#13;&#10;TypeSl varchar(300),&#13;&#10;os varchar(300),&#13;&#10;PROFIL varchar(300),&#13;&#10;count_vist int,&#13;&#10;sum_vist numeric (15,2),&#13;&#10;count_otkaz int,&#13;&#10;sum_otkaz numeric (15,2)&#13;&#10;)&#13;&#10;&#13;&#10;Declare @t1 TABLE&#13;&#10;(&#13;&#10;RN int,&#13;&#10;USL Varchar(300),&#13;&#10;TypeSl varchar(300),&#13;&#10;os varchar(300),&#13;&#10;PROFIL varchar(300),&#13;&#10;SUMV numeric (15,2),&#13;&#10;S_DATE datetime,&#13;&#10;SUMP numeric (15,2),&#13;&#10;SANK_IT numeric (15,2),&#13;&#10;UMPNAME Varchar(300),&#13;&#10;stName Varchar(300),&#13;&#10;osName Varchar(300),&#13;&#10;NameWithID Varchar(300)&#13;&#10;)&#13;&#10;INSERT INTO @t1&#13;&#10;SELECT ROW_NUMBER() OVER (PARTITION BY sl.ID&#13;&#10;                                       ORDER BY sl.ID) RN, v6.UMPNAME as USL, st.Name as TypeSl, ISNULL(os.Name, '-') as os,&#13;&#10;                                       v.NameWithID as PROFIL, ISNULL(sl.SUMV, 0), s.S_DATE, ISNULL(sl.SUMP, 0), ISNULL(sl.SANK_IT, 0),&#13;&#10;                                       v6.UMPNAME, st.Name as stName, os.Name as osName, v.NameWithID &#13;&#10;FROM SLUCH sl&#13;&#10;	join PACIENT pa on sl.PID = pa.ID&#13;&#10;	left join V002 v on sl.PROFIL = v.Id&#13;&#10;	left join V006 v6 on sl.USL_OK = v6.Id&#13;&#10;	left join TypeSluchDb st on sl.SLUCH_TYPE = st.Id&#13;&#10;	left join OsobSluchDb os on sl.OS_SLUCH_REGION = os.Id&#13;&#10;	left join SANK s on sl.ID = s.SLID&#13;&#10;Where sl.SCHET_ID = @p and (pa.SMO is null or pa.SMO not like '46%')&#13;&#10;&#13;&#10;Insert INTO @t&#13;&#10;SELECT&#13;&#10;	UMPNAME as USL, stName as TypeSl, ISNULL(osName, '-') as os,&#13;&#10;	NameWithID as PROFIL, &#13;&#10;	count(*) as count_vist,&#13;&#10;	sum(SUMV) as sum_vist,&#13;&#10;	sum((CASE WHEN ISNULL(SANK_IT, 0) &gt; 0 and S_DATE in ('__date__') THEN 1 END)) as count_otkaz,&#13;&#10;	sum((CASE WHEN ISNULL(SANK_IT, 0) &gt; 0 and S_DATE in ('__date__') THEN SANK_IT END)) as sum_otkaz&#13;&#10;FROM @t1 Where RN = 1&#13;&#10;Group By UMPNAME, stName, osName, NameWithID&#13;&#10;&#13;&#10;Select sum(sum_vist - ISNULL(sum_otkaz, 0)) as sum_prin  FROM @t ">
+        <Column Name="sum_prin" DataType="System.Decimal"/>
+        <CommandParameter Name="@p" DataType="8" Expression="[@p]" DefaultValue="859"/>
+      </TableDataSource>
+    </MsSqlDataConnection>
+    <Relation Name="Table_Table4" ParentDataSource="Table" ChildDataSource="null" ParentColumns="ID" ChildColumns="SLUCH_ID" Enabled="true"/>
+    <Parameter Name="@p" DataType="System.Int32"/>
+    <Parameter Name="@d" DataType="System.DateTime"/>
+    <Total Name="Total" Expression="[Table6.count_vist]" Evaluator="Data5" PrintOn="GroupFooter4"/>
+    <Total Name="Total1" Expression="[Table6.sum_vist]" Evaluator="Data5" PrintOn="GroupFooter4"/>
+    <Total Name="Total2" Expression="[Table6.count_otkaz]" Evaluator="Data5" PrintOn="GroupFooter4"/>
+    <Total Name="Total3" Expression="[Table6.sum_otkaz]" Evaluator="Data5" PrintOn="GroupFooter4"/>
+    <Total Name="Total4" Expression="[Table6.count_prin]" Evaluator="Data5" PrintOn="GroupFooter4"/>
+    <Total Name="Total5" Expression="[Table6.sum_prin]" Evaluator="Data5" PrintOn="GroupFooter4"/>
+    <Total Name="Total6" Expression="[Table6.count_vist]" Evaluator="Data5" PrintOn="GroupFooter3"/>
+    <Total Name="Total7" Expression="[Table6.sum_vist]" Evaluator="Data5" PrintOn="GroupFooter3"/>
+    <Total Name="Total8" Expression="[Table6.count_otkaz]" Evaluator="Data5" PrintOn="GroupFooter3"/>
+    <Total Name="Total9" Expression="[Table6.sum_otkaz]" Evaluator="Data5" PrintOn="GroupFooter3"/>
+    <Total Name="Total10" Expression="[Table6.count_prin]" Evaluator="Data5" PrintOn="GroupFooter3"/>
+    <Total Name="Total11" Expression="[Table6.sum_prin]" Evaluator="Data5" PrintOn="GroupFooter3"/>
+    <Total Name="Total12" Expression="[Table.SANK_IT]" Evaluator="Data1"/>
+    <Total Name="Total13" Expression="[Table.SANK_IT]" Evaluator="Data1" PrintOn="GroupFooter5"/>
+    <Total Name="Total14" Expression="[Table.SANK_IT]" Evaluator="Data1" PrintOn="GroupFooter2"/>
+    <Total Name="Total15" Expression="[Table.SANK_IT]" Evaluator="Data1" PrintOn="GroupFooter1"/>
+    <Total Name="Total16" Expression="[Table6.count_vist]" Evaluator="Data5" PrintOn="GroupFooter6"/>
+    <Total Name="Total17" Expression="[Table6.sum_vist]" Evaluator="Data5" PrintOn="GroupFooter6"/>
+    <Total Name="Total18" Expression="[Table6.count_otkaz]" Evaluator="Data5" PrintOn="GroupFooter6"/>
+    <Total Name="Total19" Expression="[Table6.sum_otkaz]" Evaluator="Data5" PrintOn="GroupFooter6"/>
+    <Total Name="Total20" Expression="[Table6.count_prin]" Evaluator="Data5" PrintOn="GroupFooter6"/>
+    <Total Name="Total21" Expression="[Table6.sum_prin]" Evaluator="Data5" PrintOn="GroupFooter6"/>
+  </Dictionary>
+  <ReportPage Name="Page1" RawPaperSize="9" FirstPageSource="15" OtherPagesSource="15" Guides="0,718.2,37.8,321.3,453.6,510.3,604.8,633.15,28.35,689.85,189,56.7,75.6,85.05,47.25,718.35,263.75,330.9,500.85,585.9,359.1,463.05,18.9,680.4,529.2,633.15,652.05,595.35">
+    <ReportTitleBand Name="ReportTitle1" Width="718.2" Height="170.1" Guides="56.7,94.5,0,37.8,18.9,94.5">
+      <TextObject Name="Text1" Left="28.35" Width="661.5" Height="56.7" Text="Акт № _________ от [@d]&#13;&#10;медико-экономического контроля счета № [Table3.NSCHET] от [Table3.DSCHET] &#13;&#10;за оказанную медицинскую помощь в медицинской организации:&#13;&#10;" Format="Date" Format.Format="dd.MM.yyyy" HorzAlign="Center" VertAlign="Center" Font="Arial, 12pt"/>
+      <TextObject Name="Text2" Top="66.15" Width="718.2" Height="18.9" Text="[Table3.nam_mok]" HorzAlign="Center" VertAlign="Center" Font="Arial, 12pt, style=Underline"/>
+      <TextObject Name="Text3" Left="-0.3" Top="94.5" Width="718.5" Height="75.6" Text="Перечень отклоненных позиций к оплате в счете (реестре) с разбивкой по:&#13;&#10;         - коду специалиста медицинской организации&#13;&#10;         - коду профиля отделения (для медицинской организации, оказывающей&#13;&#10;           стационарную помощь, - койки)&#13;&#10;" VertAlign="Center"/>
+    </ReportTitleBand>
+    <GroupHeaderBand Name="GroupHeader1" Top="172.1" Width="718.2" Height="28.35" Condition="[Table.UMPNAME]">
+      <TextObject Name="Text15" Width="718.2" Height="18.9" Text="[Table.UMPNAME]" HorzAlign="Center" Font="Arial, 14pt, style=Bold"/>
+      <GroupHeaderBand Name="GroupHeader2" Top="202.45" Width="718.2" Height="18.9" Condition="[Table.Name]">
+        <TableObject Name="Table9" Width="718.2" Height="18.9" Border.Lines="All">
+          <TableColumn Name="Column153"/>
+          <TableColumn Name="Column154"/>
+          <TableColumn Name="Column155"/>
+          <TableColumn Name="Column156" Width="453.6"/>
+          <TableColumn Name="Column157"/>
+          <TableRow Name="Row23">
+            <TableCell Name="Cell217" Border.Lines="All" Text="[Table.Name]" VertAlign="Center" Font="Arial, 12pt, style=Bold" ColSpan="5"/>
+            <TableCell Name="Cell218" Border.Lines="All"/>
+            <TableCell Name="Cell219" Border.Lines="All"/>
+            <TableCell Name="Cell220" Border.Lines="All"/>
+            <TableCell Name="Cell221" Border.Lines="All"/>
+          </TableRow>
+        </TableObject>
+        <GroupHeaderBand Name="GroupHeader5" Top="223.35" Width="718.2" Height="18.9" Condition="[Table.os]">
+          <TableObject Name="Table9" Width="718.2" Height="18.9" Border.Lines="All">
+            <TableColumn Name="Column148"/>
+            <TableColumn Name="Column149"/>
+            <TableColumn Name="Column150"/>
+            <TableColumn Name="Column151" Width="453.6"/>
+            <TableColumn Name="Column152"/>
+            <TableRow Name="Row22">
+              <TableCell Name="Cell212" Border.Lines="All" Text="[Table.os]" VertAlign="Center" Font="Arial, 10pt, style=Bold" ColSpan="5"/>
+              <TableCell Name="Cell213" Border.Lines="All"/>
+              <TableCell Name="Cell214" Border.Lines="All"/>
+              <TableCell Name="Cell215" Border.Lines="All"/>
+              <TableCell Name="Cell216" Border.Lines="All"/>
+            </TableRow>
+          </TableObject>
+          <DataBand Name="Data1" Top="293.5" Width="718.2" Height="28.35" CanGrow="true" CanShrink="true" Guides="0,18.9" DataSource="Table">
+            <TableObject Name="Table5" Width="718.2" Height="28.35" Border.Lines="All">
+              <TableColumn Name="Column42" Width="56.7"/>
+              <TableColumn Name="Column43" Width="122.85"/>
+              <TableColumn Name="Column44" Width="47.25"/>
+              <TableColumn Name="Column45" Width="67.15"/>
+              <TableColumn Name="Column46" Width="67"/>
+              <TableColumn Name="Column47" Width="74.75"/>
+              <TableColumn Name="Column48" Width="197.45"/>
+              <TableColumn Name="Column49" Width="85.05"/>
+              <TableRow Name="Row3" Height="28.35" AutoSize="true">
+                <TableCell Name="Cell50" Text="[Row#]" HorzAlign="Center" VertAlign="Center" Font="Arial, 7.5pt"/>
+                <TableCell Name="Cell51" Border.Lines="All" Text="[Table.SPOLIS] [Table.NPOLIS]" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt"/>
+                <TableCell Name="Cell52" Border.Lines="All" Text="[Table.DS1]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+                <TableCell Name="Cell53" Border.Lines="All" Text="[Table.DATE_1]" Format="Date" Format.Format="d" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+                <TableCell Name="Cell54" Text="[Table.DATE_2]" Format="Date" Format.Format="d" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+                <TableCell Name="Cell55" Border.Lines="All" Text="[Table.S_OSN]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+                <TableCell Name="Cell56" Border.Lines="All" Text="ID-[Table.NHISTORY]: [Table.S_COM]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+                <TableCell Name="Cell57" Border.Lines="All" Text="[Table.SANK_IT]" HideZeros="true" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+              </TableRow>
+            </TableObject>
+            <DataHeaderBand Name="DataHeader1" Top="244.25" Width="718.2" Height="47.25">
+              <TableObject Name="Table1" Width="718.2" Height="47.25" Border.Lines="All">
+                <TableColumn Name="Column39" Width="56.7"/>
+                <TableColumn Name="Column6" Width="122.85"/>
+                <TableColumn Name="Column7" Width="47.25"/>
+                <TableColumn Name="Column9" Width="67.15"/>
+                <TableColumn Name="Column41" Width="67"/>
+                <TableColumn Name="Column10" Width="74.75"/>
+                <TableColumn Name="Column13" Width="197.45"/>
+                <TableColumn Name="Column12" Width="85.05"/>
+                <TableRow Name="Row2" Height="47.25">
+                  <TableCell Name="Cell39" Text="№ п/п в реестре" HorzAlign="Center" VertAlign="Center" Font="Arial, 7.5pt, style=Bold"/>
+                  <TableCell Name="Cell6" Border.Lines="All" Text="Номер полиса ОМС&#13;&#10;" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt, style=Bold"/>
+                  <TableCell Name="Cell7" Border.Lines="All" Text="Код по МКБ-10&#13;&#10;" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt, style=Bold"/>
+                  <TableCell Name="Cell9" Border.Lines="All" Text="Дата начала лечения&#13;&#10;" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt, style=Bold"/>
+                  <TableCell Name="Cell49" Text="Дата окончания лечения &#13;&#10;" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt, style=Bold"/>
+                  <TableCell Name="Cell10" Border.Lines="All" Text="Код дефекта / нарушения&#13;&#10;" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt, style=Bold"/>
+                  <TableCell Name="Cell13" Border.Lines="All" Text="Расшифровка кода дефекта / нарушения &#13;&#10;" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt, style=Bold"/>
+                  <TableCell Name="Cell12" Border.Lines="All" Text="Сумма неоплаты (руб.) &#13;&#10;" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt, style=Bold"/>
+                </TableRow>
+              </TableObject>
+            </DataHeaderBand>
+          </DataBand>
+          <GroupFooterBand Name="GroupFooter5" Top="323.85" Width="718.2" Height="18.9" CanGrow="true" CanShrink="true" Guides="28.35">
+            <TableObject Name="Table9" Width="718.2" Height="18.9" Border.Lines="All">
+              <TableColumn Name="Column158"/>
+              <TableColumn Name="Column159"/>
+              <TableColumn Name="Column160"/>
+              <TableColumn Name="Column161" Width="434.7"/>
+              <TableColumn Name="Column162" Width="85.05"/>
+              <TableRow Name="Row24" AutoSize="true">
+                <TableCell Name="Cell222" Border.Lines="All" Text="Итого [Table.os]" HorzAlign="Right" VertAlign="Center" Font="Arial, 10pt, style=Bold" ColSpan="4"/>
+                <TableCell Name="Cell223" Border.Lines="All"/>
+                <TableCell Name="Cell224" Border.Lines="All"/>
+                <TableCell Name="Cell225" Border.Lines="All"/>
+                <TableCell Name="Cell226" Border.Lines="All" Text="[Total13]" Format="Number" Format.UseLocale="true" HorzAlign="Center" Font="Arial, 10pt, style=Bold"/>
+              </TableRow>
+            </TableObject>
+          </GroupFooterBand>
+        </GroupHeaderBand>
+        <GroupFooterBand Name="GroupFooter2" Top="344.75" Width="718.2" Height="18.9" CanGrow="true" CanShrink="true" Guides="9.45">
+          <TableObject Name="Table9" Width="718.2" Height="18.9" Border.Lines="All">
+            <TableColumn Name="Column163"/>
+            <TableColumn Name="Column164"/>
+            <TableColumn Name="Column165"/>
+            <TableColumn Name="Column166" Width="434.7"/>
+            <TableColumn Name="Column167" Width="85.05"/>
+            <TableRow Name="Row25" AutoSize="true">
+              <TableCell Name="Cell227" Border.Lines="All" Text="Итого [Table.Name]" HorzAlign="Right" VertAlign="Center" Font="Arial, 12pt, style=Bold" ColSpan="4"/>
+              <TableCell Name="Cell228" Border.Lines="All" HorzAlign="Right"/>
+              <TableCell Name="Cell229" Border.Lines="All" HorzAlign="Right"/>
+              <TableCell Name="Cell230" Border.Lines="All" HorzAlign="Right"/>
+              <TableCell Name="Cell231" Border.Lines="All" Text="[Total14]" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+            </TableRow>
+          </TableObject>
+        </GroupFooterBand>
+      </GroupHeaderBand>
+      <GroupFooterBand Name="GroupFooter1" Top="365.65" Width="718.2" Height="28.35" CanGrow="true" CanShrink="true">
+        <TableObject Name="Table9" Width="718.2" Height="28.35" Border.Lines="All">
+          <TableColumn Name="Column168"/>
+          <TableColumn Name="Column169"/>
+          <TableColumn Name="Column170"/>
+          <TableColumn Name="Column171" Width="434.7"/>
+          <TableColumn Name="Column172" Width="85.05"/>
+          <TableRow Name="Row26" Height="28.35" AutoSize="true">
+            <TableCell Name="Cell232" Border.Lines="All" Text="Итого [Table.UMPNAME]" HorzAlign="Right" VertAlign="Center" Font="Arial, 14pt, style=Bold" ColSpan="4"/>
+            <TableCell Name="Cell233" Border.Lines="All"/>
+            <TableCell Name="Cell234" Border.Lines="All"/>
+            <TableCell Name="Cell235" Border.Lines="All"/>
+            <TableCell Name="Cell236" Border.Lines="All" Text="[Total15]" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+          </TableRow>
+        </TableObject>
+      </GroupFooterBand>
+    </GroupHeaderBand>
+    <DataBand Name="Data2" Top="396" Width="718.2" Height="37.8">
+      <TableObject Name="Table5" Left="0.15" Width="718.2" Height="37.8" Border.Lines="All">
+        <TableColumn Name="Column50" Width="56.7"/>
+        <TableColumn Name="Column51" Width="122.85"/>
+        <TableColumn Name="Column52" Width="47.25"/>
+        <TableColumn Name="Column53" Width="67.15"/>
+        <TableColumn Name="Column54" Width="67"/>
+        <TableColumn Name="Column55" Width="74.75"/>
+        <TableColumn Name="Column56" Width="197.45"/>
+        <TableColumn Name="Column57" Width="85.05"/>
+        <TableRow Name="Row4">
+          <TableCell Name="Cell58" Border.Lines="All" Text="Итого по акту на сумму&#13;&#10;в т.ч. по коду:" VertAlign="Center" Font="Arial, 10pt, style=Bold" ColSpan="6" RowSpan="2"/>
+          <TableCell Name="Cell59" Border.Lines="All" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+          <TableCell Name="Cell60" Border.Lines="All" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+          <TableCell Name="Cell61" Border.Lines="All" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+          <TableCell Name="Cell62" Border.Lines="All" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+          <TableCell Name="Cell63" Border.Lines="All" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+          <TableCell Name="Cell64" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold" RowSpan="2"/>
+          <TableCell Name="Cell65" Border.Lines="All" Text="[Total12]" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold" RowSpan="2"/>
+        </TableRow>
+        <TableRow Name="Row8">
+          <TableCell Name="Cell90" Font="Arial, 10pt, style=Bold"/>
+          <TableCell Name="Cell91" Font="Arial, 10pt, style=Bold"/>
+          <TableCell Name="Cell92" Font="Arial, 10pt, style=Bold"/>
+          <TableCell Name="Cell93" Font="Arial, 10pt, style=Bold"/>
+          <TableCell Name="Cell94" Font="Arial, 10pt, style=Bold"/>
+          <TableCell Name="Cell95" Font="Arial, 10pt, style=Bold"/>
+          <TableCell Name="Cell96" Font="Arial, 10pt, style=Bold"/>
+          <TableCell Name="Cell97" Font="Arial, 10pt, style=Bold"/>
+        </TableRow>
+      </TableObject>
+    </DataBand>
+    <DataBand Name="Data3" Top="435.8" Width="718.2" Height="28.35" CanGrow="true" CanShrink="true" Guides="9.45,9.45,9.45" DataSource="Table2">
+      <TableObject Name="Table5" Left="0.15" Width="718.2" Height="28.35" Border.Lines="All">
+        <TableColumn Name="Column58" Width="56.7"/>
+        <TableColumn Name="Column59" Width="122.85"/>
+        <TableColumn Name="Column60" Width="47.25"/>
+        <TableColumn Name="Column61" Width="67.15"/>
+        <TableColumn Name="Column62" Width="67"/>
+        <TableColumn Name="Column63" Width="74.75"/>
+        <TableColumn Name="Column64" Width="197.45"/>
+        <TableColumn Name="Column65" Width="85.05"/>
+        <TableRow Name="Row6" Height="28.35" AutoSize="true">
+          <TableCell Name="Cell74" HorzAlign="Right" VertAlign="Center" Font="Arial, 8pt" ColSpan="5"/>
+          <TableCell Name="Cell75" Border.Lines="Left, Top, Bottom"/>
+          <TableCell Name="Cell76" Border.Lines="Left, Top, Bottom"/>
+          <TableCell Name="Cell77" Border.Lines="Left, Top, Bottom"/>
+          <TableCell Name="Cell78" Border.Lines="Left, Top, Bottom"/>
+          <TableCell Name="Cell79" Text="[Table2.S_OSN]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell80" Border.Lines="All" Text="[Table2.Comments]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell81" Border.Lines="All" Text="[Table2.SANK_IT]" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+        </TableRow>
+      </TableObject>
+    </DataBand>
+  </ReportPage>
+  <ReportPage Name="Page2">
+    <GroupHeaderBand Name="GroupHeader3" Width="718.2" Height="37.8" Condition="[Table6.USL]">
+      <TextObject Name="Text10" Top="9.45" Width="718.2" Height="18.9" Text="[Table6.USL]" HorzAlign="Center" Font="Arial, 14pt, style=Bold"/>
+      <GroupHeaderBand Name="GroupHeader4" Top="39.8" Width="718.2" Height="18.9" CanGrow="true" CanShrink="true" Guides="9.45" Condition="[Table6.TypeSl]">
+        <TableObject Name="Table9" Width="718.2" Height="18.9" Border.Lines="All">
+          <TableColumn Name="Column107"/>
+          <TableColumn Name="Column108"/>
+          <TableColumn Name="Column109"/>
+          <TableColumn Name="Column110" Width="453.6"/>
+          <TableColumn Name="Column111"/>
+          <TableRow Name="Row16" AutoSize="true">
+            <TableCell Name="Cell162" Border.Lines="All" Text="[Table6.TypeSl]" Font="Arial, 12pt, style=Bold" ColSpan="5"/>
+            <TableCell Name="Cell163" Border.Lines="All"/>
+            <TableCell Name="Cell164" Border.Lines="All"/>
+            <TableCell Name="Cell165" Border.Lines="All"/>
+            <TableCell Name="Cell166" Border.Lines="All"/>
+          </TableRow>
+        </TableObject>
+        <GroupHeaderBand Name="GroupHeader6" Top="60.7" Width="718.2" Height="18.9" CanGrow="true" CanShrink="true" Condition="[Table6.os]">
+          <TableObject Name="Table9" Width="718.2" Height="18.9" Border.Lines="All">
+            <TableColumn Name="Column173"/>
+            <TableColumn Name="Column174"/>
+            <TableColumn Name="Column175"/>
+            <TableColumn Name="Column176" Width="453.6"/>
+            <TableColumn Name="Column177"/>
+            <TableRow Name="Row27" AutoSize="true">
+              <TableCell Name="Cell237" Border.Lines="All" Text="[Table6.os]" Font="Arial, 10pt, style=Bold" ColSpan="5"/>
+              <TableCell Name="Cell238" Border.Lines="All"/>
+              <TableCell Name="Cell239" Border.Lines="All"/>
+              <TableCell Name="Cell240" Border.Lines="All"/>
+              <TableCell Name="Cell241" Border.Lines="All"/>
+            </TableRow>
+          </TableObject>
+          <DataBand Name="Data5" Top="131.4" Width="718.2" Height="28.35" CanGrow="true" CanShrink="true" DataSource="Table6">
+            <TableObject Name="Table10" Width="718.2" Height="28.35" Border.Lines="All">
+              <TableColumn Name="Column112" Width="151.2"/>
+              <TableColumn Name="Column113" Width="56.7"/>
+              <TableColumn Name="Column114" Width="84.2"/>
+              <TableColumn Name="Column115" Width="48.1"/>
+              <TableColumn Name="Column116" Width="85.2"/>
+              <TableColumn Name="Column117" Width="55.85"/>
+              <TableColumn Name="Column118" Width="95.35"/>
+              <TableColumn Name="Column119" Width="56.7"/>
+              <TableColumn Name="Column120" Width="84.9"/>
+              <TableRow Name="Row17" Height="28.35" AutoSize="true">
+                <TableCell Name="Cell167" Border.Lines="All" Text="[Table6.PROFIL]" VertAlign="Center" Font="Arial, 8pt"/>
+                <TableCell Name="Cell168" Border.Lines="All" Text="[Table6.count_vist]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+                <TableCell Name="Cell169" Border.Lines="All" Text="[Table6.sum_vist]" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+                <TableCell Name="Cell170" Border.Lines="All" Text="[Table6.count_otkaz]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+                <TableCell Name="Cell171" Border.Lines="All" Text="[Table6.sum_otkaz]" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+                <TableCell Name="Cell172" Border.Lines="All" Text="[Table6.count_prin]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+                <TableCell Name="Cell173" Border.Lines="All" Text="[Table6.sum_prin]" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+                <TableCell Name="Cell174" Border.Lines="All" Text="[Table6.count_prin]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+                <TableCell Name="Cell175" Border.Lines="All" Text="[Table6.sum_prin]" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+              </TableRow>
+            </TableObject>
+            <DataHeaderBand Name="DataHeader2" Top="81.6" Width="718.2" Height="47.8">
+              <TableObject Name="Table11" Top="0.55" Width="718.2" Height="47.25" Border.Lines="All">
+                <TableColumn Name="Column121" Width="151.2"/>
+                <TableColumn Name="Column122" Width="56.7"/>
+                <TableColumn Name="Column123" Width="84.2"/>
+                <TableColumn Name="Column124" Width="48.1"/>
+                <TableColumn Name="Column125" Width="85.2"/>
+                <TableColumn Name="Column126" Width="55.85"/>
+                <TableColumn Name="Column127" Width="95.35"/>
+                <TableColumn Name="Column128" Width="56.7"/>
+                <TableColumn Name="Column129" Width="84.9"/>
+                <TableRow Name="Row18" Height="28.35" AutoSize="true">
+                  <TableCell Name="Cell176" Border.Lines="All" Text="Профиль отделения (койки) или специалиста    &#13;&#10;" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt, style=Bold" RowSpan="2"/>
+                  <TableCell Name="Cell177" Border.Lines="All" Text="Предоставлено к оплате&#13;&#10;" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt, style=Bold" ColSpan="2"/>
+                  <TableCell Name="Cell178" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt, style=Bold"/>
+                  <TableCell Name="Cell179" Border.Lines="All" Text="Отказано в оплате" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt, style=Bold" ColSpan="2"/>
+                  <TableCell Name="Cell180" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt, style=Bold"/>
+                  <TableCell Name="Cell181" Border.Lines="All" Text="Принято к оплате" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt, style=Bold" ColSpan="2"/>
+                  <TableCell Name="Cell182" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt, style=Bold"/>
+                  <TableCell Name="Cell183" Border.Lines="All" Text="Оплатить" HideZeros="true" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt, style=Bold" ColSpan="2"/>
+                  <TableCell Name="Cell184" Border.Lines="All" Font="Arial, 10pt, style=Bold"/>
+                </TableRow>
+                <TableRow Name="Row19">
+                  <TableCell Name="Cell185" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt, style=Bold"/>
+                  <TableCell Name="Cell186" Border.Lines="All" Text="Кол-во" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt, style=Bold"/>
+                  <TableCell Name="Cell187" Border.Lines="All" Text="Сумма" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt, style=Bold"/>
+                  <TableCell Name="Cell188" Border.Lines="All" Text="Кол-во" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt, style=Bold"/>
+                  <TableCell Name="Cell189" Border.Lines="All" Text="Сумма" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt, style=Bold"/>
+                  <TableCell Name="Cell190" Border.Lines="All" Text="Кол-во" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt, style=Bold"/>
+                  <TableCell Name="Cell191" Border.Lines="All" Text="Сумма" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt, style=Bold"/>
+                  <TableCell Name="Cell192" Border.Lines="All" Text="Кол-во" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt, style=Bold"/>
+                  <TableCell Name="Cell193" Border.Lines="All" Text="Сумма" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt, style=Bold"/>
+                </TableRow>
+              </TableObject>
+            </DataHeaderBand>
+          </DataBand>
+          <GroupFooterBand Name="GroupFooter6" Top="161.75" Width="718.2" Height="28.35" CanGrow="true" CanShrink="true">
+            <TableObject Name="Table9" Width="718.2" Height="28.35" Border.Lines="All">
+              <TableColumn Name="Column178" Width="151.2"/>
+              <TableColumn Name="Column179" Width="56.7"/>
+              <TableColumn Name="Column180" Width="84.2"/>
+              <TableColumn Name="Column181" Width="48.1"/>
+              <TableColumn Name="Column182" Width="85.2"/>
+              <TableColumn Name="Column183" Width="55.85"/>
+              <TableColumn Name="Column184" Width="95.35"/>
+              <TableColumn Name="Column185" Width="56.7"/>
+              <TableColumn Name="Column186" Width="84.9"/>
+              <TableRow Name="Row28" Height="28.35" AutoSize="true">
+                <TableCell Name="Cell242" Border.Lines="All" Text="Итого [Table6.os]:" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+                <TableCell Name="Cell243" Border.Lines="All" Text="[Total16]" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+                <TableCell Name="Cell244" Border.Lines="All" Text="[Total17]" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+                <TableCell Name="Cell245" Border.Lines="All" Text="[Total18]" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+                <TableCell Name="Cell246" Border.Lines="All" Text="[Total19]" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+                <TableCell Name="Cell247" Border.Lines="All" Text="[Total20]" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+                <TableCell Name="Cell248" Border.Lines="All" Text="[Total21]" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+                <TableCell Name="Cell249" Border.Lines="All" Text="[Total20]" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+                <TableCell Name="Cell250" Border.Lines="All" Text="[Total21]" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+              </TableRow>
+            </TableObject>
+          </GroupFooterBand>
+        </GroupHeaderBand>
+        <GroupFooterBand Name="GroupFooter4" Top="192.1" Width="718.2" Height="37.8" CanGrow="true" CanShrink="true" Guides="0">
+          <TableObject Name="Table12" Width="718.2" Height="37.8" Border.Lines="All">
+            <TableColumn Name="Column130" Width="151.2"/>
+            <TableColumn Name="Column131" Width="56.7"/>
+            <TableColumn Name="Column132" Width="84.2"/>
+            <TableColumn Name="Column133" Width="48.1"/>
+            <TableColumn Name="Column134" Width="85.2"/>
+            <TableColumn Name="Column135" Width="55.85"/>
+            <TableColumn Name="Column136" Width="95.35"/>
+            <TableColumn Name="Column137" Width="56.7"/>
+            <TableColumn Name="Column138" Width="84.9"/>
+            <TableRow Name="Row20" Height="37.8" AutoSize="true">
+              <TableCell Name="Cell194" Border.Lines="All" Text="Итого [Table6.TypeSl]:" VertAlign="Center" Font="Arial, 12pt, style=Bold"/>
+              <TableCell Name="Cell195" Border.Lines="All" Text="[Total]" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+              <TableCell Name="Cell196" Border.Lines="All" Text="[Total1]" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+              <TableCell Name="Cell197" Border.Lines="All" Text="[Total2]" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+              <TableCell Name="Cell198" Border.Lines="All" Text="[Total3]" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+              <TableCell Name="Cell199" Border.Lines="All" Text="[Total4]" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+              <TableCell Name="Cell200" Border.Lines="All" Text="[Total5]" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+              <TableCell Name="Cell201" Border.Lines="All" Text="[Total4]" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+              <TableCell Name="Cell202" Border.Lines="All" Text="[Total5]" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+            </TableRow>
+          </TableObject>
+        </GroupFooterBand>
+      </GroupHeaderBand>
+      <GroupFooterBand Name="GroupFooter3" Top="231.9" Width="718.2" Height="29.35" CanGrow="true" CanShrink="true">
+        <TableObject Name="Table13" Top="1" Width="718.2" Height="28.35" Border.Lines="All">
+          <TableColumn Name="Column139" Width="151.2"/>
+          <TableColumn Name="Column140" Width="56.7"/>
+          <TableColumn Name="Column141" Width="84.2"/>
+          <TableColumn Name="Column142" Width="48.1"/>
+          <TableColumn Name="Column143" Width="85.2"/>
+          <TableColumn Name="Column144" Width="55.85"/>
+          <TableColumn Name="Column145" Width="95.35"/>
+          <TableColumn Name="Column146" Width="56.7"/>
+          <TableColumn Name="Column147" Width="84.9"/>
+          <TableRow Name="Row21" Height="28.35" AutoSize="true">
+            <TableCell Name="Cell203" Border.Lines="All" Text="Итого [Table6.USL]:" VertAlign="Center" Font="Arial, 14pt, style=Bold"/>
+            <TableCell Name="Cell204" Border.Lines="All" Text="[Total6]" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+            <TableCell Name="Cell205" Border.Lines="All" Text="[Total7]" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+            <TableCell Name="Cell206" Border.Lines="All" Text="[Total8]" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+            <TableCell Name="Cell207" Border.Lines="All" Text="[Total9]" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+            <TableCell Name="Cell208" Border.Lines="All" Text="[Total10]" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+            <TableCell Name="Cell209" Border.Lines="All" Text="[Total11]" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+            <TableCell Name="Cell210" Border.Lines="All" Text="[Total10]" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+            <TableCell Name="Cell211" Border.Lines="All" Text="[Total11]" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+          </TableRow>
+        </TableObject>
+      </GroupFooterBand>
+    </GroupHeaderBand>
+    <ReportSummaryBand Name="ReportSummary2" Top="263.25" Width="718.2" Height="302.4" Guides="245.7">
+      <TextObject Name="Text14" Left="18.9" Top="34.35" Width="661.5" Height="15.9" Text="Итого по счету: [Table8.sum_prin]" Format="Currency" Format.UseLocale="true" Font="Arial, 10pt, style=Bold, Underline"/>
+      <TextObject Name="Text13" Left="18.9" Top="151.2" Width="614.25" Height="85.05" Text="Должность, подпись руководителя медицинской организации, ознакомившегося с Актом&#13;&#10;&#13;&#10;______________________________________	&quot;_____&quot; _________________ 20___г.&#13;&#10;&#13;&#10;&#13;&#10;"/>
+      <TextObject Name="Text8" Left="18.9" Top="283.5" Width="670.95" Height="18.9" Text="Исполнитель								Маякова Е. В."/>
+      <TextObject Name="Text9" Left="18.9" Top="94.5" Width="661.5" Height="18.9" Text="Главный бухгалтер ТФОМС Курской области					С. А. Чернышева"/>
+      <TextObject Name="Text16" Left="18.9" Top="56.7" Width="661.5" Height="18.9" Text="Директор ТФОМС Курской области						А. В. Курцев"/>
+    </ReportSummaryBand>
+  </ReportPage>
+</Report>

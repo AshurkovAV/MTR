@@ -1,0 +1,282 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report ScriptLanguage="CSharp" ReportInfo.Created="06/20/2009 22:40:42" ReportInfo.Modified="03/19/2012 18:13:30" ReportInfo.CreatorVersion="1.8.1.0">
+  <Dictionary>
+    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqM3/HbiZANEYP3Y6oNtE7mrUmT0ytl94C6DYS4DXvgc8JqhVjVQGe7Sc2pOMNI3eDZu4y6+BLf6/PCErp5V5iYO+NhUsLGHVpiKUoEc7fdRAKM3dC4G3zKvHq63vBaaJuNWt1RaEUDxyLLh6IMbjf+Iqjj5s+Su4iyajqSNb5u2nGO2W3d4RmsbfixRyEo/bc">
+      <TableDataSource Name="EventShortView" DataType="System.Int32" Enabled="true" TableName="EventShortView" SelectCommand="SELECT E.ExternalId, E.AccountId, E.RegisterId, E.EventId, E.PatientId, E.AssistanceType, E.Surname, E.Name, E.Patronymic, E.Birthday, E.Sex, E.BirthPlace, E.OkatoLive, E.OkatoReg, E.SNILS, E.DocSeries, E.DocNum, E.INP, E.InsuranceDocNumber, E.InsuranceDocSeries, E.InsuranceCode, E.InsuranceName, E.AssistanceConditions, E.DiagnosisGeneralCode, E.DiagnosisGeneralName, E.DiagnosisSecondaryCode, E.DiagnosisSecondaryName, E.Price, E.Rate, E.Quantity, E.AcceptPrice, E.EventBegin, E.EventEnd, E.Profile, E.ProfileName, E.Speciality, E.SpecialityName, E.Result, E.Outcome, E.PaymentStatus, E.MEC, E.MEE, E.EQMA, E.EventComments&#13;&#10;FROM &quot;EventShortView&quot; E&#13;&#10;WHERE E.EventId=@MedEventParam">
+        <Column Name="ExternalId" DataType="System.Int32"/>
+        <Column Name="AccountId" DataType="System.Int32"/>
+        <Column Name="EventId" DataType="System.Int32"/>
+        <Column Name="PatientId" DataType="System.Int32"/>
+        <Column Name="Surname" DataType="System.String"/>
+        <Column Name="Name" DataType="System.String"/>
+        <Column Name="Patronymic" DataType="System.String"/>
+        <Column Name="Birthday" DataType="System.DateTime"/>
+        <Column Name="Sex" DataType="System.String"/>
+        <Column Name="BirthPlace" DataType="System.String"/>
+        <Column Name="DocSeries" DataType="System.String"/>
+        <Column Name="DocNum" DataType="System.String"/>
+        <Column Name="INP" DataType="System.String"/>
+        <Column Name="InsuranceDocNumber" DataType="System.String"/>
+        <Column Name="InsuranceDocSeries" DataType="System.String"/>
+        <Column Name="AssistanceConditions" DataType="System.Decimal"/>
+        <Column Name="Price" DataType="System.Decimal"/>
+        <Column Name="Rate" DataType="System.Decimal"/>
+        <Column Name="Quantity" DataType="System.Decimal"/>
+        <Column Name="AcceptPrice" DataType="System.Decimal"/>
+        <Column Name="EventBegin" DataType="System.DateTime"/>
+        <Column Name="EventEnd" DataType="System.DateTime"/>
+        <Column Name="Profile" DataType="System.Decimal"/>
+        <Column Name="Speciality" DataType="System.Decimal"/>
+        <Column Name="Result" DataType="System.Decimal"/>
+        <Column Name="Outcome" DataType="System.Decimal"/>
+        <Column Name="PaymentStatus" DataType="System.String"/>
+        <Column Name="MEC" DataType="System.Decimal"/>
+        <Column Name="MEE" DataType="System.Decimal"/>
+        <Column Name="EQMA" DataType="System.Decimal"/>
+        <Column Name="EventComments" DataType="System.String"/>
+        <Column Name="RegisterId" DataType="System.Int32"/>
+        <Column Name="AssistanceType" DataType="System.Decimal"/>
+        <Column Name="OkatoLive" DataType="System.String"/>
+        <Column Name="OkatoReg" DataType="System.String"/>
+        <Column Name="SNILS" DataType="System.String"/>
+        <Column Name="InsuranceCode" DataType="System.String"/>
+        <Column Name="InsuranceName" DataType="System.String"/>
+        <Column Name="DiagnosisGeneralCode" DataType="System.String"/>
+        <Column Name="DiagnosisGeneralName" DataType="System.String"/>
+        <Column Name="DiagnosisSecondaryCode" DataType="System.String"/>
+        <Column Name="DiagnosisSecondaryName" DataType="System.String"/>
+        <Column Name="ProfileName" DataType="System.String"/>
+        <Column Name="SpecialityName" DataType="System.String"/>
+        <CommandParameter Name="MedEventParam" DataType="8" Expression="[MedEventId]" DefaultValue="1"/>
+      </TableDataSource>
+      <TableDataSource Name="F003" DataType="System.Int32" Enabled="true" TableName="F003" SelectCommand="SELECT F.Id, F.tf_okato, F.mcod, F.nam_mop, F.nam_mok, F.inn, F.Ogrn, F.KPP, F.index_j, F.addr_j, F.okopf, F.vedpri, F.org, F.fam_ruk, F.im_ruk, F.ot_ruk, F.phone, F.fax, F.e_mail, F.n_doc, F.d_start, F.data_e, F.mp, F.www, F.d_begin, F.d_end, F.name_e, F.DUVED, F.d_edit&#13;&#10;FROM &quot;F003&quot; F&#13;&#10;WHERE F.mcod=@MCodeParam&#13;&#10;">
+        <Column Name="Id" DataType="System.Int32"/>
+        <Column Name="tf_okato" DataType="System.String"/>
+        <Column Name="mcod" DataType="System.String"/>
+        <Column Name="nam_mop" DataType="System.String"/>
+        <Column Name="nam_mok" DataType="System.String"/>
+        <Column Name="inn" DataType="System.String"/>
+        <Column Name="Ogrn" DataType="System.String"/>
+        <Column Name="KPP" DataType="System.String"/>
+        <Column Name="index_j" DataType="System.String"/>
+        <Column Name="addr_j" DataType="System.String"/>
+        <Column Name="okopf" DataType="System.String"/>
+        <Column Name="vedpri" DataType="System.Decimal"/>
+        <Column Name="org" DataType="System.Decimal"/>
+        <Column Name="fam_ruk" DataType="System.String"/>
+        <Column Name="im_ruk" DataType="System.String"/>
+        <Column Name="ot_ruk" DataType="System.String"/>
+        <Column Name="phone" DataType="System.String"/>
+        <Column Name="fax" DataType="System.String"/>
+        <Column Name="e_mail" DataType="System.String"/>
+        <Column Name="n_doc" DataType="System.String"/>
+        <Column Name="d_start" DataType="System.DateTime"/>
+        <Column Name="data_e" DataType="System.DateTime"/>
+        <Column Name="mp" DataType="System.String"/>
+        <Column Name="www" DataType="System.String"/>
+        <Column Name="d_begin" DataType="System.DateTime"/>
+        <Column Name="d_end" DataType="System.DateTime"/>
+        <Column Name="name_e" DataType="System.String"/>
+        <Column Name="DUVED" DataType="System.DateTime"/>
+        <Column Name="d_edit" DataType="System.DateTime"/>
+        <CommandParameter Name="MCodeParam" DataType="22" Expression="[localOptionsDictionary.Value]" DefaultValue="460001"/>
+      </TableDataSource>
+      <TableDataSource Name="localOptionsDictionary" DataType="System.Int32" Enabled="true" TableName="localOptionsDictionary" SelectCommand="SELECT  L.Value&#13;&#10;FROM &quot;localOptionsDictionary&quot; L&#13;&#10;WHERE L.[Key]=3">
+        <Column Name="Value" DataType="System.String"/>
+      </TableDataSource>
+    </MsSqlDataConnection>
+    <Parameter Name="MedEventId" DataType="System.Int32"/>
+  </Dictionary>
+  <ReportPage Name="Page1" RawPaperSize="9" LeftMargin="5" TopMargin="5" RightMargin="5" BottomMargin="5">
+    <ReportTitleBand Name="ReportTitle1" Width="756" Height="511.3">
+      <BarcodeObject Name="Barcode1" Left="661.5" Top="18.9" Width="83.75" Height="56.7" DataColumn="EventShortView.EventId" Barcode="EAN8"/>
+      <TextObject Name="Text1" Top="18.9" Width="538.65" Height="18.9" Text="Министерство здравохранения и социального развития Российской федерации" VertAlign="Center"/>
+      <TextObject Name="Text2" Top="37.8" Width="538.65" Height="18.9" Text="Название ЛПУ [F003.nam_mok]" VertAlign="Center"/>
+      <TextObject Name="Text3" Top="56.7" Width="538.65" Height="18.9" Text="Адрес ЛПУ [F003.addr_j]" VertAlign="Center"/>
+      <TextObject Name="Text4" Top="75.6" Width="94.5" Height="18.9" Text="Код ОГРН" VertAlign="Center"/>
+      <CellularTextObject Name="CellularText1" Left="94.5" Top="75.6" Width="255.15" Height="28.35" Text="[F003.Ogrn]" VertAlign="Center" Font="Arial, 8.25pt"/>
+      <TextObject Name="Text5" Top="103.95" Width="718.2" Height="18.9" Text="ТАЛОН АМБУЛАТОРНОГО ПАЦИЕНТА" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text6" Left="151.2" Top="122.85" Width="198.45" Height="18.9" Text="№ медицинской карты" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text7" Left="349.65" Top="122.85" Width="368.55" Height="18.9" Text="Дата посещения [EventShortView.EventBegin]" Format="Date" Format.Format="D" HorzAlign="Center" VertAlign="Center"/>
+      <TableObject Name="Table1" Top="141.75" Width="761.02" Height="369.55" Border.Lines="All" Border.Color="Transparent">
+        <TableColumn Name="Column1" Width="124.56"/>
+        <TableColumn Name="Column2" Width="30.06"/>
+        <TableColumn Name="Column3" Width="30.06"/>
+        <TableColumn Name="Column4" Width="30.06"/>
+        <TableColumn Name="Column5" Width="135.89"/>
+        <TableColumn Name="Column6" Width="58.41"/>
+        <TableColumn Name="Column7" Width="143.46"/>
+        <TableColumn Name="Column8" Width="1"/>
+        <TableColumn Name="Column9" Width="94.31"/>
+        <TableColumn Name="Column10" Width="113.21"/>
+        <TableRow Name="Row1">
+          <TableCell Name="Cell1" Border.Lines="All" Text="1. Код категории&#13;&#10;льготы" RowSpan="2"/>
+          <TableCell Name="Cell2" Border.Lines="All" RowSpan="2"/>
+          <TableCell Name="Cell3" Border.Lines="All" RowSpan="2"/>
+          <TableCell Name="Cell4" Border.Lines="All" RowSpan="2"/>
+          <TableCell Name="Cell5" Border.Lines="All" Text="2.Страховой полис ОМС" ColSpan="2"/>
+          <TableCell Name="Cell26" Border.Lines="All"/>
+          <TableCell Name="Cell27" Border.Lines="All" Text="[EventShortView.INP][EventShortView.InsuranceDocNumber] [EventShortView.InsuranceDocSeries]" ColSpan="4"/>
+          <TableCell Name="Cell28"/>
+          <TableCell Name="Cell29"/>
+          <TableCell Name="Cell30"/>
+        </TableRow>
+        <TableRow Name="Row2" Height="19.9">
+          <TableCell Name="Cell6"/>
+          <TableCell Name="Cell7" Border.Lines="All"/>
+          <TableCell Name="Cell8"/>
+          <TableCell Name="Cell9" Border.Lines="All"/>
+          <TableCell Name="Cell10" Border.Lines="All" Text="3.СНИЛС" ColSpan="2"/>
+          <TableCell Name="Cell31" Border.Lines="All"/>
+          <TableCell Name="Cell32" Border.Lines="All" ColSpan="4"/>
+          <TableCell Name="Cell33" Border.Lines="Bottom"/>
+          <TableCell Name="Cell34" Border.Lines="Bottom"/>
+          <TableCell Name="Cell35" Border.Lines="Bottom"/>
+        </TableRow>
+        <TableRow Name="Row3">
+          <TableCell Name="Cell11" Border.Lines="All" Text="4.Пациент ф.и.о."/>
+          <TableCell Name="Cell12" Border.Lines="All" Text="[EventShortView.Surname] [EventShortView.Name] [EventShortView.Patronymic]" ColSpan="7"/>
+          <TableCell Name="Cell13"/>
+          <TableCell Name="Cell14"/>
+          <TableCell Name="Cell15"/>
+          <TableCell Name="Cell36"/>
+          <TableCell Name="Cell37"/>
+          <TableCell Name="Cell38"/>
+          <TableCell Name="Cell39" Border.Lines="All" Text="5. Пол: 1-м;2-ж; [EventShortView.Sex]" ColSpan="2"/>
+          <TableCell Name="Cell40" Border.Lines="Right, Bottom"/>
+        </TableRow>
+        <TableRow Name="Row4" Height="22.68">
+          <TableCell Name="Cell605" Border.Lines="All" Text="6. Дата рождения"/>
+          <TableCell Name="Cell17" Border.Lines="Left, Top, Bottom" ColSpan="4">
+            <CellularTextObject Name="CellularText15" Width="230.58" Height="18.9" Text="[EventShortView.Birthday]" Format="Date" Format.Format="dd.MM.yyyy" HorzAlign="Center" VertAlign="Center" Font="Arial, 8.25pt, style=Bold"/>
+          </TableCell>
+          <TableCell Name="Cell18"/>
+          <TableCell Name="Cell19"/>
+          <TableCell Name="Cell20"/>
+          <TableCell Name="Cell41" Border.Lines="Right, Top, Bottom" Text="Адрес:" ColSpan="5"/>
+          <TableCell Name="Cell42"/>
+          <TableCell Name="Cell43"/>
+          <TableCell Name="Cell44"/>
+          <TableCell Name="Cell45"/>
+        </TableRow>
+        <TableRow Name="Row5" Height="37.8">
+          <TableCell Name="Cell606" Border.Lines="All" Text="7.Социальный статус, в т.ч. занятость: дошкольник: 1-организован, 2-неорганизован; 3-учится; 4-работает; 5-не работает; 6-пенсионер; 7-военнослуж.; код:	член семьи военнослуж.; 9-БОМЖ" ColSpan="10"/>
+          <TableCell Name="Cell106"/>
+          <TableCell Name="Cell107"/>
+          <TableCell Name="Cell108"/>
+          <TableCell Name="Cell109"/>
+          <TableCell Name="Cell110"/>
+          <TableCell Name="Cell111"/>
+          <TableCell Name="Cell48"/>
+          <TableCell Name="Cell49"/>
+          <TableCell Name="Cell50"/>
+        </TableRow>
+        <TableRow Name="Row6" Height="37.8">
+          <TableCell Name="Cell604" Border.Lines="All" Text="8. Инвалидность: 1-I группы; 2-II группы; 3-III группы; 4-ребенок-инвалид; 5-инвалид детства; 6-установлена впервые в жизни; 7-снята" ColSpan="10"/>
+          <TableCell Name="Cell590"/>
+          <TableCell Name="Cell591"/>
+          <TableCell Name="Cell592"/>
+          <TableCell Name="Cell593"/>
+          <TableCell Name="Cell594"/>
+          <TableCell Name="Cell595"/>
+          <TableCell Name="Cell58"/>
+          <TableCell Name="Cell59"/>
+          <TableCell Name="Cell60"/>
+        </TableRow>
+        <TableRow Name="Row7" Height="37.8">
+          <TableCell Name="Cell596" Border.Lines="Left, Top, Bottom" Text="9.Специалист: ф.и.о." ColSpan="2"/>
+          <TableCell Name="Cell597"/>
+          <TableCell Name="Cell598" Border.Lines="Right, Top, Bottom" ColSpan="4"/>
+          <TableCell Name="Cell599"/>
+          <TableCell Name="Cell600"/>
+          <TableCell Name="Cell601"/>
+          <TableCell Name="Cell602" Border.Lines="All" Text="10.Вид оплаты: ОМС, Бюджет; Платные услуги, в т.ч.- ДМС; Другие." ColSpan="4"/>
+          <TableCell Name="Cell68"/>
+          <TableCell Name="Cell69"/>
+          <TableCell Name="Cell70"/>
+        </TableRow>
+        <TableRow Name="Row8" Height="37.8">
+          <TableCell Name="Cell582" Border.Lines="All" Text="11. Место обслуживания: 1-поликлиника; 2- на дому в т.ч. 3- актив." ColSpan="6"/>
+          <TableCell Name="Cell583"/>
+          <TableCell Name="Cell584"/>
+          <TableCell Name="Cell585"/>
+          <TableCell Name="Cell586"/>
+          <TableCell Name="Cell587"/>
+          <TableCell Name="Cell588" Border.Lines="All" Text="12. Цель посещения: 1-заболевание; 2- профосмотр; 3-патронаж; 4-другое" ColSpan="4"/>
+          <TableCell Name="Cell78"/>
+          <TableCell Name="Cell79"/>
+          <TableCell Name="Cell80"/>
+        </TableRow>
+        <TableRow Name="Row9" Height="47.25">
+          <TableCell Name="Cell574" Border.Lines="All" Text="13. Результат обращения: случай закончен: 1-выздоровление; 2-улучшение; 3-динамическое наблюдение; направлен: 4-на госпитализацию; 5-дневной стационар; 6-стационар на дому; 7-на консультацию; 8-на консультацию в др. ЛПУ; 9-справка для получения путевки; 10-санаторно-курортная карта" ColSpan="10"/>
+          <TableCell Name="Cell554"/>
+          <TableCell Name="Cell555"/>
+          <TableCell Name="Cell556"/>
+          <TableCell Name="Cell557"/>
+          <TableCell Name="Cell558"/>
+          <TableCell Name="Cell559"/>
+          <TableCell Name="Cell560"/>
+          <TableCell Name="Cell561"/>
+          <TableCell Name="Cell562"/>
+        </TableRow>
+        <TableRow Name="Row10" Height="22.68">
+          <TableCell Name="Cell563" Border.Lines="All" Text="14. Диагноз"/>
+          <TableCell Name="Cell564" Border.Lines="All" Text="[EventShortView.DiagnosisGeneralName]" ColSpan="7"/>
+          <TableCell Name="Cell565"/>
+          <TableCell Name="Cell566"/>
+          <TableCell Name="Cell567"/>
+          <TableCell Name="Cell568"/>
+          <TableCell Name="Cell569"/>
+          <TableCell Name="Cell570"/>
+          <TableCell Name="Cell571" Border.Lines="All" Text="Код МКБ10"/>
+          <TableCell Name="Cell572">
+            <CellularTextObject Name="CellularText2" Width="115.29" Height="18.9" Text="[EventShortView.DiagnosisGeneralCode]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8.25pt, style=Bold"/>
+          </TableCell>
+        </TableRow>
+        <TableRow Name="Row11" Height="22.68">
+          <TableCell Name="Cell543" Border.Lines="All" Text="15. Код мед. услуги (посещения, СМП, КЭС)" ColSpan="5"/>
+          <TableCell Name="Cell544"/>
+          <TableCell Name="Cell545"/>
+          <TableCell Name="Cell546"/>
+          <TableCell Name="Cell547"/>
+          <TableCell Name="Cell548" Border.Lines="Left, Top, Bottom" ColSpan="4">
+            <CellularTextObject Name="CellularText5" Width="317.52" Height="18.9" HorzAlign="Center" VertAlign="Center" Font="Arial, 8.25pt, style=Bold"/>
+          </TableCell>
+          <TableCell Name="Cell549"/>
+          <TableCell Name="Cell550"/>
+          <TableCell Name="Cell551"/>
+          <TableCell Name="Cell552" Border.Lines="Right, Top, Bottom"/>
+        </TableRow>
+        <TableRow Name="Row12" Height="22.68">
+          <TableCell Name="Cell523" Border.Lines="All" ColSpan="5"/>
+          <TableCell Name="Cell524"/>
+          <TableCell Name="Cell525"/>
+          <TableCell Name="Cell526"/>
+          <TableCell Name="Cell527"/>
+          <TableCell Name="Cell528" Border.Lines="Left, Top, Bottom" ColSpan="4">
+            <CellularTextObject Name="CellularText14" Width="317.52" Height="18.9" HorzAlign="Center" VertAlign="Center" Font="Arial, 8.25pt, style=Bold"/>
+          </TableCell>
+          <TableCell Name="Cell529"/>
+          <TableCell Name="Cell530"/>
+          <TableCell Name="Cell531"/>
+          <TableCell Name="Cell532" Border.Lines="Right, Top, Bottom"/>
+        </TableRow>
+        <TableRow Name="Row36" Height="22.68">
+          <TableCell Name="Cell502" Border.Lines="All" ColSpan="5"/>
+          <TableCell Name="Cell492"/>
+          <TableCell Name="Cell493"/>
+          <TableCell Name="Cell494"/>
+          <TableCell Name="Cell495"/>
+          <TableCell Name="Cell508" Border.Lines="Left, Top, Bottom" ColSpan="4">
+            <CellularTextObject Name="CellularText13" Width="317.52" Height="18.9" HorzAlign="Center" VertAlign="Center" Font="Arial, 8.25pt, style=Bold"/>
+          </TableCell>
+          <TableCell Name="Cell509"/>
+          <TableCell Name="Cell510"/>
+          <TableCell Name="Cell511"/>
+          <TableCell Name="Cell512" Border.Lines="Right, Top, Bottom"/>
+        </TableRow>
+      </TableObject>
+      <TextObject Name="Text8" Left="642.6" Top="75.6" Width="103.95" Height="18.9" Border.Lines="All" Text="ID [EventShortView.EventId]"/>
+    </ReportTitleBand>
+  </ReportPage>
+</Report>

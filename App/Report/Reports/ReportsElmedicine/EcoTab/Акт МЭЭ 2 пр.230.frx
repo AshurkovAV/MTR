@@ -1,0 +1,140 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report ScriptLanguage="CSharp" ReportInfo.Created="11/07/2013 01:06:27" ReportInfo.Modified="12/05/2014 08:54:28" ReportInfo.CreatorVersion="2014.2.7.0">
+  <Dictionary>
+    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlq+rW0RkboK+/8CKGGYUID3ctBV8q9SvKYxl3iiE7vBnh7Tgou0+4WFf3NfmPSvHVFucXW6RigRWyrUb5370jCjW9vgo+2UqnziOb1O0jrSyobOqYF3oeoOnmBN586ReUvqs4yefrekco9PCDw4R1mL+ULeFC6/AUyhFS9fKXaVwE=">
+      <TableDataSource Name="Table" DataType="System.Int32" Enabled="true" SelectCommand="DECLARE @AKT_DATE DATETIME&#13;&#10;	DECLARE @USERID varchar(120) &#13;&#10;	DECLARE @SMONAME nvarchar(75) &#13;&#10;	DECLARE @MONAME nvarchar(250) &#13;&#10;	DECLARE @SCHET_NUM nvarchar(50) &#13;&#10;	DECLARE @POLIS_NUM nvarchar(400) &#13;&#10;	DECLARE @CARD_NUM nvarchar(400) &#13;&#10;	DECLARE @DS1 nvarchar(200) &#13;&#10;	DECLARE @DS2 nvarchar(200) &#13;&#10;	DECLARE @PERIOD1 datetime &#13;&#10;	DECLARE @PERIOD2 datetime &#13;&#10;	DECLARE @SUMV numeric(15, 2) &#13;&#10;	DECLARE @BOL_DLIT numeric(5, 0) &#13;&#10;	DECLARE @DOCT nvarchar(150) &#13;&#10;	DECLARE @DOC_CHECKED nvarchar(300) &#13;&#10;	DECLARE @ZAKL nvarchar(1000) &#13;&#10;	DECLARE @COD_PU nvarchar(20) &#13;&#10;	DECLARE @SUMP numeric(15, 2) &#13;&#10;	DECLARE @SUMNP numeric(15, 2) &#13;&#10;	DECLARE @SLID int  &#13;&#10;	DECLARE @SANKID int  &#13;&#10;	DECLARE @AKT_NUMBER int  &#13;&#10;	DECLARE @SUM_MULCT numeric(15, 2)&#13;&#10;	DECLARE @CARD_NUM1 nvarchar(400) &#13;&#10;	DECLARE @DS11 nvarchar(200) &#13;&#10;	DECLARE @DS21 nvarchar(200) &#13;&#10;	DECLARE @PERIOD11 nvarchar(200)	&#13;&#10;	DECLARE @COD_PU1 nvarchar(20)	&#13;&#10;&#13;&#10;DECLARE vendor_cursor CURSOR FOR &#13;&#10;SELECT [AKT_DATE],[USERID],[SMONAME],[MONAME],[SCHET_NUM],[POLIS_NUM],[CARD_NUM],[DS1],[DS2],[PERIOD1],[PERIOD2],[SUMV],[BOL_DLIT],[DOCT],[DOC_CHECKED],[ZAKL],[COD_PU],[SUMP],[SUMNP],[SLID],[SANKID],[AKT_NUMBER],[SUM_MULCT] &#13;&#10;From AKT_MEE_TBL&#13;&#10;Where PID = @pid &#13;&#10;&#13;&#10;OPEN vendor_cursor&#13;&#10;FETCH NEXT FROM vendor_cursor INTO @AKT_DATE,@USERID,@SMONAME,@MONAME,@SCHET_NUM,@POLIS_NUM,@CARD_NUM,@DS1,@DS2,@PERIOD1,@PERIOD2,@SUMV,@BOL_DLIT,@DOCT,@DOC_CHECKED,@ZAKL,@COD_PU,@SUMP,@SUMNP,@SLID,@SANKID,@AKT_NUMBER,@SUM_MULCT;&#13;&#10;WHILE @@FETCH_STATUS = 0&#13;&#10;BEGIN&#13;&#10;	&#13;&#10;	IF (isnull(@CARD_NUM, '') &lt;&gt; '')&#13;&#10;	BEGIN&#13;&#10;		SET @CARD_NUM1 = REPLACE(@CARD_NUM1, @CARD_NUM, '');&#13;&#10;		SET @CARD_NUM1 = isnull(@CARD_NUM1, '') + ', ' + isnull(@CARD_NUM, '');	&#13;&#10;		IF (LEFT(@CARD_NUM1, 2) = ', ')&#13;&#10;		SET @CARD_NUM1 = SUBSTRING(@CARD_NUM1, 3, LEN(@CARD_NUM1) - 2);			&#13;&#10;	END&#13;&#10;	IF (isnull(@DS1, '') &lt;&gt; '')&#13;&#10;	BEGIN&#13;&#10;		SET @DS11 = REPLACE(@DS11, @DS1, '');&#13;&#10;		SET @DS11 = isnull(@DS11, '') + ', ' + isnull(@DS1, '');&#13;&#10;		IF (LEFT(@DS11, 2) = ', ')&#13;&#10;		SET @DS11 = SUBSTRING(@DS11, 3, LEN(@DS11) - 2);			&#13;&#10;	END&#13;&#10;	IF (isnull(@DS2, '') &lt;&gt; '')&#13;&#10;	BEGIN&#13;&#10;		SET @DS21 = REPLACE(@DS21, @DS2, '');&#13;&#10;		SET @DS21 = isnull(@DS21, '') + ', ' + isnull(@DS2, '');&#13;&#10;		IF (LEFT(@DS21, 2) = ', ')&#13;&#10;		SET @DS21 = SUBSTRING(@DS21, 3, LEN(@DS21) - 2);&#13;&#10;	END&#13;&#10;	IF (isnull(@COD_PU, '') &lt;&gt; '')&#13;&#10;	BEGIN&#13;&#10;		SET @COD_PU1 = isnull(@COD_PU1, '') + ', ' + isnull(@COD_PU, '');&#13;&#10;		IF (LEFT(@COD_PU1, 2) = ', ')&#13;&#10;		SET @COD_PU1 = SUBSTRING(@COD_PU1, 3, LEN(@COD_PU1) - 2);		&#13;&#10;	END	&#13;&#10;	FETCH NEXT FROM vendor_cursor INTO @AKT_DATE,@USERID,@SMONAME,@MONAME,@SCHET_NUM,@POLIS_NUM,@CARD_NUM,@DS1,@DS2,@PERIOD1,@PERIOD2,@SUMV,@BOL_DLIT,@DOCT,@DOC_CHECKED,@ZAKL,@COD_PU,@SUMP,@SUMNP,@SLID,@SANKID,@AKT_NUMBER,@SUM_MULCT;&#13;&#10;END;&#13;&#10;&#13;&#10;CLOSE vendor_cursor;&#13;&#10;DEALLOCATE vendor_cursor;&#13;&#10;&#13;&#10;SELECT @PERIOD11 = REPLACE('c ' + CONVERT(varchar (10), min([PERIOD1]), 104) + ' по ' + convert(VARCHAR(10), MAX([PERIOD2]), 104), '/', '.') &#13;&#10;From AKT_MEE_TBL&#13;&#10;Where PID = @pid&#13;&#10;&#13;&#10;SELECT max([AKT_NUMBER]) as [AKT_NUMBER], MAX([AKT_DATE])[AKT_DATE], MAX([USERID])[USERID], MAX([SMONAME])[SMONAME], MAX([MONAME])[MONAME],&#13;&#10;MAX([SCHET_NUM])[SCHET_NUM], MAX([POLIS_NUM])[POLIS_NUM], @CARD_NUM1 AS CARD_NUM, @DS11 AS DS1,&#13;&#10;@DS21 AS DS2, @PERIOD11 AS PERIOD1,SUM(sumv) AS sumv, DATEDIFF(DAY, MIN(PERIOD1), MAX(PERIOD2)) AS BOL_DLIT, MAX([DOCT])[DOCT],&#13;&#10;MAX([DOC_CHECKED])[DOC_CHECKED], MAX([ZAKL])[ZAKL], SUM([SUMNP])[SUMNP], @COD_PU1 AS COD_PU, SUM(SUMP)SUMP&#13;&#10;From AKT_MEE_TBL&#13;&#10;Where PID = @pid">
+        <Column Name="AKT_DATE" DataType="System.DateTime"/>
+        <Column Name="USERID" DataType="System.String"/>
+        <Column Name="SMONAME" DataType="System.String"/>
+        <Column Name="MONAME" DataType="System.String"/>
+        <Column Name="SCHET_NUM" DataType="System.String"/>
+        <Column Name="POLIS_NUM" DataType="System.String"/>
+        <Column Name="CARD_NUM" DataType="System.String"/>
+        <Column Name="DS1" DataType="System.String"/>
+        <Column Name="PERIOD1" DataType="System.DateTime"/>
+        <Column Name="SUMV" DataType="System.Decimal"/>
+        <Column Name="BOL_DLIT" DataType="System.Decimal"/>
+        <Column Name="DOCT" DataType="System.String"/>
+        <Column Name="DOC_CHECKED" DataType="System.String"/>
+        <Column Name="ZAKL" DataType="System.String"/>
+        <Column Name="COD_PU" DataType="System.String"/>
+        <Column Name="SUMP" DataType="System.Decimal"/>
+        <Column Name="SUMNP" DataType="System.Decimal"/>
+        <Column Name="DS2" DataType="System.String"/>
+        <Column Name="AKT_NUMBER" DataType="System.Int32"/>
+        <CommandParameter Name="@pid" DataType="8" Expression="[@pid]" DefaultValue="3429"/>
+      </TableDataSource>
+    </MsSqlDataConnection>
+    <Parameter Name="@pid" DataType="System.Int32"/>
+  </Dictionary>
+  <ReportPage Name="Page1">
+    <DataBand Name="Data1" Width="718.2" Height="850.5">
+      <TableObject Name="Table1" Top="28.35" Width="721.98" Height="396.9" RepeatHeaders="false">
+        <TableColumn Name="Column3" Width="351.54"/>
+        <TableColumn Name="Column4" Width="370.44"/>
+        <TableRow Name="Row22" AutoSize="true">
+          <TableCell Name="Cell55" Text="1. Дата проведения экспертизы " VertAlign="Bottom" Font="Times New Roman, 10pt"/>
+          <TableCell Name="Cell56" Border.Lines="Bottom" Text="[Table.AKT_DATE]" Format="Date" Format.Format="D" VertAlign="Bottom" Font="Times New Roman, 10pt"/>
+        </TableRow>
+        <TableRow Name="Row23" AutoSize="true">
+          <TableCell Name="Cell57" Text="2. Фамилия, имя, отчество специалиста-эксперта" VertAlign="Bottom" Font="Times New Roman, 10pt"/>
+          <TableCell Name="Cell58" Border.Lines="Bottom" Text="[Table.USERID]" VertAlign="Bottom" Font="Times New Roman, 10pt"/>
+        </TableRow>
+        <TableRow Name="Row24" AutoSize="true">
+          <TableCell Name="Cell59" Text="3. Наименование проверяющей организации" Font="Times New Roman, 10pt"/>
+          <TableCell Name="Cell60" Border.Lines="Bottom" Text="[Table.SMONAME]" VertAlign="Bottom" Font="Times New Roman, 10pt"/>
+        </TableRow>
+        <TableRow Name="Row25" AutoSize="true">
+          <TableCell Name="Cell61" Text="4. Наименование медицинской организации" Font="Times New Roman, 10pt"/>
+          <TableCell Name="Cell62" Border.Lines="Bottom" Text="[Table.MONAME]" VertAlign="Bottom" Font="Times New Roman, 10pt"/>
+        </TableRow>
+        <TableRow Name="Row26" AutoSize="true">
+          <TableCell Name="Cell63" Text="5. Номер счета за медицинские услуги" Font="Times New Roman, 10pt"/>
+          <TableCell Name="Cell64" Border.Lines="Bottom" Text="[Table.SCHET_NUM]" VertAlign="Bottom" Font="Times New Roman, 10pt"/>
+        </TableRow>
+        <TableRow Name="Row27" AutoSize="true">
+          <TableCell Name="Cell65" Text="6. № полиса обязательного медицинского страхования" Font="Times New Roman, 10pt"/>
+          <TableCell Name="Cell66" Border.Lines="Bottom" Text="[Table.POLIS_NUM]" VertAlign="Bottom" Font="Times New Roman, 10pt"/>
+        </TableRow>
+        <TableRow Name="Row28" AutoSize="true">
+          <TableCell Name="Cell67" Text="7. Номер медицинской карты (амбулаторного или стационарного больного)" Font="Times New Roman, 10pt"/>
+          <TableCell Name="Cell68" Border.Lines="Bottom" Text="[Table.CARD_NUM]" VertAlign="Bottom" Font="Times New Roman, 10pt"/>
+        </TableRow>
+        <TableRow Name="Row29" AutoSize="true">
+          <TableCell Name="Cell69" Text="8. Окончательный (клинический) диагноз основного заболевания" Font="Times New Roman, 10pt"/>
+          <TableCell Name="Cell70" Border.Lines="Bottom" Text="[Table.DS1]" VertAlign="Bottom" Font="Times New Roman, 10pt"/>
+        </TableRow>
+        <TableRow Name="Row30" AutoSize="true">
+          <TableCell Name="Cell71" Text="9. Диагноз сопутствующего заболевания" Font="Times New Roman, 10pt"/>
+          <TableCell Name="Cell72" Border.Lines="Bottom" Text="[Table.DS2]" VertAlign="Bottom" Font="Times New Roman, 10pt"/>
+        </TableRow>
+        <TableRow Name="Row31" AutoSize="true">
+          <TableCell Name="Cell73" Text="10. Сроки лечения" Font="Times New Roman, 10pt"/>
+          <TableCell Name="Cell74" Border.Lines="Bottom" Text="[Table.PERIOD1]" VertAlign="Bottom" Font="Times New Roman, 10pt">
+            <Formats>
+              <DateFormat/>
+              <DateFormat/>
+            </Formats>
+          </TableCell>
+        </TableRow>
+        <TableRow Name="Row32" AutoSize="true">
+          <TableCell Name="Cell75" Text="11. Стоимость лечения" Font="Times New Roman, 10pt"/>
+          <TableCell Name="Cell76" Border.Lines="Bottom" Text="[Table.SUMV]" Format="Currency" Format.UseLocale="true" VertAlign="Bottom" Font="Times New Roman, 10pt"/>
+        </TableRow>
+        <TableRow Name="Row33" AutoSize="true">
+          <TableCell Name="Cell77" Text="12. Длительность заболевания" Font="Times New Roman, 10pt"/>
+          <TableCell Name="Cell78" Border.Lines="Bottom" Text="[Table.BOL_DLIT]" VertAlign="Bottom" Font="Times New Roman, 10pt"/>
+        </TableRow>
+        <TableRow Name="Row34" AutoSize="true">
+          <TableCell Name="Cell79" Text="13. Фамилия, имя, отчество лечащего врача " Font="Times New Roman, 10pt"/>
+          <TableCell Name="Cell80" Border.Lines="Bottom" Text="[Table.DOCT]" VertAlign="Bottom" Font="Times New Roman, 10pt"/>
+        </TableRow>
+        <TableRow Name="Row35" Height="28.35" AutoSize="true">
+          <TableCell Name="Cell81" Text="14. Дополнительно проверена следующая учетно-отчетная документация" Font="Times New Roman, 10pt"/>
+          <TableCell Name="Cell82" Border.Lines="Bottom" Text="[Table.DOC_CHECKED]" VertAlign="Bottom" Font="Times New Roman, 10pt"/>
+        </TableRow>
+        <TableRow Name="Row36" Height="66.15" AutoSize="true">
+          <TableCell Name="Cell83" Text="&#13;&#10;Заключение специалиста-эксперта по обоснованности объемов медицинских услуг, предоставленных к оплате, и их соответствие записям в первичной медицинской и учетно-отчетной документации медицинской организации (в т.ч. краткий перечень выявленных недостатков)" HorzAlign="Center" Font="Times New Roman, 10pt, style=Bold" ColSpan="2"/>
+          <TableCell Name="Cell84"/>
+        </TableRow>
+        <TableRow Name="Row37" AutoSize="true">
+          <TableCell Name="Cell85" Border.Lines="Bottom" Text="[Table.ZAKL]" Font="Times New Roman, 10pt" ColSpan="2"/>
+          <TableCell Name="Cell86"/>
+        </TableRow>
+        <TableRow Name="Row38" Height="37.8" AutoSize="true">
+          <TableCell Name="Cell87" Text="&#13;&#10;ВЫВОДЫ:" Font="Times New Roman, 10pt"/>
+          <TableCell Name="Cell88"/>
+        </TableRow>
+      </TableObject>
+      <TextObject Name="Text57" Width="718.2" Height="18.9" Text="«Акт № [Table.AKT_NUMBER]/1 медико-экономической экспертизы страхового случая»." HorzAlign="Center" Font="Times New Roman, 11pt, style=Bold"/>
+      <TableObject Name="Table2" Top="425.25" Width="718.2" Height="179.55">
+        <TableColumn Name="Column5" Width="378"/>
+        <TableColumn Name="Column6" Width="340.2"/>
+        <TableRow Name="Row43" AutoSize="true">
+          <TableCell Name="Cell97" Text="Не подлежит оплате (сумма, код дефекта/нарушения)" Font="Times New Roman, 10pt"/>
+          <TableCell Name="Cell98" Border.Lines="Bottom" Text="[Table.SUMNP],	[Table.COD_PU]" Font="Times New Roman, 10pt, style=Bold">
+            <Formats>
+              <CurrencyFormat/>
+              <GeneralFormat/>
+            </Formats>
+          </TableCell>
+        </TableRow>
+        <TableRow Name="Row44" AutoSize="true">
+          <TableCell Name="Cell102" Text="Подлежит оплате " Font="Times New Roman, 10pt"/>
+          <TableCell Name="Cell103" Border.Lines="Bottom" Text="[Table.SUMP]" Format="Currency" Format.UseLocale="true" Font="Times New Roman, 10pt, style=Bold"/>
+        </TableRow>
+        <TableRow Name="Row45" Height="75.6">
+          <TableCell Name="Cell107" Border.Lines="Bottom" Text="[Table.AKT_DATE]       			  Специалист-эксперт" Format="Date" Format.Format="D" VertAlign="Bottom" Font="Times New Roman, 10pt" ColSpan="2"/>
+          <TableCell Name="Cell108" VertAlign="Bottom"/>
+        </TableRow>
+        <TableRow Name="Row46" Height="66.15">
+          <TableCell Name="Cell112" Text="Руководитель медицинской организации _________________________________________&#13;&#10;	М. П." VertAlign="Bottom" Font="Times New Roman, 10pt" ColSpan="2">
+            <TextObject Name="Text58" Left="283.5" Top="48.8" Width="94.5" Height="18.9" Text="(подпись)" HorzAlign="Center" Font="Times New Roman, 8pt"/>
+            <TextObject Name="Text59" Left="453.6" Top="1.55" Width="94.5" Height="18.9" Text="(подпись)" HorzAlign="Center" Font="Times New Roman, 8pt"/>
+          </TableCell>
+          <TableCell Name="Cell113" VertAlign="Bottom"/>
+        </TableRow>
+      </TableObject>
+    </DataBand>
+  </ReportPage>
+</Report>

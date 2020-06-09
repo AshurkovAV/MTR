@@ -1,0 +1,41 @@
+﻿<UserControl x:Class="Medical.AppLayer.StartPage.Views.StartPageView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d"
+             d:DesignHeight="658" 
+             d:DesignWidth="954" 
+             xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol" 
+             xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars">
+   
+    <Grid>
+        <dxb:BarManager Margin="0,0,0,0">
+            <dxb:BarManager.Items>
+                <dxb:BarButtonItem Name="Save" Command="{Binding SaveLayoutCommand}" GlyphAlignment="Top" BarItemDisplayMode="ContentAndGlyph" Alignment="Far" GlyphSize="Large"/>
+            </dxb:BarManager.Items>
+            <dxb:BarManager.Bars>
+                <dxb:Bar Caption="Главное меню" IsMainMenu="True">
+                    <dxb:Bar.DockInfo>
+                        <dxb:BarDockInfo ContainerType="Top" />
+                    </dxb:Bar.DockInfo>
+                    <dxb:Bar.ItemLinks>
+                        <dxb:BarButtonItemLink BarItemName="Save"/>
+                    </dxb:Bar.ItemLinks>
+                </dxb:Bar>
+                
+            </dxb:BarManager.Bars>
+            <Grid>
+
+                <dxlc:TileLayoutControl Padding="30,30,30,10" 
+                                        Background="#FFA0A0A0"
+                                        Name="TileControl"  
+                                        Orientation="Horizontal" 
+                                        ItemsSource="{Binding TileItemsList}"
+                                        OverridesDefaultStyle="True">
+                </dxlc:TileLayoutControl>
+                
+            </Grid>
+        </dxb:BarManager>
+    </Grid>
+</UserControl>

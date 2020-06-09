@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<PERS_LIST>
+  <ZGLV>
+    <VERSION>2.1K2</VERSION>
+    <DATA>2014-02-10</DATA>
+    <FILENAME>LM460066T46201411</FILENAME>
+    <FILENAME1>HM460066T46201411</FILENAME1>
+  </ZGLV>
+  <PERS>
+    <ID_PAC>ab828f7e-7d7c-428e-929a-b82611050506</ID_PAC>
+    <FAM>АБДУЛЛАЕВ</FAM>
+    <IM>МУСТАФА</IM>
+    <OT>НЕБИЕВИЧ</OT>
+    <W>1</W>
+    <DR>1995-08-28</DR>
+    <DOST>1</DOST>
+    <DOST>2</DOST>
+    <FAM_P>Фамилия представителя</FAM_P>
+    <IM_P>Имя представителя</IM_P>
+    <OT_P>Отчество представителя</OT_P>
+    <W_P>1</W_P>
+    <DR_P>1990-10-10</DR_P>
+    <DOST_P>3</DOST_P>
+    <DOST_P>4</DOST_P>
+    <MR>Место рождения</MR>
+    <DOCTYPE>14</DOCTYPE>
+    <DOCSER>82 09</DOCSER>
+    <DOCNUM>769073</DOCNUM>
+    <SNILS>000-000-000 00</SNILS>
+    <OKATOG>79000000000</OKATOG>
+    <OKATOP>97000000000</OKATOP>
+    <COMENTP>Комментарий к персональным данным</COMENTP>
+  </PERS>
+  <PERS>
+    <ID_PAC>40d757e4-5b91-4e15-b95f-d45d3cd0d659</ID_PAC>
+    <FAM>АБОЛМАСОВА</FAM>
+    <IM>ЛИЛИЯ</IM>
+    <OT>СЕРГЕЕВНА</OT>
+    <W>2</W>
+    <DR>1925-10-07</DR>
+  </PERS>
+</PERS_LIST>

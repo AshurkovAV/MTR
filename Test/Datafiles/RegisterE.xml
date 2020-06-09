@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<ZL_LIST>
+  <ZGLV>
+    <VERSION>1.0</VERSION>
+    <DATA>2011-09-02</DATA>
+    <C_OKATO1>97000</C_OKATO1>
+    <OKATO_OMS>79000</OKATO_OMS>
+  </ZGLV>
+  <SCHET>
+    <CODE>1</CODE>
+    <YEAR>2011</YEAR>
+    <MONTH>8</MONTH>
+    <NSCHET>1</NSCHET>
+    <DSCHET>2011-09-02</DSCHET>
+    <SUMMAV>377.20</SUMMAV>
+    <COMENTS>Комментарий к счету</COMENTS>
+    <!-- По данному счёту санкций к МО не применялось, поэтому теги санкций не указаны. -->
+    <SUMMAP>377.20</SUMMAP>
+    <SANK_MEK>0.1</SANK_MEK>
+    <SANK_MEE>0.2</SANK_MEE>
+    <SANK_EKMP>0.3</SANK_EKMP>
+  </SCHET>
+  <ZAP>
+    <N_ZAP>001</N_ZAP>
+    <PACIENT>
+      <VPOLIS>1</VPOLIS>
+      <SPOLIS>3333</SPOLIS>
+      <NPOLIS>88888888</NPOLIS>
+      <FAM>ПЕТРОВ</FAM>
+      <IM>ПЁТР</IM>
+      <OT>ПЕТРОВИЧ</OT>
+      <W>1</W>
+      <DR>1981-01-01</DR>
+      <FAM_P>Фамилия представителя</FAM_P>
+      <IM_P>Имя представителя</IM_P>
+      <OT_P>Отчество представителя</OT_P>
+      <W_P>1</W_P>
+      <DR_P>1990-10-10</DR_P>
+      <MR>Место рождения</MR>
+      <DOCTYPE>14</DOCTYPE>
+      <DOCSER>12 12</DOCSER>
+      <DOCNUM>121212</DOCNUM>
+      <SNILS>000-000-000 00</SNILS>
+      <OKATOG>79000</OKATOG>
+      <OKATOP>97000</OKATOP>
+      <NOVOR>0</NOVOR>
+      <COMENTP>Комментарий к персональным данным</COMENTP>
+  </PACIENT>
+    <SLUCH>
+      <IDCASE>1</IDCASE>
+      <USL_OK>3</USL_OK>
+      <VIDPOM>3</VIDPOM>
+      <EXTR>2</EXTR>
+      <LPU>210012</LPU>
+      <PROFIL>89</PROFIL>
+      <DET>0</DET>
+      <NHISTORY>1468654</NHISTORY>
+      <DATE_1>2011-08-15</DATE_1>
+      <DATE_2>2011-08-15</DATE_2>
+      <DS0>K04.0</DS0>
+      <DS1>K04.5</DS1>
+      <DS2>K04.2</DS2>
+      <RSLT>301</RSLT>
+      <ISHOD>301</ISHOD>
+      <PRVS>1401</PRVS>
+      <IDSP>9</IDSP>
+      <ED_COL>3.00</ED_COL>
+      <TARIF>51.44</TARIF>
+      <SUMV>115.74</SUMV>
+      <OPLATA>0</OPLATA>
+      <!-- По данному случаю санкций к МО не применялось, поэтому теги санкций не указаны. -->
+      <SUMP>115.74</SUMP>
+      <REFREASON>1</REFREASON>
+      <REFREASON>2</REFREASON>
+      <REFREASON>0</REFREASON>
+      <SANK_MEK>10.1</SANK_MEK>
+      <SANK_MEE>11.2</SANK_MEE>
+      <SANK_EKMP>12.3</SANK_EKMP>
+      <USL>
+        <IDSERV>1</IDSERV>
+        <LPU>460003</LPU>
+        <PROFIL>89</PROFIL>
+        <DET>0</DET>
+        <DATE_IN>2011-08-15</DATE_IN>
+        <DATE_OUT>2011-08-15</DATE_OUT>
+        <DS>K04.5</DS>
+        <USL>Налож.пломб.из композ.матер.хим.отвержден.,эвикрола II,IVкл.</USL>
+        <KOL_USL>2.00</KOL_USL>
+        <TARIF>51.44</TARIF>
+        <SUMV_USL>102.88</SUMV_USL>
+        <PRVS>1401</PRVS>
+        <!-- В комментариях может быть указана дополнительная информация. -->
+        <COMENTU>Zub=35</COMENTU>
+      </USL>
+      <USL>
+        <IDSERV>2</IDSERV>
+        <LPU>460003</LPU>
+        <PROFIL>89</PROFIL>
+        <DET>0</DET>
+        <DATE_IN>2011-08-15</DATE_IN>
+        <DATE_OUT>2011-08-15</DATE_OUT>
+        <DS>K04.5</DS>
+        <USL>Шлифовка и полировка пломбы</USL>
+        <KOL_USL>0.25</KOL_USL>
+        <TARIF>51.44</TARIF>
+        <SUMV_USL>12.86</SUMV_USL>
+        <PRVS>1401</PRVS>
+        <COMENTU>Zub=35</COMENTU>
+      </USL>
+      <COMENTSL>Комментарий к случаю</COMENTSL>
+    </SLUCH>
+    <SLUCH>
+      <IDCASE>2</IDCASE>
+      <USL_OK>1</USL_OK>
+      <VIDPOM>1</VIDPOM>
+      <EXTR>2</EXTR>
+      <LPU>210013</LPU>
+      <PROFIL>88</PROFIL>
+      <DET>0</DET>
+      <NHISTORY>1468656</NHISTORY>
+      <DATE_1>2011-08-16</DATE_1>
+      <DATE_2>2011-08-16</DATE_2>
+      <DS0>K04.1</DS0>
+      <DS1>K04.2</DS1>
+      <DS2>K04.3</DS2>
+      <RSLT>302</RSLT>
+      <ISHOD>302</ISHOD>
+      <PRVS>1401</PRVS>
+      <IDSP>9</IDSP>
+      <ED_COL>3.00</ED_COL>
+      <TARIF>51.44</TARIF>
+      <SUMV>115.74</SUMV>
+      <OPLATA>0</OPLATA>
+      <!-- По данному случаю санкций к МО не применялось, поэтому теги санкций не указаны. -->
+      <SUMP>115.74</SUMP>
+      <REFREASON>5</REFREASON>
+      <SANK_MEK>10.1</SANK_MEK>
+      <SANK_MEE>11.2</SANK_MEE>
+      <SANK_EKMP>12.3</SANK_EKMP>
+      <USL>
+        <IDSERV>3</IDSERV>
+        <LPU>460003</LPU>
+        <PROFIL>88</PROFIL>
+        <DET>0</DET>
+        <DATE_IN>2011-08-16</DATE_IN>
+        <DATE_OUT>2011-08-16</DATE_OUT>
+        <DS>K04.0</DS>
+        <USL>Услуга</USL>
+        <KOL_USL>23.00</KOL_USL>
+        <TARIF>599.44</TARIF>
+        <SUMV_USL>102.81</SUMV_USL>
+        <PRVS>1401</PRVS>
+        <!-- В комментариях может быть указана дополнительная информация. -->
+        <COMENTU>Услуга 3</COMENTU>
+      </USL>
+      <COMENTSL>Комментарии у случаю</COMENTSL>
+    </SLUCH>
+  </ZAP>
+  <ZAP>
+    <N_ZAP>002</N_ZAP>
+    <PACIENT>
+      <VPOLIS>1</VPOLIS>
+      <NPOLIS>111111111</NPOLIS>
+      <FAM>НЕТ</FAM>
+      <IM>НЕТ</IM>
+      <OT>НЕТ</OT>
+      <W>1</W>
+      <DR>2011-07-30</DR>
+      <!-- Медицинская помощь была оказана ребёнку до государственной регистрации рождения, поэтому указываются данные представителя, по полису которого была оказана помощь. -->
+      <FAM_P>ЁЛКИНА</FAM_P>
+      <IM_P>ИННА</IM_P>
+      <OT_P>АЛЕКСЕЕВНА</OT_P>
+      <W_P>2</W_P>
+      <DR_P>1985-10-17</DR_P>
+      <DOCTYPE>14</DOCTYPE>
+      <DOCSER>44 44</DOCSER>
+      <DOCNUM>797979</DOCNUM>
+      <NOVOR>13007111</NOVOR>
+    </PACIENT>
+    <SLUCH>
+      <IDCASE>3</IDCASE>
+      <USL_OK>3</USL_OK>
+      <VIDPOM>3</VIDPOM>
+      <PROFIL>68</PROFIL>
+      <DET>1</DET>
+      <NHISTORY>125865</NHISTORY>
+      <DATE_1>2011-08-15</DATE_1>
+      <DATE_2>2011-08-15</DATE_2>
+      <DS1>Z00.1</DS1>
+      <RSLT>301</RSLT>
+      <ISHOD>301</ISHOD>
+      <PRVS>11</PRVS>
+      <IDSP>1</IDSP>
+      <ED_COL>1.00</ED_COL>
+      <TARIF>130.73</TARIF>
+      <SUMV>130.73</SUMV>
+      <SUMP>130.73</SUMP>
+      <REFREASON>4</REFREASON>
+      <REFREASON>5</REFREASON>
+    </SLUCH>
+  </ZAP>
+  <ZAP>
+    <N_ZAP>003</N_ZAP>
+    <PACIENT>
+      <VPOLIS>1</VPOLIS>
+      <NPOLIS>111111111</NPOLIS>
+      <FAM>НЕТ</FAM>
+      <IM>НЕТ</IM>
+      <OT>НЕТ</OT>
+      <W>1</W>
+      <DR>2011-07-30</DR>
+      <FAM_P>ЁЛКИНА</FAM_P>
+      <IM_P>ИННА</IM_P>
+      <OT_P>АЛЕКСЕЕВНА</OT_P>
+      <W_P>2</W_P>
+      <DR_P>1985-10-17</DR_P>
+      <DOCTYPE>14</DOCTYPE>
+      <DOCSER>44 44</DOCSER>
+      <DOCNUM>797979</DOCNUM>
+      <!-- Одна и та же помощь была оказана детям до государственной регистрации рождения при многоплодных родах. Последний символ в признаке новорождённого отличает этот случай от случаев дублирования записей. -->
+      <NOVOR>13007112</NOVOR>
+    </PACIENT>
+    <SLUCH>
+      <IDCASE>4</IDCASE>
+      <USL_OK>3</USL_OK>
+      <VIDPOM>3</VIDPOM>
+      <PROFIL>68</PROFIL>
+      <DET>1</DET>
+      <NHISTORY>125866</NHISTORY>
+      <DATE_1>2011-08-15</DATE_1>
+      <DATE_2>2011-08-15</DATE_2>
+      <DS1>Z00.1</DS1>
+      <RSLT>301</RSLT>
+      <ISHOD>301</ISHOD>
+      <PRVS>11</PRVS>
+      <IDSP>1</IDSP>
+      <ED_COL>1.00</ED_COL>
+      <TARIF>130.73</TARIF>
+      <SUMV>130.73</SUMV>
+      <SUMP>130.73</SUMP>
+    </SLUCH>
+  </ZAP>
+</ZL_LIST>

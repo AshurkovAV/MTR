@@ -1,0 +1,229 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report ScriptLanguage="CSharp" DoublePass="true" ReportInfo.Created="06/20/2009 22:40:42" ReportInfo.Modified="09/16/2014 13:47:21" ReportInfo.CreatorVersion="2013.3.9.0">
+  <ScriptText>using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Windows.Forms;
+using System.Drawing;
+using System.Data;
+using FastReport;
+using FastReport.Data;
+using FastReport.Dialog;
+using FastReport.Barcode;
+using FastReport.Table;
+using FastReport.Utils;
+
+namespace FastReport
+{
+  public class ReportScript
+  {
+   
+  }
+}
+</ScriptText>
+  <Dictionary>
+    <BusinessObjectDataSource Name="result" ReferenceName="result" DataType="System.Collections.Generic.List`1[[Medical.AppLayer.Economic.Models.Reports.ReportForm2CustomModel, AppLayer, Version=1.0.0.1713, Culture=neutral, PublicKeyToken=null]]" Enabled="true">
+      <Column Name="Row" DataType="System.Int32"/>
+      <BusinessObjectDataSource Name="Entry" DataType="System.Collections.Generic.List`1[[Medical.AppLayer.Economic.Models.Reports.ReportForm2Entry, AppLayer, Version=1.0.0.1713, Culture=neutral, PublicKeyToken=null]]" Enabled="true">
+        <Column Name="Row" DataType="System.Int32"/>
+        <Column Name="Region" DataType="System.String"/>
+        <Column Name="TerritoryOkato" DataType="System.String"/>
+        <Column Name="TerritoryName" DataType="System.String"/>
+        <Column Name="BeginDebtTotal" DataType="System.Decimal"/>
+        <Column Name="BeginDebt25Days" DataType="System.Decimal"/>
+        <Column Name="AmountPayable" DataType="System.Decimal"/>
+        <Column Name="AmountRefuseTotal" DataType="System.Decimal"/>
+        <Column Name="AmountRefuseCurrentPeriod" DataType="System.Decimal"/>
+        <Column Name="AmountFactTotal" DataType="System.Decimal"/>
+        <Column Name="AmountFactCurrentPeriod" DataType="System.Decimal"/>
+        <Column Name="AmountFactLastYears" DataType="System.Decimal"/>
+        <Column Name="EndDebtTotal" DataType="System.Decimal"/>
+        <Column Name="EndDebt25Days" DataType="System.Decimal"/>
+      </BusinessObjectDataSource>
+      <Column Name="DistrictCode" DataType="System.Int32"/>
+      <Column Name="DistrictName" DataType="System.String"/>
+      <Column Name="DistrictEntry" DataType="Medical.AppLayer.Economic.Models.Reports.ReportForm2Entry, AppLayer, Version=1.0.0.1713, Culture=neutral, PublicKeyToken=null">
+        <Column Name="Row" DataType="System.Int32"/>
+        <Column Name="Region" DataType="System.String"/>
+        <Column Name="TerritoryOkato" DataType="System.String"/>
+        <Column Name="TerritoryName" DataType="System.String"/>
+        <Column Name="BeginDebtTotal" DataType="System.Decimal"/>
+        <Column Name="BeginDebt25Days" DataType="System.Decimal"/>
+        <Column Name="AmountPayable" DataType="System.Decimal"/>
+        <Column Name="AmountRefuseTotal" DataType="System.Decimal"/>
+        <Column Name="AmountRefuseCurrentPeriod" DataType="System.Decimal"/>
+        <Column Name="AmountFactTotal" DataType="System.Decimal"/>
+        <Column Name="AmountFactCurrentPeriod" DataType="System.Decimal"/>
+        <Column Name="AmountFactLastYears" DataType="System.Decimal"/>
+        <Column Name="EndDebtTotal" DataType="System.Decimal"/>
+        <Column Name="EndDebt25Days" DataType="System.Decimal"/>
+      </Column>
+    </BusinessObjectDataSource>
+    <Parameter Name="BeginDate" DataType="System.DateTime"/>
+    <Parameter Name="EndDate" DataType="System.DateTime"/>
+    <Parameter Name="Direction" DataType="System.Int32"/>
+    <Parameter Name="Total" DataType="System.Int32"/>
+    <Total Name="BeginDebtTota" Expression="[result.DistrictEntry.BeginDebtTotal]" Evaluator="Data1"/>
+    <Total Name="BeginDebt25Days" Expression="[result.DistrictEntry.BeginDebt25Days]" Evaluator="Data1"/>
+    <Total Name="AmountPayable" Expression="[result.DistrictEntry.AmountPayable]" Evaluator="Data1"/>
+    <Total Name="AmountRefuseTotal" Expression="[result.DistrictEntry.AmountRefuseTotal]" Evaluator="Data1"/>
+    <Total Name="AmountRefuseCurrentPeriod" Expression="[result.DistrictEntry.AmountRefuseCurrentPeriod]" Evaluator="Data1"/>
+    <Total Name="AmountFactTotal" Expression="[result.DistrictEntry.AmountFactTotal]" Evaluator="Data1"/>
+    <Total Name="AmountFactCurrentPeriod" Expression="[result.DistrictEntry.AmountFactCurrentPeriod]" Evaluator="Data1"/>
+    <Total Name="AmountFactLastYears" Expression="[result.DistrictEntry.AmountFactLastYears]" Evaluator="Data1"/>
+    <Total Name="EndDebtTotal" Expression="[result.DistrictEntry.EndDebtTotal]" Evaluator="Data1"/>
+    <Total Name="EndDebt25Days" Expression="[result.DistrictEntry.EndDebt25Days]" Evaluator="Data1"/>
+  </Dictionary>
+  <ReportPage Name="Page1" Landscape="true" PaperWidth="297" PaperHeight="210" RawPaperSize="9" FinishPageEvent="Page1_FinishPage">
+    <ReportTitleBand Name="ReportTitle1" Width="1047.06" Height="94.5">
+      <TableObject Name="Table1" Top="3.78" Width="1061.4" Height="90.72">
+        <TableColumn Name="Column1" Width="146.41"/>
+        <TableColumn Name="Column2" Width="33.01"/>
+        <TableColumn Name="Column3" Width="80.26"/>
+        <TableColumn Name="Column4" Width="80.26"/>
+        <TableColumn Name="Column5" Width="89.71"/>
+        <TableColumn Name="Column6" Width="89.71"/>
+        <TableColumn Name="Column7" Width="102.94"/>
+        <TableColumn Name="Column8" Width="89.71"/>
+        <TableColumn Name="Column9" Width="89.71"/>
+        <TableColumn Name="Column10" Width="89.71"/>
+        <TableColumn Name="Column11" Width="89.71"/>
+        <TableColumn Name="Column12" Width="80.26"/>
+        <TableRow Name="Row1" Height="25.2">
+          <TableCell Name="Cell1" Border.Lines="Left, Right, Top" Text="Наименование территории" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt" RowSpan="2"/>
+          <TableCell Name="Cell2" Border.Lines="Left, Right, Top" Text="№" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt" RowSpan="2"/>
+          <TableCell Name="Cell3" Border.Lines="Left, Right, Top" Text="[IIf([Direction] == 1,&quot;кредиторская&quot;,&quot;дебиторская&quot;)] задолженность  на [BeginDate]" Format="Date" Format.Format="d" HorzAlign="Center" Font="Arial, 8pt" ColSpan="2"/>
+          <TableCell Name="Cell4"/>
+          <TableCell Name="Cell5" Border.Lines="Left, Right, Top" Text="предъявленно в отчетном периоде" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt" RowSpan="2"/>
+          <TableCell Name="Cell26" Border.Lines="All" Text="отказы" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt" ColSpan="2"/>
+          <TableCell Name="Cell27"/>
+          <TableCell Name="Cell28" Border.Lines="All" Text="перечислено" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt" ColSpan="3"/>
+          <TableCell Name="Cell29"/>
+          <TableCell Name="Cell30"/>
+          <TableCell Name="Cell31" Border.Lines="All" Text="[IIf([Direction] == 1,&quot;кредиторская&quot;,&quot;дебиторская&quot;)]  задолженность на конец отчётного периода" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt" ColSpan="2"/>
+          <TableCell Name="Cell32"/>
+        </TableRow>
+        <TableRow Name="Row2" Height="49.77">
+          <TableCell Name="Cell6"/>
+          <TableCell Name="Cell7"/>
+          <TableCell Name="Cell8" Border.Lines="Left, Right, Top" Text="всего" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell9" Border.Lines="Left, Right, Top" Text="свыше 25 дней" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell10"/>
+          <TableCell Name="Cell33" Border.Lines="Left, Right, Top" Text="всего" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell34" Border.Lines="Left, Right, Top" Text="по счетам отчетного периода" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell35" Border.Lines="Left, Right, Top" Text="всего" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell36" Border.Lines="Left, Right, Top" Text="по счетам отчетного периода" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell37" Border.Lines="Left, Right, Top" Text="за предыдущ.годы (доплаты прошлых лет)" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell38" Border.Lines="Left, Right, Top" Text="всего на [EndDate]" Format="Date" Format.Format="d" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell39" Border.Lines="Left, Right, Top" Text="свыше 25 раб дней" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+        </TableRow>
+        <TableRow Name="Row3" Height="15.75">
+          <TableCell Name="Cell40" Border.Lines="Left, Right, Bottom" HorzAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell41" Border.Lines="Left, Right, Bottom" HorzAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell42" Border.Lines="Left, Right, Bottom" Text="3" HorzAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell43" Border.Lines="Left, Right, Bottom" Text="4" HorzAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell44" Border.Lines="Left, Right, Bottom" Text="5" HorzAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell45" Border.Lines="Left, Right, Bottom" Text="6" HorzAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell46" Border.Lines="Left, Right, Bottom" Text="7" HorzAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell47" Border.Lines="Left, Right, Bottom" Text="8" HorzAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell48" Border.Lines="Left, Right, Bottom" Text="9" HorzAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell49" Border.Lines="Left, Right, Bottom" Text="10" HorzAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell50" Border.Lines="Left, Right, Bottom" Text="11" HorzAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell51" Border.Lines="Left, Right, Bottom" Text="12" HorzAlign="Center" Font="Arial, 8pt"/>
+        </TableRow>
+      </TableObject>
+    </ReportTitleBand>
+    <DataBand Name="Data1" Top="98.5" Width="1047.06" Height="25.2" CanGrow="true" CanShrink="true" DataSource="result" ParentIdColumn="data.RecordsCollection.RecordNumber">
+      <TableObject Name="Table2" Width="1061.4" Height="25.2">
+        <TableColumn Name="Column13" Width="146.41"/>
+        <TableColumn Name="Column14" Width="33.01"/>
+        <TableColumn Name="Column15" Width="80.26"/>
+        <TableColumn Name="Column16" Width="80.26"/>
+        <TableColumn Name="Column17" Width="89.71"/>
+        <TableColumn Name="Column18" Width="89.71"/>
+        <TableColumn Name="Column19" Width="102.94"/>
+        <TableColumn Name="Column20" Width="89.71"/>
+        <TableColumn Name="Column21" Width="89.71"/>
+        <TableColumn Name="Column22" Width="89.71"/>
+        <TableColumn Name="Column23" Width="89.71"/>
+        <TableColumn Name="Column24" Width="80.26"/>
+        <TableRow Name="Row4" Height="25.2">
+          <TableCell Name="Cell52" Border.Lines="All" Fill.Color="Gainsboro" Text="[result.DistrictName]" VertAlign="Center" Font="Arial, 8pt, style=Bold"/>
+          <TableCell Name="Cell53" Border.Lines="All" Fill.Color="Gainsboro" Text="[result.Row]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell54" Border.Lines="All" Fill.Color="Gainsboro" Text="[result.DistrictEntry.BeginDebtTotal]" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell55" Border.Lines="All" Fill.Color="Gainsboro" Text="[result.DistrictEntry.BeginDebt25Days]" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell56" Border.Lines="All" Fill.Color="Gainsboro" Text="[result.DistrictEntry.AmountPayable]" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell57" Border.Lines="All" Fill.Color="Gainsboro" Text="[result.DistrictEntry.AmountRefuseTotal]" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell58" Border.Lines="All" Fill.Color="Gainsboro" Text="[result.DistrictEntry.AmountRefuseCurrentPeriod]" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell59" Border.Lines="All" Fill.Color="Gainsboro" Text="[result.DistrictEntry.AmountFactTotal]" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell60" Border.Lines="All" Fill.Color="Gainsboro" Text="[result.DistrictEntry.AmountFactCurrentPeriod]" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell61" Border.Lines="All" Fill.Color="Gainsboro" Text="[result.DistrictEntry.AmountFactLastYears]" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell62" Border.Lines="All" Fill.Color="Gainsboro" Text="[result.DistrictEntry.EndDebtTotal]" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell63" Border.Lines="All" Fill.Color="Gainsboro" Text="[result.DistrictEntry.EndDebt25Days]" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+        </TableRow>
+      </TableObject>
+      <DataBand Name="Data2" Top="127.7" Width="1047.06" Height="25.2" CanGrow="true" CanShrink="true" DataSource="Entry">
+        <TableObject Name="Table3" Width="1061.4" Height="25.2">
+          <TableColumn Name="Column25" Width="146.41"/>
+          <TableColumn Name="Column26" Width="33.01"/>
+          <TableColumn Name="Column27" Width="80.26"/>
+          <TableColumn Name="Column28" Width="80.26"/>
+          <TableColumn Name="Column29" Width="89.71"/>
+          <TableColumn Name="Column30" Width="89.71"/>
+          <TableColumn Name="Column31" Width="102.94"/>
+          <TableColumn Name="Column32" Width="89.71"/>
+          <TableColumn Name="Column33" Width="89.71"/>
+          <TableColumn Name="Column34" Width="89.71"/>
+          <TableColumn Name="Column35" Width="89.71"/>
+          <TableColumn Name="Column36" Width="80.26"/>
+          <TableRow Name="Row5" Height="25.2">
+            <TableCell Name="Cell64" Border.Lines="All" Text="[result.Entry.TerritoryName]" VertAlign="Center" Font="Arial, 8pt"/>
+            <TableCell Name="Cell65" Border.Lines="All" Text="[result.Entry.Row]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+            <TableCell Name="Cell66" Border.Lines="All" Text="[result.Entry.BeginDebtTotal]" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+            <TableCell Name="Cell67" Border.Lines="All" Text="[result.Entry.BeginDebt25Days]" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+            <TableCell Name="Cell68" Border.Lines="All" Text="[result.Entry.AmountPayable]" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+            <TableCell Name="Cell69" Border.Lines="All" Text="[result.Entry.AmountRefuseTotal]" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+            <TableCell Name="Cell70" Border.Lines="All" Text="[result.Entry.AmountRefuseCurrentPeriod]" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+            <TableCell Name="Cell71" Border.Lines="All" Text="[result.Entry.AmountFactTotal]" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+            <TableCell Name="Cell72" Border.Lines="All" Text="[result.Entry.AmountFactCurrentPeriod]" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+            <TableCell Name="Cell73" Border.Lines="All" Text="[result.Entry.AmountFactLastYears]" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+            <TableCell Name="Cell74" Border.Lines="All" Text="[result.Entry.EndDebtTotal]" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+            <TableCell Name="Cell75" Border.Lines="All" Text="[result.Entry.EndDebt25Days]" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          </TableRow>
+        </TableObject>
+      </DataBand>
+      <DataFooterBand Name="DataFooter1" Top="156.9" Width="1047.06" Height="25.2">
+        <TableObject Name="Table4" Width="1061.4" Height="25.2">
+          <TableColumn Name="Column37" Width="146.41"/>
+          <TableColumn Name="Column38" Width="33.01"/>
+          <TableColumn Name="Column39" Width="80.26"/>
+          <TableColumn Name="Column40" Width="80.26"/>
+          <TableColumn Name="Column41" Width="89.71"/>
+          <TableColumn Name="Column42" Width="89.71"/>
+          <TableColumn Name="Column43" Width="102.94"/>
+          <TableColumn Name="Column44" Width="89.71"/>
+          <TableColumn Name="Column45" Width="89.71"/>
+          <TableColumn Name="Column46" Width="89.71"/>
+          <TableColumn Name="Column47" Width="89.71"/>
+          <TableColumn Name="Column48" Width="80.26"/>
+          <TableRow Name="Row6" Height="25.2">
+            <TableCell Name="Cell76" Border.Lines="All" Fill.Color="Gainsboro" Text="Итого:" VertAlign="Center" Font="Arial, 8pt, style=Bold"/>
+            <TableCell Name="Cell77" Border.Lines="All" Fill.Color="Gainsboro" Text="[Total]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+            <TableCell Name="Cell78" Border.Lines="All" Fill.Color="Gainsboro" Text="[BeginDebtTota]" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+            <TableCell Name="Cell79" Border.Lines="All" Fill.Color="Gainsboro" Text="[BeginDebt25Days]" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+            <TableCell Name="Cell80" Border.Lines="All" Fill.Color="Gainsboro" Text="[AmountPayable]" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+            <TableCell Name="Cell81" Border.Lines="All" Fill.Color="Gainsboro" Text="[AmountRefuseTotal]" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+            <TableCell Name="Cell82" Border.Lines="All" Fill.Color="Gainsboro" Text="[AmountRefuseCurrentPeriod]" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+            <TableCell Name="Cell83" Border.Lines="All" Fill.Color="Gainsboro" Text="[AmountFactTotal]" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+            <TableCell Name="Cell84" Border.Lines="All" Fill.Color="Gainsboro" Text="[AmountFactCurrentPeriod]" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+            <TableCell Name="Cell85" Border.Lines="All" Fill.Color="Gainsboro" Text="[AmountFactLastYears]" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+            <TableCell Name="Cell86" Border.Lines="All" Fill.Color="Gainsboro" Text="[EndDebtTotal]" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+            <TableCell Name="Cell87" Border.Lines="All" Fill.Color="Gainsboro" Text="[EndDebt25Days]" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          </TableRow>
+        </TableObject>
+      </DataFooterBand>
+    </DataBand>
+    <ReportSummaryBand Name="ReportSummary1" Top="186.1" Width="1047.06" Height="134.19" PrintOnBottom="true"/>
+  </ReportPage>
+</Report>

@@ -1,0 +1,86 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report ScriptLanguage="CSharp" ReportInfo.Created="07/22/2013 16:59:53" ReportInfo.Modified="10/28/2013 15:55:43" ReportInfo.CreatorVersion="2013.3.9.0">
+  <Styles Name="Серый">
+    <Style Name="Залоговок отчета" Font="Arial, 12pt, style=Bold"/>
+    <Style Name="Заголовок данных" Fill.Color="Gainsboro" Font="Arial, 10pt, style=Bold"/>
+    <Style Name="Группа" Font="Arial, 10pt, style=Bold"/>
+    <Style Name="Данные"/>
+    <Style Name="Подвал" Fill.Color="Gainsboro"/>
+    <Style Name="Четные строки" Fill.Color="WhiteSmoke"/>
+  </Styles>
+  <Dictionary>
+    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqr2sEgbyd/XFgYBeuRgqcA2fPEABqa7op7lzIvjCd0OC4AYhmBbgkZmVd9K9BlXfZPz3FIQUANrhzsCET6UizfUELFh4+M5MjSKwpjqb3UXEc4r5lg96HwFWCLzM/go7mI/7Bo6cJmCXsPjepPajcdvEqzVf0crwCesHW7E3YijDDxNX0IeFplgz3YImHoNzaJmWbnpviX7yck6valE0gdw==">
+      <TableDataSource Name="Table" DataType="System.Int32" Enabled="true" SelectCommand="select f.NameWithID as LPU, v.NameWithID as PROFIL, o.NameWithID as OS_SLUCH_REGION, s1.NameWithID as CODE_USL, count(*) from SLUCH sl&#13;&#10;join USL u on sl.ID = u.SLID&#13;&#10;join SCHET sc on sl.SCHET_ID = sc.ID&#13;&#10;join F003 f on sl.LPU =  f.mcod &#13;&#10;join OsobSluchDb o on sl.OS_SLUCH_REGION = o.Id&#13;&#10;join S_1664n s1 on u.CODE_USL = s1.Id&#13;&#10;join V002 v on u.PROFIL = v.Id&#13;&#10;where u.CODE_USL in ('B04.031.002', 'B04.023.002', 'B04.029.002', 'B04.010.002', 'B04.053.004', 'B04.010.002', 'B04.053.002',&#13;&#10;'B04.064.002', 'B04.058.003', 'B04.028.002', 'B04.001.002', 'B04.050.002', 'B01.047.005', 'B04.023.002') and (sc.[MONTH] &gt;= @M1 and sc.[YEAR] &gt;= @Y1) and (sc.[MONTH] &lt;= @M2 and sc.[YEAR] &lt;= @Y2)&#13;&#10;GROUP BY f.NameWithID, v.NameWithID, o.NameWithID, s1.NameWithID">
+        <Column Name="lpu" DataType="System.String"/>
+        <Column Name="Column1" DataType="System.Int32"/>
+        <Column Name="PROFIL" DataType="System.String"/>
+        <Column Name="OS_SLUCH_REGION" DataType="System.String"/>
+        <Column Name="CODE_USL" DataType="System.String"/>
+        <CommandParameter Name="@M1" DataType="8" Expression="[@M1]" DefaultValue="8"/>
+        <CommandParameter Name="@M2" DataType="8" Expression="[@M2]" DefaultValue="8"/>
+        <CommandParameter Name="@Y1" DataType="8" Expression="[@Y1]" DefaultValue="2013"/>
+        <CommandParameter Name="@Y2" DataType="8" Expression="[@Y2]" DefaultValue="2013"/>
+      </TableDataSource>
+    </MsSqlDataConnection>
+    <Relation Name="Table_Table4" ParentDataSource="Table" ChildDataSource="null" ParentColumns="ID" ChildColumns="SLUCH_ID" Enabled="true"/>
+    <Parameter Name="@Y1" DataType="System.Int32"/>
+    <Parameter Name="@Y2" DataType="System.Int32"/>
+    <Parameter Name="@M2" DataType="System.Int32"/>
+    <Parameter Name="@M1" DataType="System.Int32"/>
+  </Dictionary>
+  <ReportPage Name="Page1" RawPaperSize="9" FirstPageSource="15" OtherPagesSource="15" Guides="0,718.2,217.35,179.55,604.8,387.45,113.4,47.25,708.75,661.5">
+    <ReportTitleBand Name="ReportTitle1" Width="718.2" Height="66.15"/>
+    <GroupHeaderBand Name="GroupHeader1" Top="68.44" Width="718.2" Height="85.05" Guides="18.9,37.8,85.05,0,47.25" Condition="[Table.lpu]">
+      <TextObject Name="Text4" Top="18.9" Width="718.2" Height="18.9" Text="[Table.lpu]" HorzAlign="Center" VertAlign="Center" Font="Arial, 12pt, style=Bold"/>
+      <TableObject Name="Table1" Top="37.8" Width="718.2" Height="47.25" Border.Lines="All">
+        <TableColumn Name="Column39" Width="37.8"/>
+        <TableColumn Name="Column6" Width="179.55"/>
+        <TableColumn Name="Column10" Width="387.45"/>
+        <TableColumn Name="Column50" Width="113.4"/>
+        <TableRow Name="Row2" Height="47.25">
+          <TableCell Name="Cell39" Text="Профиль" HorzAlign="Center" VertAlign="Center" Font="Arial, 12pt" ColSpan="2"/>
+          <TableCell Name="Cell6" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 12pt"/>
+          <TableCell Name="Cell10" Border.Lines="All" Text="Код услуги" HorzAlign="Center" VertAlign="Center" Font="Arial, 11pt"/>
+          <TableCell Name="Cell50" Text="Кол-во" HorzAlign="Center" VertAlign="Center"/>
+        </TableRow>
+      </TableObject>
+      <GroupHeaderBand Name="GroupHeader2" Top="155.77" Width="718.2" Height="28.35" Guides="0,28.35" Condition="[Table.OS_SLUCH_REGION]">
+        <TableObject Name="Table1" Width="718.2" Height="28.35" Border.Lines="All">
+          <TableColumn Name="Column52" Width="37.8"/>
+          <TableColumn Name="Column53" Width="179.55"/>
+          <TableColumn Name="Column54" Width="387.45"/>
+          <TableColumn Name="Column55" Width="113.4"/>
+          <TableRow Name="Row4" Height="28.35">
+            <TableCell Name="Cell52" Text="[Table.OS_SLUCH_REGION]" VertAlign="Center" Font="Arial, 10pt, style=Bold" ColSpan="4"/>
+            <TableCell Name="Cell53" Border.Lines="All" HorzAlign="Center" VertAlign="Center"/>
+            <TableCell Name="Cell54" Border.Lines="All" VertAlign="Center"/>
+            <TableCell Name="Cell55"/>
+          </TableRow>
+        </TableObject>
+        <DataBand Name="Data1" Top="186.41" Width="718.2" Height="47.25" Guides="0,47.25" DataSource="Table">
+          <TableObject Name="Table5" Width="718.2" Height="47.25" Border.Lines="All">
+            <TableColumn Name="Column40" Width="37.8"/>
+            <TableColumn Name="Column41" Width="179.55"/>
+            <TableColumn Name="Column43" Width="387.45"/>
+            <TableColumn Name="Column51" Width="113.4"/>
+            <TableRow Name="Row3" Height="47.25">
+              <TableCell Name="Cell40" Text="[Table.PROFIL]" VertAlign="Center" ColSpan="2"/>
+              <TableCell Name="Cell41" Border.Lines="All" VertAlign="Center"/>
+              <TableCell Name="Cell43" Border.Lines="All" Text="[Table.CODE_USL]" VertAlign="Center"/>
+              <TableCell Name="Cell51" Text="[Table.Column1]" VertAlign="Center"/>
+            </TableRow>
+          </TableObject>
+          <Sort>
+            <Sort Expression="[Table.PROFIL]"/>
+            <Sort Expression="[Table.CODE_USL]"/>
+          </Sort>
+        </DataBand>
+      </GroupHeaderBand>
+    </GroupHeaderBand>
+    <ReportSummaryBand Name="ReportSummary1" Top="235.94" Width="718.2" Height="198.45" Guides="28.35,47.25,66.15,85.05,113.4,198.45">
+      <TextObject Name="Text7" Left="47.25" Top="28.35" Width="670.95" Height="18.9" Text="Исполнитель				"/>
+      <TextObject Name="Text5" Left="47.25" Top="66.15" Width="661.5" Height="18.9" Text="Руководитель страховой медицинской организации				"/>
+      <TextObject Name="Text6" Left="47.25" Top="113.4" Width="614.25" Height="85.05" Text="Должность, подпись руководителя медицинской организации, ознакомившегося с Актом&#13;&#10;&#13;&#10;______________________________________	&quot;_____&quot; _________________ 20___г.&#13;&#10;&#13;&#10;&#13;&#10;"/>
+    </ReportSummaryBand>
+  </ReportPage>
+</Report>

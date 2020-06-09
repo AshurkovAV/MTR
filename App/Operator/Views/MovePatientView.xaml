@@ -1,0 +1,74 @@
+﻿<UserControl
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol" 
+        xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors" 
+        x:Class="Medical.AppLayer.Operator.Views.MovePatientView" 
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        mc:Ignorable="d" 
+        d:DesignHeight="600" 
+        d:DesignWidth="800" 
+        Height="auto"
+    >
+    <Grid Background="White">
+
+        <dxlc:LayoutControl View="Tabs">
+            <dxlc:LayoutGroup Orientation="Vertical">
+                <dxlc:LayoutItem Label="ID пациента">
+                    <dxe:TextEdit EditValue="{Binding PatientId, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True"/>
+                </dxlc:LayoutItem>
+                <dxlc:LayoutItem Label="ФИО пациента">
+                    <dxe:TextEdit EditValue="{Binding PatientFullName, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True"/>
+                </dxlc:LayoutItem>
+                <dxlc:LayoutItem/>
+                <dxlc:LayoutItem Height="24" Label="Территория">
+                    <Separator/>
+                </dxlc:LayoutItem>
+                <dxlc:LayoutItem>
+                    <dxe:ComboBoxEdit x:Name="TerritoryComboBox" DisplayMember="DisplayName" ValueMember="Value" EditValue="{Binding SelectedTerritory, UpdateSourceTrigger=PropertyChanged}" AutoComplete="True" NullText="Выберите территорию"/>
+                </dxlc:LayoutItem>
+                <dxlc:LayoutItem>
+                    <dxe:ComboBoxEdit DisplayMember="DisplayField" ValueMember="ValueField" ItemsSource="{Binding InsuranceCollection}" EditValue="{Binding SelectedInsurance, UpdateSourceTrigger=PropertyChanged}" AutoComplete="True" NullText="Выберите СМО" AllowNullInput="True" ShowCustomItems="True"/>
+                </dxlc:LayoutItem>
+                <dxlc:LayoutItem Height="24" Label="Счет">
+                    <Separator/>
+                </dxlc:LayoutItem>
+                <dxlc:LayoutItem Label="Текущий счет">
+                    <TextBlock TextWrapping="Wrap" Text="{Binding ParentAccountShortInfo, Mode=OneWay}" ToolTip="{Binding ParentAccountInfo, Mode=OneWay}"/>
+                </dxlc:LayoutItem>
+                <dxlc:LayoutItem Label="Действия">
+                    <dxe:ButtonEdit AllowDefaultButton="False" ShowText="False" HorizontalAlignment="Right">
+                        <dxe:ButtonInfo GlyphKind="Search" ToolTip="Поиск счёта" Command="{Binding SearchAccountCommand}"/>
+                        <dxe:ButtonInfo GlyphKind="Regular" ToolTip="Выбор счета" Command="{Binding SelectAccountCommand}"/>
+                        <dxe:ButtonInfo GlyphKind="Plus" ToolTip="Добавить счет" Command="{Binding CreateAccountCommand}"/>
+                    </dxe:ButtonEdit>
+                </dxlc:LayoutItem>
+                <dxlc:LayoutItem Label="Новый счет">
+                    <TextBlock TextWrapping="Wrap" Text="{Binding AccountShortInfo, Mode=OneWay}" ToolTip="{Binding AccountInfo, Mode=OneWay}"/>
+                </dxlc:LayoutItem>
+                <dxlc:LayoutItem Height="24" VerticalAlignment="Bottom">
+                    <Separator VerticalAlignment="Bottom"/>
+                </dxlc:LayoutItem>
+                <dxlc:LayoutItem Height="24" VerticalAlignment="Bottom">
+                    <Button Content="Перенести" Height="23" Width="112" Command="{Binding MoveCommand}" VerticalAlignment="Bottom" HorizontalAlignment="Right" />
+                </dxlc:LayoutItem>
+            </dxlc:LayoutGroup>
+            <dxlc:LayoutGroup Orientation="Vertical" Visibility="{Binding IsSelectAccount}">
+                <dxlc:LayoutItem Height="24" Label="Список счетов">
+                    <Separator/>
+                </dxlc:LayoutItem>
+                <dxlc:LayoutItem Height="auto" VerticalAlignment="Stretch" >
+                    <dxe:ListBoxEdit ItemsSource="{Binding AccountCollection}" SelectionMode="Single" EditValue="{Binding SelectedAccount, UpdateSourceTrigger=PropertyChanged}" DisplayMember="Description" ValueMember="Id">
+                        <dxe:ListBoxEdit.StyleSettings >
+                            <dxe:RadioListBoxEditStyleSettings />
+                        </dxe:ListBoxEdit.StyleSettings>
+                    </dxe:ListBoxEdit>
+                </dxlc:LayoutItem>
+            </dxlc:LayoutGroup>
+            
+
+        </dxlc:LayoutControl>
+
+    </Grid>
+</UserControl>

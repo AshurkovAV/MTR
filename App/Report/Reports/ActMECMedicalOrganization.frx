@@ -1,0 +1,467 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report ScriptLanguage="CSharp" DoublePass="true" ReportInfo.Created="06/20/2009 22:40:42" ReportInfo.Modified="03/12/2015 16:17:26" ReportInfo.CreatorVersion="2013.3.9.0">
+  <ScriptText>using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Windows.Forms;
+using System.Drawing;
+using System.Data;
+using FastReport;
+using FastReport.Data;
+using FastReport.Dialog;
+using FastReport.Barcode;
+using FastReport.Table;
+using FastReport.Utils;
+
+namespace FastReport
+{
+  public class ReportScript
+  {
+
+    
+  }
+}
+</ScriptText>
+  <Dictionary>
+    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqG//0Fe2wgYkvG6Z7XawIlzslDDA9kR66Hw0xeolcLPybITY83GdKPsiVgnaTRAh0NIE2S5UQyledm9FkFcQohhz4qS/xhV6C+V2OJ7hm7SNeJY4UR1pX9XjT7Mz67dxTfEYvtpnoducz5iKhSp356VhoPr9vW9FVIIHB2pv/AhMDB1LChr6+ebBfN0Im0HcmqniYrUpxYej2xdpoZ/HdXDg0Nf+VBXIbEO5y8m+f+Z1EmwHLu74VUQeEeu81VddNYH9dvThmKGRw4b5IohpYLQ==">
+      <TableDataSource Name="EventShortView" DataType="System.Int32" PropName="Table4" Enabled="true" TableName="EventShortView" SelectCommand="SELECT DISTINCT E.MedicalExternalId,E.MedicalAccountId, E.EventId, &#13;&#10;(case when E.InsuranceDocNumber IS null OR ltrim(E.InsuranceDocNumber) = '' then E.INP else E.InsuranceDocSeries+E.InsuranceDocNumber end) as INP, &#13;&#10;E.AssistanceConditions, E.AssistanceConditionsName, E.Diagnosis, E.MoPrice, E.AcceptPrice, E.EventBegin, E.EventEnd, &#13;&#10;E.MoPaymentStatus, E.EventComments, E.EventType, E.RegionalAttribute,E.EventTypeName, E.RegionalAttributeName,(SELECT MedicalEventId =&#13;&#10;(&#13;&#10;    SELECT CONVERT(nvarchar(30),F1.Osn) + ','	&#13;&#10;        FROM &quot;FactMEC&quot;&#13;&#10;				INNER JOIN &quot;F014&quot; F1 ON ReasonId = F1.Id &#13;&#10;				WHERE MedicalEventId =  E.EventId AND (IsLock &lt;&gt; 1 OR IsLock IS NULL) AND Source IN (1,3)&#13;&#10;        ORDER BY ReasonId&#13;&#10;        FOR XML PATH(''), TYPE&#13;&#10;).value('.[1]', 'NVARCHAR(MAX)')) as MecRefusals,&#13;&#10;(SELECT MedicalEventId =&#13;&#10;(&#13;&#10;    SELECT CONVERT(nvarchar(1000),Comments) + ' '	&#13;&#10;        FROM &quot;FactMEC&quot;&#13;&#10;				WHERE MedicalEventId =  E.EventId AND (IsLock &lt;&gt; 1 OR IsLock IS NULL)AND Source IN (1,3)&#13;&#10;        ORDER BY ReasonId&#13;&#10;        FOR XML PATH(''), TYPE&#13;&#10;).value('.[1]', 'NVARCHAR(MAX)')) as MecRefusalsComment,&#13;&#10;(SELECT MIN(Price) FROM (VALUES ((SELECT MedicalEventId =&#13;&#10;	(&#13;&#10;			SELECT SUM(Amount)&#13;&#10;					FROM &quot;FactMEC&quot;&#13;&#10;					WHERE MedicalEventId =  E.EventId AND (IsLock &lt;&gt; 1 OR IsLock IS NULL)AND Source IN (1,3)&#13;&#10;	))),(E.MoPrice)) AS AllPrices(Price))&#13;&#10; as MecRefusalsPrice&#13;&#10;FROM &quot;EventShortView&quot; E INNER JOIN &quot;FactMEC&quot; F ON E.EventId = F.MedicalEventId &#13;&#10;&#13;&#10;WHERE E.MedicalAccountId=@MedicalAccountParam AND (SELECT Count(MecId) FROM &quot;FactMec&quot; Where MedicalEventId=E.EventId AND  (IsLock &lt;&gt; 1 OR IsLock IS NULL) ) &gt; 0 AND Source IN (1,3) AND&#13;&#10;(SELECT Count(ExternalRefuseId) FROM &quot;FactExternalRefuse&quot; Where MedicalEventId=E.EventId ) = 0&#13;&#10;&#13;&#10;&#13;&#10;">
+        <Column Name="EventId" DataType="System.Int32"/>
+        <Column Name="INP" DataType="System.String"/>
+        <Column Name="AssistanceConditions" DataType="System.Decimal"/>
+        <Column Name="Diagnosis" DataType="System.String"/>
+        <Column Name="AcceptPrice" DataType="System.Decimal"/>
+        <Column Name="EventBegin" DataType="System.DateTime"/>
+        <Column Name="EventEnd" DataType="System.DateTime"/>
+        <Column Name="EventComments" DataType="System.String"/>
+        <Column Name="MecRefusals" DataType="System.String"/>
+        <Column Name="MedicalExternalId" DataType="System.Int32"/>
+        <Column Name="MedicalAccountId" DataType="System.Int32"/>
+        <Column Name="AssistanceConditionsName" DataType="System.String"/>
+        <Column Name="MoPrice" DataType="System.Decimal"/>
+        <Column Name="MoPaymentStatus" DataType="System.Int32"/>
+        <Column Name="EventType" DataType="System.Int32"/>
+        <Column Name="RegionalAttribute" DataType="System.Int32"/>
+        <Column Name="EventTypeName" DataType="System.String"/>
+        <Column Name="RegionalAttributeName" DataType="System.String"/>
+        <Column Name="MecRefusalsComment" DataType="System.String"/>
+        <Column Name="MecRefusalsPrice" DataType="System.Decimal"/>
+        <CommandParameter Name="MedicalAccountParam" DataType="8" Expression="[MedicalAccountId]" DefaultValue="1038"/>
+      </TableDataSource>
+      <TableDataSource Name="FactPreparedReport" DataType="System.Int32" Enabled="true" TableName="FactPreparedReport" SelectCommand="SELECT F.ExternalId, F.Scope, F.Number, F.ReportId, F.Date&#13;&#10;FROM &quot;FactPreparedReport&quot; F WHERE F.ExternalId=@MedicalAccountIdParam AND  F.Scope=@ScopeParam AND F.ReportId=@ReportIdParam&#13;&#10;">
+        <Column Name="ExternalId" DataType="System.Int32"/>
+        <Column Name="Scope" DataType="System.Int32"/>
+        <Column Name="ReportId" DataType="System.Int32"/>
+        <Column Name="Date" DataType="System.DateTime"/>
+        <Column Name="Number" DataType="System.Int32"/>
+        <CommandParameter Name="MedicalAccountIdParam" DataType="8" Expression="[MedicalAccountId]" DefaultValue="1038"/>
+        <CommandParameter Name="ScopeParam" DataType="8" Expression="[Scope]" DefaultValue="1"/>
+        <CommandParameter Name="ReportIdParam" DataType="8" Expression="[ReportId]" DefaultValue="20"/>
+      </TableDataSource>
+      <TableDataSource Name="MedicalAccountView" DataType="System.Int32" Enabled="true" TableName="MedicalAccountView" SelectCommand="SELECT M.AccountNumber, M.AccountDate, M.ShortNameMo&#13;&#10;FROM &quot;MedicalAccountView&quot; M&#13;&#10;WHERE M.MedicalAccountId=@MedicalAccountIdParam">
+        <Column Name="AccountNumber" DataType="System.String"/>
+        <Column Name="AccountDate" DataType="System.DateTime"/>
+        <Column Name="ShortNameMo" DataType="System.String"/>
+        <CommandParameter Name="MedicalAccountIdParam" DataType="8" Expression="[MedicalAccountId]" DefaultValue="1038"/>
+      </TableDataSource>
+      <TableDataSource Name="TableLocalUser" Alias="localUser" DataType="System.Int32" PropName="Table" Enabled="true" TableName="localUser" SelectCommand="SELECT L.UserID, L.LastName, L.FirstName, L.Patronymic, L.Position, L.Phone, L.ConfNumber&#13;&#10;FROM &quot;localUser&quot; L&#13;&#10;WHERE L.UserID=@UserID&#13;&#10;">
+        <Column Name="UserID" DataType="System.Int32"/>
+        <Column Name="LastName" DataType="System.String"/>
+        <Column Name="FirstName" DataType="System.String"/>
+        <Column Name="Patronymic" DataType="System.String"/>
+        <Column Name="Position" DataType="System.String"/>
+        <Column Name="Phone" DataType="System.String"/>
+        <Column Name="ConfNumber" DataType="System.String"/>
+        <CommandParameter Name="UserID" DataType="8" Expression="[UserId]" DefaultValue="1"/>
+      </TableDataSource>
+      <TableDataSource Name="Table" Alias="MecByReason" DataType="System.Int32" Enabled="true" SelectCommand="SELECT F1.Osn, F1.Comments, SUM(F.Amount) as Total&#13;&#10;FROM &quot;EventShortView&quot; E &#13;&#10;INNER JOIN &quot;FactMEC&quot; F ON E.EventId = F.MedicalEventId AND (IsLock &lt;&gt; 1 OR IsLock IS NULL) AND Source IN (1,3)&#13;&#10;INNER JOIN &quot;F014&quot; F1 ON ReasonId = F1.Id &#13;&#10;WHERE E.MedicalAccountId=@MedicalAccountIdParam&#13;&#10;GROUP BY F1.Osn, F1.Comments&#13;&#10;ORDER BY F1.Osn">
+        <Column Name="Osn" DataType="System.String"/>
+        <Column Name="Comments" DataType="System.String"/>
+        <Column Name="Total" DataType="System.Decimal"/>
+        <CommandParameter Name="MedicalAccountIdParam" DataType="8" Expression="[MedicalAccountId]" DefaultValue="1038"/>
+      </TableDataSource>
+      <TableDataSource Name="Table3" Alias="EventByProfile" DataType="System.Int32" Enabled="true" SelectCommand="SELECT &#13;&#10;u.PRNAME, EventType ,EventTypeName , RegionalAttribute, RegionalAttributeName, AssistanceConditions, AssistanceConditionsName,&#13;&#10;COUNT(*) kolvo,&#13;&#10;sum(isnull(MoPrice,0)) price,&#13;&#10;SUM(case when refuseprice = 0 then 0 else 1 end) as refuse,&#13;&#10;SUM(refuseprice) as refuseprice,&#13;&#10;SUM(case when refuseprice = 0 then 1 else 0 end) as accept,&#13;&#10;SUM(isnull(AcceptPrice,Price)) as AcceptPrice&#13;&#10;from &#13;&#10;(select e.*, V002.PRNAME, &#13;&#10;(SELECT MIN(Price) FROM (VALUES&#13;&#10;(&#13;&#10;isnull((SELECT MedicalEventId =&#13;&#10;	(&#13;&#10;			SELECT SUM(Amount)&#13;&#10;					FROM &quot;FactMEC&quot;&#13;&#10;					WHERE MedicalEventId =  E.EventId AND (IsLock &lt;&gt; 1 OR IsLock IS NULL)AND Source IN (1,3)&#13;&#10;	)),0)&#13;&#10;&#13;&#10;) ,(E.MoPrice)) AS AllPrices(Price)) refuseprice&#13;&#10;&#13;&#10;FROM &quot;EventShortView&quot; E &#13;&#10;  inner join v002 on v002.IDPR = e.Profile and e.MedicalAccountId = @MedicalAccountIdParam) u&#13;&#10;group by PRNAME, EventType ,EventTypeName , RegionalAttribute, RegionalAttributeName, AssistanceConditions, AssistanceConditionsName&#13;&#10;">
+        <Column Name="PRNAME" DataType="System.String"/>
+        <Column Name="kolvo" DataType="System.Int32"/>
+        <Column Name="price" DataType="System.Decimal"/>
+        <Column Name="refuse" DataType="System.Int32"/>
+        <Column Name="refuseprice" DataType="System.Decimal"/>
+        <Column Name="accept" DataType="System.Int32"/>
+        <Column Name="AcceptPrice" DataType="System.Decimal"/>
+        <Column Name="EventType" DataType="System.Int32"/>
+        <Column Name="EventTypeName" DataType="System.String"/>
+        <Column Name="RegionalAttribute" DataType="System.Int32"/>
+        <Column Name="RegionalAttributeName" DataType="System.String"/>
+        <Column Name="AssistanceConditions" DataType="System.Decimal"/>
+        <Column Name="AssistanceConditionsName" DataType="System.String"/>
+        <CommandParameter Name="MedicalAccountIdParam" DataType="8" Expression="[MedicalAccountId]" DefaultValue="1038"/>
+      </TableDataSource>
+    </MsSqlDataConnection>
+    <Parameter Name="MedicalAccountId" DataType="System.Int32"/>
+    <Parameter Name="Scope" DataType="System.Int32"/>
+    <Parameter Name="ReportId" DataType="System.Int32"/>
+    <Parameter Name="EmployeeId" DataType="System.Int32"/>
+    <Parameter Name="UserId" DataType="System.Int32"/>
+    <Total Name="TotalPrice" Expression="[EventByProfile.AcceptPrice]" Evaluator="Data3"/>
+    <Total Name="TotalRefusal" Expression="[EventShortView.MecRefusalsPrice]" Evaluator="Data1" ResetAfterPrint="false"/>
+    <Total Name="TotalPosition" TotalType="Count" Evaluator="Data2"/>
+    <Total Name="TotalCount" TotalType="Count" Evaluator="Data2"/>
+    <Total Name="TotalRegionalAttribute" Expression="[EventShortView.MecRefusalsPrice]" Evaluator="Data1" PrintOn="GroupFooter2"/>
+    <Total Name="TotalEventType" Expression="[EventShortView.MecRefusalsPrice]" Evaluator="Data1" PrintOn="GroupFooter3"/>
+    <Total Name="TotalAccountConditions" Expression="[EventShortView.MecRefusalsPrice]" Evaluator="Data1" PrintOn="GroupFooter1"/>
+    <Total Name="TotalRegionAttributeQ" Expression="[EventByProfile.kolvo]" Evaluator="Data3" PrintOn="GroupFooter5"/>
+    <Total Name="TotalRegionAttributeS" Expression="[EventByProfile.price]" Evaluator="Data3" PrintOn="GroupFooter5"/>
+    <Total Name="TotalRegionAttributeRefusalQ" Expression="[EventByProfile.refuse]" Evaluator="Data3" PrintOn="GroupFooter5"/>
+    <Total Name="TotalRegionAttributeRefusalS" Expression="[EventByProfile.refuseprice]" Evaluator="Data3" PrintOn="GroupFooter5"/>
+    <Total Name="TotalRegionAttributeAcceptQ" Expression="[EventByProfile.accept]" Evaluator="Data3" PrintOn="GroupFooter5"/>
+    <Total Name="TotalRegionAttributeAcceptS" Expression="[EventByProfile.AcceptPrice]" Evaluator="Data3" PrintOn="GroupFooter5"/>
+    <Total Name="TotalEventTypeS" Expression="[EventByProfile.price]" Evaluator="Data3" PrintOn="GroupFooter6"/>
+    <Total Name="TotalEventTypeQ" Expression="[EventByProfile.kolvo]" Evaluator="Data3" PrintOn="GroupFooter6"/>
+    <Total Name="TotalEventTypeRefusalQ" Expression="[EventByProfile.refuse]" Evaluator="Data3" PrintOn="GroupFooter6"/>
+    <Total Name="TotalEventTypeRefusalS" Expression="[EventByProfile.refuseprice]" Evaluator="Data3" PrintOn="GroupFooter6"/>
+    <Total Name="TotalEventTypeAcceptQ" Expression="[EventByProfile.accept]" Evaluator="Data3" PrintOn="GroupFooter6"/>
+    <Total Name="TotalEventTypeAcceptS" Expression="[EventByProfile.AcceptPrice]" Evaluator="Data3" PrintOn="GroupFooter6"/>
+    <Total Name="TotalAssistanceConditionsQ" Expression="[EventByProfile.kolvo]" Evaluator="Data3" PrintOn="GroupFooter4"/>
+    <Total Name="TotalAssistanceConditionsS" Expression="[EventByProfile.price]" Evaluator="Data3" PrintOn="GroupFooter4"/>
+    <Total Name="TotalAssistanceConditionsRefusalQ" Expression="[EventByProfile.refuse]" Evaluator="Data3" PrintOn="GroupFooter4"/>
+    <Total Name="TotalAssistanceConditionsRefusalS" Expression="[EventByProfile.refuseprice]" Evaluator="Data3" PrintOn="GroupFooter4"/>
+    <Total Name="TotalAssistanceConditionsAcceptS" Expression="[EventByProfile.AcceptPrice]" Evaluator="Data3" PrintOn="GroupFooter4"/>
+    <Total Name="TotalAssistanceConditionsAcceptQ" Expression="[EventByProfile.accept]" Evaluator="Data3" PrintOn="GroupFooter4"/>
+  </Dictionary>
+  <ReportPage Name="Page1" RawPaperSize="9">
+    <ReportTitleBand Name="ReportTitle1" Width="718.2" Height="183.33">
+      <TextObject Name="Text19" Left="28.35" Top="28.35" Width="661.5" Height="103.95" Text="Акт № [FactPreparedReport.Number] от [FactPreparedReport.Date]&#13;&#10;медико-экономического контроля счета № [MedicalAccountView.AccountNumber] от [MedicalAccountView.AccountDate]&#13;&#10;за оказанную медицинскую помощь в медицинской организации:&#13;&#10;[MedicalAccountView.ShortNameMo]&#13;&#10;" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 12pt">
+        <Formats>
+          <GeneralFormat/>
+          <DateFormat/>
+          <DateFormat Format="MMMM yyyy"/>
+          <DateFormat/>
+          <GeneralFormat/>
+        </Formats>
+      </TextObject>
+      <TextObject Name="Text3" Top="132.3" Width="718.5" Height="51.03" Text="Перечень отклоненных позиций к оплате в счете (реестре) с разбивкой по:&#13;&#10;         - коду специалиста медицинской организации&#13;&#10;         - коду профиля отделения (для медицинской организации, оказывающей стационарную помощь, - койки)&#13;&#10;" VertAlign="Center" Font="Times New Roman, 10pt"/>
+    </ReportTitleBand>
+    <GroupHeaderBand Name="GroupHeader1" Top="187.33" Width="718.2" Height="18.9" Condition="[EventShortView.AssistanceConditions]">
+      <TextObject Name="Text1" Left="179.55" Width="396.9" Height="18.9" Text="[EventShortView.AssistanceConditionsName]" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 12pt, style=Bold"/>
+      <GroupHeaderBand Name="GroupHeader3" Top="210.23" Width="718.2" Height="18.9" Condition="[EventShortView.EventType]">
+        <TextObject Name="Text2" Width="718.2" Height="18.9" Border.Lines="All" Text="[IIf(IsNull(&quot;EventShortView.EventType&quot;),'-',[EventShortView.EventTypeName])]" VertAlign="Center" Font="Times New Roman, 12pt, style=Bold"/>
+        <GroupHeaderBand Name="GroupHeader2" Top="233.13" Width="718.2" Height="18.9" Condition="[EventShortView.RegionalAttribute]">
+          <TextObject Name="Text20" Width="718.2" Height="18.9" Border.Lines="All" Text="[IIf(IsNull(&quot;EventShortView.RegionalAttribute&quot;),'-',[EventShortView.RegionalAttributeName])]" VertAlign="Center" Font="Times New Roman, 12pt, style=Bold"/>
+          <DataBand Name="Data1" Top="314.84" Width="718.2" Height="17.01" CanGrow="true" CanShrink="true" DataSource="EventShortView" KeepTogether="true">
+            <TableObject Name="Table1" Width="718.11" Height="17.01" Border.Lines="All" GrowToBottom="true">
+              <TableColumn Name="Column41" Width="46.75"/>
+              <TableColumn Name="Column42" Width="138.28"/>
+              <TableColumn Name="Column43" Width="64.88"/>
+              <TableColumn Name="Column44" Width="61.66"/>
+              <TableColumn Name="Column45" Width="68.5"/>
+              <TableColumn Name="Column46" Width="91.9"/>
+              <TableColumn Name="Column47" Width="170.57"/>
+              <TableColumn Name="Column48" Width="75.57"/>
+              <TableRow Name="Row5" Height="17.01" AutoSize="true">
+                <TableCell Name="Cell113" Border.Lines="All" Text="[EventShortView.MedicalExternalId]" HorzAlign="Right" Font="Times New Roman, 8pt"/>
+                <TableCell Name="Cell114" Border.Lines="All" Text="[EventShortView.INP]" Font="Times New Roman, 8pt"/>
+                <TableCell Name="Cell115" Border.Lines="All" Text="[EventShortView.Diagnosis]" Font="Times New Roman, 8pt"/>
+                <TableCell Name="Cell116" Border.Lines="All" Text="[EventShortView.EventBegin]" Format="Date" Format.Format="d" HorzAlign="Center" Font="Times New Roman, 8pt"/>
+                <TableCell Name="Cell117" Border.Lines="All" Text="[EventShortView.EventEnd]" Format="Date" Format.Format="d" HorzAlign="Center" Font="Times New Roman, 8pt"/>
+                <TableCell Name="Cell118" Border.Lines="All" Text="[EventShortView.MecRefusals]" Font="Times New Roman, 8pt"/>
+                <TableCell Name="Cell119" Border.Lines="Right" Text="[EventShortView.MecRefusalsComment]" Font="Times New Roman, 8pt"/>
+                <TableCell Name="Cell120" Text="[EventShortView.MecRefusalsPrice]" Format="Currency" Format.UseLocale="true" HorzAlign="Right" Font="Times New Roman, 8pt"/>
+              </TableRow>
+            </TableObject>
+            <DataHeaderBand Name="DataHeader1" Top="256.03" Width="718.2" Height="54.81">
+              <TableObject Name="Table2" Width="718.2" Height="54.81" Border.Lines="All">
+                <TableColumn Name="Column18" Width="47.25"/>
+                <TableColumn Name="Column19" Width="137.97"/>
+                <TableColumn Name="Column20" Width="64.26"/>
+                <TableColumn Name="Column21" Width="62.37"/>
+                <TableColumn Name="Column22" Width="68.04"/>
+                <TableColumn Name="Column36" Width="92.61"/>
+                <TableColumn Name="Column39" Width="170.1"/>
+                <TableColumn Name="Column40" Width="75.6"/>
+                <TableRow Name="Row4" Height="54.81">
+                  <TableCell Name="Cell64" Border.Lines="All" Text="№ позиции счета" Font="Times New Roman, 8pt"/>
+                  <TableCell Name="Cell65" Border.Lines="All" Text="Номер полиса ОМС&#13;&#10;" Font="Times New Roman, 8pt"/>
+                  <TableCell Name="Cell66" Border.Lines="All" Text="Код &#13;&#10;МКБ-10&#13;&#10;" Font="Times New Roman, 8pt"/>
+                  <TableCell Name="Cell67" Border.Lines="All" Text="Дата начала лечения &#13;&#10;&#13;&#10;" Font="Times New Roman, 8pt"/>
+                  <TableCell Name="Cell68" Border.Lines="All" Text="Дата окончания лечения&#13;&#10;" Font="Times New Roman, 8pt"/>
+                  <TableCell Name="Cell107" Border.Lines="All" Text="Код дефекта / нарушения" Font="Times New Roman, 8pt"/>
+                  <TableCell Name="Cell111" Border.Lines="Right" Text="Расшифровка кода дефекта / нарушения" Font="Times New Roman, 8pt"/>
+                  <TableCell Name="Cell112" Text="Сумма неоплаты (руб)" Font="Times New Roman, 8pt"/>
+                </TableRow>
+              </TableObject>
+            </DataHeaderBand>
+          </DataBand>
+          <GroupFooterBand Name="GroupFooter2" Top="335.85" Width="718.2" Height="17.01" CanGrow="true" CanShrink="true">
+            <TableObject Name="Table1" Width="718.11" Height="17.01" Border.Lines="All" GrowToBottom="true">
+              <TableColumn Name="Column49" Width="46.75"/>
+              <TableColumn Name="Column50" Width="138.28"/>
+              <TableColumn Name="Column51" Width="64.88"/>
+              <TableColumn Name="Column52" Width="61.66"/>
+              <TableColumn Name="Column53" Width="68.5"/>
+              <TableColumn Name="Column54" Width="91.9"/>
+              <TableColumn Name="Column55" Width="170.57"/>
+              <TableColumn Name="Column56" Width="75.57"/>
+              <TableRow Name="Row6" Height="17.01" AutoSize="true">
+                <TableCell Name="Cell121" Border.Lines="Left, Right, Bottom" Text="Итого [IIf(IsNull(&quot;EventShortView.RegionalAttribute&quot;),'-',[EventShortView.RegionalAttributeName])]" HorzAlign="Right" Font="Times New Roman, 8pt, style=Bold" ColSpan="7"/>
+                <TableCell Name="Cell122" Border.Lines="All" Font="Times New Roman, 8pt"/>
+                <TableCell Name="Cell123" Border.Lines="All" Font="Times New Roman, 8pt"/>
+                <TableCell Name="Cell124" Border.Lines="All" Format="Date" Format.Format="d" Font="Times New Roman, 8pt"/>
+                <TableCell Name="Cell125" Border.Lines="All" Format="Date" Format.Format="d" Font="Times New Roman, 8pt"/>
+                <TableCell Name="Cell126" Border.Lines="All" Font="Times New Roman, 8pt"/>
+                <TableCell Name="Cell127" Border.Lines="Right" Font="Times New Roman, 8pt"/>
+                <TableCell Name="Cell128" Text="[TotalRegionalAttribute]" Format="Currency" Format.UseLocale="true" HorzAlign="Right" Font="Times New Roman, 8pt, style=Bold"/>
+              </TableRow>
+            </TableObject>
+          </GroupFooterBand>
+        </GroupHeaderBand>
+        <GroupFooterBand Name="GroupFooter3" Top="356.86" Width="718.2" Height="17.01" CanGrow="true" CanShrink="true">
+          <TableObject Name="Table1" Width="718.11" Height="17.01" Border.Lines="Left, Right, Bottom" GrowToBottom="true">
+            <TableColumn Name="Column57" Width="46.75"/>
+            <TableColumn Name="Column58" Width="138.28"/>
+            <TableColumn Name="Column59" Width="64.88"/>
+            <TableColumn Name="Column60" Width="61.66"/>
+            <TableColumn Name="Column61" Width="68.5"/>
+            <TableColumn Name="Column62" Width="91.9"/>
+            <TableColumn Name="Column63" Width="170.57"/>
+            <TableColumn Name="Column64" Width="75.57"/>
+            <TableRow Name="Row7" Height="17.01" AutoSize="true">
+              <TableCell Name="Cell129" Border.Lines="All" Text="Итого [IIf(IsNull(&quot;EventShortView.EventType&quot;),'-',[EventShortView.EventTypeName])]" HorzAlign="Right" Font="Times New Roman, 8pt, style=Bold" ColSpan="7"/>
+              <TableCell Name="Cell130" Border.Lines="All" Font="Times New Roman, 8pt"/>
+              <TableCell Name="Cell131" Border.Lines="All" Font="Times New Roman, 8pt"/>
+              <TableCell Name="Cell132" Border.Lines="All" Format="Date" Format.Format="d" Font="Times New Roman, 8pt"/>
+              <TableCell Name="Cell133" Border.Lines="All" Format="Date" Format.Format="d" Font="Times New Roman, 8pt"/>
+              <TableCell Name="Cell134" Border.Lines="All" Font="Times New Roman, 8pt"/>
+              <TableCell Name="Cell135" Border.Lines="Right" Font="Times New Roman, 8pt"/>
+              <TableCell Name="Cell136" Border.Lines="All" Text="[TotalEventType]" Format="Currency" Format.UseLocale="true" HorzAlign="Right" Font="Times New Roman, 8pt, style=Bold"/>
+            </TableRow>
+          </TableObject>
+        </GroupFooterBand>
+      </GroupHeaderBand>
+      <GroupFooterBand Name="GroupFooter1" Top="377.87" Width="718.2" Height="17.01" CanGrow="true" CanShrink="true">
+        <TableObject Name="Table1" Width="718.11" Height="17.01" Border.Lines="All" GrowToBottom="true">
+          <TableColumn Name="Column65" Width="46.75"/>
+          <TableColumn Name="Column66" Width="138.28"/>
+          <TableColumn Name="Column67" Width="64.88"/>
+          <TableColumn Name="Column68" Width="61.66"/>
+          <TableColumn Name="Column69" Width="68.5"/>
+          <TableColumn Name="Column70" Width="91.9"/>
+          <TableColumn Name="Column71" Width="170.57"/>
+          <TableColumn Name="Column72" Width="75.57"/>
+          <TableRow Name="Row8" Height="17.01" AutoSize="true">
+            <TableCell Name="Cell137" Border.Lines="Left, Right, Bottom" Text="Итого [EventShortView.AssistanceConditionsName]" HorzAlign="Right" Font="Times New Roman, 8pt, style=Bold" ColSpan="7"/>
+            <TableCell Name="Cell138" Border.Lines="All" Font="Times New Roman, 8pt"/>
+            <TableCell Name="Cell139" Border.Lines="All" Font="Times New Roman, 8pt"/>
+            <TableCell Name="Cell140" Border.Lines="All" Format="Date" Format.Format="d" Font="Times New Roman, 8pt"/>
+            <TableCell Name="Cell141" Border.Lines="All" Format="Date" Format.Format="d" Font="Times New Roman, 8pt"/>
+            <TableCell Name="Cell142" Border.Lines="All" Font="Times New Roman, 8pt"/>
+            <TableCell Name="Cell143" Border.Lines="Right" Font="Times New Roman, 8pt"/>
+            <TableCell Name="Cell144" Text="[TotalAccountConditions]" Format="Currency" Format.UseLocale="true" HorzAlign="Right" Font="Times New Roman, 8pt, style=Bold"/>
+          </TableRow>
+        </TableObject>
+      </GroupFooterBand>
+    </GroupHeaderBand>
+    <DataBand Name="Data2" Top="470.92" Width="718.2" Height="17.01" CanGrow="true" CanShrink="true" DataSource="Table" KeepTogether="true">
+      <TableObject Name="Table1" Width="718.2" Height="17.01" Border.Lines="All">
+        <TableColumn Name="Column81" Width="47.25"/>
+        <TableColumn Name="Column82" Width="137.97"/>
+        <TableColumn Name="Column83" Width="64.26"/>
+        <TableColumn Name="Column84" Width="62.37"/>
+        <TableColumn Name="Column85" Width="68.04"/>
+        <TableColumn Name="Column86" Width="92.61"/>
+        <TableColumn Name="Column87" Width="170.1"/>
+        <TableColumn Name="Column88" Width="75.6"/>
+        <TableRow Name="Row10" Height="17.01" AutoSize="true">
+          <TableCell Name="Cell153" Border.Lines="All" Font="Times New Roman, 8pt" ColSpan="5"/>
+          <TableCell Name="Cell154" Border.Lines="All" Font="Times New Roman, 8pt"/>
+          <TableCell Name="Cell155" Border.Lines="All" Font="Times New Roman, 8pt"/>
+          <TableCell Name="Cell156" Border.Lines="All" Font="Times New Roman, 8pt"/>
+          <TableCell Name="Cell157" Border.Lines="All" Font="Times New Roman, 8pt"/>
+          <TableCell Name="Cell158" Border.Lines="All" Text="[MecByReason.Osn]" Font="Times New Roman, 8pt"/>
+          <TableCell Name="Cell159" Border.Lines="Right" Text="[MecByReason.Comments]" Font="Times New Roman, 8pt"/>
+          <TableCell Name="Cell160" Text="[MecByReason.Total]" Format="Currency" Format.UseLocale="true" HorzAlign="Right" Font="Times New Roman, 8pt"/>
+        </TableRow>
+      </TableObject>
+      <DataHeaderBand Name="DataHeader2" Top="398.88" Width="718.2" Height="68.04" CanGrow="true" CanShrink="true">
+        <TableObject Name="Table1" Width="718.2" Height="68.04" Border.Lines="All">
+          <TableColumn Name="Column73" Width="47.25"/>
+          <TableColumn Name="Column74" Width="137.97"/>
+          <TableColumn Name="Column75" Width="64.26"/>
+          <TableColumn Name="Column76" Width="62.37"/>
+          <TableColumn Name="Column77" Width="68.04"/>
+          <TableColumn Name="Column78" Width="92.61"/>
+          <TableColumn Name="Column79" Width="170.1"/>
+          <TableColumn Name="Column80" Width="75.6"/>
+          <TableRow Name="Row9" Height="22.68">
+            <TableCell Name="Cell145" Border.Lines="All" Text="Итого по акту на сумму" Font="Times New Roman, 8pt, style=Bold" ColSpan="7"/>
+            <TableCell Name="Cell146" Border.Lines="All" Font="Times New Roman, 8pt"/>
+            <TableCell Name="Cell147" Border.Lines="All" Font="Times New Roman, 8pt"/>
+            <TableCell Name="Cell148" Border.Lines="All" Font="Times New Roman, 8pt"/>
+            <TableCell Name="Cell149" Border.Lines="All" Font="Times New Roman, 8pt"/>
+            <TableCell Name="Cell150" Border.Lines="All" Font="Times New Roman, 8pt"/>
+            <TableCell Name="Cell151" Border.Lines="Right" Font="Times New Roman, 8pt"/>
+            <TableCell Name="Cell152" Text="[TotalRefusal]" Format="Currency" Format.UseLocale="true" HorzAlign="Right" Font="Times New Roman, 8pt, style=Bold"/>
+          </TableRow>
+          <TableRow Name="Row19" Height="45.36">
+            <TableCell Name="Cell233" Border.Lines="All" Text="в т.ч. по коду" Font="Times New Roman, 8pt" ColSpan="5"/>
+            <TableCell Name="Cell234"/>
+            <TableCell Name="Cell235"/>
+            <TableCell Name="Cell236"/>
+            <TableCell Name="Cell237"/>
+            <TableCell Name="Cell238" Border.Lines="All" Text="Код дефекта / нарушения" Font="Times New Roman, 8pt"/>
+            <TableCell Name="Cell239" Border.Lines="All" Text="Расшифровка кода дефекта / нарушения" Font="Times New Roman, 8pt"/>
+            <TableCell Name="Cell240" Border.Lines="All" Text="Сумма неоплаты (руб)" Font="Times New Roman, 8pt"/>
+          </TableRow>
+        </TableObject>
+      </DataHeaderBand>
+      <DataFooterBand Name="DataFooter1" Top="491.93" Width="718.2" Height="18.9"/>
+    </DataBand>
+    <GroupHeaderBand Name="GroupHeader4" Top="514.83" Width="718.2" Height="18.9" Condition="[EventByProfile.AssistanceConditions]">
+      <TextObject Name="Text21" Left="173.88" Width="396.9" Height="18.9" Text="[EventByProfile.AssistanceConditionsName]" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 12pt, style=Bold"/>
+      <GroupHeaderBand Name="GroupHeader6" Top="537.73" Width="718.2" Height="18.9" Condition="[EventByProfile.EventType]">
+        <TextObject Name="Text22" Width="718.2" Height="18.9" Border.Lines="All" Text="[IIf(IsNull(&quot;EventByProfile.EventType&quot;),'-',[EventByProfile.EventTypeName])]" VertAlign="Center" Font="Times New Roman, 12pt, style=Bold"/>
+        <GroupHeaderBand Name="GroupHeader5" Top="560.63" Width="718.2" Height="18.9" Condition="[EventByProfile.RegionalAttribute]">
+          <TextObject Name="Text23" Width="718.2" Height="18.9" Border.Lines="All" Text="[IIf(IsNull(&quot;EventByProfile.RegionalAttribute&quot;),'-',[EventByProfile.RegionalAttributeName])]" VertAlign="Center" Font="Times New Roman, 12pt, style=Bold"/>
+          <DataBand Name="Data3" Top="625.33" Width="718.2" Height="18.9" CanGrow="true" CanShrink="true" DataSource="Table3">
+            <TableObject Name="Table4" Width="719.2" Height="18.9" Border.Lines="All">
+              <TableColumn Name="Column98" Width="141.75"/>
+              <TableColumn Name="Column99" Width="56.7"/>
+              <TableColumn Name="Column100" Width="93.61"/>
+              <TableColumn Name="Column101" Width="56.7"/>
+              <TableColumn Name="Column102" Width="90.72"/>
+              <TableColumn Name="Column103" Width="51.03"/>
+              <TableColumn Name="Column104" Width="86.94"/>
+              <TableColumn Name="Column105" Width="56.7"/>
+              <TableColumn Name="Column106" Width="85.05"/>
+              <TableRow Name="Row13" AutoSize="true">
+                <TableCell Name="Cell179" Border.Lines="All" Text="[EventByProfile.PRNAME]" Font="Times New Roman, 8pt"/>
+                <TableCell Name="Cell180" Border.Lines="All" Text="[EventByProfile.kolvo]" HorzAlign="Center" Font="Times New Roman, 8pt"/>
+                <TableCell Name="Cell181" Border.Lines="All" Text="[EventByProfile.price]" Format="Currency" Format.UseLocale="true" HorzAlign="Right" Font="Times New Roman, 8pt"/>
+                <TableCell Name="Cell182" Border.Lines="All" Text="[EventByProfile.refuse]" HorzAlign="Center" Font="Times New Roman, 8pt"/>
+                <TableCell Name="Cell183" Border.Lines="All" Text="[EventByProfile.refuseprice]" Format="Currency" Format.UseLocale="true" HorzAlign="Right" Font="Times New Roman, 8pt"/>
+                <TableCell Name="Cell184" Border.Lines="All" Text="[EventByProfile.accept]" HorzAlign="Center" Font="Times New Roman, 8pt"/>
+                <TableCell Name="Cell185" Border.Lines="Right" Text="[EventByProfile.AcceptPrice]" Format="Currency" Format.UseLocale="true" HorzAlign="Right" Font="Times New Roman, 8pt"/>
+                <TableCell Name="Cell186" Border.Lines="All" Text="[EventByProfile.accept]" HorzAlign="Center" Font="Times New Roman, 8pt"/>
+                <TableCell Name="Cell187" Text="[EventByProfile.AcceptPrice]" Format="Currency" Format.UseLocale="true" HorzAlign="Right" Font="Times New Roman, 8pt"/>
+              </TableRow>
+            </TableObject>
+            <DataHeaderBand Name="DataHeader3" Top="583.53" Width="718.2" Height="37.8">
+              <TableObject Name="Table4" Width="719.2" Height="37.8" Border.Lines="All">
+                <TableColumn Name="Column89" Width="141.75"/>
+                <TableColumn Name="Column90" Width="56.7"/>
+                <TableColumn Name="Column91" Width="93.61"/>
+                <TableColumn Name="Column92" Width="56.7"/>
+                <TableColumn Name="Column93" Width="90.72"/>
+                <TableColumn Name="Column94" Width="51.03"/>
+                <TableColumn Name="Column95" Width="86.94"/>
+                <TableColumn Name="Column96" Width="56.7"/>
+                <TableColumn Name="Column97" Width="85.05"/>
+                <TableRow Name="Row11">
+                  <TableCell Name="Cell161" Border.Lines="All" Text="Профиль отделения (койки) или специалиста" HorzAlign="Center" Font="Times New Roman, 8pt" RowSpan="2"/>
+                  <TableCell Name="Cell162" Border.Lines="All" Text="Предоставлено к оплате" HorzAlign="Center" Font="Times New Roman, 8pt" ColSpan="2"/>
+                  <TableCell Name="Cell163" Border.Lines="All" Font="Times New Roman, 8pt"/>
+                  <TableCell Name="Cell164" Border.Lines="All" Text="Отказано в оплате" HorzAlign="Center" Font="Times New Roman, 8pt" ColSpan="2"/>
+                  <TableCell Name="Cell165" Border.Lines="All" Font="Times New Roman, 8pt"/>
+                  <TableCell Name="Cell166" Border.Lines="All" Text="Принято к оплате" HorzAlign="Center" Font="Times New Roman, 8pt" ColSpan="2"/>
+                  <TableCell Name="Cell167" Border.Lines="Right" Font="Times New Roman, 8pt"/>
+                  <TableCell Name="Cell168" Border.Lines="Bottom" Text="Оплатить" HorzAlign="Center" Font="Times New Roman, 8pt" ColSpan="2"/>
+                  <TableCell Name="Cell169"/>
+                </TableRow>
+                <TableRow Name="Row12">
+                  <TableCell Name="Cell170" Border.Lines="Right"/>
+                  <TableCell Name="Cell171" Border.Lines="All" Text="Кол-во" HorzAlign="Center" Font="Times New Roman, 8pt"/>
+                  <TableCell Name="Cell172" Border.Lines="All" Text="Сумма" HorzAlign="Center" Font="Times New Roman, 8pt"/>
+                  <TableCell Name="Cell173" Border.Lines="All" Text="Кол-во" HorzAlign="Center" Font="Times New Roman, 8pt"/>
+                  <TableCell Name="Cell174" Border.Lines="All" Text="Сумма" HorzAlign="Center" Font="Times New Roman, 8pt"/>
+                  <TableCell Name="Cell175" Border.Lines="All" Text="Кол-во" HorzAlign="Center" Font="Times New Roman, 8pt"/>
+                  <TableCell Name="Cell176" Border.Lines="All" Text="Сумма" HorzAlign="Center" Font="Times New Roman, 8pt"/>
+                  <TableCell Name="Cell177" Border.Lines="All" Text="Кол-во" HorzAlign="Center" Font="Times New Roman, 8pt"/>
+                  <TableCell Name="Cell178" Border.Lines="All" Text="Сумма" HorzAlign="Center" Font="Times New Roman, 8pt"/>
+                </TableRow>
+              </TableObject>
+            </DataHeaderBand>
+          </DataBand>
+          <GroupFooterBand Name="GroupFooter5" Top="648.23" Width="718.2" Height="18.9" CanGrow="true" CanShrink="true">
+            <TableObject Name="Table4" Width="719.2" Height="18.9" Border.Lines="All">
+              <TableColumn Name="Column107" Width="141.75"/>
+              <TableColumn Name="Column108" Width="56.7"/>
+              <TableColumn Name="Column109" Width="93.61"/>
+              <TableColumn Name="Column110" Width="56.7"/>
+              <TableColumn Name="Column111" Width="90.72"/>
+              <TableColumn Name="Column112" Width="51.03"/>
+              <TableColumn Name="Column113" Width="86.94"/>
+              <TableColumn Name="Column114" Width="56.7"/>
+              <TableColumn Name="Column115" Width="85.05"/>
+              <TableRow Name="Row14" AutoSize="true">
+                <TableCell Name="Cell188" Border.Lines="All" Text="Итого [IIf(IsNull(&quot;EventByProfile.RegionalAttribute&quot;),'-',[EventByProfile.RegionalAttributeName])]:" Font="Times New Roman, 8pt, style=Bold"/>
+                <TableCell Name="Cell189" Border.Lines="All" Text="[TotalRegionAttributeQ]" HorzAlign="Center" Font="Times New Roman, 8pt, style=Bold"/>
+                <TableCell Name="Cell190" Border.Lines="All" Text="[TotalRegionAttributeS]" Format="Currency" Format.UseLocale="true" HorzAlign="Right" Font="Times New Roman, 8pt, style=Bold"/>
+                <TableCell Name="Cell191" Border.Lines="All" Text="[TotalRegionAttributeRefusalQ]" HorzAlign="Center" Font="Times New Roman, 8pt, style=Bold"/>
+                <TableCell Name="Cell192" Border.Lines="All" Text="[TotalRegionAttributeRefusalS]" Format="Currency" Format.UseLocale="true" HorzAlign="Right" Font="Times New Roman, 8pt, style=Bold"/>
+                <TableCell Name="Cell193" Border.Lines="All" Text="[TotalRegionAttributeAcceptQ]" HorzAlign="Center" Font="Times New Roman, 8pt, style=Bold"/>
+                <TableCell Name="Cell194" Border.Lines="Right" Text="[TotalRegionAttributeAcceptS]" Format="Currency" Format.UseLocale="true" HorzAlign="Right" Font="Times New Roman, 8pt, style=Bold"/>
+                <TableCell Name="Cell195" Border.Lines="All" Text="[TotalRegionAttributeAcceptQ]" HorzAlign="Center" Font="Times New Roman, 8pt, style=Bold"/>
+                <TableCell Name="Cell196" Text="[TotalRegionAttributeAcceptS]" Format="Currency" Format.UseLocale="true" HorzAlign="Right" Font="Times New Roman, 8pt, style=Bold"/>
+              </TableRow>
+            </TableObject>
+          </GroupFooterBand>
+        </GroupHeaderBand>
+        <GroupFooterBand Name="GroupFooter6" Top="671.13" Width="718.2" Height="18.9" CanGrow="true" CanShrink="true">
+          <TableObject Name="Table4" Width="719.2" Height="18.9" Border.Lines="All">
+            <TableColumn Name="Column134" Width="141.75"/>
+            <TableColumn Name="Column135" Width="56.7"/>
+            <TableColumn Name="Column136" Width="93.61"/>
+            <TableColumn Name="Column137" Width="56.7"/>
+            <TableColumn Name="Column138" Width="90.72"/>
+            <TableColumn Name="Column139" Width="51.03"/>
+            <TableColumn Name="Column140" Width="86.94"/>
+            <TableColumn Name="Column141" Width="56.7"/>
+            <TableColumn Name="Column142" Width="85.05"/>
+            <TableRow Name="Row17" AutoSize="true">
+              <TableCell Name="Cell215" Border.Lines="All" Text="Итого &#13;&#10;[IIf(IsNull(&quot;EventByProfile.EventType&quot;),'-',[EventByProfile.EventTypeName])]:" Font="Times New Roman, 8pt, style=Bold"/>
+              <TableCell Name="Cell216" Border.Lines="All" Text="[TotalEventTypeQ]" HorzAlign="Center" Font="Times New Roman, 8pt, style=Bold"/>
+              <TableCell Name="Cell217" Border.Lines="All" Text="[TotalEventTypeS]" Format="Currency" Format.UseLocale="true" HorzAlign="Right" Font="Times New Roman, 8pt, style=Bold"/>
+              <TableCell Name="Cell218" Border.Lines="All" Text="[TotalEventTypeRefusalQ]" HorzAlign="Center" Font="Times New Roman, 8pt, style=Bold"/>
+              <TableCell Name="Cell219" Border.Lines="All" Text="[TotalEventTypeRefusalS]" Format="Currency" Format.UseLocale="true" HorzAlign="Right" Font="Times New Roman, 8pt, style=Bold"/>
+              <TableCell Name="Cell220" Border.Lines="All" Text="[TotalEventTypeAcceptQ]" HorzAlign="Center" Font="Times New Roman, 8pt, style=Bold"/>
+              <TableCell Name="Cell221" Border.Lines="Right" Text="[TotalEventTypeAcceptS]" Format="Currency" Format.UseLocale="true" HorzAlign="Right" Font="Times New Roman, 8pt, style=Bold"/>
+              <TableCell Name="Cell222" Border.Lines="All" Text="[TotalEventTypeAcceptQ]" HorzAlign="Center" Font="Times New Roman, 8pt, style=Bold"/>
+              <TableCell Name="Cell223" Text="[TotalEventTypeAcceptS]" Format="Currency" Format.UseLocale="true" HorzAlign="Right" Font="Times New Roman, 8pt, style=Bold"/>
+            </TableRow>
+          </TableObject>
+        </GroupFooterBand>
+      </GroupHeaderBand>
+      <GroupFooterBand Name="GroupFooter4" Top="694.03" Width="718.2" Height="18.9" CanGrow="true">
+        <TableObject Name="Table4" Width="719.2" Height="18.9" Border.Lines="All">
+          <TableColumn Name="Column143" Width="141.75"/>
+          <TableColumn Name="Column144" Width="56.7"/>
+          <TableColumn Name="Column145" Width="93.61"/>
+          <TableColumn Name="Column146" Width="56.7"/>
+          <TableColumn Name="Column147" Width="90.72"/>
+          <TableColumn Name="Column148" Width="51.03"/>
+          <TableColumn Name="Column149" Width="86.94"/>
+          <TableColumn Name="Column150" Width="56.7"/>
+          <TableColumn Name="Column151" Width="85.05"/>
+          <TableRow Name="Row18" AutoSize="true">
+            <TableCell Name="Cell224" Border.Lines="All" Text="Итого &#13;&#10;[EventByProfile.AssistanceConditionsName]:" Font="Times New Roman, 8pt, style=Bold"/>
+            <TableCell Name="Cell225" Border.Lines="All" Text="[TotalAssistanceConditionsQ]" HorzAlign="Center" Font="Times New Roman, 8pt, style=Bold"/>
+            <TableCell Name="Cell226" Border.Lines="All" Text="[TotalAssistanceConditionsS]" Format="Currency" Format.UseLocale="true" HorzAlign="Right" Font="Times New Roman, 8pt, style=Bold"/>
+            <TableCell Name="Cell227" Border.Lines="All" Text="[TotalAssistanceConditionsRefusalQ]" HorzAlign="Center" Font="Times New Roman, 8pt, style=Bold"/>
+            <TableCell Name="Cell228" Border.Lines="All" Text="[TotalAssistanceConditionsRefusalS]" Format="Currency" Format.UseLocale="true" HorzAlign="Right" Font="Times New Roman, 8pt, style=Bold"/>
+            <TableCell Name="Cell229" Border.Lines="All" Text="[TotalAssistanceConditionsAcceptQ]" HorzAlign="Center" Font="Times New Roman, 8pt, style=Bold"/>
+            <TableCell Name="Cell230" Border.Lines="Right" Text="[TotalAssistanceConditionsAcceptS]" Format="Currency" Format.UseLocale="true" HorzAlign="Right" Font="Times New Roman, 8pt, style=Bold"/>
+            <TableCell Name="Cell231" Border.Lines="All" Text="[TotalAssistanceConditionsAcceptQ]" HorzAlign="Center" Font="Times New Roman, 8pt, style=Bold"/>
+            <TableCell Name="Cell232" Text="[TotalAssistanceConditionsAcceptS]" Format="Currency" Format.UseLocale="true" HorzAlign="Right" Font="Times New Roman, 8pt, style=Bold"/>
+          </TableRow>
+        </TableObject>
+      </GroupFooterBand>
+    </GroupHeaderBand>
+    <ReportSummaryBand Name="ReportSummary1" Top="716.93" Width="718.2" Height="268.05" PrintOnBottom="true">
+      <TextObject Name="Text14" Left="9.45" Top="28.35" Width="680.4" Height="15.9" Text="Итого по счету: [TotalPrice]" Format="Currency" Format.UseLocale="true" Font="Times New Roman, 10pt, style=Bold, Underline"/>
+      <TextObject Name="Text13" Left="9.45" Top="135.75" Width="614.25" Height="85.05" Text="Должность, подпись руководителя медицинской организации, ознакомившегося с Актом&#13;&#10;&#13;&#10;______________________________________	&quot;_____&quot; _________________ 20___г.&#13;&#10;&#13;&#10;&#13;&#10;" Font="Times New Roman, 10pt"/>
+      <TextObject Name="Text18" Left="9.45" Top="97.95" Width="680.4" Height="18.9" Text="Главный бухгалтер ТФОМС Курской области					С. А. Чернышева" Font="Times New Roman, 10pt"/>
+      <TextObject Name="Text16" Left="9.45" Top="60.15" Width="680.4" Height="18.9" Text="Директор ТФОМС Курской области						А. В. Курцев" Font="Times New Roman, 10pt"/>
+      <TextObject Name="Text17" Left="9.45" Top="220.8" Width="623.7" Height="47.25" Text="Исполнитель _________________________________________ [Substring([localUser.FirstName],0,1)]. [Substring([localUser.Patronymic],0,1)]. [localUser.LastName]" Font="Times New Roman, 10pt"/>
+    </ReportSummaryBand>
+    <PageFooterBand Name="PageFooter1" Top="988.98" Width="718.2" Height="18.9"/>
+  </ReportPage>
+</Report>

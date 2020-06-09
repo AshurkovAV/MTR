@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<ZL_LIST>
+  <ZGLV>
+    <VERSION>2.1</VERSION>
+    <DATA>2011-09-02</DATA>
+    <OKATO_OMS>79000</OKATO_OMS>
+  </ZGLV>
+  <SCHET>
+    <YEAR>2011</YEAR>
+    <MONTH>8</MONTH>
+    <NSCHET>1</NSCHET>
+    <DSCHET>2011-09-02</DSCHET>
+    <SUMMAV>377.20</SUMMAV>
+    <SUMMAP>377.20</SUMMAP>
+    <SANK_MEK>0.1</SANK_MEK>
+    <SANK_MEE>0.2</SANK_MEE>
+    <SANK_EKMP>0.3</SANK_EKMP>
+  </SCHET>
+  <ZAP>
+    <N_ZAP>1</N_ZAP>
+    <PACIENT>
+      <VPOLIS>1</VPOLIS>
+      <SPOLIS>3333</SPOLIS>
+      <NPOLIS>88888888</NPOLIS>
+      <ENP>9999999999</ENP>
+    </PACIENT>
+    <SLUCH>
+      <IDCASE>1</IDCASE>
+      <NHISTORY>1468654</NHISTORY>
+      <IDSP>9</IDSP>
+      <ED_COL>3.00</ED_COL>
+      <TARIF>51.44</TARIF>
+      <SUMV>115.74</SUMV>
+      <OPLATA>1</OPLATA>
+      <SUMP>115.74</SUMP>
+      <SANK_IT>100.11</SANK_IT>
+      <COMENTSL>Комментарий к случаю</COMENTSL>
+      <SANK>
+        <S_CODE>1</S_CODE>
+        <S_SUM>10.11</S_SUM>
+        <S_TIP>1</S_TIP>
+        <S_OSN>20</S_OSN>
+        <S_COM>Тестовый мэк</S_COM>
+        <S_IST>1</S_IST>
+      </SANK>
+      <SANK>
+        <S_CODE>2</S_CODE>
+        <S_SUM>12.11</S_SUM>
+        <S_TIP>2</S_TIP>
+        <S_OSN>21</S_OSN>
+        <S_COM>Тестовый мээ</S_COM>
+        <S_IST>1</S_IST>
+      </SANK>
+      <SANK>
+        <S_CODE>3</S_CODE>
+        <S_SUM>13.11</S_SUM>
+        <S_TIP>3</S_TIP>
+        <S_OSN>21</S_OSN>
+        <S_COM>Тестовый экмп</S_COM>
+        <S_IST>1</S_IST>
+      </SANK>
+    </SLUCH>
+    <SLUCH>
+      <IDCASE>2</IDCASE>
+      <NHISTORY>7107/2707</NHISTORY>
+      <IDSP>14</IDSP>
+      <ED_COL>8.00</ED_COL>
+      <TARIF>2195.43</TARIF>
+      <SUMV>17563.44</SUMV>
+      <OPLATA>1</OPLATA>
+      <SUMP>17563.44</SUMP>
+    </SLUCH>
+  </ZAP>
+</ZL_LIST>

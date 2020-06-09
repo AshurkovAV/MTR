@@ -1,0 +1,182 @@
+﻿<UserControl x:Class="Medical.AppLayer.Economic.Views.EconomicActExpertiseView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:converters="clr-namespace:Medical.AppLayer.Converters"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+             xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars"
+             xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+             xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+             xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol"
+             xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:views="clr-namespace:Medical.AppLayer.Economic.Views"
+             d:DesignHeight="661"
+             d:DesignWidth="800"
+             mc:Ignorable="d">
+  <UserControl.Resources>
+    <converters:PaymentStatusConverter x:Key="PaymentStatusConverter" />
+    <ControlTemplate x:Key="territoryPopupContentTemplate">
+      <dxg:GridControl x:Name="PART_GridControl" AutoExpandAllGroups="True">
+        <dxg:GridControl.Columns>
+          <dxg:GridColumn FieldName="DisplayName" Header="Территория" />
+          <dxg:GridColumn Width="60"
+                          FieldName="Value"
+                          FixedWidth="True"
+                          Header="ОКАТО" />
+        </dxg:GridControl.Columns>
+        <dxg:GridControl.View>
+          <dxg:TableView Name="View"
+                         AllowPerPixelScrolling="True"
+                         AutoWidth="True"
+                         HeaderPanelMinHeight="35"
+                         IsSynchronizedWithCurrentItem="False"
+                         NewItemRowPosition="None"
+                         ScrollAnimationDuration="0"
+                         ShowAutoFilterRow="False"
+                         ShowGroupedColumns="False"
+                         ShowTotalSummary="False" />
+        </dxg:GridControl.View>
+      </dxg:GridControl>
+    </ControlTemplate>
+  </UserControl.Resources>
+
+  <dxb:BarManager CreateStandardLayout="False">
+
+    <Grid>
+      <Grid>
+        <Grid.RowDefinitions>
+          <RowDefinition Height="Auto" />
+
+          <RowDefinition Height="550*" />
+        </Grid.RowDefinitions>
+        <dx:PLinqInstantFeedbackDataSource Name="pLinqAccountDataSource" ListSource="{Binding Path=ActExpertiseListSource}" />
+        <dxb:BarContainerControl Grid.Row="0" DockPanel.Dock="Top">
+
+          <dxb:ToolBarControl AllowQuickCustomization="False" Caption="Просмотр">
+            <dxb:BarLinkContainerItem>
+              <dxb:BarButtonItem Command="{Binding ViewAccountCommand}"
+                                 Content="Просмотр позиций"
+                                 Glyph="{dx:DXImage Image=Show_16x16.png}"
+                                 LargeGlyph="{dx:DXImage Image=Show_32x32.png}" />
+              <dxb:BarButtonItem Command="{Binding CreateCommand}"
+                                 Content="Создание счета"
+                                 Glyph="{dx:DXImage Image=Add_16x16.png}"
+                                 LargeGlyph="{dx:DXImage Image=Add_32x32.png}" />
+              <dxb:BarButtonItem Command="{Binding EditCommand}"
+                                 Content="Редактирование"
+                                 Glyph="{dx:DXImage Image=Edit_16x16.png}"
+                                 LargeGlyph="{dx:DXImage Image=Edit_32x32.png}" />
+              <dxb:BarButtonItem Command="{Binding RefreshCommand}"
+                                 Content="Обновить"
+                                 Glyph="{dx:DXImage Image=Refresh_16x16.png}"
+                                 LargeGlyph="{dx:DXImage Image=Refresh_32x32.png}" />
+              <dxb:BarButtonItem Command="{Binding DeleteCommand}"
+                                 Content="Удалить"
+                                 Glyph="{dx:DXImage Image=Delete_16x16.png}"
+                                 LargeGlyph="{dx:DXImage Image=Delete_32x32.png}" />
+              <dxb:BarSubItem Content="Статус оплаты"
+                              Glyph="{dx:DXImage Image=BONote_16x16.png}"
+                              LargeGlyph="{dx:DXImage Image=BONote_32x32.png}">
+                <dxb:BarButtonItem Command="{Binding ChangeStatusCommand}"
+                                   CommandParameter="1"
+                                   Content="Новый" />
+                <dxb:BarButtonItem Command="{Binding ChangeStatusCommand}"
+                                   CommandParameter="2"
+                                   Content="Утвержден" />
+              </dxb:BarSubItem>
+            </dxb:BarLinkContainerItem>
+
+          </dxb:ToolBarControl>
+
+        </dxb:BarContainerControl>
+
+        <dxlc:LayoutControl Grid.Row="2"
+                            Orientation="Vertical"
+                            Padding="0">
+
+          <dxlc:LayoutItem VerticalAlignment="Stretch">
+            <dxg:GridControl Name="Grid"
+                             AutoExpandAllGroups="True"
+                             ItemsSource="{Binding ElementName=pLinqAccountDataSource,
+                                                   Path=Data}"
+                             SelectionMode="MultipleRow"
+                             ShowBorder="False"
+                             UseLayoutRounding="True">
+              <i:Interaction.Triggers>
+                <i:EventTrigger EventName="DataContextChanged">
+                  <ei:CallMethodAction MethodName="BestFitColumns" TargetObject="{Binding ElementName=tableView}" />
+                </i:EventTrigger>
+              </i:Interaction.Triggers>
+
+              <dxg:GridControl.Columns>
+                <dxg:GridColumn FieldName="ActExpertiseId"
+                                Header="Номер акта экспертизы"
+                                Visible="False" />
+                <dxg:GridColumn FieldName="NumAct" Header="Номер акта экспертизы" />
+                <dxg:GridColumn FieldName="DateAct" Header="Дата акта" />
+                <dxg:GridColumn FieldName="MoShort" Header="МО" />
+                <dxg:GridColumn FieldName="SmoShort" Header="CМО" />
+                <dxg:GridColumn FieldName="VidControlShort" Header="Вид контроля" />
+                <dxg:GridColumn FieldName="VidExpertiseShort" Header="Вид экспертизы" />
+                <dxg:GridColumn FieldName="DateExpertiseBegin" Header="Дата проведения с" />
+                <dxg:GridColumn FieldName="DateExpertiseEnd" Header="Дата проведения по" />
+                <dxg:GridColumn FieldName="ActExspertiStatusShort" Header="Статус акта" />
+                <dxg:GridColumn FieldName="MedicalAccountShort" Header="Счет" />
+              </dxg:GridControl.Columns>
+              <dxg:GridControl.TotalSummary>
+                <dxg:GridSummaryItem DisplayFormat="Всего: {0}"
+                                     FieldName="ActExpertiseId"
+                                     SummaryType="Count" />
+              </dxg:GridControl.TotalSummary>
+
+              <dxg:GridControl.View>
+                <dxg:TableView Name="tableView"
+                               AllowCascadeUpdate="True"
+                               AllowConditionalFormattingMenu="True"
+                               AllowEditing="False"
+                               FocusedRow="{Binding CurrentRow,
+                                                    Mode=TwoWay,
+                                                    UpdateSourceTrigger=PropertyChanged}"
+                               HeaderPanelMinHeight="35"
+                               NavigationStyle="Row"
+                               RowAnimationKind="None"
+                               ShowAutoFilterRow="True"
+                               ShowCheckBoxSelectorColumn="True"
+                               ShowGroupPanel="False"
+                               ShowIndicator="True"
+                               ShowTotalSummary="True"
+                               WaitIndicatorType="Panel" />
+              </dxg:GridControl.View>
+              <dxg:GridControl.GroupSummary>
+                <dxg:GridSummaryItem FieldName="ActExpertiseId" SummaryType="Count" />
+              </dxg:GridControl.GroupSummary>
+            </dxg:GridControl>
+          </dxlc:LayoutItem>
+
+        </dxlc:LayoutControl>
+      </Grid>
+      <Grid Grid.ZIndex="1000">
+        <controls:Flyout Header="Редактирование акта экспертизы"
+                         IsOpen="{Binding IsAddPaymentOpen}"
+                         Position="Right">
+          <!--<Grid Margin="10" HorizontalAlignment="Stretch">
+            <views:AddPaymentView DataContext="{Binding AddPaymentModel}" />
+          </Grid>-->
+        </controls:Flyout>
+      </Grid>
+
+
+
+    </Grid>
+
+    <i:Interaction.Triggers>
+      <i:EventTrigger EventName="Closed">
+        <i:InvokeCommandAction Command="{Binding ElementName=pLinqAccountDataSource, Path=DisposeCommand}" />
+      </i:EventTrigger>
+    </i:Interaction.Triggers>
+
+  </dxb:BarManager>
+</UserControl>

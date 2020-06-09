@@ -1,0 +1,254 @@
+﻿<controls:MetroWindow x:Class="MedicineNext.MainWindow"
+                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                      xmlns:command="http://www.galasoft.ch/mvvmlight"
+                      xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+                      xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+                      xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars"
+                      xmlns:dxd="http://schemas.devexpress.com/winfx/2008/xaml/docking"
+                      xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+                      xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol"
+                      xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm"
+                      xmlns:dxr="http://schemas.devexpress.com/winfx/2008/xaml/ribbon"
+                      xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+                      xmlns:medicineNext="clr-namespace:MedicineNext"
+                      xmlns:migration="clr-namespace:Medical.AppLayer.Migration.Views;assembly=AppLayer"
+                      xmlns:mvvm="clr-namespace:MedicineNext.Internal.MVVM"
+                      xmlns:settings="clr-namespace:Medical.AppLayer.Settings.Views;assembly=AppLayer"
+                      xmlns:frameNavigationViews="clr-namespace:WindowsUIDemo.Modules.FrameNavigationViews"
+                      Title="Medicine MTR 2019"
+                      BorderBrush="{DynamicResource AccentColorBrush}"
+                      BorderThickness="1"
+                      Icon="Resources/favicon_1.png"
+                      Loaded="DXRibbonWindow_Loaded"
+                      UseLayoutRounding="True"
+                      WindowStartupLocation="CenterScreen"
+                      WindowState="Maximized">
+  <Window.Resources>
+    <DataTemplate DataType="{x:Type medicineNext:DocumentViewModel}">
+      <ContentPresenter Content="{Binding Content}" />
+    </DataTemplate>
+
+    <Style TargetType="dxd:LayoutPanel">
+      <Setter Property="Caption" Value="{Binding DisplayName}" />
+    </Style>
+    <Style TargetType="dxd:DocumentPanel">
+      <Setter Property="Caption" Value="{Binding DisplayName}" />
+      <Setter Property="IsActive" Value="{Binding IsActive}" />
+      <Setter Property="CloseCommand" Value="{Binding CloseCommand}" />
+      <Setter Property="Closed" Value="{Binding IsClosed, Mode=TwoWay}" />
+      <Setter Property="CaptionImage" Value="{Binding Glyph}" />
+      <Setter Property="FooterDescription" Value="{Binding Footer}" />
+      <Setter Property="Description" Value="{Binding Description}" />
+    </Style>
+
+    <DataTemplate DataType="{x:Type mvvm:CommandModel}">
+      <ContentControl>
+        <dxb:BarButtonItem Command="{Binding Command}"
+                           CommandParameter="{Binding CommandParameter}"
+                           Content="{Binding Caption}"
+                           Glyph="{Binding SmallGlyph}"
+                           LargeGlyph="{Binding LargeGlyph}"
+                           ToolTip="{Binding ToolTip}" />
+      </ContentControl>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type mvvm:MyGroupCommand}">
+      <ContentControl>
+        <dxb:BarSubItem BarItemDisplayMode="ContentAndGlyph"
+                        Command="{Binding}"
+                        Content="{Binding Caption}"
+                        Glyph="{Binding SmallGlyph}"
+                        GlyphAlignment="Left"
+                        ItemLinksSource="{Binding Commands}"
+                        LargeGlyph="{Binding LargeGlyph}" />
+      </ContentControl>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type mvvm:PageGroupModel}">
+      <ContentControl>
+        <dxr:RibbonPageGroup AllowCollapse="false"
+                             Caption="{Binding Name}"
+                             ItemLinksSource="{Binding Commands}"
+                             ShowCaptionButton="True" />
+      </ContentControl>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type mvvm:PageModel}">
+      <ContentControl>
+        <dxr:RibbonPage Caption="{Binding Name}"
+                        GroupsSource="{Binding Groups}"
+                        IsSelected="{Binding IsSelected}" />
+      </ContentControl>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type mvvm:CategoryModel}">
+      <ContentControl>
+        <dxr:RibbonDefaultPageCategory IsVisible="{Binding IsVisible}"
+                                       PagesSource="{Binding Pages}"
+                                       Color="{Binding Color}" />
+      </ContentControl>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type mvvm:ContextCategoryModel}">
+      <ContentControl>
+        <dxr:RibbonPageCategory IsVisible="{Binding IsVisible}"
+                                PagesSource="{Binding Pages}"
+                                Color="{Binding Color}" />
+      </ContentControl>
+    </DataTemplate>
+
+
+  </Window.Resources>
+  <dxmvvm:Interaction.Behaviors>
+    <dxmvvm:NotificationService UseWin8NotificationsIfAvailable="False" />
+  </dxmvvm:Interaction.Behaviors>
+  <dxb:BarManager>
+    <dxb:BarManager.Items>
+      <dxb:BarStaticItem Name="StInfo"
+                         Content="{Binding UserName}"
+                         Glyph="{dx:DXImage Image=Customer_32x32.png}" />
+      <dxb:BarStaticItem Name="DbInfo"
+                         Content="{Binding DatabaseConnection}"
+                         Glyph="{dx:DXImage Image=Database_32x32.png}" />
+    </dxb:BarManager.Items>
+    <Grid>
+      <Grid.RowDefinitions>
+        <RowDefinition Height="Auto" />
+        <RowDefinition Height="*" />
+        <RowDefinition Height="23" />
+      </Grid.RowDefinitions>
+      <dxr:RibbonControl AllowCustomization="False"
+                         CategoriesSource="{Binding Categories}"
+                         MinimizationButtonVisibility="Collapsed"
+                         PageCategoryAlignment="Right"
+                         RibbonStyle="OfficeSlim"
+                         RibbonTitleBarVisibility="Collapsed"
+                         ToolbarShowMode="Hide"
+                         Visibility="{Binding IsRibbonVisible}">
+        <dxr:RibbonControl.ApplicationMenu>
+          <dxr:BackstageViewControl DisableDefaultBackgroundGlyph="false">
+
+            <dxr:BackstageSeparatorItem />
+            <dxr:BackstageTabItem Content="Настройки соединения">
+              <dxr:BackstageTabItem.ControlPane>
+                <Grid Margin="10,5,0,0">
+                  <dxlc:LayoutControl Orientation="Vertical">
+                    <dxlc:LayoutItem>
+                      <Label Content="Настройки соединения с базой данных:"
+                             FontSize="16"
+                             FontWeight="Bold" />
+                    </dxlc:LayoutItem>
+                    <dxlc:LayoutGroup Header="LayoutGroup">
+                      <dxlc:LayoutGroup Header="Основные настройки" Orientation="Vertical">
+                        <dxlc:LayoutItem Label="Название конфигурации">
+                          <dxe:TextEdit EditValue="{Binding Name, UpdateSourceTrigger=PropertyChanged}" />
+                        </dxlc:LayoutItem>
+                        <dxlc:LayoutItem Label="Удаленный адрес">
+                          <dxe:TextEdit EditValue="{Binding DataSource, UpdateSourceTrigger=PropertyChanged}" />
+                        </dxlc:LayoutItem>
+                        <dxlc:LayoutItem Label="Название БД">
+                          <dxe:TextEdit EditValue="{Binding Database, UpdateSourceTrigger=PropertyChanged}" />
+                        </dxlc:LayoutItem>
+                        <dxlc:LayoutItem Label="Тип СУБД">
+                          <dxe:ComboBoxEdit EditValue="{Binding Provider, UpdateSourceTrigger=PropertyChanged}" SelectedIndex="0">
+                            <dxe:ComboBoxEditItem Content="Sql" />
+                          </dxe:ComboBoxEdit>
+                        </dxlc:LayoutItem>
+                        <dxlc:LayoutItem Label="Пользователь">
+                          <dxe:TextEdit EditValue="{Binding Username, UpdateSourceTrigger=PropertyChanged}" />
+                        </dxlc:LayoutItem>
+                        <dxlc:LayoutItem Label="Пароль">
+                          <dxe:PasswordBoxEdit EditValue="{Binding Password, UpdateSourceTrigger=PropertyChanged}" />
+                        </dxlc:LayoutItem>
+                        <dxe:CheckEdit Width="430"
+                                       HorizontalAlignment="Left"
+                                       VerticalAlignment="Top"
+                                       Content="Windows аутентификация"
+                                       EditValue="{Binding IsWindowsAuth,
+                                                           UpdateSourceTrigger=PropertyChanged}" />
+                        <dxlc:LayoutItem Label="Таймаут соединения">
+                          <dxe:SpinEdit EditValue="{Binding Timeout,
+                                                            UpdateSourceTrigger=PropertyChanged}"
+                                        MaxValue="120"
+                                        MinValue="5" />
+                        </dxlc:LayoutItem>
+                      </dxlc:LayoutGroup>
+                    </dxlc:LayoutGroup>
+                    <dxlc:LayoutItem>
+                      <Separator />
+                    </dxlc:LayoutItem>
+                    <dxlc:LayoutGroup>
+                      <Button Width="85"
+                              Height="23"
+                              HorizontalAlignment="Left"
+                              VerticalAlignment="Top"
+                              Command="{Binding TestCommand}"
+                              Content="Тест" />
+                      <Button Width="85"
+                              Height="23"
+                              HorizontalAlignment="Right"
+                              VerticalAlignment="Top"
+                              Command="{Binding SaveCommand}"
+                              Content="Сохранить" />
+                    </dxlc:LayoutGroup>
+                  </dxlc:LayoutControl>
+                  <dx:WaitIndicator Content="Подключение к базе данных..." DeferedVisibility="{Binding DatabaseConfig.InProgress}" />
+                </Grid>
+              </dxr:BackstageTabItem.ControlPane>
+            </dxr:BackstageTabItem>
+            <dxr:BackstageTabItem Content="Миграции">
+              <dxr:BackstageTabItem.ControlPane>
+                <Grid Margin="5,5,5,5">
+                  <migration:MigrationView DataContext="{Binding Migrations}" />
+                </Grid>
+              </dxr:BackstageTabItem.ControlPane>
+            </dxr:BackstageTabItem>
+            <dxr:BackstageTabItem Content="Настройки">
+              <dxr:BackstageTabItem.ControlPane>
+                <Grid Margin="5,5,5,5">
+                  <settings:SettingsView DataContext="{Binding Settings}" />
+                </Grid>
+              </dxr:BackstageTabItem.ControlPane>
+            </dxr:BackstageTabItem>
+            <dxr:BackstageTabItem Content="Настройки пользователя">
+              <dxr:BackstageTabItem.ControlPane>
+                <Grid Margin="5,5,5,5">
+                  <settings:SettingsView DataContext="{Binding Settings}" />
+                </Grid>
+              </dxr:BackstageTabItem.ControlPane>
+            </dxr:BackstageTabItem>
+            <dxr:BackstageSeparatorItem />
+            <dxr:BackstageButtonItem Command="{Binding ExitCommand}"
+                                     Content="Выход"
+                                     Glyph="../Resources/Icons/application-exit.png" />
+          </dxr:BackstageViewControl>
+        </dxr:RibbonControl.ApplicationMenu>
+      </dxr:RibbonControl>
+      <dxd:DockLayoutManager Name="DockManager"
+                             Grid.Row="1"
+                             DockingStyle="Default"
+                             FloatingDocumentContainer="DocumentHost"
+                             FloatingMode="Desktop"
+                             ItemsSource="{Binding Workspaces}">
+        <dxd:LayoutGroup>
+          <dxd:DocumentGroup x:Name="DocumentHost"
+                             ClosePageButtonShowMode="InActiveTabPageAndTabControlHeader"
+                             DestroyOnClosingChildren="False"
+                             SelectedTabIndex="{Binding SelectedTabIndex}">
+            <i:Interaction.Triggers>
+              <i:EventTrigger EventName="SelectedItemChanged">
+                <command:EventToCommand Command="{Binding Mode=OneWay, Path=SelectedItemCommand}" CommandParameter="{Binding SelectedItem, ElementName=DocumentHost, Mode=OneWay}" />
+              </i:EventTrigger>
+            </i:Interaction.Triggers>
+            
+          </dxd:DocumentGroup>
+        </dxd:LayoutGroup>
+        
+      </dxd:DockLayoutManager>
+
+      <dxr:RibbonStatusBarControl Grid.Row="2">
+        <dxr:RibbonStatusBarControl.LeftItemLinks>
+          <dxb:BarStaticItemLink BarItemName="StInfo" />
+          <dxb:BarStaticItemLink BarItemName="DbInfo" />
+        </dxr:RibbonStatusBarControl.LeftItemLinks>
+      </dxr:RibbonStatusBarControl>
+    </Grid>
+  </dxb:BarManager>
+</controls:MetroWindow>
+

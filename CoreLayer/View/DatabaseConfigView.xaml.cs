@@ -1,0 +1,14 @@
+﻿namespace Medical.CoreLayer.View
+{
+    /// <summary>
+    /// Interaction logic for DataserviceConfigView.xaml
+    /// </summary>
+    public partial class DatabaseConfigView 
+    {
+        public DatabaseConfigView()
+        {
+            InitializeComponent();
+            
+        }
+    }
+}

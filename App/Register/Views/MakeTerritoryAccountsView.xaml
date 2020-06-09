@@ -1,0 +1,78 @@
+﻿
+<UserControl x:Class="Medical.AppLayer.Register.Views.MakeTerritoryAccountsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+             xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol"
+             xmlns:extToolkit="http://schemas.microsoft.com/winfx/2006/xaml/presentation/toolkit/extended"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             x:Name="CreateAccountControl"
+             Width="800"
+             Height="Auto"
+             d:DesignHeight="600"
+             d:DesignWidth="800"
+             mc:Ignorable="d">
+  <Grid Background="White">
+    <dxlc:LayoutControl VerticalAlignment="Stretch" Orientation="Vertical">
+      <dxlc:LayoutGroup>
+        <dxlc:LayoutItem Label="Отчетный год">
+          <dxe:ComboBoxEdit ItemsSource="{Binding YearsList}"
+                            NullText="Отчетный год"
+                            SelectedIndex="{Binding SelectedYear}" />
+        </dxlc:LayoutItem>
+        <dxlc:LayoutItem Label="Отчетный месяц">
+          <dxe:ComboBoxEdit ItemsSource="{Binding MonthList}"
+                            NullText="Отчетный месяц"
+                            SelectedIndex="{Binding SelectedMonth}" />
+        </dxlc:LayoutItem>
+      </dxlc:LayoutGroup>
+      <dxlc:LayoutGroup>
+        <dxlc:LayoutItem Label="Версия счета">
+          <dxe:ComboBoxEdit IsTextEditable="False"
+                            NullText="Версия"
+                            SelectedIndex="{Binding Version}">
+            <dxe:ComboBoxEditItem Content="Авто" />
+            <dxe:ComboBoxEditItem Content="v 3.0" />
+            <dxe:ComboBoxEditItem Content="v 3.1" />
+            <dxe:ComboBoxEditItem Content="v 3.2" />
+          </dxe:ComboBoxEdit>
+        </dxlc:LayoutItem>
+      </dxlc:LayoutGroup>
+
+      <dxlc:LayoutItem Label="Результат" />
+      <dxlc:LayoutItem>
+        <dxe:ButtonEdit HorizontalAlignment="Right"
+                        AllowDefaultButton="False"
+                        ShowText="False">
+          <dxe:ButtonInfo Command="{Binding SaveLogCommand, UpdateSourceTrigger=PropertyChanged}" GlyphKind="Edit" />
+        </dxe:ButtonEdit>
+      </dxlc:LayoutItem>
+      <dxlc:LayoutGroup VerticalAlignment="Stretch" Orientation="Vertical">
+        <dxlc:LayoutItem VerticalAlignment="Stretch">
+          <extToolkit:RichTextBox x:Name="_richTextBox"
+                                  Background="White"
+                                  BorderBrush="Black"
+                                  IsReadOnly="True"
+                                  Padding="10"
+                                  ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                  Text="{Binding Notes}" />
+
+        </dxlc:LayoutItem>
+        <dxlc:LayoutItem FontWeight="Bold">
+          <Separator />
+        </dxlc:LayoutItem>
+        <dxlc:LayoutItem>
+          <Button Width="128"
+                  Height="23"
+                  HorizontalAlignment="Right"
+                  VerticalAlignment="Top"
+                  Command="{Binding CreateAccountCommand}"
+                  Content="Сформировать счета"
+                  IsDefault="False" />
+        </dxlc:LayoutItem>
+      </dxlc:LayoutGroup>
+    </dxlc:LayoutControl>
+
+  </Grid>
+</UserControl>

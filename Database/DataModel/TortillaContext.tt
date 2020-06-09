@@ -1,0 +1,39 @@
+﻿<#@ template debug="false" language="C#" hostspecific="True" #>
+<#@ output extension=".generated.cs"     #>
+<#@ include file="BLToolkit.ttinclude"   #>
+<#@ include file="BLT4Toolkit.ttinclude" #>
+<#@ include file="MSSQL.ttinclude"       #>
+<# 
+	                                           
+	var allowTables = new List<string>  
+    {
+        "ZP1msg","RSP_ZK1msg","ZP1errors","QR","IN1"                                            								         
+    };                                
+											   						   
+    //ConnectionString = "Server=tfoms-2012;Database=tortila;User Id=sa;Password=nfyjnjvjh;";   
+	ConnectionString = "Server=.\\SQLEXPRESS;Database=tortila;Integrated Security=SSPI";          
+    DataContextName  = "TortillaContext";                          
+	BaseDataContextClass = "DatabaseContext";   
+	BaseEntityClass = "BaseEntity";           
+	Usings.Add("Medical.DatabaseCore.Services.Database");
+	LoadMetadata();   
+	
+	var tablesToRemove = Tables.Where(f => !allowTables.Contains(f.Key)).Select(f=>f.Key).ToList();
+
+	//TODO complete allowed tables
+	foreach (var t in tablesToRemove)
+	{
+		Tables.Remove(t);
+	}
+
+	//удаление точек из имен внешних ключей
+	foreach (var t in Tables.Values){
+		foreach (var c in t.ForeignKeys.Values){
+			c.MemberName = c.MemberName.Replace(".","_");
+		}
+	}
+
+	
+	
+    GenerateModel();               
+#>

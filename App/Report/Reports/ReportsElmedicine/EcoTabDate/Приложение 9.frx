@@ -1,0 +1,549 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report ScriptLanguage="CSharp" ReportInfo.Created="04/10/2013 23:47:48" ReportInfo.Modified="11/07/2013 01:00:56" ReportInfo.CreatorVersion="2013.2.5.0">
+  <Dictionary>
+    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqr2sEgbyd/XFgYBeuRgqcA5zt9JXHJfT5fjgDibxBQPpcjFjRPBzWgZ9XB+j7gTiCvu+kbyiwINr+0FFfcMZ2P6DtBCgUjq61T+wS2RRi9GtAfn98DSSVQdTrLJoEu0JqEHqWyINGG+kMaSlud5OBnHxymePyrRasW2+FKdRu30YUy5Ds30C9ZDSn+8rHQtCbdbqv97SScHKa1zLaOzmgBk+4rD3xbyw8SYf+jkGe8QE=">
+      <TableDataSource Name="Table" DataType="System.Int32" Enabled="true" SelectCommand="Select * From&#13;&#10;---1&#13;&#10;(select ROUND(sum(sl.SUMV)/1000,2) as s12 &#13;&#10;from SLUCH sl &#13;&#10;join SCHET s on sl.SCHET_ID = s.ID &#13;&#10;where (s.[MONTH] &gt;= @M1 and s.[YEAR] &gt;= @Y1) and (s.[MONTH] &lt;= @M2 and s.[YEAR] &lt;= @Y2)  &#13;&#10;and sl.OS_SLUCH_REGION in (1, 2)&#13;&#10;--and pac.dr &lt;= getdate() - 365*18&#13;&#10;) as t,&#13;&#10;&#13;&#10;(select sum(sl.SUMV) as s1&#13;&#10;from SLUCH sl &#13;&#10;join SCHET s on sl.SCHET_ID = s.ID &#13;&#10;join pacient as pac on pac.id = sl.pid&#13;&#10;where (s.[MONTH] &gt;= @M1 and s.[YEAR] &gt;= @Y1) and (s.[MONTH] &lt;= @M2 and s.[YEAR] &lt;= @Y2)  &#13;&#10;and sl.OS_SLUCH_REGION in (1, 2)&#13;&#10;--and pac.dr &lt;= getdate() - 365*18&#13;&#10;and pac.w = 1&#13;&#10;) as t1,&#13;&#10;&#13;&#10;(select ROUND(sum(sl.SUMV)/1000,2) as s2 &#13;&#10;from SLUCH sl &#13;&#10;join SCHET s on sl.SCHET_ID = s.ID &#13;&#10;join pacient as pac on pac.id = sl.pid&#13;&#10;where (s.[MONTH] &gt;= @M1 and s.[YEAR] &gt;= @Y1) and (s.[MONTH] &lt;= @M2 and s.[YEAR] &lt;= @Y2)  &#13;&#10;and sl.OS_SLUCH_REGION in (1, 2)&#13;&#10;--and pac.dr &lt;= getdate() - 365*18&#13;&#10;and pac.w = 2) as t2,&#13;&#10;----------------------------------------------------------&#13;&#10;--Работающих граждан---&#13;&#10;(select isnull(ROUND(sum(sl.SUMV)/1000,2), 0) as [work peopl]&#13;&#10;from SLUCH sl &#13;&#10;join SCHET s on sl.SCHET_ID = s.ID &#13;&#10;where (s.[MONTH] &gt;= @M1 and s.[YEAR] &gt;= @Y1) and (s.[MONTH] &lt;= @M2 and s.[YEAR] &lt;= @Y2)  &#13;&#10;and sl.OS_SLUCH_REGION in (1, 2)&#13;&#10;--and pac.dr &lt;= getdate() - 365*18&#13;&#10;and sl.work_stat = 1) as t3,&#13;&#10;&#13;&#10;(select isnull(ROUND(sum(sl.SUMV)/1000,2), 0) as [work peopl man] &#13;&#10;from SLUCH sl &#13;&#10;join SCHET s on sl.SCHET_ID = s.ID &#13;&#10;join pacient as pac on pac.id = sl.pid&#13;&#10;where (s.[MONTH] &gt;= @M1 and s.[YEAR] &gt;= @Y1) and (s.[MONTH] &lt;= @M2 and s.[YEAR] &lt;= @Y2)  &#13;&#10;and sl.OS_SLUCH_REGION in (1, 2)&#13;&#10;--and pac.dr &lt;= getdate() - 365*18&#13;&#10;and pac.w = 1&#13;&#10;and sl.work_stat = 1) as t4,&#13;&#10;&#13;&#10;(select isnull(ROUND(sum(sl.SUMV)/1000,2), 0) as [work peopl woman] &#13;&#10;from SLUCH sl &#13;&#10;join SCHET s on sl.SCHET_ID = s.ID &#13;&#10;join pacient as pac on pac.id = sl.pid&#13;&#10;where (s.[MONTH] &gt;= @M1 and s.[YEAR] &gt;= @Y1) and (s.[MONTH] &lt;= @M2 and s.[YEAR] &lt;= @Y2)  &#13;&#10;and sl.OS_SLUCH_REGION in (1, 2)&#13;&#10;--and pac.dr &lt;= getdate() - 365*18&#13;&#10;and pac.w = 2&#13;&#10;and sl.work_stat = 1) as t5,&#13;&#10;--------------------------------------------------------&#13;&#10;--not work&#13;&#10;(select isnull(ROUND(sum(sl.SUMV)/1000,2), 0) as [notwork peopl]&#13;&#10;from SLUCH sl &#13;&#10;join SCHET s on sl.SCHET_ID = s.ID &#13;&#10;where (s.[MONTH] &gt;= @M1 and s.[YEAR] &gt;= @Y1) and (s.[MONTH] &lt;= @M2 and s.[YEAR] &lt;= @Y2)  &#13;&#10;and sl.OS_SLUCH_REGION in (1, 2)&#13;&#10;--and pac.dr &lt;= getdate() - 365*18&#13;&#10;and sl.work_stat = 2) as t6,&#13;&#10;&#13;&#10;(select isnull(ROUND(sum(sl.SUMV)/1000,2), 0) as [notwork peopl man]&#13;&#10;from SLUCH sl &#13;&#10;join SCHET s on sl.SCHET_ID = s.ID &#13;&#10;join pacient as pac on pac.id = sl.pid&#13;&#10;where (s.[MONTH] &gt;= @M1 and s.[YEAR] &gt;= @Y1) and (s.[MONTH] &lt;= @M2 and s.[YEAR] &lt;= @Y2)  &#13;&#10;and sl.OS_SLUCH_REGION in (1, 2)&#13;&#10;--and pac.dr &lt;= getdate() - 365*18&#13;&#10;and pac.w = 1&#13;&#10;and sl.work_stat = 2) as t7,&#13;&#10;&#13;&#10;(select isnull(ROUND(sum(sl.SUMV)/1000,2), 0) as [notwork peopl woman]&#13;&#10;from SLUCH sl &#13;&#10;join SCHET s on sl.SCHET_ID = s.ID &#13;&#10;join pacient as pac on pac.id = sl.pid&#13;&#10;where (s.[MONTH] &gt;= @M1 and s.[YEAR] &gt;= @Y1) and (s.[MONTH] &lt;= @M2 and s.[YEAR] &lt;= @Y2)  &#13;&#10;and sl.OS_SLUCH_REGION in (1, 2)&#13;&#10;--and pac.dr &lt;= getdate() - 365*18&#13;&#10;and pac.w = 2&#13;&#10;and sl.work_stat = 2) as t8,&#13;&#10;--------------------------------------------------------------&#13;&#10;&#13;&#10;--в рамках 1 этапа&#13;&#10;(select count(*) as c1, isnull(ROUND(sum(sl.SUMV)/1000,2), 0) as s1 from SLUCH sl &#13;&#10;join SCHET s on sl.SCHET_ID = s.ID &#13;&#10;where (s.[MONTH] &gt;= @M1 and s.[YEAR] &gt;= @Y1) and (s.[MONTH] &lt;= @M2 and s.[YEAR] &lt;= @Y2) &#13;&#10;and sl.OS_SLUCH_REGION in (1)) as t9,&#13;&#10;&#13;&#10;(select count(*) as [c1 man], isnull(ROUND(sum(sl.SUMV)/1000,2), 0) as [s1 man] from SLUCH sl &#13;&#10;join SCHET s on sl.SCHET_ID = s.ID &#13;&#10;join pacient as pac on pac.id = sl.pid&#13;&#10;where (s.[MONTH] &gt;= @M1 and s.[YEAR] &gt;= @Y1) and (s.[MONTH] &lt;= @M2 and s.[YEAR] &lt;= @Y2) &#13;&#10;and sl.OS_SLUCH_REGION in (1)&#13;&#10;and pac.w = 1) as t10,&#13;&#10;&#13;&#10;(select count(*) as [c1 woman], isnull(ROUND(sum(sl.SUMV)/1000,2), 0) as [s1 woman] from SLUCH sl &#13;&#10;join SCHET s on sl.SCHET_ID = s.ID &#13;&#10;join pacient as pac on pac.id = sl.pid&#13;&#10;where (s.[MONTH] &gt;= @M1 and s.[YEAR] &gt;= @Y1) and (s.[MONTH] &lt;= @M2 and s.[YEAR] &lt;= @Y2) &#13;&#10;and sl.OS_SLUCH_REGION in (1)&#13;&#10;and pac.w = 2) as t11,&#13;&#10;--------------------------------------------------------------------&#13;&#10;&#13;&#10;--work peopl&#13;&#10;(select count(*) as [c1 w], isnull(ROUND(sum(sl.SUMV)/1000,2), 0) as [s1 w] from SLUCH sl &#13;&#10;join SCHET s on sl.SCHET_ID = s.ID &#13;&#10;where (s.[MONTH] &gt;= @M1 and s.[YEAR] &gt;= @Y1) and (s.[MONTH] &lt;= @M2 and s.[YEAR] &lt;= @Y2) &#13;&#10;and sl.OS_SLUCH_REGION in (1)&#13;&#10;and sl.work_stat = 1) as t12,&#13;&#10;&#13;&#10;(select count(*) as [c1 w_man], isnull(ROUND(sum(sl.SUMV)/1000,2), 0) as [s1 w_man] from SLUCH sl &#13;&#10;join SCHET s on sl.SCHET_ID = s.ID &#13;&#10;join pacient as pac on pac.id = sl.pid&#13;&#10;where (s.[MONTH] &gt;= @M1 and s.[YEAR] &gt;= @Y1) and (s.[MONTH] &lt;= @M2 and s.[YEAR] &lt;= @Y2) &#13;&#10;and sl.OS_SLUCH_REGION in (1)&#13;&#10;and pac.w = 1 &#13;&#10;and sl.work_stat = 1) as t13,&#13;&#10;&#13;&#10;(select count(*) as [c1 w_woman], isnull(ROUND(sum(sl.SUMV)/1000,2), 0) as [s1 w_woman] from SLUCH sl &#13;&#10;join SCHET s on sl.SCHET_ID = s.ID &#13;&#10;join pacient as pac on pac.id = sl.pid&#13;&#10;where (s.[MONTH] &gt;= @M1 and s.[YEAR] &gt;= @Y1) and (s.[MONTH] &lt;= @M2 and s.[YEAR] &lt;= @Y2) &#13;&#10;and sl.OS_SLUCH_REGION in (1)&#13;&#10;and pac.w = 2&#13;&#10;and sl.work_stat = 1) as t14,&#13;&#10;---------------------------------------------------------------------------&#13;&#10;&#13;&#10;--not work peopl&#13;&#10;(select count(*) as [c1 n_w], isnull(ROUND(sum(sl.SUMV)/1000,2), 0) as [s1 n_w] from SLUCH sl &#13;&#10;join SCHET s on sl.SCHET_ID = s.ID &#13;&#10;where (s.[MONTH] &gt;= @M1 and s.[YEAR] &gt;= @Y1) and (s.[MONTH] &lt;= @M2 and s.[YEAR] &lt;= @Y2) &#13;&#10;and sl.OS_SLUCH_REGION in (1)&#13;&#10;and sl.work_stat = 2) as t15,&#13;&#10;&#13;&#10;(select count(*) as [c1 n_w_man], isnull(ROUND(sum(sl.SUMV)/1000,2), 0) as [s1 n_w_man] from SLUCH sl &#13;&#10;join SCHET s on sl.SCHET_ID = s.ID &#13;&#10;join pacient as pac on pac.id = sl.pid&#13;&#10;where (s.[MONTH] &gt;= @M1 and s.[YEAR] &gt;= @Y1) and (s.[MONTH] &lt;= @M2 and s.[YEAR] &lt;= @Y2) &#13;&#10;and sl.OS_SLUCH_REGION in (1)&#13;&#10;and pac.w = 1 &#13;&#10;and sl.work_stat = 2) as t16,&#13;&#10;&#13;&#10;(select count(*) as [c1 n_w_woman], isnull(ROUND(sum(sl.SUMV)/1000,2), 0) as [s1 n_w_woman] from SLUCH sl &#13;&#10;join SCHET s on sl.SCHET_ID = s.ID &#13;&#10;join pacient as pac on pac.id = sl.pid&#13;&#10;where (s.[MONTH] &gt;= @M1 and s.[YEAR] &gt;= @Y1) and (s.[MONTH] &lt;= @M2 and s.[YEAR] &lt;= @Y2) &#13;&#10;and sl.OS_SLUCH_REGION in (1)&#13;&#10;and pac.w = 2&#13;&#10;and sl.work_stat = 2) as t17,&#13;&#10;---------------------------------------------------------------------------&#13;&#10;&#13;&#10;--в рамках 2 этапа&#13;&#10;(select count(*) as c2, isnull(ROUND(sum(sl.SUMV)/1000,2), 0) as s2 from SLUCH sl &#13;&#10;join SCHET s on sl.SCHET_ID = s.ID &#13;&#10;where (s.[MONTH] &gt;= @M1 and s.[YEAR] &gt;= @Y1) and (s.[MONTH] &lt;= @M2 and s.[YEAR] &lt;= @Y2) &#13;&#10;and sl.OS_SLUCH_REGION in (2)) as t18,&#13;&#10;&#13;&#10;(select count(*) as [c2 man], isnull(ROUND(sum(sl.SUMV)/1000,2), 0) as [s2 man] from SLUCH sl &#13;&#10;join SCHET s on sl.SCHET_ID = s.ID &#13;&#10;join pacient as pac on pac.id = sl.pid&#13;&#10;where (s.[MONTH] &gt;= @M1 and s.[YEAR] &gt;= @Y1) and (s.[MONTH] &lt;= @M2 and s.[YEAR] &lt;= @Y2) &#13;&#10;and sl.OS_SLUCH_REGION in (2)&#13;&#10;and pac.w = 1) as t19,&#13;&#10;&#13;&#10;(select count(*) as [c2 woman], isnull(ROUND(sum(sl.SUMV)/1000,2), 0) as [s2 woman] from SLUCH sl &#13;&#10;join SCHET s on sl.SCHET_ID = s.ID &#13;&#10;join pacient as pac on pac.id = sl.pid&#13;&#10;where (s.[MONTH] &gt;= @M1 and s.[YEAR] &gt;= @Y1) and (s.[MONTH] &lt;= @M2 and s.[YEAR] &lt;= @Y2) &#13;&#10;and sl.OS_SLUCH_REGION in (2)&#13;&#10;and pac.w = 2) as t20,&#13;&#10;--------------------------------------------------------------------&#13;&#10;&#13;&#10;--work peopl&#13;&#10;(select count(*) as [c2 w], isnull(ROUND(sum(sl.SUMV)/1000,2), 0) as [s2 w] from SLUCH sl &#13;&#10;join SCHET s on sl.SCHET_ID = s.ID &#13;&#10;where (s.[MONTH] &gt;= @M1 and s.[YEAR] &gt;= @Y1) and (s.[MONTH] &lt;= @M2 and s.[YEAR] &lt;= @Y2) &#13;&#10;and sl.OS_SLUCH_REGION in (2)&#13;&#10;and sl.work_stat = 1) as t21,&#13;&#10;&#13;&#10;(select count(*) as [c2 w_man], isnull(ROUND(sum(sl.SUMV)/1000,2), 0) as [s2 w_man] from SLUCH sl &#13;&#10;join SCHET s on sl.SCHET_ID = s.ID &#13;&#10;join pacient as pac on pac.id = sl.pid&#13;&#10;where (s.[MONTH] &gt;= @M1 and s.[YEAR] &gt;= @Y1) and (s.[MONTH] &lt;= @M2 and s.[YEAR] &lt;= @Y2) &#13;&#10;and sl.OS_SLUCH_REGION in (2)&#13;&#10;and pac.w = 1 &#13;&#10;and sl.work_stat = 1) as t22,&#13;&#10;&#13;&#10;(select count(*) as [c2 w_woman], isnull(ROUND(sum(sl.SUMV)/1000,2), 0) as [s2 w_woman] from SLUCH sl &#13;&#10;join SCHET s on sl.SCHET_ID = s.ID &#13;&#10;join pacient as pac on pac.id = sl.pid&#13;&#10;where (s.[MONTH] &gt;= @M1 and s.[YEAR] &gt;= @Y1) and (s.[MONTH] &lt;= @M2 and s.[YEAR] &lt;= @Y2) &#13;&#10;and sl.OS_SLUCH_REGION in (1)&#13;&#10;and pac.w = 2&#13;&#10;and sl.work_stat = 1) as t23,&#13;&#10;---------------------------------------------------------------------------&#13;&#10;&#13;&#10;--not work peopl&#13;&#10;(select count(*) as [c2 n_w], isnull(ROUND(sum(sl.SUMV)/1000,2), 0) as [s2 n_w] from SLUCH sl &#13;&#10;join SCHET s on sl.SCHET_ID = s.ID &#13;&#10;where (s.[MONTH] &gt;= @M1 and s.[YEAR] &gt;= @Y1) and (s.[MONTH] &lt;= @M2 and s.[YEAR] &lt;= @Y2) &#13;&#10;and sl.OS_SLUCH_REGION in (2)&#13;&#10;and sl.work_stat = 2) as t25,&#13;&#10;&#13;&#10;(select count(*) as [c2 n_w_man], isnull(ROUND(sum(sl.SUMV)/1000,2), 0) as [s2 n_w_man] from SLUCH sl &#13;&#10;join SCHET s on sl.SCHET_ID = s.ID &#13;&#10;join pacient as pac on pac.id = sl.pid&#13;&#10;where (s.[MONTH] &gt;= @M1 and s.[YEAR] &gt;= @Y1) and (s.[MONTH] &lt;= @M2 and s.[YEAR] &lt;= @Y2) &#13;&#10;and sl.OS_SLUCH_REGION in (2)&#13;&#10;and pac.w = 1 &#13;&#10;and sl.work_stat = 2) as t26,&#13;&#10;&#13;&#10;(select count(*) as [c2 n_w_woman], isnull(ROUND(sum(sl.SUMV)/1000,2), 0) as [s2 n_w_woman] from SLUCH sl &#13;&#10;join SCHET s on sl.SCHET_ID = s.ID &#13;&#10;join pacient as pac on pac.id = sl.pid&#13;&#10;where (s.[MONTH] &gt;= @M1 and s.[YEAR] &gt;= @Y1) and (s.[MONTH] &lt;= @M2 and s.[YEAR] &lt;= @Y2) &#13;&#10;and sl.OS_SLUCH_REGION in (2)&#13;&#10;and pac.w = 2&#13;&#10;and sl.work_stat = 2) as t27&#13;&#10;---------------------------------------------------------------------------">
+        <Column Name="s12" DataType="System.Decimal"/>
+        <Column Name="s1" DataType="System.Decimal"/>
+        <Column Name="s2" DataType="System.Decimal"/>
+        <Column Name="work peopl" DataType="System.Decimal"/>
+        <Column Name="work peopl man" DataType="System.Decimal"/>
+        <Column Name="work peopl woman" DataType="System.Decimal"/>
+        <Column Name="notwork peopl" DataType="System.Decimal"/>
+        <Column Name="notwork peopl man" DataType="System.Decimal"/>
+        <Column Name="notwork peopl woman" DataType="System.Decimal"/>
+        <Column Name="c1" DataType="System.Int32"/>
+        <Column Name="s11" DataType="System.Decimal"/>
+        <Column Name="c1 man" DataType="System.Int32"/>
+        <Column Name="s1 man" DataType="System.Decimal"/>
+        <Column Name="c1 woman" DataType="System.Int32"/>
+        <Column Name="s1 woman" DataType="System.Decimal"/>
+        <Column Name="c1 w" DataType="System.Int32"/>
+        <Column Name="s1 w" DataType="System.Decimal"/>
+        <Column Name="c1 w_man" DataType="System.Int32"/>
+        <Column Name="s1 w_man" DataType="System.Decimal"/>
+        <Column Name="c1 w_woman" DataType="System.Int32"/>
+        <Column Name="s1 w_woman" DataType="System.Decimal"/>
+        <Column Name="c1 n_w" DataType="System.Int32"/>
+        <Column Name="s1 n_w" DataType="System.Decimal"/>
+        <Column Name="c1 n_w_man" DataType="System.Int32"/>
+        <Column Name="s1 n_w_man" DataType="System.Decimal"/>
+        <Column Name="c1 n_w_woman" DataType="System.Int32"/>
+        <Column Name="s1 n_w_woman" DataType="System.Decimal"/>
+        <Column Name="c2" DataType="System.Int32"/>
+        <Column Name="s21" DataType="System.Decimal"/>
+        <Column Name="c2 man" DataType="System.Int32"/>
+        <Column Name="s2 man" DataType="System.Decimal"/>
+        <Column Name="c2 woman" DataType="System.Int32"/>
+        <Column Name="s2 woman" DataType="System.Decimal"/>
+        <Column Name="c2 w" DataType="System.Int32"/>
+        <Column Name="s2 w" DataType="System.Decimal"/>
+        <Column Name="c2 w_man" DataType="System.Int32"/>
+        <Column Name="s2 w_man" DataType="System.Decimal"/>
+        <Column Name="c2 w_woman" DataType="System.Int32"/>
+        <Column Name="s2 w_woman" DataType="System.Decimal"/>
+        <Column Name="c2 n_w" DataType="System.Int32"/>
+        <Column Name="s2 n_w" DataType="System.Decimal"/>
+        <Column Name="c2 n_w_man" DataType="System.Int32"/>
+        <Column Name="s2 n_w_man" DataType="System.Decimal"/>
+        <Column Name="c2 n_w_woman" DataType="System.Int32"/>
+        <Column Name="s2 n_w_woman" DataType="System.Decimal"/>
+        <CommandParameter Name="@M1" DataType="8" DefaultValue="5"/>
+        <CommandParameter Name="@M2" DataType="8" DefaultValue="5"/>
+        <CommandParameter Name="@Y1" DataType="8" DefaultValue="2013"/>
+        <CommandParameter Name="@Y2" DataType="8" DefaultValue="2013"/>
+      </TableDataSource>
+      <TableDataSource Name="Table3" Alias="Table2" DataType="System.Int32" Enabled="true" SelectCommand="Select * From&#13;&#10;---1&#13;&#10;(select ROUND(sum(sl.SUMP)/1000,2) as s12 &#13;&#10;from SLUCH sl &#13;&#10;join SCHET s on sl.SCHET_ID = s.ID &#13;&#10;where (s.[MONTH] &gt;= @M1 and s.[YEAR] &gt;= @Y1) and (s.[MONTH] &lt;= @M2 and s.[YEAR] &lt;= @Y2) &#13;&#10;and sl.OS_SLUCH_REGION in (1, 2)&#13;&#10;and SANK_IT = 0&#13;&#10;) as t,&#13;&#10;&#13;&#10;(select ROUND(sum(sl.SUMP)/1000,2) as s1&#13;&#10;from SLUCH sl &#13;&#10;join SCHET s on sl.SCHET_ID = s.ID &#13;&#10;join pacient as pac on pac.id = sl.pid&#13;&#10;where (s.[MONTH] &gt;= @M1 and s.[YEAR] &gt;= @Y1) and (s.[MONTH] &lt;= @M2 and s.[YEAR] &lt;= @Y2)  &#13;&#10;and sl.OS_SLUCH_REGION in (1, 2)&#13;&#10;and SANK_IT = 0&#13;&#10;and pac.w = 1&#13;&#10;) as t1,&#13;&#10;&#13;&#10;(select ROUND(sum(sl.SUMP)/1000,2) as s2 &#13;&#10;from SLUCH sl &#13;&#10;join SCHET s on sl.SCHET_ID = s.ID &#13;&#10;join pacient as pac on pac.id = sl.pid&#13;&#10;where (s.[MONTH] &gt;= @M1 and s.[YEAR] &gt;= @Y1) and (s.[MONTH] &lt;= @M2 and s.[YEAR] &lt;= @Y2)  &#13;&#10;and sl.OS_SLUCH_REGION in (1, 2)&#13;&#10;and SANK_IT = 0&#13;&#10;and pac.w = 2) as t2,&#13;&#10;----------------------------------------------------------&#13;&#10;--Работающих граждан---&#13;&#10;(select isnull(ROUND(sum(sl.SUMP)/1000,2), 0) as [work peopl]&#13;&#10;from SLUCH sl &#13;&#10;join SCHET s on sl.SCHET_ID = s.ID &#13;&#10;where (s.[MONTH] &gt;= @M1 and s.[YEAR] &gt;= @Y1) and (s.[MONTH] &lt;= @M2 and s.[YEAR] &lt;= @Y2)  &#13;&#10;and sl.OS_SLUCH_REGION in (1, 2)&#13;&#10;and SANK_IT = 0&#13;&#10;and sl.work_stat = 1) as t3,&#13;&#10;&#13;&#10;(select isnull(ROUND(sum(sl.SUMP)/1000,2), 0) as [work peopl man] &#13;&#10;from SLUCH sl &#13;&#10;join SCHET s on sl.SCHET_ID = s.ID &#13;&#10;join pacient as pac on pac.id = sl.pid&#13;&#10;where (s.[MONTH] &gt;= @M1 and s.[YEAR] &gt;= @Y1) and (s.[MONTH] &lt;= @M2 and s.[YEAR] &lt;= @Y2)  &#13;&#10;and sl.OS_SLUCH_REGION in (1, 2)&#13;&#10;and SANK_IT = 0&#13;&#10;and pac.w = 1&#13;&#10;and sl.work_stat = 1) as t4,&#13;&#10;&#13;&#10;(select isnull(ROUND(sum(sl.SUMP)/1000,2), 0) as [work peopl woman] &#13;&#10;from SLUCH sl &#13;&#10;join SCHET s on sl.SCHET_ID = s.ID &#13;&#10;join pacient as pac on pac.id = sl.pid&#13;&#10;where (s.[MONTH] &gt;= @M1 and s.[YEAR] &gt;= @Y1) and (s.[MONTH] &lt;= @M2 and s.[YEAR] &lt;= @Y2)  &#13;&#10;and sl.OS_SLUCH_REGION in (1, 2)&#13;&#10;and SANK_IT = 0&#13;&#10;and pac.w = 2&#13;&#10;and sl.work_stat = 1) as t5,&#13;&#10;--------------------------------------------------------&#13;&#10;--not work&#13;&#10;(select isnull(ROUND(sum(sl.SUMP)/1000,2), 0) as [notwork peopl]&#13;&#10;from SLUCH sl &#13;&#10;join SCHET s on sl.SCHET_ID = s.ID &#13;&#10;where (s.[MONTH] &gt;= @M1 and s.[YEAR] &gt;= @Y1) and (s.[MONTH] &lt;= @M2 and s.[YEAR] &lt;= @Y2)  &#13;&#10;and sl.OS_SLUCH_REGION in (1, 2)&#13;&#10;and SANK_IT = 0&#13;&#10;and sl.work_stat = 2) as t6,&#13;&#10;&#13;&#10;(select isnull(ROUND(sum(sl.SUMP)/1000,2), 0) as [notwork peopl man]&#13;&#10;from SLUCH sl &#13;&#10;join SCHET s on sl.SCHET_ID = s.ID &#13;&#10;join pacient as pac on pac.id = sl.pid&#13;&#10;where (s.[MONTH] &gt;= @M1 and s.[YEAR] &gt;= @Y1) and (s.[MONTH] &lt;= @M2 and s.[YEAR] &lt;= @Y2)  &#13;&#10;and sl.OS_SLUCH_REGION in (1, 2)&#13;&#10;and SANK_IT = 0&#13;&#10;and pac.w = 1&#13;&#10;and sl.work_stat = 2) as t7,&#13;&#10;&#13;&#10;(select isnull(ROUND(sum(sl.SUMP)/1000,2), 0) as [notwork peopl woman]&#13;&#10;from SLUCH sl &#13;&#10;join SCHET s on sl.SCHET_ID = s.ID &#13;&#10;join pacient as pac on pac.id = sl.pid&#13;&#10;where (s.[MONTH] &gt;= @M1 and s.[YEAR] &gt;= @Y1) and (s.[MONTH] &lt;= @M2 and s.[YEAR] &lt;= @Y2)  &#13;&#10;and sl.OS_SLUCH_REGION in (1, 2)&#13;&#10;and SANK_IT = 0&#13;&#10;and pac.w = 2&#13;&#10;and sl.work_stat = 2) as t8,&#13;&#10;--------------------------------------------------------------&#13;&#10;&#13;&#10;--в рамках 1 этапа&#13;&#10;(select isnull(ROUND(sum(sl.SUMP)/1000,2), 0) as s1 from SLUCH sl &#13;&#10;join SCHET s on sl.SCHET_ID = s.ID &#13;&#10;where (s.[MONTH] &gt;= @M1 and s.[YEAR] &gt;= @Y1) and (s.[MONTH] &lt;= @M2 and s.[YEAR] &lt;= @Y2) &#13;&#10;and sl.OS_SLUCH_REGION in (1)and SANK_IT = 0) as t9,&#13;&#10;&#13;&#10;(select isnull(ROUND(sum(sl.SUMP)/1000,2), 0) as [s1 man] from SLUCH sl &#13;&#10;join SCHET s on sl.SCHET_ID = s.ID &#13;&#10;join pacient as pac on pac.id = sl.pid&#13;&#10;where (s.[MONTH] &gt;= @M1 and s.[YEAR] &gt;= @Y1) and (s.[MONTH] &lt;= @M2 and s.[YEAR] &lt;= @Y2) &#13;&#10;and sl.OS_SLUCH_REGION in (1)and SANK_IT = 0&#13;&#10;and pac.w = 1) as t10,&#13;&#10;&#13;&#10;(select isnull(ROUND(sum(sl.SUMP)/1000,2), 0) as [s1 woman] from SLUCH sl &#13;&#10;join SCHET s on sl.SCHET_ID = s.ID &#13;&#10;join pacient as pac on pac.id = sl.pid&#13;&#10;where (s.[MONTH] &gt;= @M1 and s.[YEAR] &gt;= @Y1) and (s.[MONTH] &lt;= @M2 and s.[YEAR] &lt;= @Y2) &#13;&#10;and sl.OS_SLUCH_REGION in (1)and SANK_IT = 0&#13;&#10;and pac.w = 2) as t11,&#13;&#10;--------------------------------------------------------------------&#13;&#10;&#13;&#10;--work peopl&#13;&#10;(select isnull(ROUND(sum(sl.SUMP)/1000,2), 0) as [s1 w] from SLUCH sl &#13;&#10;join SCHET s on sl.SCHET_ID = s.ID &#13;&#10;where (s.[MONTH] &gt;= @M1 and s.[YEAR] &gt;= @Y1) and (s.[MONTH] &lt;= @M2 and s.[YEAR] &lt;= @Y2) &#13;&#10;and sl.OS_SLUCH_REGION in (1)and SANK_IT = 0&#13;&#10;and sl.work_stat = 1) as t12,&#13;&#10;&#13;&#10;(select isnull(ROUND(sum(sl.SUMP)/1000,2), 0) as [s1 w_man] from SLUCH sl &#13;&#10;join SCHET s on sl.SCHET_ID = s.ID &#13;&#10;join pacient as pac on pac.id = sl.pid&#13;&#10;where (s.[MONTH] &gt;= @M1 and s.[YEAR] &gt;= @Y1) and (s.[MONTH] &lt;= @M2 and s.[YEAR] &lt;= @Y2) &#13;&#10;and sl.OS_SLUCH_REGION in (1)and SANK_IT = 0&#13;&#10;and pac.w = 1 &#13;&#10;and sl.work_stat = 1) as t13,&#13;&#10;&#13;&#10;(select isnull(ROUND(sum(sl.SUMP)/1000,2), 0) as [s1 w_woman] from SLUCH sl &#13;&#10;join SCHET s on sl.SCHET_ID = s.ID &#13;&#10;join pacient as pac on pac.id = sl.pid&#13;&#10;where (s.[MONTH] &gt;= @M1 and s.[YEAR] &gt;= @Y1) and (s.[MONTH] &lt;= @M2 and s.[YEAR] &lt;= @Y2) &#13;&#10;and sl.OS_SLUCH_REGION in (1)and SANK_IT = 0&#13;&#10;and pac.w = 2&#13;&#10;and sl.work_stat = 1) as t14,&#13;&#10;---------------------------------------------------------------------------&#13;&#10;&#13;&#10;--not work peopl&#13;&#10;(select isnull(ROUND(sum(sl.SUMP)/1000,2), 0) as [s1 n_w] from SLUCH sl &#13;&#10;join SCHET s on sl.SCHET_ID = s.ID &#13;&#10;where (s.[MONTH] &gt;= @M1 and s.[YEAR] &gt;= @Y1) and (s.[MONTH] &lt;= @M2 and s.[YEAR] &lt;= @Y2) &#13;&#10;and sl.OS_SLUCH_REGION in (1)and SANK_IT = 0&#13;&#10;and sl.work_stat = 2) as t15,&#13;&#10;&#13;&#10;(select isnull(ROUND(sum(sl.SUMP)/1000,2), 0) as [s1 n_w_man] from SLUCH sl &#13;&#10;join SCHET s on sl.SCHET_ID = s.ID &#13;&#10;join pacient as pac on pac.id = sl.pid&#13;&#10;where (s.[MONTH] &gt;= @M1 and s.[YEAR] &gt;= @Y1) and (s.[MONTH] &lt;= @M2 and s.[YEAR] &lt;= @Y2) &#13;&#10;and sl.OS_SLUCH_REGION in (1)and SANK_IT = 0&#13;&#10;and pac.w = 1 &#13;&#10;and sl.work_stat = 2) as t16,&#13;&#10;&#13;&#10;(select isnull(ROUND(sum(sl.SUMP)/1000,2), 0) as [s1 n_w_woman] from SLUCH sl &#13;&#10;join SCHET s on sl.SCHET_ID = s.ID &#13;&#10;join pacient as pac on pac.id = sl.pid&#13;&#10;where (s.[MONTH] &gt;= @M1 and s.[YEAR] &gt;= @Y1) and (s.[MONTH] &lt;= @M2 and s.[YEAR] &lt;= @Y2) &#13;&#10;and sl.OS_SLUCH_REGION in (1)and SANK_IT = 0&#13;&#10;and pac.w = 2&#13;&#10;and sl.work_stat = 2) as t17,&#13;&#10;---------------------------------------------------------------------------&#13;&#10;&#13;&#10;--в рамках 2 этапа&#13;&#10;(select isnull(ROUND(sum(sl.SUMP)/1000,2), 0) as s2 from SLUCH sl &#13;&#10;join SCHET s on sl.SCHET_ID = s.ID &#13;&#10;where (s.[MONTH] &gt;= @M1 and s.[YEAR] &gt;= @Y1) and (s.[MONTH] &lt;= @M2 and s.[YEAR] &lt;= @Y2) &#13;&#10;and sl.OS_SLUCH_REGION in (2)and SANK_IT = 0) as t18,&#13;&#10;&#13;&#10;(select isnull(ROUND(sum(sl.SUMP)/1000,2), 0) as [s2 man] from SLUCH sl &#13;&#10;join SCHET s on sl.SCHET_ID = s.ID &#13;&#10;join pacient as pac on pac.id = sl.pid&#13;&#10;where (s.[MONTH] &gt;= @M1 and s.[YEAR] &gt;= @Y1) and (s.[MONTH] &lt;= @M2 and s.[YEAR] &lt;= @Y2) &#13;&#10;and sl.OS_SLUCH_REGION in (2)and SANK_IT = 0&#13;&#10;and pac.w = 1) as t19,&#13;&#10;&#13;&#10;(select isnull(ROUND(sum(sl.SUMP)/1000,2), 0) as [s2 woman] from SLUCH sl &#13;&#10;join SCHET s on sl.SCHET_ID = s.ID &#13;&#10;join pacient as pac on pac.id = sl.pid&#13;&#10;where (s.[MONTH] &gt;= @M1 and s.[YEAR] &gt;= @Y1) and (s.[MONTH] &lt;= @M2 and s.[YEAR] &lt;= @Y2) &#13;&#10;and sl.OS_SLUCH_REGION in (2)and SANK_IT = 0&#13;&#10;and pac.w = 2) as t20,&#13;&#10;--------------------------------------------------------------------&#13;&#10;&#13;&#10;--work peopl&#13;&#10;(select isnull(ROUND(sum(sl.SUMP)/1000,2), 0) as [s2 w] from SLUCH sl &#13;&#10;join SCHET s on sl.SCHET_ID = s.ID &#13;&#10;where (s.[MONTH] &gt;= @M1 and s.[YEAR] &gt;= @Y1) and (s.[MONTH] &lt;= @M2 and s.[YEAR] &lt;= @Y2) &#13;&#10;and sl.OS_SLUCH_REGION in (2)and SANK_IT = 0&#13;&#10;and sl.work_stat = 1) as t21,&#13;&#10;&#13;&#10;(select isnull(ROUND(sum(sl.SUMP)/1000,2), 0) as [s2 w_man] from SLUCH sl &#13;&#10;join SCHET s on sl.SCHET_ID = s.ID &#13;&#10;join pacient as pac on pac.id = sl.pid&#13;&#10;where (s.[MONTH] &gt;= @M1 and s.[YEAR] &gt;= @Y1) and (s.[MONTH] &lt;= @M2 and s.[YEAR] &lt;= @Y2) &#13;&#10;and sl.OS_SLUCH_REGION in (2)and SANK_IT = 0&#13;&#10;and pac.w = 1 &#13;&#10;and sl.work_stat = 1) as t22,&#13;&#10;&#13;&#10;(select isnull(ROUND(sum(sl.SUMP)/1000,2), 0) as [s2 w_woman] from SLUCH sl &#13;&#10;join SCHET s on sl.SCHET_ID = s.ID &#13;&#10;join pacient as pac on pac.id = sl.pid&#13;&#10;where (s.[MONTH] &gt;= @M1 and s.[YEAR] &gt;= @Y1) and (s.[MONTH] &lt;= @M2 and s.[YEAR] &lt;= @Y2) &#13;&#10;and sl.OS_SLUCH_REGION in (1)and SANK_IT = 0&#13;&#10;and pac.w = 2&#13;&#10;and sl.work_stat = 1) as t23,&#13;&#10;---------------------------------------------------------------------------&#13;&#10;&#13;&#10;--not work peopl&#13;&#10;(select isnull(ROUND(sum(sl.SUMP)/1000,2), 0) as [s2 n_w] from SLUCH sl &#13;&#10;join SCHET s on sl.SCHET_ID = s.ID &#13;&#10;where (s.[MONTH] &gt;= @M1 and s.[YEAR] &gt;= @Y1) and (s.[MONTH] &lt;= @M2 and s.[YEAR] &lt;= @Y2) &#13;&#10;and sl.OS_SLUCH_REGION in (2)and SANK_IT = 0&#13;&#10;and sl.work_stat = 2) as t25,&#13;&#10;&#13;&#10;(select isnull(ROUND(sum(sl.SUMP)/1000,2), 0) as [s2 n_w_man] from SLUCH sl &#13;&#10;join SCHET s on sl.SCHET_ID = s.ID &#13;&#10;join pacient as pac on pac.id = sl.pid&#13;&#10;where (s.[MONTH] &gt;= @M1 and s.[YEAR] &gt;= @Y1) and (s.[MONTH] &lt;= @M2 and s.[YEAR] &lt;= @Y2) &#13;&#10;and sl.OS_SLUCH_REGION in (2)and SANK_IT = 0&#13;&#10;and pac.w = 1 &#13;&#10;and sl.work_stat = 2) as t26,&#13;&#10;&#13;&#10;(select isnull(ROUND(sum(sl.SUMP)/1000,2), 0) as [s2 n_w_woman] from SLUCH sl &#13;&#10;join SCHET s on sl.SCHET_ID = s.ID &#13;&#10;join pacient as pac on pac.id = sl.pid&#13;&#10;where (s.[MONTH] &gt;= @M1 and s.[YEAR] &gt;= @Y1) and (s.[MONTH] &lt;= @M2 and s.[YEAR] &lt;= @Y2) &#13;&#10;and sl.OS_SLUCH_REGION in (2)and SANK_IT = 0&#13;&#10;and pac.w = 2&#13;&#10;and sl.work_stat = 2) as t27&#13;&#10;---------------------------------------------------------------------------">
+        <Column Name="s12" DataType="System.Decimal"/>
+        <Column Name="s1" DataType="System.Decimal"/>
+        <Column Name="s2" DataType="System.Decimal"/>
+        <Column Name="work peopl" DataType="System.Decimal"/>
+        <Column Name="work peopl man" DataType="System.Decimal"/>
+        <Column Name="work peopl woman" DataType="System.Decimal"/>
+        <Column Name="notwork peopl" DataType="System.Decimal"/>
+        <Column Name="notwork peopl man" DataType="System.Decimal"/>
+        <Column Name="notwork peopl woman" DataType="System.Decimal"/>
+        <Column Name="s11" DataType="System.Decimal"/>
+        <Column Name="s1 man" DataType="System.Decimal"/>
+        <Column Name="s1 woman" DataType="System.Decimal"/>
+        <Column Name="s1 w" DataType="System.Decimal"/>
+        <Column Name="s1 w_man" DataType="System.Decimal"/>
+        <Column Name="s1 w_woman" DataType="System.Decimal"/>
+        <Column Name="s1 n_w" DataType="System.Decimal"/>
+        <Column Name="s1 n_w_man" DataType="System.Decimal"/>
+        <Column Name="s1 n_w_woman" DataType="System.Decimal"/>
+        <Column Name="s21" DataType="System.Decimal"/>
+        <Column Name="s2 man" DataType="System.Decimal"/>
+        <Column Name="s2 woman" DataType="System.Decimal"/>
+        <Column Name="s2 w" DataType="System.Decimal"/>
+        <Column Name="s2 w_man" DataType="System.Decimal"/>
+        <Column Name="s2 w_woman" DataType="System.Decimal"/>
+        <Column Name="s2 n_w" DataType="System.Decimal"/>
+        <Column Name="s2 n_w_man" DataType="System.Decimal"/>
+        <Column Name="s2 n_w_woman" DataType="System.Decimal"/>
+        <CommandParameter Name="@M1" DataType="8" DefaultValue="5"/>
+        <CommandParameter Name="@M2" DataType="8" DefaultValue="5"/>
+        <CommandParameter Name="@Y1" DataType="8" DefaultValue="2013"/>
+        <CommandParameter Name="@Y2" DataType="8" DefaultValue="2013"/>
+      </TableDataSource>
+      <TableDataSource Name="Table4" Alias="Table3" DataType="System.Int32" Enabled="true" SelectCommand="select * from&#13;&#10;(select count(*) as c1 from SLUCH sl&#13;&#10;join SCHET s on sl.SCHET_ID = s.ID &#13;&#10;where (s.[MONTH] &gt;= @M1 and s.[YEAR] &gt;= @Y1) and (s.[MONTH] &lt;= @M2 and s.[YEAR] &lt;= @Y2) &#13;&#10;and sl.OS_SLUCH_REGION in (1,2) and (sl.GR_ZDOROV = 1 or sl.RSLT =347)) as t1,&#13;&#10;&#13;&#10;(select count(*) as c2 from SLUCH sl&#13;&#10;join SCHET s on sl.SCHET_ID = s.ID &#13;&#10;where (s.[MONTH] &gt;= @M1 and s.[YEAR] &gt;= @Y1) and (s.[MONTH] &lt;= @M2 and s.[YEAR] &lt;= @Y2) &#13;&#10;and sl.OS_SLUCH_REGION in (1,2) and (sl.GR_ZDOROV = 2 or sl.RSLT =348)) as t2,&#13;&#10;&#13;&#10;(select count(*) as c3 from SLUCH sl&#13;&#10;join SCHET s on sl.SCHET_ID = s.ID &#13;&#10;where (s.[MONTH] &gt;= @M1 and s.[YEAR] &gt;= @Y1) and (s.[MONTH] &lt;= @M2 and s.[YEAR] &lt;= @Y2) &#13;&#10;and sl.OS_SLUCH_REGION in (1,2) and (sl.GR_ZDOROV = 3 or sl.RSLT =349)) as t3,&#13;&#10;&#13;&#10;-----man&#13;&#10;(select count(*) as [c1 man] from SLUCH sl&#13;&#10;join SCHET s on sl.SCHET_ID = s.ID &#13;&#10;join pacient as pac on pac.id = sl.pid&#13;&#10;where (s.[MONTH] &gt;= @M1 and s.[YEAR] &gt;= @Y1) and (s.[MONTH] &lt;= @M2 and s.[YEAR] &lt;= @Y2) &#13;&#10;and sl.OS_SLUCH_REGION in (1,2) and (sl.GR_ZDOROV = 1 or sl.RSLT =347)&#13;&#10;and pac.W = 1) as t4,&#13;&#10;&#13;&#10;(select count(*) as [c2 man] from SLUCH sl&#13;&#10;join SCHET s on sl.SCHET_ID = s.ID &#13;&#10;join pacient as pac on pac.id = sl.pid&#13;&#10;where (s.[MONTH] &gt;= @M1 and s.[YEAR] &gt;= @Y1) and (s.[MONTH] &lt;= @M2 and s.[YEAR] &lt;= @Y2) &#13;&#10;and sl.OS_SLUCH_REGION in (1,2) and (sl.GR_ZDOROV = 2 or sl.RSLT =348)&#13;&#10;and pac.w = 1) as t5,&#13;&#10;&#13;&#10;(select count(*) as [c3 man] from SLUCH sl&#13;&#10;join SCHET s on sl.SCHET_ID = s.ID &#13;&#10;join pacient as pac on pac.id = sl.pid&#13;&#10;where (s.[MONTH] &gt;= @M1 and s.[YEAR] &gt;= @Y1) and (s.[MONTH] &lt;= @M2 and s.[YEAR] &lt;= @Y2) &#13;&#10;and sl.OS_SLUCH_REGION in (1,2) and (sl.GR_ZDOROV = 3 or sl.RSLT =349)&#13;&#10;and pac.W = 1) as t6,&#13;&#10;----------------------------&#13;&#10;&#13;&#10;---woman&#13;&#10;(select count(*) as [c1 woman] from SLUCH sl&#13;&#10;join SCHET s on sl.SCHET_ID = s.ID &#13;&#10;join pacient as pac on pac.id = sl.pid&#13;&#10;where (s.[MONTH] &gt;= @M1 and s.[YEAR] &gt;= @Y1) and (s.[MONTH] &lt;= @M2 and s.[YEAR] &lt;= @Y2) &#13;&#10;and sl.OS_SLUCH_REGION in (1,2) and (sl.GR_ZDOROV = 1 or sl.RSLT =347)&#13;&#10;and pac.W = 2) as t7,&#13;&#10;&#13;&#10;(select count(*) as [c2 woman] from SLUCH sl&#13;&#10;join SCHET s on sl.SCHET_ID = s.ID &#13;&#10;join pacient as pac on pac.id = sl.pid&#13;&#10;where (s.[MONTH] &gt;= @M1 and s.[YEAR] &gt;= @Y1) and (s.[MONTH] &lt;= @M2 and s.[YEAR] &lt;= @Y2) &#13;&#10;and sl.OS_SLUCH_REGION in (1,2) and (sl.GR_ZDOROV = 2 or sl.RSLT =348)&#13;&#10;and pac.w = 2) as t8,&#13;&#10;&#13;&#10;(select count(*) as [c3 woman] from SLUCH sl&#13;&#10;join SCHET s on sl.SCHET_ID = s.ID &#13;&#10;join pacient as pac on pac.id = sl.pid&#13;&#10;where (s.[MONTH] &gt;= @M1 and s.[YEAR] &gt;= @Y1) and (s.[MONTH] &lt;= @M2 and s.[YEAR] &lt;= @Y2) &#13;&#10;and sl.OS_SLUCH_REGION in (1,2) and (sl.GR_ZDOROV = 3 or sl.RSLT =349)&#13;&#10;and pac.W = 2) as t9,&#13;&#10;----------------------------&#13;&#10;&#13;&#10;--work&#13;&#10;(select count(*) as [c1 work] from SLUCH sl&#13;&#10;join SCHET s on sl.SCHET_ID = s.ID &#13;&#10;where (s.[MONTH] &gt;= @M1 and s.[YEAR] &gt;= @Y1) and (s.[MONTH] &lt;= @M2 and s.[YEAR] &lt;= @Y2) &#13;&#10;and sl.OS_SLUCH_REGION in (1,2) and (sl.GR_ZDOROV = 1 or sl.RSLT =347)&#13;&#10;and sl.WORK_STAT = 1) as t10,&#13;&#10;&#13;&#10;(select count(*) as [c2 work] from SLUCH sl&#13;&#10;join SCHET s on sl.SCHET_ID = s.ID &#13;&#10;where (s.[MONTH] &gt;= @M1 and s.[YEAR] &gt;= @Y1) and (s.[MONTH] &lt;= @M2 and s.[YEAR] &lt;= @Y2) &#13;&#10;and sl.OS_SLUCH_REGION in (1,2) and (sl.GR_ZDOROV = 2 or sl.RSLT =348)&#13;&#10;and sl.WORK_STAT = 1) as t11,&#13;&#10;&#13;&#10;(select count(*) as [c3 work] from SLUCH sl&#13;&#10;join SCHET s on sl.SCHET_ID = s.ID &#13;&#10;where (s.[MONTH] &gt;= @M1 and s.[YEAR] &gt;= @Y1) and (s.[MONTH] &lt;= @M2 and s.[YEAR] &lt;= @Y2) &#13;&#10;and sl.OS_SLUCH_REGION in (1,2) and (sl.GR_ZDOROV = 3 or sl.RSLT =349)&#13;&#10;and sl.WORK_STAT = 1) as t12,&#13;&#10;-----------------------------------------------&#13;&#10;&#13;&#10;---man work&#13;&#10;(select count(*) as [c1 man work] from SLUCH sl&#13;&#10;join SCHET s on sl.SCHET_ID = s.ID &#13;&#10;join pacient as pac on pac.id = sl.pid&#13;&#10;where (s.[MONTH] &gt;= @M1 and s.[YEAR] &gt;= @Y1) and (s.[MONTH] &lt;= @M2 and s.[YEAR] &lt;= @Y2) &#13;&#10;and sl.OS_SLUCH_REGION in (1,2) and (sl.GR_ZDOROV = 1 or sl.RSLT =347)&#13;&#10;and sl.WORK_STAT = 1 and pac.W = 1) as t13,&#13;&#10;&#13;&#10;(select count(*) as [c2 man work] from SLUCH sl&#13;&#10;join SCHET s on sl.SCHET_ID = s.ID &#13;&#10;join pacient as pac on pac.id = sl.pid&#13;&#10;where (s.[MONTH] &gt;= @M1 and s.[YEAR] &gt;= @Y1) and (s.[MONTH] &lt;= @M2 and s.[YEAR] &lt;= @Y2) &#13;&#10;and sl.OS_SLUCH_REGION in (1,2) and (sl.GR_ZDOROV = 2 or sl.RSLT =348)&#13;&#10;and sl.WORK_STAT = 1 and pac.W = 1) as t14,&#13;&#10;&#13;&#10;(select count(*) as [c3 man work] from SLUCH sl&#13;&#10;join SCHET s on sl.SCHET_ID = s.ID &#13;&#10;join pacient as pac on pac.id = sl.pid&#13;&#10;where (s.[MONTH] &gt;= @M1 and s.[YEAR] &gt;= @Y1) and (s.[MONTH] &lt;= @M2 and s.[YEAR] &lt;= @Y2) &#13;&#10;and sl.OS_SLUCH_REGION in (1,2) and (sl.GR_ZDOROV = 3 or sl.RSLT =349)&#13;&#10;and sl.WORK_STAT = 1 and pac.W = 1) as t15,&#13;&#10;---------------------------&#13;&#10;&#13;&#10;---woman work&#13;&#10;(select count(*) as [c1 woman work] from SLUCH sl&#13;&#10;join SCHET s on sl.SCHET_ID = s.ID &#13;&#10;join pacient as pac on pac.id = sl.pid&#13;&#10;where (s.[MONTH] &gt;= @M1 and s.[YEAR] &gt;= @Y1) and (s.[MONTH] &lt;= @M2 and s.[YEAR] &lt;= @Y2) &#13;&#10;and sl.OS_SLUCH_REGION in (1,2) and (sl.GR_ZDOROV = 1 or sl.RSLT =347)&#13;&#10;and sl.WORK_STAT = 1 and pac.W = 2) as t16,&#13;&#10;&#13;&#10;(select count(*) as [c2 woman work] from SLUCH sl&#13;&#10;join SCHET s on sl.SCHET_ID = s.ID &#13;&#10;join pacient as pac on pac.id = sl.pid&#13;&#10;where (s.[MONTH] &gt;= @M1 and s.[YEAR] &gt;= @Y1) and (s.[MONTH] &lt;= @M2 and s.[YEAR] &lt;= @Y2) &#13;&#10;and sl.OS_SLUCH_REGION in (1,2) and (sl.GR_ZDOROV = 2 or sl.RSLT =348)&#13;&#10;and sl.WORK_STAT = 1 and pac.W = 2) as t17,&#13;&#10;&#13;&#10;(select count(*) as [c3 woman work] from SLUCH sl&#13;&#10;join SCHET s on sl.SCHET_ID = s.ID &#13;&#10;join pacient as pac on pac.id = sl.pid&#13;&#10;where (s.[MONTH] &gt;= @M1 and s.[YEAR] &gt;= @Y1) and (s.[MONTH] &lt;= @M2 and s.[YEAR] &lt;= @Y2) &#13;&#10;and sl.OS_SLUCH_REGION in (1,2) and (sl.GR_ZDOROV = 3 or sl.RSLT =349)&#13;&#10;and sl.WORK_STAT = 1 and pac.W = 2) as t18,&#13;&#10;-----------------------------------------------&#13;&#10;&#13;&#10;--not work&#13;&#10;(select count(*) as [c1 n_work] from SLUCH sl&#13;&#10;join SCHET s on sl.SCHET_ID = s.ID &#13;&#10;where (s.[MONTH] &gt;= @M1 and s.[YEAR] &gt;= @Y1) and (s.[MONTH] &lt;= @M2 and s.[YEAR] &lt;= @Y2) &#13;&#10;and sl.OS_SLUCH_REGION in (1,2) and (sl.GR_ZDOROV = 1 or sl.RSLT =347)&#13;&#10;and sl.WORK_STAT = 2) as t19,&#13;&#10;&#13;&#10;(select count(*) as [c2 n_work] from SLUCH sl&#13;&#10;join SCHET s on sl.SCHET_ID = s.ID &#13;&#10;where (s.[MONTH] &gt;= @M1 and s.[YEAR] &gt;= @Y1) and (s.[MONTH] &lt;= @M2 and s.[YEAR] &lt;= @Y2) &#13;&#10;and sl.OS_SLUCH_REGION in (1,2) and (sl.GR_ZDOROV = 2 or sl.RSLT =348)&#13;&#10;and sl.WORK_STAT = 2) as t20,&#13;&#10;&#13;&#10;(select count(*) as [c3 n_work] from SLUCH sl&#13;&#10;join SCHET s on sl.SCHET_ID = s.ID &#13;&#10;where (s.[MONTH] &gt;= @M1 and s.[YEAR] &gt;= @Y1) and (s.[MONTH] &lt;= @M2 and s.[YEAR] &lt;= @Y2) &#13;&#10;and sl.OS_SLUCH_REGION in (1,2) and (sl.GR_ZDOROV = 3 or sl.RSLT =349)&#13;&#10;and sl.WORK_STAT = 2) as t21,&#13;&#10;-----------------------------------------------&#13;&#10;&#13;&#10;--not work man&#13;&#10;(select count(*) as [c1 n_work man] from SLUCH sl&#13;&#10;join SCHET s on sl.SCHET_ID = s.ID &#13;&#10;join pacient as pac on pac.id = sl.pid&#13;&#10;where (s.[MONTH] &gt;= @M1 and s.[YEAR] &gt;= @Y1) and (s.[MONTH] &lt;= @M2 and s.[YEAR] &lt;= @Y2) &#13;&#10;and sl.OS_SLUCH_REGION in (1,2) and (sl.GR_ZDOROV = 1 or sl.RSLT =347)&#13;&#10;and sl.WORK_STAT = 2 and pac.W = 1) as t22,&#13;&#10;&#13;&#10;(select count(*) as [c2 n_work man] from SLUCH sl&#13;&#10;join SCHET s on sl.SCHET_ID = s.ID &#13;&#10;join pacient as pac on pac.id = sl.pid&#13;&#10;where (s.[MONTH] &gt;= @M1 and s.[YEAR] &gt;= @Y1) and (s.[MONTH] &lt;= @M2 and s.[YEAR] &lt;= @Y2) &#13;&#10;and sl.OS_SLUCH_REGION in (1,2) and (sl.GR_ZDOROV = 2 or sl.RSLT =348)&#13;&#10;and sl.WORK_STAT = 2 and pac.W = 1) as t23,&#13;&#10;&#13;&#10;(select count(*) as [c3 n_work man] from SLUCH sl&#13;&#10;join SCHET s on sl.SCHET_ID = s.ID &#13;&#10;join pacient as pac on pac.id = sl.pid&#13;&#10;where (s.[MONTH] &gt;= @M1 and s.[YEAR] &gt;= @Y1) and (s.[MONTH] &lt;= @M2 and s.[YEAR] &lt;= @Y2) &#13;&#10;and sl.OS_SLUCH_REGION in (1,2) and (sl.GR_ZDOROV = 3 or sl.RSLT =349)&#13;&#10;and sl.WORK_STAT = 2 and pac.W = 1) as t24,&#13;&#10;-----------------------------------------------------&#13;&#10;&#13;&#10;--not work woman&#13;&#10;(select count(*) as [c1 n_work woman] from SLUCH sl&#13;&#10;join SCHET s on sl.SCHET_ID = s.ID &#13;&#10;join pacient as pac on pac.id = sl.pid&#13;&#10;where (s.[MONTH] &gt;= @M1 and s.[YEAR] &gt;= @Y1) and (s.[MONTH] &lt;= @M2 and s.[YEAR] &lt;= @Y2) &#13;&#10;and sl.OS_SLUCH_REGION in (1,2) and (sl.GR_ZDOROV = 1 or sl.RSLT =347)&#13;&#10;and sl.WORK_STAT = 2 and pac.W = 2) as t25,&#13;&#10;&#13;&#10;(select count(*) as [c2 n_work woman] from SLUCH sl&#13;&#10;join SCHET s on sl.SCHET_ID = s.ID &#13;&#10;join pacient as pac on pac.id = sl.pid&#13;&#10;where (s.[MONTH] &gt;= @M1 and s.[YEAR] &gt;= @Y1) and (s.[MONTH] &lt;= @M2 and s.[YEAR] &lt;= @Y2) &#13;&#10;and sl.OS_SLUCH_REGION in (1,2) and (sl.GR_ZDOROV = 2 or sl.RSLT =348)&#13;&#10;and sl.WORK_STAT = 2 and pac.W = 2) as t26,&#13;&#10;&#13;&#10;(select count(*) as [c3 n_work woman] from SLUCH sl&#13;&#10;join SCHET s on sl.SCHET_ID = s.ID &#13;&#10;join pacient as pac on pac.id = sl.pid&#13;&#10;where (s.[MONTH] &gt;= @M1 and s.[YEAR] &gt;= @Y1) and (s.[MONTH] &lt;= @M2 and s.[YEAR] &lt;= @Y2) &#13;&#10;and sl.OS_SLUCH_REGION in (1,2) and (sl.GR_ZDOROV = 3 or sl.RSLT =349)&#13;&#10;and sl.WORK_STAT = 2 and pac.W = 2) as t27&#13;&#10;-----------------------------------------------------">
+        <Column Name="c1" DataType="System.Int32"/>
+        <Column Name="c2" DataType="System.Int32"/>
+        <Column Name="c3" DataType="System.Int32"/>
+        <Column Name="c1 man" DataType="System.Int32"/>
+        <Column Name="c2 man" DataType="System.Int32"/>
+        <Column Name="c3 man" DataType="System.Int32"/>
+        <Column Name="c1 woman" DataType="System.Int32"/>
+        <Column Name="c2 woman" DataType="System.Int32"/>
+        <Column Name="c3 woman" DataType="System.Int32"/>
+        <Column Name="c1 work" DataType="System.Int32"/>
+        <Column Name="c2 work" DataType="System.Int32"/>
+        <Column Name="c3 work" DataType="System.Int32"/>
+        <Column Name="c1 man work" DataType="System.Int32"/>
+        <Column Name="c2 man work" DataType="System.Int32"/>
+        <Column Name="c3 man work" DataType="System.Int32"/>
+        <Column Name="c1 woman work" DataType="System.Int32"/>
+        <Column Name="c2 woman work" DataType="System.Int32"/>
+        <Column Name="c3 woman work" DataType="System.Int32"/>
+        <Column Name="c1 n_work" DataType="System.Int32"/>
+        <Column Name="c2 n_work" DataType="System.Int32"/>
+        <Column Name="c3 n_work" DataType="System.Int32"/>
+        <Column Name="c1 n_work man" DataType="System.Int32"/>
+        <Column Name="c2 n_work man" DataType="System.Int32"/>
+        <Column Name="c3 n_work man" DataType="System.Int32"/>
+        <Column Name="c1 n_work woman" DataType="System.Int32"/>
+        <Column Name="c2 n_work woman" DataType="System.Int32"/>
+        <Column Name="c3 n_work woman" DataType="System.Int32"/>
+        <CommandParameter Name="@M1" DataType="8" DefaultValue="5"/>
+        <CommandParameter Name="@M2" DataType="8" DefaultValue="5"/>
+        <CommandParameter Name="@Y1" DataType="8" DefaultValue="2013"/>
+        <CommandParameter Name="@Y2" DataType="8" DefaultValue="2013"/>
+      </TableDataSource>
+      <TableDataSource Name="Table5" Alias="stud_v" DataType="System.Int32" Enabled="true" SelectCommand="select * from&#13;&#10;--обучающихся в образовательных организациях по очной форме&#13;&#10;(select isnull(ROUND(sum(sl.SUMV)/1000,2), 0) as [stud]&#13;&#10;from SLUCH sl &#13;&#10;join SCHET s on sl.SCHET_ID = s.ID &#13;&#10;where (s.[MONTH] &gt;= @M1 and s.[YEAR] &gt;= @Y1) and (s.[MONTH] &lt;= @M2 and s.[YEAR] &lt;= @Y2)  &#13;&#10;and sl.OS_SLUCH_REGION in (1, 2)&#13;&#10;and sl.work_stat = 3) as t1,&#13;&#10;&#13;&#10;(select isnull(ROUND(sum(sl.SUMV)/1000,2), 0) as [stud man] &#13;&#10;from SLUCH sl &#13;&#10;join SCHET s on sl.SCHET_ID = s.ID &#13;&#10;join pacient as pac on pac.id = sl.pid&#13;&#10;where (s.[MONTH] &gt;= @M1 and s.[YEAR] &gt;= @Y1) and (s.[MONTH] &lt;= @M2 and s.[YEAR] &lt;= @Y2)  &#13;&#10;and sl.OS_SLUCH_REGION in (1, 2)&#13;&#10;and pac.w = 1&#13;&#10;and sl.work_stat = 3) as t2,&#13;&#10;&#13;&#10;(select isnull(ROUND(sum(sl.SUMV)/1000,2), 0) as [stud woman] &#13;&#10;from SLUCH sl &#13;&#10;join SCHET s on sl.SCHET_ID = s.ID &#13;&#10;join pacient as pac on pac.id = sl.pid&#13;&#10;where (s.[MONTH] &gt;= @M1 and s.[YEAR] &gt;= @Y1) and (s.[MONTH] &lt;= @M2 and s.[YEAR] &lt;= @Y2)  &#13;&#10;and sl.OS_SLUCH_REGION in (1, 2)&#13;&#10;and pac.w = 2&#13;&#10;and sl.work_stat = 3) as t3,&#13;&#10;---------------------------------------------------------------------------&#13;&#10;&#13;&#10;--обучающихся в образовательных организациях по очной форме в рамках 1 этапа&#13;&#10;(select count(*) as cs1, isnull(ROUND(sum(sl.SUMV)/1000,2), 0) as ss1 from SLUCH sl &#13;&#10;join SCHET s on sl.SCHET_ID = s.ID &#13;&#10;where (s.[MONTH] &gt;= @M1 and s.[YEAR] &gt;= @Y1) and (s.[MONTH] &lt;= @M2 and s.[YEAR] &lt;= @Y2) &#13;&#10;and sl.OS_SLUCH_REGION in (1)&#13;&#10;and sl.work_stat = 3) as t4,&#13;&#10;&#13;&#10;(select count(*) as [cs1 man], isnull(ROUND(sum(sl.SUMV)/1000,2), 0) as [ss1 man] from SLUCH sl &#13;&#10;join SCHET s on sl.SCHET_ID = s.ID &#13;&#10;join pacient as pac on pac.id = sl.pid&#13;&#10;where (s.[MONTH] &gt;= @M1 and s.[YEAR] &gt;= @Y1) and (s.[MONTH] &lt;= @M2 and s.[YEAR] &lt;= @Y2)  &#13;&#10;and sl.OS_SLUCH_REGION in (1)&#13;&#10;and pac.w = 1&#13;&#10;and sl.work_stat = 3) as t5,&#13;&#10;&#13;&#10;(select count(*) as [cs1 woman], isnull(ROUND(sum(sl.SUMV)/1000,2), 0) as [ss1 woman] from SLUCH sl &#13;&#10;join SCHET s on sl.SCHET_ID = s.ID &#13;&#10;join pacient as pac on pac.id = sl.pid&#13;&#10;where (s.[MONTH] &gt;= @M1 and s.[YEAR] &gt;= @Y1) and (s.[MONTH] &lt;= @M2 and s.[YEAR] &lt;= @Y2) &#13;&#10;and sl.OS_SLUCH_REGION in (1)&#13;&#10;and pac.w = 2&#13;&#10;and sl.work_stat = 3) as t6,&#13;&#10;------------------------------------------------------------------&#13;&#10;&#13;&#10;--обучающихся в образовательных организациях по очной форме в рамках 2 этапа&#13;&#10;(select count(*) as cs2, isnull(ROUND(sum(sl.SUMV)/1000,2), 0) as ss2 from SLUCH sl &#13;&#10;join SCHET s on sl.SCHET_ID = s.ID &#13;&#10;where (s.[MONTH] &gt;= @M1 and s.[YEAR] &gt;= @Y1) and (s.[MONTH] &lt;= @M2 and s.[YEAR] &lt;= @Y2) &#13;&#10;and sl.OS_SLUCH_REGION in (2)&#13;&#10;and sl.work_stat = 3) as t7,&#13;&#10;&#13;&#10;(select count(*) as [cs2 man], isnull(ROUND(sum(sl.SUMV)/1000,2), 0) as [ss2 man] from SLUCH sl &#13;&#10;join SCHET s on sl.SCHET_ID = s.ID &#13;&#10;join pacient as pac on pac.id = sl.pid&#13;&#10;where (s.[MONTH] &gt;= @M1 and s.[YEAR] &gt;= @Y1) and (s.[MONTH] &lt;= @M2 and s.[YEAR] &lt;= @Y2)  &#13;&#10;and sl.OS_SLUCH_REGION in (2)&#13;&#10;and pac.w = 1&#13;&#10;and sl.work_stat = 3) as t8,&#13;&#10;&#13;&#10;(select count(*) as [cs2 woman], isnull(ROUND(sum(sl.SUMV)/1000,2), 0) as [ss2 woman] from SLUCH sl &#13;&#10;join SCHET s on sl.SCHET_ID = s.ID &#13;&#10;join pacient as pac on pac.id = sl.pid&#13;&#10;where (s.[MONTH] &gt;= @M1 and s.[YEAR] &gt;= @Y1) and (s.[MONTH] &lt;= @M2 and s.[YEAR] &lt;= @Y2) &#13;&#10;and sl.OS_SLUCH_REGION in (2)&#13;&#10;and pac.w = 2&#13;&#10;and sl.work_stat = 3) as t9">
+        <Column Name="stud" DataType="System.Decimal"/>
+        <Column Name="stud man" DataType="System.Decimal"/>
+        <Column Name="stud woman" DataType="System.Decimal"/>
+        <Column Name="cs1" DataType="System.Int32"/>
+        <Column Name="ss1" DataType="System.Decimal"/>
+        <Column Name="cs1 man" DataType="System.Int32"/>
+        <Column Name="ss1 man" DataType="System.Decimal"/>
+        <Column Name="cs1 woman" DataType="System.Int32"/>
+        <Column Name="ss1 woman" DataType="System.Decimal"/>
+        <Column Name="cs2" DataType="System.Int32"/>
+        <Column Name="ss2" DataType="System.Decimal"/>
+        <Column Name="cs2 man" DataType="System.Int32"/>
+        <Column Name="ss2 man" DataType="System.Decimal"/>
+        <Column Name="cs2 woman" DataType="System.Int32"/>
+        <Column Name="ss2 woman" DataType="System.Decimal"/>
+        <CommandParameter Name="@Y1" DataType="8" DefaultValue="2013"/>
+        <CommandParameter Name="@Y2" DataType="8" DefaultValue="2013"/>
+        <CommandParameter Name="@M1" DataType="8" DefaultValue="5"/>
+        <CommandParameter Name="@M2" DataType="8" DefaultValue="5"/>
+      </TableDataSource>
+      <TableDataSource Name="Table6" Alias="stud_p" DataType="System.Int32" Enabled="true" SelectCommand="select * from&#13;&#10;--обучающихся в образовательных организациях по очной форме&#13;&#10;(select isnull(ROUND(sum(sl.SUMP)/1000,2), 0) as [stud]&#13;&#10;from SLUCH sl &#13;&#10;join SCHET s on sl.SCHET_ID = s.ID &#13;&#10;where (s.[MONTH] &gt;= @M1 and s.[YEAR] &gt;= @Y1) and (s.[MONTH] &lt;= @M2 and s.[YEAR] &lt;= @Y2)  &#13;&#10;and sl.OS_SLUCH_REGION in (1, 2)&#13;&#10;and sl.work_stat = 3) as t1,&#13;&#10;&#13;&#10;(select isnull(ROUND(sum(sl.SUMP)/1000,2), 0) as [stud man] &#13;&#10;from SLUCH sl &#13;&#10;join SCHET s on sl.SCHET_ID = s.ID &#13;&#10;join pacient as pac on pac.id = sl.pid&#13;&#10;where (s.[MONTH] &gt;= @M1 and s.[YEAR] &gt;= @Y1) and (s.[MONTH] &lt;= @M2 and s.[YEAR] &lt;= @Y2)  &#13;&#10;and sl.OS_SLUCH_REGION in (1, 2)&#13;&#10;and pac.w = 1&#13;&#10;and sl.work_stat = 3) as t2,&#13;&#10;&#13;&#10;(select isnull(ROUND(sum(sl.SUMP)/1000,2), 0) as [stud woman] &#13;&#10;from SLUCH sl &#13;&#10;join SCHET s on sl.SCHET_ID = s.ID &#13;&#10;join pacient as pac on pac.id = sl.pid&#13;&#10;where (s.[MONTH] &gt;= @M1 and s.[YEAR] &gt;= @Y1) and (s.[MONTH] &lt;= @M2 and s.[YEAR] &lt;= @Y2)  &#13;&#10;and sl.OS_SLUCH_REGION in (1, 2)&#13;&#10;and pac.w = 2&#13;&#10;and sl.work_stat = 3) as t3,&#13;&#10;---------------------------------------------------------------------------&#13;&#10;&#13;&#10;--обучающихся в образовательных организациях по очной форме в рамках 1 этапа&#13;&#10;(select isnull(ROUND(sum(sl.SUMP)/1000,2), 0) as ss1 from SLUCH sl &#13;&#10;join SCHET s on sl.SCHET_ID = s.ID &#13;&#10;where (s.[MONTH] &gt;= @M1 and s.[YEAR] &gt;= @Y1) and (s.[MONTH] &lt;= @M2 and s.[YEAR] &lt;= @Y2) &#13;&#10;and sl.OS_SLUCH_REGION in (1)&#13;&#10;and sl.work_stat = 3) as t4,&#13;&#10;&#13;&#10;(select isnull(ROUND(sum(sl.SUMP)/1000,2), 0) as [ss1 man] from SLUCH sl &#13;&#10;join SCHET s on sl.SCHET_ID = s.ID &#13;&#10;join pacient as pac on pac.id = sl.pid&#13;&#10;where (s.[MONTH] &gt;= @M1 and s.[YEAR] &gt;= @Y1) and (s.[MONTH] &lt;= @M2 and s.[YEAR] &lt;= @Y2)  &#13;&#10;and sl.OS_SLUCH_REGION in (1)&#13;&#10;and pac.w = 1&#13;&#10;and sl.work_stat = 3) as t5,&#13;&#10;&#13;&#10;(select isnull(ROUND(sum(sl.SUMP)/1000,2), 0) as [ss1 woman] from SLUCH sl &#13;&#10;join SCHET s on sl.SCHET_ID = s.ID &#13;&#10;join pacient as pac on pac.id = sl.pid&#13;&#10;where (s.[MONTH] &gt;= @M1 and s.[YEAR] &gt;= @Y1) and (s.[MONTH] &lt;= @M2 and s.[YEAR] &lt;= @Y2) &#13;&#10;and sl.OS_SLUCH_REGION in (1)&#13;&#10;and pac.w = 2&#13;&#10;and sl.work_stat = 3) as t6,&#13;&#10;------------------------------------------------------------------&#13;&#10;&#13;&#10;--обучающихся в образовательных организациях по очной форме в рамках 2 этапа&#13;&#10;(select isnull(ROUND(sum(sl.SUMP)/1000,2), 0) as ss2 from SLUCH sl &#13;&#10;join SCHET s on sl.SCHET_ID = s.ID &#13;&#10;where (s.[MONTH] &gt;= @M1 and s.[YEAR] &gt;= @Y1) and (s.[MONTH] &lt;= @M2 and s.[YEAR] &lt;= @Y2) &#13;&#10;and sl.OS_SLUCH_REGION in (2)&#13;&#10;and sl.work_stat = 3) as t7,&#13;&#10;&#13;&#10;(select isnull(ROUND(sum(sl.SUMP)/1000,2), 0) as [ss2 man] from SLUCH sl &#13;&#10;join SCHET s on sl.SCHET_ID = s.ID &#13;&#10;join pacient as pac on pac.id = sl.pid&#13;&#10;where (s.[MONTH] &gt;= @M1 and s.[YEAR] &gt;= @Y1) and (s.[MONTH] &lt;= @M2 and s.[YEAR] &lt;= @Y2)  &#13;&#10;and sl.OS_SLUCH_REGION in (2)&#13;&#10;and pac.w = 1&#13;&#10;and sl.work_stat = 3) as t8,&#13;&#10;&#13;&#10;(select isnull(ROUND(sum(sl.SUMP)/1000,2), 0) as [ss2 woman] from SLUCH sl &#13;&#10;join SCHET s on sl.SCHET_ID = s.ID &#13;&#10;join pacient as pac on pac.id = sl.pid&#13;&#10;where (s.[MONTH] &gt;= @M1 and s.[YEAR] &gt;= @Y1) and (s.[MONTH] &lt;= @M2 and s.[YEAR] &lt;= @Y2) &#13;&#10;and sl.OS_SLUCH_REGION in (2)&#13;&#10;and pac.w = 2&#13;&#10;and sl.work_stat = 3) as t9">
+        <Column Name="stud" DataType="System.Decimal"/>
+        <Column Name="stud man" DataType="System.Decimal"/>
+        <Column Name="stud woman" DataType="System.Decimal"/>
+        <Column Name="ss1" DataType="System.Decimal"/>
+        <Column Name="ss1 man" DataType="System.Decimal"/>
+        <Column Name="ss1 woman" DataType="System.Decimal"/>
+        <Column Name="ss2" DataType="System.Decimal"/>
+        <Column Name="ss2 man" DataType="System.Decimal"/>
+        <Column Name="ss2 woman" DataType="System.Decimal"/>
+        <CommandParameter Name="@Y1" DataType="8" DefaultValue="2013"/>
+        <CommandParameter Name="@Y2" DataType="8" DefaultValue="2013"/>
+        <CommandParameter Name="@M1" DataType="8" DefaultValue="5"/>
+        <CommandParameter Name="@M2" DataType="8" DefaultValue="5"/>
+      </TableDataSource>
+      <TableDataSource Name="Table7" Alias="stud_z" DataType="System.Int32" Enabled="true" SelectCommand="select * from&#13;&#10;--обучающихся в образовательных организациях по очной форме&#13;&#10;(select count(*) as [c1 stud] from SLUCH sl&#13;&#10;join SCHET s on sl.SCHET_ID = s.ID &#13;&#10;where (s.[MONTH] &gt;= @M1 and s.[YEAR] &gt;= @Y1) and (s.[MONTH] &lt;= @M2 and s.[YEAR] &lt;= @Y2)&#13;&#10;and sl.OS_SLUCH_REGION in (1,2) and (sl.GR_ZDOROV = 1 or sl.RSLT =347)&#13;&#10;and sl.WORK_STAT = 3) as t1,&#13;&#10;&#13;&#10;(select count(*) as [c2 stud] from SLUCH sl&#13;&#10;join SCHET s on sl.SCHET_ID = s.ID &#13;&#10;where (s.[MONTH] &gt;= @M1 and s.[YEAR] &gt;= @Y1) and (s.[MONTH] &lt;= @M2 and s.[YEAR] &lt;= @Y2)&#13;&#10;and sl.OS_SLUCH_REGION in (1,2) and (sl.GR_ZDOROV = 2 or sl.RSLT =348)&#13;&#10;and sl.WORK_STAT = 3) as t2,&#13;&#10;&#13;&#10;(select count(*) as [c3 stud] from SLUCH sl&#13;&#10;join SCHET s on sl.SCHET_ID = s.ID &#13;&#10;where (s.[MONTH] &gt;= @M1 and s.[YEAR] &gt;= @Y1) and (s.[MONTH] &lt;= @M2 and s.[YEAR] &lt;= @Y2)&#13;&#10;and sl.OS_SLUCH_REGION in (1,2) and (sl.GR_ZDOROV = 3 or sl.RSLT =349)&#13;&#10;and sl.WORK_STAT = 3) as t3,&#13;&#10;-----------------------------------------------&#13;&#10;&#13;&#10;---man stud&#13;&#10;(select count(*) as [c1 man stud] from SLUCH sl&#13;&#10;join SCHET s on sl.SCHET_ID = s.ID &#13;&#10;join pacient as pac on pac.id = sl.pid&#13;&#10;where (s.[MONTH] &gt;= @M1 and s.[YEAR] &gt;= @Y1) and (s.[MONTH] &lt;= @M2 and s.[YEAR] &lt;= @Y2)&#13;&#10;and sl.OS_SLUCH_REGION in (1,2) and (sl.GR_ZDOROV = 1 or sl.RSLT =347)&#13;&#10;and sl.WORK_STAT = 3 and pac.W = 1) as t13,&#13;&#10;&#13;&#10;(select count(*) as [c2 man stud] from SLUCH sl&#13;&#10;join SCHET s on sl.SCHET_ID = s.ID &#13;&#10;join pacient as pac on pac.id = sl.pid&#13;&#10;where (s.[MONTH] &gt;= @M1 and s.[YEAR] &gt;= @Y1) and (s.[MONTH] &lt;= @M2 and s.[YEAR] &lt;= @Y2)&#13;&#10;and sl.OS_SLUCH_REGION in (1,2) and (sl.GR_ZDOROV = 2 or sl.RSLT =348)&#13;&#10;and sl.WORK_STAT = 3 and pac.W = 1) as t14,&#13;&#10;&#13;&#10;(select count(*) as [c3 man stud] from SLUCH sl&#13;&#10;join SCHET s on sl.SCHET_ID = s.ID &#13;&#10;join pacient as pac on pac.id = sl.pid&#13;&#10;where (s.[MONTH] &gt;= @M1 and s.[YEAR] &gt;= @Y1) and (s.[MONTH] &lt;= @M2 and s.[YEAR] &lt;= @Y2)&#13;&#10;and sl.OS_SLUCH_REGION in (1,2) and (sl.GR_ZDOROV = 3 or sl.RSLT =349)&#13;&#10;and sl.WORK_STAT = 3 and pac.W = 1) as t15,&#13;&#10;---------------------------&#13;&#10;&#13;&#10;---woman stud&#13;&#10;(select count(*) as [c1 woman stud] from SLUCH sl&#13;&#10;join SCHET s on sl.SCHET_ID = s.ID &#13;&#10;join pacient as pac on pac.id = sl.pid&#13;&#10;where (s.[MONTH] &gt;= @M1 and s.[YEAR] &gt;= @Y1) and (s.[MONTH] &lt;= @M2 and s.[YEAR] &lt;= @Y2)&#13;&#10;and sl.OS_SLUCH_REGION in (1,2) and (sl.GR_ZDOROV = 1 or sl.RSLT =347)&#13;&#10;and sl.WORK_STAT = 3 and pac.W = 2) as t16,&#13;&#10;&#13;&#10;(select count(*) as [c2 woman stud] from SLUCH sl&#13;&#10;join SCHET s on sl.SCHET_ID = s.ID &#13;&#10;join pacient as pac on pac.id = sl.pid&#13;&#10;where (s.[MONTH] &gt;= @M1 and s.[YEAR] &gt;= @Y1) and (s.[MONTH] &lt;= @M2 and s.[YEAR] &lt;= @Y2)&#13;&#10;and sl.OS_SLUCH_REGION in (1,2) and (sl.GR_ZDOROV = 2 or sl.RSLT =348)&#13;&#10;and sl.WORK_STAT = 3 and pac.W = 2) as t17,&#13;&#10;&#13;&#10;(select count(*) as [c3 woman stud] from SLUCH sl&#13;&#10;join SCHET s on sl.SCHET_ID = s.ID &#13;&#10;join pacient as pac on pac.id = sl.pid&#13;&#10;where (s.[MONTH] &gt;= @M1 and s.[YEAR] &gt;= @Y1) and (s.[MONTH] &lt;= @M2 and s.[YEAR] &lt;= @Y2)&#13;&#10;and sl.OS_SLUCH_REGION in (1,2) and (sl.GR_ZDOROV = 3 or sl.RSLT =349)&#13;&#10;and sl.WORK_STAT = 3 and pac.W = 2) as t18&#13;&#10;-----------------------------------------------">
+        <Column Name="c1 stud" DataType="System.Int32"/>
+        <Column Name="c2 stud" DataType="System.Int32"/>
+        <Column Name="c3 stud" DataType="System.Int32"/>
+        <Column Name="c1 man stud" DataType="System.Int32"/>
+        <Column Name="c2 man stud" DataType="System.Int32"/>
+        <Column Name="c3 man stud" DataType="System.Int32"/>
+        <Column Name="c1 woman stud" DataType="System.Int32"/>
+        <Column Name="c2 woman stud" DataType="System.Int32"/>
+        <Column Name="c3 woman stud" DataType="System.Int32"/>
+        <CommandParameter Name="@Y1" DataType="8" DefaultValue="2013"/>
+        <CommandParameter Name="@Y2" DataType="8" DefaultValue="2013"/>
+        <CommandParameter Name="@M1" DataType="8" DefaultValue="5"/>
+        <CommandParameter Name="@M2" DataType="8" DefaultValue="5"/>
+      </TableDataSource>
+      <TableDataSource Name="Table8" Alias="col_h" DataType="System.Int32" Enabled="true" SelectCommand="select * from&#13;&#10;(select SUM(c1) as c1&#13;&#10;from(&#13;&#10;select 1 as c1&#13;&#10;from SLUCH sl&#13;&#10;join SCHET s on sl.SCHET_ID = s.ID &#13;&#10;where (s.[MONTH] &gt;= @M1 and s.[YEAR] &gt;= @Y1) and (s.[MONTH] &lt;= @M2 and s.[YEAR] &lt;= @Y2)&#13;&#10;and sl.OS_SLUCH_REGION in (1,2)&#13;&#10;and RSLT in (316, 315)&#13;&#10;group by sl.PID) as t) as t1,&#13;&#10;&#13;&#10;(select SUM(c1) as [c1 man]&#13;&#10;from(&#13;&#10;select 1 as c1&#13;&#10;from SLUCH sl&#13;&#10;join SCHET s on sl.SCHET_ID = s.ID &#13;&#10;join pacient as pac on pac.id = sl.pid&#13;&#10;where (s.[MONTH] &gt;= @M1 and s.[YEAR] &gt;= @Y1) and (s.[MONTH] &lt;= @M2 and s.[YEAR] &lt;= @Y2)&#13;&#10;and sl.OS_SLUCH_REGION in (1,2)&#13;&#10;and RSLT in (316, 315)&#13;&#10;and pac.W = 1&#13;&#10;group by sl.PID) as t) as t2,&#13;&#10;&#13;&#10;(select SUM(c1) as [c1 woman]&#13;&#10;from(&#13;&#10;select 1 as c1&#13;&#10;from SLUCH sl&#13;&#10;join SCHET s on sl.SCHET_ID = s.ID &#13;&#10;join pacient as pac on pac.id = sl.pid&#13;&#10;where (s.[MONTH] &gt;= @M1 and s.[YEAR] &gt;= @Y1) and (s.[MONTH] &lt;= @M2 and s.[YEAR] &lt;= @Y2)&#13;&#10;and sl.OS_SLUCH_REGION in (1,2)&#13;&#10;and RSLT in (316, 315)&#13;&#10;and pac.W = 2&#13;&#10;group by sl.PID) as t) as t3,&#13;&#10;&#13;&#10;--work&#13;&#10;(select isnull(SUM(c1), 0) as [c1 w]&#13;&#10;from(&#13;&#10;select 1 as c1&#13;&#10;from SLUCH sl&#13;&#10;join SCHET s on sl.SCHET_ID = s.ID &#13;&#10;where (s.[MONTH] &gt;= @M1 and s.[YEAR] &gt;= @Y1) and (s.[MONTH] &lt;= @M2 and s.[YEAR] &lt;= @Y2)&#13;&#10;and sl.OS_SLUCH_REGION in (1,2)&#13;&#10;and RSLT in (316, 315)&#13;&#10;and sl.WORK_STAT = 1&#13;&#10;group by sl.PID) as t) as t4,&#13;&#10;&#13;&#10;(select isnull(SUM(c1), 0) as [c1 w_man]&#13;&#10;from(&#13;&#10;select 1 as c1&#13;&#10;from SLUCH sl&#13;&#10;join SCHET s on sl.SCHET_ID = s.ID &#13;&#10;join pacient as pac on pac.id = sl.pid&#13;&#10;where (s.[MONTH] &gt;= @M1 and s.[YEAR] &gt;= @Y1) and (s.[MONTH] &lt;= @M2 and s.[YEAR] &lt;= @Y2)&#13;&#10;and sl.OS_SLUCH_REGION in (1,2)&#13;&#10;and RSLT in (316, 315)&#13;&#10;and pac.W = 1&#13;&#10;and sl.WORK_STAT = 1&#13;&#10;group by sl.PID) as t) as t5,&#13;&#10;&#13;&#10;(select isnull(SUM(c1), 0) as [c1 w_woman]&#13;&#10;from(&#13;&#10;select 1 as c1&#13;&#10;from SLUCH sl&#13;&#10;join SCHET s on sl.SCHET_ID = s.ID &#13;&#10;join pacient as pac on pac.id = sl.pid&#13;&#10;where (s.[MONTH] &gt;= @M1 and s.[YEAR] &gt;= @Y1) and (s.[MONTH] &lt;= @M2 and s.[YEAR] &lt;= @Y2)&#13;&#10;and sl.OS_SLUCH_REGION in (1,2)&#13;&#10;and RSLT in (316, 315)&#13;&#10;and pac.W = 2&#13;&#10;and sl.WORK_STAT = 1&#13;&#10;group by sl.PID) as t) as t6,&#13;&#10;&#13;&#10;--not work&#13;&#10;(select isnull(SUM(c1), 0) as [c1 nw]&#13;&#10;from(&#13;&#10;select 1 as c1&#13;&#10;from SLUCH sl&#13;&#10;join SCHET s on sl.SCHET_ID = s.ID &#13;&#10;where (s.[MONTH] &gt;= @M1 and s.[YEAR] &gt;= @Y1) and (s.[MONTH] &lt;= @M2 and s.[YEAR] &lt;= @Y2)&#13;&#10;and sl.OS_SLUCH_REGION in (1,2)&#13;&#10;and RSLT in (316, 315)&#13;&#10;and sl.WORK_STAT = 2&#13;&#10;group by sl.PID) as t) as t7,&#13;&#10;&#13;&#10;(select isnull(SUM(c1), 0) as [c1 nw_man]&#13;&#10;from(&#13;&#10;select 1 as c1&#13;&#10;from SLUCH sl&#13;&#10;join SCHET s on sl.SCHET_ID = s.ID &#13;&#10;join pacient as pac on pac.id = sl.pid&#13;&#10;where (s.[MONTH] &gt;= @M1 and s.[YEAR] &gt;= @Y1) and (s.[MONTH] &lt;= @M2 and s.[YEAR] &lt;= @Y2)&#13;&#10;and sl.OS_SLUCH_REGION in (1,2)&#13;&#10;and RSLT in (316, 315)&#13;&#10;and pac.W = 1&#13;&#10;and sl.WORK_STAT = 2&#13;&#10;group by sl.PID) as t) as t8,&#13;&#10;&#13;&#10;(select isnull(SUM(c1), 0) as [c1 nw_woman]&#13;&#10;from(&#13;&#10;select 1 as c1&#13;&#10;from SLUCH sl&#13;&#10;join SCHET s on sl.SCHET_ID = s.ID &#13;&#10;join pacient as pac on pac.id = sl.pid&#13;&#10;where (s.[MONTH] &gt;= @M1 and s.[YEAR] &gt;= @Y1) and (s.[MONTH] &lt;= @M2 and s.[YEAR] &lt;= @Y2)&#13;&#10;and sl.OS_SLUCH_REGION in (1,2)&#13;&#10;and RSLT in (316, 315)&#13;&#10;and pac.W = 2&#13;&#10;and sl.WORK_STAT = 2&#13;&#10;group by sl.PID) as t) as t9,&#13;&#10;&#13;&#10;--stud&#13;&#10;(select isnull(SUM(c1), 0) as [c1 stud]&#13;&#10;from(&#13;&#10;select 1 as c1&#13;&#10;from SLUCH sl&#13;&#10;join SCHET s on sl.SCHET_ID = s.ID &#13;&#10;where (s.[MONTH] &gt;= @M1 and s.[YEAR] &gt;= @Y1) and (s.[MONTH] &lt;= @M2 and s.[YEAR] &lt;= @Y2)&#13;&#10;and sl.OS_SLUCH_REGION in (1,2)&#13;&#10;and RSLT in (316, 315)&#13;&#10;and sl.WORK_STAT = 3&#13;&#10;group by sl.PID) as t) as t10,&#13;&#10;&#13;&#10;(select isnull(SUM(c1), 0) as [c1 stud_man]&#13;&#10;from(&#13;&#10;select 1 as c1&#13;&#10;from SLUCH sl&#13;&#10;join SCHET s on sl.SCHET_ID = s.ID &#13;&#10;join pacient as pac on pac.id = sl.pid&#13;&#10;where (s.[MONTH] &gt;= @M1 and s.[YEAR] &gt;= @Y1) and (s.[MONTH] &lt;= @M2 and s.[YEAR] &lt;= @Y2)&#13;&#10;and sl.OS_SLUCH_REGION in (1,2)&#13;&#10;and RSLT in (316, 315)&#13;&#10;and pac.W = 1&#13;&#10;and sl.WORK_STAT = 3&#13;&#10;group by sl.PID) as t) as t11,&#13;&#10;&#13;&#10;(select isnull(SUM(c1), 0) as [c1 stud_woman]&#13;&#10;from(&#13;&#10;select 1 as c1&#13;&#10;from SLUCH sl&#13;&#10;join SCHET s on sl.SCHET_ID = s.ID &#13;&#10;join pacient as pac on pac.id = sl.pid&#13;&#10;where (s.[MONTH] &gt;= @M1 and s.[YEAR] &gt;= @Y1) and (s.[MONTH] &lt;= @M2 and s.[YEAR] &lt;= @Y2)&#13;&#10;and sl.OS_SLUCH_REGION in (1,2)&#13;&#10;and RSLT in (316, 315)&#13;&#10;and pac.W = 2&#13;&#10;and sl.WORK_STAT = 3&#13;&#10;group by sl.PID) as t) as t12">
+        <Column Name="c1" DataType="System.Int32"/>
+        <Column Name="c1 man" DataType="System.Int32"/>
+        <Column Name="c1 woman" DataType="System.Int32"/>
+        <Column Name="c1 w" DataType="System.Int32"/>
+        <Column Name="c1 w_man" DataType="System.Int32"/>
+        <Column Name="c1 w_woman" DataType="System.Int32"/>
+        <Column Name="c1 nw" DataType="System.Int32"/>
+        <Column Name="c1 nw_man" DataType="System.Int32"/>
+        <Column Name="c1 nw_woman" DataType="System.Int32"/>
+        <Column Name="c1 stud" DataType="System.Int32"/>
+        <Column Name="c1 stud_man" DataType="System.Int32"/>
+        <Column Name="c1 stud_woman" DataType="System.Int32"/>
+        <CommandParameter Name="@M1" DataType="8" DefaultValue="5"/>
+        <CommandParameter Name="@M2" DataType="8" DefaultValue="5"/>
+        <CommandParameter Name="@Y1" DataType="8" DefaultValue="2013"/>
+        <CommandParameter Name="@Y2" DataType="8" DefaultValue="2013"/>
+      </TableDataSource>
+    </MsSqlDataConnection>
+    <Parameter Name="@M1" DataType="System.Int32"/>
+    <Parameter Name="@M2" DataType="System.Int32"/>
+    <Parameter Name="@Y1" DataType="System.Int32"/>
+    <Parameter Name="@Y2" DataType="System.Int32"/>
+  </Dictionary>
+  <ReportPage Name="Page1" Landscape="true" PaperWidth="297" PaperHeight="210" RawPaperSize="9" FirstPageSource="15" OtherPagesSource="15">
+    <ReportTitleBand Name="ReportTitle1" Width="1047.06" Height="283.5">
+      <TextObject Name="Text1" Left="207.9" Top="47.25" Width="642.6" Height="28.35" Text="Сведения о результатах проведения диспансеризации взрослого населения" HorzAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text5" Left="888.3" Top="9.45" Width="274.05" Height="37.8" Text="Приложение №9"/>
+      <TextObject Name="Text25" Left="425.25" Top="9.45" Width="179.55" Height="18.9" Text="ООО &quot;Росмедстрах - К&quot;" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text26" Left="425.25" Top="66.15" Width="151.2" Height="18.9" Text="за  __________ 2013г."/>
+      <TextObject Name="Text27" Left="472.5" Top="85.05" Width="66.15" Height="18.9" Text="(месяц)" Font="Arial, 7pt"/>
+      <TextObject Name="Text28" Left="274.05" Top="18.9" Width="576.45" Height="37.8" Text="___________________________________________________________________" Font="Arial, 10pt, style=Bold"/>
+      <TableObject Name="Table1" Top="103.95" Width="1030.05" Height="179.55">
+        <TableColumn Name="Column179" Width="179.55"/>
+        <TableColumn Name="Column180" Width="37.8"/>
+        <TableColumn Name="Column181" Width="94.5"/>
+        <TableColumn Name="Column182" Width="47.25"/>
+        <TableColumn Name="Column183" Width="85.05"/>
+        <TableColumn Name="Column184" Width="47.25"/>
+        <TableColumn Name="Column185" Width="75.6"/>
+        <TableColumn Name="Column186" Width="75.6"/>
+        <TableColumn Name="Column187" Width="75.6"/>
+        <TableColumn Name="Column188" Width="75.6"/>
+        <TableColumn Name="Column189"/>
+        <TableColumn Name="Column190" Width="56.7"/>
+        <TableColumn Name="Column191" Width="56.7"/>
+        <TableColumn Name="Column192" Width="56.7"/>
+        <TableRow Name="Row59" Height="47.25">
+          <TableCell Name="Cell1011" Border.Lines="All" Text="Группы" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt" RowSpan="3"/>
+          <TableCell Name="Cell1012" Border.Lines="All" Text="№ стр." HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt" RowSpan="3"/>
+          <TableCell Name="Cell1013" Border.Lines="All" Text="Всего предъявленных к оплате реестров счетов в рамках диспансеризации за отчетный период, тыс. рублей*" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt" RowSpan="3"/>
+          <TableCell Name="Cell1014" Border.Lines="All" Text="в том числе:&#13;&#10;" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt" ColSpan="4"/>
+          <TableCell Name="Cell1015" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1031" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1032" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1033" Border.Lines="All" Text="Оплачено в рамках диспансеризации за отчетный период, тыс. рублей" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt" ColSpan="3"/>
+          <TableCell Name="Cell1034" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1035" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1036" Border.Lines="All" Text="Количество граждан, направленных на 2 этап диспансеризации по результатам 1 этапа диспансеризации, человек" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt" RowSpan="3"/>
+          <TableCell Name="Cell1037" Border.Lines="All" Text="Группы состояния здоровья застрахованных лиц, прошедших диспансеризацию" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt" ColSpan="3" RowSpan="2"/>
+          <TableCell Name="Cell1038" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1039" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+        </TableRow>
+        <TableRow Name="Row60" Height="28.35">
+          <TableCell Name="Cell1016" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1017" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1018" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1019" Border.Lines="All" Text="в рамках 1 этапа" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt" ColSpan="2"/>
+          <TableCell Name="Cell1020" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1040" Border.Lines="All" Text="в рамках 2 этапа" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt" ColSpan="2"/>
+          <TableCell Name="Cell1041" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1042" Border.Lines="All" Text="Всего*" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt" RowSpan="2"/>
+          <TableCell Name="Cell1043" Border.Lines="All" Text="в том числе:" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt" ColSpan="2"/>
+          <TableCell Name="Cell1044" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1045" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1046" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1047" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1048" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+        </TableRow>
+        <TableRow Name="Row61" Height="85.05">
+          <TableCell Name="Cell1021" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1022" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1023" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1024" Border.Lines="All" Text="кол-во счетов&#13;&#10;" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1025" Border.Lines="All" Text="тыс. руб." HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1049" Border.Lines="All" Text="кол-во счетов&#13;&#10;" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1050" Border.Lines="All" Text="тыс. руб." HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1051" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1052" Border.Lines="All" Text="в рамках 1 этапа" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1053" Border.Lines="All" Text="в рамках 2 этапа" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1054" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1055" Border.Lines="All" Text="1 группа состояния здоровья, человек" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1056" Border.Lines="All" Text="2 группа состояния здоровья, человек" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1057" Border.Lines="All" Text="3 группа состояния здоровья, человек" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+        </TableRow>
+        <TableRow Name="Row62">
+          <TableCell Name="Cell1026" Border.Lines="All" Text="1" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1027" Border.Lines="All" Text="2" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1028" Border.Lines="All" Text="3" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1029" Border.Lines="All" Text="4" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1030" Border.Lines="All" Text="5" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1058" Border.Lines="All" Text="6" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1059" Border.Lines="All" Text="7" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1060" Border.Lines="All" Text="8" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1061" Border.Lines="All" Text="9" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1062" Border.Lines="All" Text="10" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1063" Border.Lines="All" Text="11" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1064" Border.Lines="All" Text="12" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1065" Border.Lines="All" Text="13" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1066" Border.Lines="All" Text="14" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+        </TableRow>
+      </TableObject>
+    </ReportTitleBand>
+    <DataBand Name="Data1" Top="287.5" Width="1047.06" Height="331.75">
+      <TableObject Name="Table2" Width="1030.05" Height="331.75" Border.Lines="All">
+        <TableColumn Name="Column193" Width="179.55"/>
+        <TableColumn Name="Column194" Width="37.8"/>
+        <TableColumn Name="Column195" Width="94.5"/>
+        <TableColumn Name="Column196" Width="47.25"/>
+        <TableColumn Name="Column197" Width="85.05"/>
+        <TableColumn Name="Column198" Width="47.25"/>
+        <TableColumn Name="Column199" Width="75.6"/>
+        <TableColumn Name="Column200" Width="75.6"/>
+        <TableColumn Name="Column201" Width="75.6"/>
+        <TableColumn Name="Column202" Width="75.6"/>
+        <TableColumn Name="Column203"/>
+        <TableColumn Name="Column204" Width="56.7"/>
+        <TableColumn Name="Column205" Width="56.7"/>
+        <TableColumn Name="Column206" Width="56.7"/>
+        <TableRow Name="Row63" Height="28.35">
+          <TableCell Name="Cell1067" Border.Lines="All" Text="Всего взрослых (в возрасте 18 лет и старше)" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1068" Border.Lines="All" Text="1" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1069" Border.Lines="All" Text="[Table.s12]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1070" Border.Lines="All" Text="[Table.c1]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1071" Border.Lines="All" Text="[Table.s11]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1127" Border.Lines="All" Text="[Table.c2]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1128" Border.Lines="All" Text="[Table.s21]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1129" Border.Lines="All" Text="[Table2.s12]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1130" Border.Lines="All" Text="[Table2.s11]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1131" Border.Lines="All" Text="[Table2.s21]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1132" Border.Lines="All" Text="[col_h.c1]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1133" Border.Lines="All" Text="[Table3.c1]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1134" Border.Lines="All" Text="[Table3.c2]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1135" Border.Lines="All" Text="[Table3.c3]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+        </TableRow>
+        <TableRow Name="Row64">
+          <TableCell Name="Cell1072" Border.Lines="All" Text="из них:" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1073" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1074" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1075" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1076" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1136" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1137" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1138" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1139" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1140" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1141" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1142" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1143" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1144" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+        </TableRow>
+        <TableRow Name="Row65">
+          <TableCell Name="Cell1077" Border.Lines="All" Text="мужчины&#13;&#10;" HorzAlign="Right" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1078" Border.Lines="All" Text="2" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1079" Border.Lines="All" Text="[Table.s1]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1080" Border.Lines="All" Text="[Table.c1 man]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1081" Border.Lines="All" Text="[Table.s1 man]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1145" Border.Lines="All" Text="[Table.c2 man]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1146" Border.Lines="All" Text="[Table.s2 man]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1147" Border.Lines="All" Text="[Table2.s1]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1148" Border.Lines="All" Text="[Table2.s1 man]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1149" Border.Lines="All" Text="[Table2.s2 man]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1150" Border.Lines="All" Text="[col_h.c1 man]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1151" Border.Lines="All" Text="[Table3.c1 man]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1152" Border.Lines="All" Text="[Table3.c2 man]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1153" Border.Lines="All" Text="[Table3.c3 man]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+        </TableRow>
+        <TableRow Name="Row66">
+          <TableCell Name="Cell1082" Border.Lines="All" Text="женщины" HorzAlign="Right" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1083" Border.Lines="All" Text="3" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1084" Border.Lines="All" Text="[Table.s2]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1085" Border.Lines="All" Text="[Table.c1 woman]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1086" Border.Lines="All" Text="[Table.s1 woman]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1154" Border.Lines="All" Text="[Table.c2 woman]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1155" Border.Lines="All" Text="[Table.s2 woman]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1156" Border.Lines="All" Text="[Table2.s2]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1157" Border.Lines="All" Text="[Table2.s1 woman]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1158" Border.Lines="All" Text="[Table2.s2 woman]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1159" Border.Lines="All" Text="[col_h.c1 woman]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1160" Border.Lines="All" Text="[Table3.c1 woman]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1161" Border.Lines="All" Text="[Table3.c2 woman]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1162" Border.Lines="All" Text="[Table3.c3 woman]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+        </TableRow>
+        <TableRow Name="Row67">
+          <TableCell Name="Cell1087" Border.Lines="All" Text="Работающих граждан" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1088" Border.Lines="All" Text="4" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1089" Border.Lines="All" Text="[Table.work peopl]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1090" Border.Lines="All" Text="[Table.c1 w]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1091" Border.Lines="All" Text="[Table.s1 w]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1163" Border.Lines="All" Text="[Table.c2 w]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1164" Border.Lines="All" Text="[Table.s2 w]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1165" Border.Lines="All" Text="[Table2.work peopl]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1166" Border.Lines="All" Text="[Table2.s1 w]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1167" Border.Lines="All" Text="[Table2.s2 w]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1168" Border.Lines="All" Text="[col_h.c1 w]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1169" Border.Lines="All" Text="[Table3.c1 work]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1170" Border.Lines="All" Text="[Table3.c2 work]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1171" Border.Lines="All" Text="[Table3.c3 work]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+        </TableRow>
+        <TableRow Name="Row68">
+          <TableCell Name="Cell1092" Border.Lines="All" Text="из них:" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1093" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1094" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1095" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1096" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1172" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1173" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1174" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1175" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1176" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1177" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1178" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1179" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1180" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+        </TableRow>
+        <TableRow Name="Row69" Height="19.9">
+          <TableCell Name="Cell1097" Border.Lines="All" Text="мужчины" HorzAlign="Right" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1098" Border.Lines="All" Text="5" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1099" Border.Lines="All" Text="[Table.work peopl man]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1100" Border.Lines="All" Text="[Table.c1 w_man]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1101" Border.Lines="All" Text="[Table.s1 w_man]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1181" Border.Lines="All" Text="[Table.c2 w_man]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1182" Border.Lines="All" Text="[Table.s2 w_man]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1183" Border.Lines="All" Text="[Table2.work peopl man]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1184" Border.Lines="All" Text="[Table2.s1 w_man]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1185" Border.Lines="All" Text="[Table2.s2 w_man]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1186" Border.Lines="All" Text="[col_h.c1 w_man]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1187" Border.Lines="All" Text="[Table3.c1 man work]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1188" Border.Lines="All" Text="[Table3.c2 man work]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1189" Border.Lines="All" Text="[Table3.c3 man work]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+        </TableRow>
+        <TableRow Name="Row70">
+          <TableCell Name="Cell1102" Border.Lines="All" Text="женщины" HorzAlign="Right" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1103" Border.Lines="All" Text="6" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1104" Border.Lines="All" Text="[Table.work peopl woman]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1105" Border.Lines="All" Text="[Table.c1 w_woman]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1106" Border.Lines="All" Text="[Table.s1 w_woman]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1190" Border.Lines="All" Text="[Table.c2 w_woman]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1191" Border.Lines="All" Text="[Table.s2 w_woman]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1192" Border.Lines="All" Text="[Table2.work peopl woman]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1193" Border.Lines="All" Text="[Table2.s1 w_woman]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1194" Border.Lines="All" Text="[Table2.s2 w_woman]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1195" Border.Lines="All" Text="[col_h.c1 w_woman]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1196" Border.Lines="All" Text="[Table3.c1 woman work]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1197" Border.Lines="All" Text="[Table3.c2 woman work]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1198" Border.Lines="All" Text="[Table3.c3 woman work]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+        </TableRow>
+        <TableRow Name="Row71">
+          <TableCell Name="Cell1107" Border.Lines="All" Text="Неработающих граждан" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1108" Border.Lines="All" Text="7" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1109" Border.Lines="All" Text="[Table.notwork peopl]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1110" Border.Lines="All" Text="[Table.c1 n_w]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1111" Border.Lines="All" Text="[Table.s1 n_w]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1199" Border.Lines="All" Text="[Table.c2 n_w]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1200" Border.Lines="All" Text="[Table.s2 n_w]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1201" Border.Lines="All" Text="[Table2.notwork peopl]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1202" Border.Lines="All" Text="[Table2.s1 n_w]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1203" Border.Lines="All" Text="[Table2.s2 n_w]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1204" Border.Lines="All" Text="[col_h.c1 nw]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1205" Border.Lines="All" Text="[Table3.c1 n_work]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1206" Border.Lines="All" Text="[Table3.c2 n_work]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1207" Border.Lines="All" Text="[Table3.c3 n_work]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+        </TableRow>
+        <TableRow Name="Row72">
+          <TableCell Name="Cell1112" Border.Lines="All" Text="из них:" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1113" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1114" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1115" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1116" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1208" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1209" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1210" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1211" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1212" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1213" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1214" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1215" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1216" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+        </TableRow>
+        <TableRow Name="Row73">
+          <TableCell Name="Cell1117" Border.Lines="All" Text="мужчины" HorzAlign="Right" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1118" Border.Lines="All" Text="8" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1119" Border.Lines="All" Text="[Table.notwork peopl man]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1120" Border.Lines="All" Text="[Table.c1 n_w_man]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1121" Border.Lines="All" Text="[Table.s1 n_w_man]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1217" Border.Lines="All" Text="[Table.c2 n_w_man]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1218" Border.Lines="All" Text="[Table.s2 n_w_man]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1219" Border.Lines="All" Text="[Table2.notwork peopl man]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1220" Border.Lines="All" Text="[Table2.s1 n_w_man]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1221" Border.Lines="All" Text="[Table2.s2 n_w_man]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1222" Border.Lines="All" Text="[col_h.c1 nw_man]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1223" Border.Lines="All" Text="[Table3.c1 n_work man]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1224" Border.Lines="All" Text="[Table3.c2 n_work man]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1225" Border.Lines="All" Text="[Table3.c3 n_work man]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+        </TableRow>
+        <TableRow Name="Row74">
+          <TableCell Name="Cell1122" Border.Lines="All" Text="женщины" HorzAlign="Right" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1123" Border.Lines="All" Text="9" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1124" Border.Lines="All" Text="[Table.notwork peopl woman]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1125" Border.Lines="All" Text="[Table.c1 n_w_woman]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1126" Border.Lines="All" Text="[Table.s1 n_w_woman]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1226" Border.Lines="All" Text="[Table.c2 n_w_woman]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1227" Border.Lines="All" Text="[Table.s2 n_w_woman]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1228" Border.Lines="All" Text="[Table2.notwork peopl woman]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1229" Border.Lines="All" Text="[Table2.s1 n_w_woman]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1230" Border.Lines="All" Text="[Table2.s2 n_w_woman]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1231" Border.Lines="All" Text="[col_h.c1 nw_woman]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1232" Border.Lines="All" Text="[Table3.c1 n_work woman]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1233" Border.Lines="All" Text="[Table3.c2 n_work woman]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1234" Border.Lines="All" Text="[Table3.c3 n_work woman]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+        </TableRow>
+        <TableRow Name="Row75" Height="56.7">
+          <TableCell Name="Cell1235" Border.Lines="All" Text="Справочно: из строки 1 обучающихся в образовательных организациях по очной форме" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1236" Border.Lines="All" Text="10" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1237" Border.Lines="All" Text="[stud_v.stud]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1238" Border.Lines="All" Text="[stud_v.cs1]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1239" Border.Lines="All" Text="[stud_v.ss1]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1240" Border.Lines="All" Text="[stud_v.cs2]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1241" Border.Lines="All" Text="[stud_v.ss2]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1242" Border.Lines="All" Text="[stud_p.stud]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1243" Border.Lines="All" Text="[stud_p.ss1]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1244" Border.Lines="All" Text="[stud_p.ss2]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1245" Border.Lines="All" Text="[col_h.c1 stud]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1246" Border.Lines="All" Text="[stud_z.c1 stud]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1247" Border.Lines="All" Text="[stud_z.c2 stud]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1248" Border.Lines="All" Text="[stud_z.c3 stud]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+        </TableRow>
+        <TableRow Name="Row76">
+          <TableCell Name="Cell1249" Border.Lines="All" Text="их строки 2 мужчины&#13;&#10;" HorzAlign="Right" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1250" Border.Lines="All" Text="11" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1251" Border.Lines="All" Text="[stud_v.stud man]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1252" Border.Lines="All" Text="[stud_v.cs1 man]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1253" Border.Lines="All" Text="[stud_v.ss1 man]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1254" Border.Lines="All" Text="[stud_v.cs2 man]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1255" Border.Lines="All" Text="[stud_v.ss2 man]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1256" Border.Lines="All" Text="[stud_p.stud man]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1257" Border.Lines="All" Text="[stud_p.ss1 man]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1258" Border.Lines="All" Text="[stud_p.ss2 man]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1259" Border.Lines="All" Text="[col_h.c1 stud_man]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1260" Border.Lines="All" Text="[stud_z.c1 man stud]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1261" Border.Lines="All" Text="[stud_z.c2 man stud]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1262" Border.Lines="All" Text="[stud_z.c3 man stud]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+        </TableRow>
+        <TableRow Name="Row77">
+          <TableCell Name="Cell1263" Border.Lines="All" Text="из строки 3 женщины" HorzAlign="Right" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1264" Border.Lines="All" Text="12" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1265" Border.Lines="All" Text="[stud_v.stud woman]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1266" Border.Lines="All" Text="[stud_v.cs1 woman]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1267" Border.Lines="All" Text="[stud_v.ss1 woman]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1268" Border.Lines="All" Text="[stud_v.cs2 woman]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1269" Border.Lines="All" Text="[stud_v.ss2 woman]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1270" Border.Lines="All" Text="[stud_p.stud woman]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1271" Border.Lines="All" Text="[stud_p.ss1 woman]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1272" Border.Lines="All" Text="[stud_p.ss2 woman]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1273" Border.Lines="All" Text="[col_h.c1 stud_woman]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1274" Border.Lines="All" Text="[stud_z.c1 woman stud]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1275" Border.Lines="All" Text="[stud_z.c2 woman stud]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell1276" Border.Lines="All" Text="[stud_z.c3 woman stud]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+        </TableRow>
+      </TableObject>
+    </DataBand>
+    <ReportSummaryBand Name="ReportSummary1" Top="623.25" Width="1047.06" Height="75.6" Guides="18.9,37.8">
+      <TextObject Name="Text8" Left="9.45" Width="321.3" Height="56.7" Text="Генеральный директор ООО &quot;Росмедстрах - К&quot;" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text13" Left="406.35" Top="18.9" Width="113.4" Height="18.9" Text="Е.Н. Денисов" HorzAlign="Center" VertAlign="Center"/>
+    </ReportSummaryBand>
+  </ReportPage>
+</Report>

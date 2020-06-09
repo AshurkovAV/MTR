@@ -1,0 +1,274 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report ScriptLanguage="CSharp" DoublePass="true" ReportInfo.Created="06/20/2009 22:40:42" ReportInfo.Modified="11/27/2013 22:27:20" ReportInfo.CreatorVersion="1.8.1.0">
+  <ScriptText>using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Windows.Forms;
+using System.Drawing;
+using System.Data;
+using FastReport;
+using FastReport.Data;
+using FastReport.Dialog;
+using FastReport.Barcode;
+using FastReport.Table;
+using FastReport.Utils;
+
+namespace FastReport
+{
+  public class ReportScript
+  {
+   
+  }
+}
+</ScriptText>
+  <Dictionary>
+    <BusinessObjectDataSource Name="dataSrc" ReferenceName="dataSrc" DataType="System.Collections.Generic.List`1[[Medical.Economic.Data.Reports.ReportReviseCustomModel, Economic, Version=1.0.0.1420, Culture=neutral, PublicKeyToken=null]]" Enabled="true">
+      <Column Name="AmountPayable" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+      <Column Name="AmountFact" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+      <Column Name="AmountRefuse" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+      <Column Name="CurrentBalance" DataType="Medical.Economic.Data.Reports.ReportReviseBalanceCustomModel, Economic, Version=1.0.0.1420, Culture=neutral, PublicKeyToken=null">
+        <Column Name="AccountNumber" DataType="System.String"/>
+        <Column Name="AccountDate" DataType="System.Nullable`1[[System.DateTime, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+        <Column Name="Amount" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+        <Column Name="AccountId" DataType="System.Int32"/>
+        <Column Name="EconomicDate" DataType="System.Nullable`1[[System.DateTime, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+      </Column>
+      <Column Name="BeginBalance" DataType="Medical.Economic.Data.Reports.ReportReviseBalanceCustomModel, Economic, Version=1.0.0.1420, Culture=neutral, PublicKeyToken=null">
+        <Column Name="AccountNumber" DataType="System.String"/>
+        <Column Name="AccountDate" DataType="System.Nullable`1[[System.DateTime, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+        <Column Name="Amount" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+        <Column Name="AccountId" DataType="System.Int32"/>
+        <Column Name="EconomicDate" DataType="System.Nullable`1[[System.DateTime, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+      </Column>
+      <Column Name="EndBalance" DataType="Medical.Economic.Data.Reports.ReportReviseBalanceCustomModel, Economic, Version=1.0.0.1420, Culture=neutral, PublicKeyToken=null">
+        <Column Name="AccountNumber" DataType="System.String"/>
+        <Column Name="AccountDate" DataType="System.Nullable`1[[System.DateTime, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+        <Column Name="Amount" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+        <Column Name="AccountId" DataType="System.Int32"/>
+        <Column Name="EconomicDate" DataType="System.Nullable`1[[System.DateTime, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+      </Column>
+    </BusinessObjectDataSource>
+    <BusinessObjectDataSource Name="dataDst" ReferenceName="dataDst" DataType="System.Collections.Generic.List`1[[Medical.Economic.Data.Reports.ReportReviseCustomModel, Economic, Version=1.0.0.1420, Culture=neutral, PublicKeyToken=null]]" Enabled="true">
+      <Column Name="AmountPayable" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+      <Column Name="AmountFact" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+      <Column Name="AmountRefuse" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+      <Column Name="CurrentBalance" DataType="Medical.Economic.Data.Reports.ReportReviseBalanceCustomModel, Economic, Version=1.0.0.1420, Culture=neutral, PublicKeyToken=null">
+        <Column Name="AccountNumber" DataType="System.String"/>
+        <Column Name="AccountDate" DataType="System.Nullable`1[[System.DateTime, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+        <Column Name="Amount" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+        <Column Name="AccountId" DataType="System.Int32"/>
+        <Column Name="EconomicDate" DataType="System.Nullable`1[[System.DateTime, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+      </Column>
+      <Column Name="BeginBalance" DataType="Medical.Economic.Data.Reports.ReportReviseBalanceCustomModel, Economic, Version=1.0.0.1420, Culture=neutral, PublicKeyToken=null">
+        <Column Name="AccountNumber" DataType="System.String"/>
+        <Column Name="AccountDate" DataType="System.Nullable`1[[System.DateTime, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+        <Column Name="Amount" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+        <Column Name="AccountId" DataType="System.Int32"/>
+        <Column Name="EconomicDate" DataType="System.Nullable`1[[System.DateTime, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+      </Column>
+      <Column Name="EndBalance" DataType="Medical.Economic.Data.Reports.ReportReviseBalanceCustomModel, Economic, Version=1.0.0.1420, Culture=neutral, PublicKeyToken=null">
+        <Column Name="AccountNumber" DataType="System.String"/>
+        <Column Name="AccountDate" DataType="System.Nullable`1[[System.DateTime, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+        <Column Name="Amount" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+        <Column Name="AccountId" DataType="System.Int32"/>
+        <Column Name="EconomicDate" DataType="System.Nullable`1[[System.DateTime, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+      </Column>
+    </BusinessObjectDataSource>
+    <Parameter Name="BeginDate" DataType="System.DateTime"/>
+    <Parameter Name="EndDate" DataType="System.DateTime"/>
+    <Parameter Name="TerritorySrc" DataType="Medical.DatabaseInsAddIn.DataModel.localF001, DatabaseInsAddIn, Version=1.0.0.758, Culture=neutral, PublicKeyToken=null"/>
+    <Parameter Name="territoryDst" DataType="Medical.DatabaseInsAddIn.DataModel.localF001, DatabaseInsAddIn, Version=1.0.0.758, Culture=neutral, PublicKeyToken=null"/>
+    <Parameter Name="TerritorySrcRegionName" DataType="System.String"/>
+    <Parameter Name="territoryDstRegionName" DataType="System.String"/>
+    <Parameter Name="TerritorySrcShortName" DataType="System.String"/>
+    <Parameter Name="territoryDstShortName" DataType="System.String"/>
+    <Parameter Name="TerritorySrcPositionName" DataType="System.String"/>
+    <Parameter Name="territoryDstPositionName" DataType="System.String"/>
+    <Parameter Name="TerritorySrcFullName" DataType="System.String"/>
+    <Parameter Name="territoryDstFullName" DataType="System.String"/>
+  </Dictionary>
+  <ReportPage Name="Page1" Landscape="true" PaperWidth="297" PaperHeight="210" RawPaperSize="9" FinishPageEvent="Page1_FinishPage">
+    <ReportTitleBand Name="ReportTitle1" Width="1047.06" Height="185.22">
+      <TextObject Name="Text4" Width="1047.06" Height="18.9" Text="АКТ" HorzAlign="Center" Font="Times New Roman, 10pt">
+        <Formats>
+          <GeneralFormat/>
+          <DateFormat/>
+        </Formats>
+      </TextObject>
+      <TableObject Name="Table1" Top="92.61" Width="1046.94" Height="92.61">
+        <TableColumn Name="Column54" Width="124.06"/>
+        <TableColumn Name="Column55" Width="108.95"/>
+        <TableColumn Name="Column56" Width="105.16"/>
+        <TableColumn Name="Column57" Width="156.19"/>
+        <TableColumn Name="Column58" Width="144.87"/>
+        <TableColumn Name="Column59" Width="142.19"/>
+        <TableColumn Name="Column60" Width="132.76"/>
+        <TableColumn Name="Column61" Width="132.76"/>
+        <TableRow Name="Row7" Height="26.46">
+          <TableCell Name="Cell118" Border.Lines="All" Text="Территориальный фонд ОМС по месту оказания медицинской помощи [TerritorySrcShortName]" HorzAlign="Center" Font="Arial, 8pt" ColSpan="8"/>
+          <TableCell Name="Cell119"/>
+          <TableCell Name="Cell120"/>
+          <TableCell Name="Cell121"/>
+          <TableCell Name="Cell122"/>
+          <TableCell Name="Cell143"/>
+          <TableCell Name="Cell144"/>
+          <TableCell Name="Cell145"/>
+        </TableRow>
+        <TableRow Name="Row8" Height="28.35">
+          <TableCell Name="Cell123" Border.Lines="All" Text="сальдо на начало отчетного периода" HorzAlign="Center" Font="Arial, 8pt" ColSpan="2"/>
+          <TableCell Name="Cell124"/>
+          <TableCell Name="Cell125" Border.Lines="All" Text="номер счета, дата" HorzAlign="Center" Font="Arial, 8pt" RowSpan="2"/>
+          <TableCell Name="Cell126" Border.Lines="All" Text="суммы счетов,&#13;&#10;предъявленных к возмещению (руб.)" HorzAlign="Center" Font="Arial, 8pt" RowSpan="2"/>
+          <TableCell Name="Cell127" Border.Lines="All" Text="суммы счетов, возмещенных (руб.)" HorzAlign="Center" Font="Arial, 8pt" RowSpan="2"/>
+          <TableCell Name="Cell154" Border.Lines="All" Text="суммы счетов,&#13;&#10;отказанных в возмещении (руб.)" HorzAlign="Center" Font="Arial, 8pt" RowSpan="2"/>
+          <TableCell Name="Cell155" Border.Lines="All" Text="сальдо на конец отчетного периода" HorzAlign="Center" Font="Arial, 8pt" ColSpan="2"/>
+          <TableCell Name="Cell156"/>
+        </TableRow>
+        <TableRow Name="Row9" Height="37.8">
+          <TableCell Name="Cell128" Border.Lines="All" Text="№ и дата счета" HorzAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell129" Border.Lines="All" Text="сумма (руб.)" HorzAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell130"/>
+          <TableCell Name="Cell131"/>
+          <TableCell Name="Cell132"/>
+          <TableCell Name="Cell165"/>
+          <TableCell Name="Cell166" Border.Lines="All" Text="№ и дата счета" HorzAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell167" Border.Lines="All" Text="сумма (руб.)" HorzAlign="Center" Font="Arial, 8pt"/>
+        </TableRow>
+      </TableObject>
+      <TextObject Name="Text1" Top="20.79" Width="1047.06" Height="45.36" Text="сверки счетов за медицинскую помощь, оказанную гражданам [territoryDstRegionName] в ЛПУ [TerritorySrcRegionName],&#13;&#10;за период с [BeginDate] по [EndDate]" HorzAlign="Center">
+        <Formats>
+          <GeneralFormat/>
+          <GeneralFormat/>
+          <DateFormat/>
+          <DateFormat/>
+        </Formats>
+      </TextObject>
+    </ReportTitleBand>
+    <DataBand Name="Data1" Top="189.07" Width="1047.06" Height="26.46" CanGrow="true" CanShrink="true" DataSource="dataSrc" ParentIdColumn="data.RecordsCollection.RecordNumber">
+      <TableObject Name="Table3" Width="1046.94" Height="26.46">
+        <TableColumn Name="Column78" Width="124.06"/>
+        <TableColumn Name="Column79" Width="108.95"/>
+        <TableColumn Name="Column80" Width="105.16"/>
+        <TableColumn Name="Column81" Width="156.19"/>
+        <TableColumn Name="Column82" Width="144.87"/>
+        <TableColumn Name="Column83" Width="142.19"/>
+        <TableColumn Name="Column84" Width="132.76"/>
+        <TableColumn Name="Column85" Width="132.76"/>
+        <TableRow Name="Row13" Height="26.46">
+          <TableCell Name="Cell216" Border.Lines="All" Text="[dataSrc.BeginBalance.AccountNumber]&#13;&#10;[dataSrc.BeginBalance.AccountDate]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt">
+            <Formats>
+              <GeneralFormat/>
+              <DateFormat/>
+            </Formats>
+          </TableCell>
+          <TableCell Name="Cell217" Border.Lines="All" Text="[dataSrc.BeginBalance.Amount]" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell218" Border.Lines="All" Text="[dataSrc.CurrentBalance.AccountNumber]&#13;&#10;[dataSrc.CurrentBalance.AccountDate]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt">
+            <Formats>
+              <GeneralFormat/>
+              <DateFormat/>
+            </Formats>
+          </TableCell>
+          <TableCell Name="Cell219" Border.Lines="All" Text="[dataSrc.AmountPayable]" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell220" Border.Lines="All" Text="[dataSrc.AmountFact]" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell221" Border.Lines="All" Text="[dataSrc.AmountRefuse]" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell222" Border.Lines="All" Text="[dataSrc.EndBalance.AccountNumber]&#13;&#10;[dataSrc.EndBalance.AccountDate]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt">
+            <Formats>
+              <GeneralFormat/>
+              <DateFormat/>
+            </Formats>
+          </TableCell>
+          <TableCell Name="Cell223" Border.Lines="All" Text="[dataSrc.EndBalance.Amount]" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+        </TableRow>
+      </TableObject>
+    </DataBand>
+    <ReportSummaryBand Name="ReportSummary1" Top="219.37" Width="1047.06" Height="253.26" PrintOnBottom="true">
+      <TextObject Name="Text2" Left="7.56" Top="92.61" Width="665.28" Height="160.65" Text="Директор [TerritorySrcShortName]__________________________ [TerritorySrcFullName]&#13;&#10;                               	          (подпись, расшифровка   подписи)                            &#13;&#10;&#13;&#10;&#13;&#10;Главный бухгалтер ТФОМС Курской области__________________________ &#13;&#10;               		(подпись, расшифровка подписи)&#13;&#10;&#13;&#10;    М.П.&#13;&#10;&#13;&#10;&#13;&#10;&#13;&#10;&#13;&#10;&#13;&#10;"/>
+    </ReportSummaryBand>
+  </ReportPage>
+  <ReportPage Name="Page2" Landscape="true" PaperWidth="297" PaperHeight="210">
+    <ReportTitleBand Name="ReportTitle2" Width="1047.06" Height="37.8"/>
+    <PageHeaderBand Name="PageHeader1" Top="41.65" Width="1047.06" Height="92.61">
+      <TableObject Name="Table2" Width="1047.16" Height="92.61">
+        <TableColumn Name="Column70" Width="124.12"/>
+        <TableColumn Name="Column71" Width="108.98"/>
+        <TableColumn Name="Column72" Width="105.19"/>
+        <TableColumn Name="Column73" Width="156.23"/>
+        <TableColumn Name="Column74" Width="144.9"/>
+        <TableColumn Name="Column75" Width="142.22"/>
+        <TableColumn Name="Column76" Width="132.76"/>
+        <TableColumn Name="Column77" Width="132.76"/>
+        <TableRow Name="Row10" Height="26.46">
+          <TableCell Name="Cell176" Border.Lines="All" Text="Территориальный фонд ОМС по месту оказания медицинской помощи [territoryDstShortName]" HorzAlign="Center" Font="Arial, 8pt" ColSpan="8"/>
+          <TableCell Name="Cell177"/>
+          <TableCell Name="Cell178"/>
+          <TableCell Name="Cell179"/>
+          <TableCell Name="Cell180"/>
+          <TableCell Name="Cell181"/>
+          <TableCell Name="Cell182"/>
+          <TableCell Name="Cell183"/>
+        </TableRow>
+        <TableRow Name="Row11" Height="28.35">
+          <TableCell Name="Cell192" Border.Lines="All" Text="сальдо на начало отчетного периода" HorzAlign="Center" Font="Arial, 8pt" ColSpan="2"/>
+          <TableCell Name="Cell193"/>
+          <TableCell Name="Cell194" Border.Lines="All" Text="номер счета, дата" HorzAlign="Center" Font="Arial, 8pt" RowSpan="2"/>
+          <TableCell Name="Cell195" Border.Lines="All" Text="суммы счетов,&#13;&#10;предъявленных к возмещению (руб.)" HorzAlign="Center" Font="Arial, 8pt" RowSpan="2"/>
+          <TableCell Name="Cell196" Border.Lines="All" Text="суммы счетов, возмещенных (руб.)" HorzAlign="Center" Font="Arial, 8pt" RowSpan="2"/>
+          <TableCell Name="Cell197" Border.Lines="All" Text="суммы счетов,&#13;&#10;отказанных в возмещении (руб.)" HorzAlign="Center" Font="Arial, 8pt" RowSpan="2"/>
+          <TableCell Name="Cell198" Border.Lines="All" Text="сальдо на конец отчетного периода" HorzAlign="Center" Font="Arial, 8pt" ColSpan="2"/>
+          <TableCell Name="Cell199"/>
+        </TableRow>
+        <TableRow Name="Row12" Height="37.8">
+          <TableCell Name="Cell208" Border.Lines="All" Text="№ и дата счета" HorzAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell209" Border.Lines="All" Text="сумма (руб.)" HorzAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell210"/>
+          <TableCell Name="Cell211"/>
+          <TableCell Name="Cell212"/>
+          <TableCell Name="Cell213"/>
+          <TableCell Name="Cell214" Border.Lines="All" Text="№ и дата счета" HorzAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell215" Border.Lines="All" Text="сумма (руб.)" HorzAlign="Center" Font="Arial, 8pt"/>
+        </TableRow>
+      </TableObject>
+    </PageHeaderBand>
+    <DataBand Name="Data2" Top="138.1" Width="1047.06" Height="26.46" DataSource="dataDst">
+      <TableObject Name="Table4" Width="1046.94" Height="26.46">
+        <TableColumn Name="Column86" Width="124.06"/>
+        <TableColumn Name="Column87" Width="108.95"/>
+        <TableColumn Name="Column88" Width="105.16"/>
+        <TableColumn Name="Column89" Width="156.19"/>
+        <TableColumn Name="Column90" Width="144.87"/>
+        <TableColumn Name="Column91" Width="142.19"/>
+        <TableColumn Name="Column92" Width="132.76"/>
+        <TableColumn Name="Column93" Width="132.76"/>
+        <TableRow Name="Row14" Height="26.46">
+          <TableCell Name="Cell224" Border.Lines="All" Text="[dataDst.BeginBalance.AccountNumber]&#13;&#10;[dataDst.BeginBalance.AccountDate]" HorzAlign="Center" Font="Arial, 8pt">
+            <Formats>
+              <GeneralFormat/>
+              <DateFormat/>
+            </Formats>
+          </TableCell>
+          <TableCell Name="Cell225" Border.Lines="All" Text="[dataDst.BeginBalance.Amount]" Format="Number" Format.UseLocale="true" HorzAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell226" Border.Lines="All" Text="[dataDst.CurrentBalance.AccountNumber]&#13;&#10;[dataDst.CurrentBalance.AccountDate]" HorzAlign="Center" Font="Arial, 8pt">
+            <Formats>
+              <GeneralFormat/>
+              <DateFormat/>
+            </Formats>
+          </TableCell>
+          <TableCell Name="Cell227" Border.Lines="All" Text="[dataDst.AmountPayable]" Format="Number" Format.UseLocale="true" HorzAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell228" Border.Lines="All" Text="[dataDst.AmountFact]" Format="Number" Format.UseLocale="true" HorzAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell229" Border.Lines="All" Text="[dataDst.AmountRefuse]" Format="Number" Format.UseLocale="true" HorzAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell230" Border.Lines="All" Text="[dataDst.EndBalance.AccountNumber]&#13;&#10;[dataDst.EndBalance.AccountDate]" HorzAlign="Center" Font="Arial, 8pt">
+            <Formats>
+              <GeneralFormat/>
+              <DateFormat/>
+            </Formats>
+          </TableCell>
+          <TableCell Name="Cell231" Border.Lines="All" Text="[dataDst.EndBalance.Amount]" Format="Number" Format.UseLocale="true" HorzAlign="Center" Font="Arial, 8pt"/>
+        </TableRow>
+      </TableObject>
+    </DataBand>
+    <PageFooterBand Name="PageFooter2" Top="168.41" Width="1047.06" Height="255.15">
+      <TextObject Name="Text3" Left="5.67" Top="94.5" Width="1037.61" Height="160.65" Text="Директор [territoryDstShortName]__________________________ [territoryDstFullName]&#13;&#10;                               	          (подпись, расшифровка   подписи)                            &#13;&#10;&#13;&#10;&#13;&#10;Главный бухгалтер [territoryDstShortName]__________________________ &#13;&#10;               		(подпись, расшифровка подписи)&#13;&#10;&#13;&#10;    М.П.&#13;&#10;&#13;&#10;&#13;&#10;&#13;&#10;&#13;&#10;&#13;&#10;"/>
+    </PageFooterBand>
+  </ReportPage>
+</Report>

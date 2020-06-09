@@ -1,0 +1,110 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report ScriptLanguage="CSharp" ReportInfo.Created="11/07/2013 01:06:27" ReportInfo.Modified="03/28/2014 13:21:09" ReportInfo.CreatorVersion="2013.4.4.0">
+  <Dictionary>
+    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlq+rW0RkboK+/8CKGGYUID3ctBV8q9SvKYxl3iiE7vBnh7Tgou0+4WFf3NfmPSvHVFCjCPzCp3SWULwyFIreHyX9hhy7eVPz1nrB8Oiury3x2eTahgqK+rXwpgUlxtKiqWd3TmHrOEJSk175wDufYzDjOtCoXepZXKqmOO6PV5bOXxZmb+SjBvVVQOcA5aXPma">
+      <TableDataSource Name="Table" Alias="SCHET" DataType="System.Int32" Enabled="true" SelectCommand="select * from schet s&#13;&#10;left join F003Local f on s.CODE_MO = f.mcod &#13;&#10;where id = @p">
+        <Column Name="ID" DataType="System.Int32"/>
+        <Column Name="CODE" DataType="System.Int32"/>
+        <Column Name="CODE_MO" DataType="System.String"/>
+        <Column Name="YEAR" DataType="System.Int32"/>
+        <Column Name="MONTH" DataType="System.Int32"/>
+        <Column Name="NSCHET" DataType="System.String"/>
+        <Column Name="DSCHET" DataType="System.DateTime"/>
+        <Column Name="PLAT" DataType="System.String"/>
+        <Column Name="SUMMAV" DataType="System.Decimal"/>
+        <Column Name="COMENTS" DataType="System.String"/>
+        <Column Name="SUMMAP" DataType="System.Decimal"/>
+        <Column Name="SANK_MEK" DataType="System.Decimal"/>
+        <Column Name="SANK_MEE" DataType="System.Decimal"/>
+        <Column Name="SANK_EKMP" DataType="System.Decimal"/>
+        <Column Name="COUNT_SL" DataType="System.Int32"/>
+        <Column Name="mcod" DataType="System.String"/>
+        <Column Name="nam_mok" DataType="System.String"/>
+        <Column Name="fam_ruk" DataType="System.String"/>
+        <Column Name="im_ruk" DataType="System.String"/>
+        <Column Name="ot_ruk" DataType="System.String"/>
+        <Column Name="phone" DataType="System.String"/>
+        <Column Name="addr_j" DataType="System.String"/>
+        <CommandParameter Name="@p" DataType="8" Expression="[@p]" DefaultValue="2"/>
+      </TableDataSource>
+      <TableDataSource Name="Table1" DataType="System.Int32" Enabled="true" SelectCommand="select pa.FAM, pa.IM, pa.OT, pa.DR, pa.NPOLIS, s.S_OSN, mee.AKT_NUMBER, mee.SUMNP,&#13;&#10;SUBSTRING(mee.ZAKL,0,250) as ZAKL, sl.OPLATA, sl.SUMV&#13;&#10;from sluch sl&#13;&#10;join PACIENT pa on sl.PID = pa.ID&#13;&#10;join SANK s on sl.ID = s.SLID and s.S_TIP = 2&#13;&#10;join AKT_MEE_TBL mee on s.ID = mee.SANKID&#13;&#10;where sl.SCHET_ID = @p and sl.OPLATA in (2,3)">
+        <Column Name="FAM" DataType="System.String"/>
+        <Column Name="IM" DataType="System.String"/>
+        <Column Name="OT" DataType="System.String"/>
+        <Column Name="DR" DataType="System.DateTime"/>
+        <Column Name="NPOLIS" DataType="System.String"/>
+        <Column Name="S_OSN" DataType="System.String"/>
+        <Column Name="AKT_NUMBER" DataType="System.Int32"/>
+        <Column Name="SUMNP" DataType="System.Decimal"/>
+        <Column Name="ZAKL" DataType="System.String"/>
+        <Column Name="OPLATA" DataType="System.Decimal"/>
+        <Column Name="SUMV" DataType="System.Decimal"/>
+        <CommandParameter Name="@p" DataType="8" Expression="[@p]" DefaultValue="2"/>
+      </TableDataSource>
+      <TableDataSource Name="Table3" Alias="SUMS" DataType="System.Int32" Enabled="true" SelectCommand="Select COUNT(*) mee_count, SUM(CASE WHEN t1.OPLATA in (2,3) THEN 1 END) sank_count,&#13;&#10;SUM(t1.SUMNP) SUMNP, SUM(t1.SUMP) SUMP&#13;&#10;From (select pa.FAM, pa.IM, pa.OT, pa.DR, pa.NPOLIS, s.S_OSN, mee.AKT_NUMBER, mee.SUMNP, sl.SUMP,&#13;&#10;SUBSTRING(mee.ZAKL,0,250) as ZAKL, sl.OPLATA from sluch sl&#13;&#10;join PACIENT pa on sl.PID = pa.ID&#13;&#10;join SANK s on sl.ID = s.SLID and s.S_TIP = 2&#13;&#10;join AKT_MEE_TBL mee on s.ID = mee.SANKID&#13;&#10;where sl.SCHET_ID = @p) as t1">
+        <Column Name="mee_count" DataType="System.Int32"/>
+        <Column Name="sank_count" DataType="System.Int32"/>
+        <Column Name="SUMNP" DataType="System.Decimal"/>
+        <Column Name="SUMP" DataType="System.Decimal"/>
+        <CommandParameter Name="@p" DataType="8" Expression="[@p]" DefaultValue="2"/>
+      </TableDataSource>
+      <TableDataSource Name="Table4" Alias="Period" DataType="System.Int32" Enabled="true" SelectCommand="Select CONVERT(DATETIME,CONVERT(nvarchar(4),s.[YEAR])+&#13;&#10;(CASE WHEN s.[MONTH] &lt; 10 THEN '0'+CONVERT(nvarchar(2),s.[MONTH]) &#13;&#10;ELSE CONVERT(nvarchar(2),s.[MONTH]) END)+'01')&#13;&#10;From SCHET s Where ID = @p">
+        <Column Name="Column1" DataType="System.DateTime"/>
+        <CommandParameter Name="@p" DataType="8" Expression="[@p]" DefaultValue="2"/>
+      </TableDataSource>
+    </MsSqlDataConnection>
+    <Parameter Name="@p" DataType="System.Int32"/>
+  </Dictionary>
+  <ReportPage Name="Page1" Guides="368.55,368.55,689.85">
+    <DataBand Name="Data1" Top="219.35" Width="718.2" Height="18.9" CanGrow="true" CanShrink="true" DataSource="Table1">
+      <TableObject Name="Table2" Width="718.2" Height="18.9">
+        <TableColumn Name="Column3" Width="226.8"/>
+        <TableColumn Name="Column4" Width="103.95"/>
+        <TableColumn Name="Column5" Width="75.6"/>
+        <TableColumn Name="Column15" Width="141.75"/>
+        <TableColumn Name="Column6" Width="170.1"/>
+        <TableRow Name="Row2" AutoSize="true">
+          <TableCell Name="Cell8" Border.Lines="All" Text="[Table1.NPOLIS]" Font="Arial, 8pt, style=Bold"/>
+          <TableCell Name="Cell9" Border.Lines="All" Text="[Table1.S_OSN]" HorzAlign="Center" Font="Arial, 8pt, style=Bold"/>
+          <TableCell Name="Cell10" Border.Lines="All" Text="[Table1.AKT_NUMBER]" HorzAlign="Center" Font="Arial, 8pt, style=Bold"/>
+          <TableCell Name="Cell22" Border.Lines="All" Text="[Table1.SUMV]" Format="Number" Format.UseLocale="true" HorzAlign="Center" Font="Arial, 8pt, style=Bold"/>
+          <TableCell Name="Cell12" Border.Lines="All" Text="[Table1.SUMNP]" Format="Number" Format.UseLocale="true" HorzAlign="Center" Font="Arial, 8pt, style=Bold"/>
+        </TableRow>
+      </TableObject>
+      <DataHeaderBand Name="DataHeader1" Width="718.2" Height="217.35">
+        <TableObject Name="Table2" Top="179.55" Width="718.2" Height="37.8">
+          <TableColumn Name="Column10" Width="226.8"/>
+          <TableColumn Name="Column11" Width="103.95"/>
+          <TableColumn Name="Column12" Width="75.6"/>
+          <TableColumn Name="Column14" Width="141.75"/>
+          <TableColumn Name="Column13" Width="170.1"/>
+          <TableRow Name="Row3" Height="37.8">
+            <TableCell Name="Cell17" Border.Lines="All" Text="Полис ОМС" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+            <TableCell Name="Cell18" Border.Lines="All" Text="Пункт нарушения" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+            <TableCell Name="Cell19" Border.Lines="All" Text="Номер акта" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+            <TableCell Name="Cell21" Border.Lines="All" Text="Сумма выставленная МО" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+            <TableCell Name="Cell20" Border.Lines="All" Text="Сумма уменьшения" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          </TableRow>
+        </TableObject>
+        <TextObject Name="Text40" Width="689.85" Height="18.9" Text="Реестр актов медико-экономической экспертизы" HorzAlign="Center" Font="Arial, 11pt, style=Bold"/>
+        <TextObject Name="Text46" Top="18.9" Width="689.85" Height="18.9" Text="N _______ от &quot;______&quot; _____________________ 201_ г. за [Period.Column1]" Format="Date" Format.Format="MMMM yyyy" HorzAlign="Center" Font="Arial, 10pt, style=Bold"/>
+        <TextObject Name="Text41" Top="56.45" Width="689.85" Height="18.9" Text="Медицинская организация ___________________________________________________"/>
+        <TextObject Name="Text47" Left="207.9" Top="56.7" Width="481.95" Height="18.9" Text="[SCHET.nam_mok]" Font="Arial, 10pt, style=Bold"/>
+        <TextObject Name="Text43" Top="85.05" Width="689.85" Height="28.35" Text="1. Количество рассмотренной медицинской документации _______________ (кол-во амб.&#13;&#10;карт, ист. болезни и т.п.)&#13;&#10;"/>
+        <TextObject Name="Text44" Top="117.4" Width="689.85" Height="18.9" Text="2. Выявлено несоответствие счета записям на сумму _______________ руб."/>
+        <TextObject Name="Text45" Top="136.3" Width="689.85" Height="37.8" Text="3. Выявлено  дефектов медицинской помощи/нарушений при оказании медицинской&#13;&#10;помощи: ______________________________________"/>
+        <TextObject Name="Text1" Left="378" Top="81.6" Width="110.7" Height="18.9" Text="[SUMS.mee_count]" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+        <TextObject Name="Text2" Left="56.7" Top="148.75" Width="274.05" Height="18.9" Text="[SUMS.sank_count]" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+        <TextObject Name="Text50" Left="347.65" Top="115.85" Width="113.4" Height="18.9" Text="[SUMS.SUMNP]" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center" WordWrap="false" Font="Arial, 10pt, style=Bold" Trimming="EllipsisCharacter"/>
+      </DataHeaderBand>
+      <DataFooterBand Name="DataFooter1" Top="240.25" Width="718.2" Height="359.1">
+        <TextObject Name="Text13" Top="18.9" Width="689.85" Height="18.9" Text="Всего не подлежит оплате сумма _______________ руб."/>
+        <TextObject Name="Text22" Top="66.15" Width="689.85" Height="18.9" Text="Специалист-эксперт ________________________________"/>
+        <TextObject Name="Text24" Top="103.95" Width="689.85" Height="85.05" Text="Директор ТФОМС Курской области				А. В. Курцев&#13;&#10;&#13;&#10;&#13;&#10;Главный бухгалтер ТФОМС Курской области			С. А. Чернышева"/>
+        <TextObject Name="Text29" Top="189" Width="689.85" Height="18.9" Text="М.П."/>
+        <TextObject Name="Text3" Left="219.35" Top="16.9" Width="113.4" Height="18.9" Text="[SUMS.SUMNP]" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center" WordWrap="false" Font="Arial, 10pt, style=Bold" Trimming="EllipsisCharacter"/>
+        <TextObject Name="Text51" Top="245.7" Width="689.85" Height="18.9" Text="Согласовано руководитель МО _________________________________________________"/>
+      </DataFooterBand>
+    </DataBand>
+  </ReportPage>
+</Report>
