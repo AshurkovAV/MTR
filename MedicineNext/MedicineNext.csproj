@@ -257,7 +257,7 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\RegistryUpload.SlashScreenYamed\Omsit.UpdateSlashScreen.csproj">
+    <ProjectReference Include="..\RegistryUpload.SlashScreenOmsit\Omsit.UpdateSlashScreen.csproj">
       <Project>{bda0234f-3c92-4c9c-a758-12f939ae7e94}</Project>
       <Name>Omsit.UpdateSlashScreen</Name>
     </ProjectReference>

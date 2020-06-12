@@ -19,7 +19,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MedicineNext", "MedicineNex
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UpdateService", "C:\Users\Алексей\Documents\Visual Studio 2015\Projects\MedicineUpdate\UpdateService\UpdateService.csproj", "{EFE95403-C587-4728-A586-63B4A3ECBE91}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Omsit.UpdateSlashScreen", "..\..\RegistryUpload.SlashScreenYamed\Omsit.UpdateSlashScreen.csproj", "{BDA0234F-3C92-4C9C-A758-12F939AE7E94}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Omsit.UpdateSlashScreen", "RegistryUpload.SlashScreenOmsit\Omsit.UpdateSlashScreen.csproj", "{BDA0234F-3C92-4C9C-A758-12F939AE7E94}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

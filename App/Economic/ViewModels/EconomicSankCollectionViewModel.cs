@@ -59,7 +59,7 @@ namespace Medical.AppLayer.Economic.ViewModels
         private ZslEventShortView _selecttedEventShortView;
         private string _selectedTerritory;
         private string _selectedYear;
-        private List<int> _idAccounts;
+        private int _idAct;
 
         private RelayCommand _resetTerritoryCommand;
         private RelayCommand _resetDirectionCommand;
@@ -108,14 +108,14 @@ namespace Medical.AppLayer.Economic.ViewModels
             IDockLayoutManager dockManager, 
             INotifyManager notifyManager,
             IOverlayManager overlayManager,
-            List<int> idAccounts)
+            int idAct)
         {
             _messageService = messageService;
             _repository = repository;
             _dockManager = dockManager;
             _notifyManager = notifyManager;
             _overlayManager = overlayManager;
-            _idAccounts = idAccounts;
+            _idAct = idAct;
             Initialize();
             SelectedYear = DateTime.Now.Year.ToString(CultureInfo.InvariantCulture);
             SelectedDirection = 0;
@@ -124,13 +124,13 @@ namespace Medical.AppLayer.Economic.ViewModels
 
         private void Initialize()
         {
-            //Expression<Func<SankShortView, bool>> predicate = PredicateBuilder.True<SankShortView>();
-            //predicate = predicate.And(p => _idAccounts != null && _idAccounts.Contains((int) p.AccountId));
-            //using (var scope = Di.I.BeginLifetimeScope())
-            //{
-            //    EventListSource =
-            //        scope.Resolve<PLinqZEventExtendedList>(new NamedParameter("predicate", predicate));
-            //}
+            Expression<Func<SankShortView, bool>> predicate = PredicateBuilder.True<SankShortView>();
+            predicate = predicate.And(p => _idAct != null && p.ActExpertiseId == _idAct);
+            using (var scope = Di.I.BeginLifetimeScope())
+            {
+                EventListSource =
+                    scope.Resolve<PLinqSankList>(new NamedParameter("predicate", predicate));
+            }
         }
 
         public ICommand ViewAccountCommand => _viewAccountCommand ??
