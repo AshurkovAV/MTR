@@ -2916,6 +2916,26 @@ namespace Medical.DatabaseCore.Services.Database
             }
         }
 
+        public TransactionResult<IEnumerable<SankShortView>> GetSankShortView(Expression<Func<SankShortView, bool>> predicate)
+        {
+            using (var db = CreateContext())
+            {
+                var result = new TransactionResult<IEnumerable<SankShortView>>();
+                try
+                {
+                    result.Data = predicate == null ?
+                        db.SankShortView.ToList() :
+                        db.SankShortView.Where(predicate).ToList();
+
+                }
+                catch (Exception exception)
+                {
+                    result.AddError(exception);
+                }
+                return result;
+            }
+        }
+
         public TransactionResult<IEnumerable<ActExpertiseShortView>> GetActExpertiseShortView(Expression<Func<ActExpertiseShortView, bool>> predicate)
         {
             using (var db = CreateContext())

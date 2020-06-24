@@ -59,7 +59,7 @@
       <RowDefinition Height="550*" />
     </Grid.RowDefinitions>
 
-    <dx:PLinqInstantFeedbackDataSource Name="pLinqInstantDataSource" ListSource="{Binding Path=EventListSource}" />
+    <dx:PLinqInstantFeedbackDataSource Name="pLinqInstantDataSource" ListSource="{Binding Path=SankListSource}" />
     <dx:PLinqInstantFeedbackDataSource Name="pLinqAccountDataSource" ListSource="{Binding Path=AccountListSource}" />
 
     <dxb:BarContainerControl Grid.Row="0" DockPanel.Dock="Top">

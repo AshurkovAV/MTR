@@ -302,7 +302,7 @@ namespace Medical.AppLayer.Economic.ViewModels
         {
             try
             {
-                if (FilteredListSource.Any())
+                if (CurrentRow != null)
                 {
                     VidControls vidControls;
                     switch (CurrentRow.VidControlId)
@@ -367,8 +367,10 @@ namespace Medical.AppLayer.Economic.ViewModels
                 if (statusResult.Success)
                 {
                     CurrentRow.ActExspertiStatusId = status;
+                    RefreshAct();
                     CurrentRow.UpdateProperty("ActExspertiStatusId");
                     _notifyManager.ShowNotify("Статус акта экспертизы успешно изменен.");
+                    
                 }
             }
             catch (Exception exception)
@@ -455,6 +457,10 @@ namespace Medical.AppLayer.Economic.ViewModels
                         _notifyManager.ShowNotify("Данные акта успешно добавлены.");
                         view.Close();
                     }
+                    else
+                    {
+                        _notifyManager.ShowNotify($"Ошибка при сохранении.{result.LastError.Message}");
+                    }
 
                 };
                 view.ShowDialog();
@@ -490,6 +496,10 @@ namespace Medical.AppLayer.Economic.ViewModels
                         RefreshAct();
                         _notifyManager.ShowNotify("Данные акта успешно обновлены.");
                         view.Close();
+                    }
+                    else
+                    {
+                        _notifyManager.ShowNotify($"Ошибка {result.LastError.Message}");
                     }
 
                 };

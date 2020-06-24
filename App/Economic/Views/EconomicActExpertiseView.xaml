@@ -117,9 +117,15 @@
                                 Visible="False" />
                 <dxg:GridColumn FieldName="NumAct" Header="Номер акта экспертизы" />
                 <dxg:GridColumn FieldName="DateAct" Header="Дата акта" />
-                <dxg:GridColumn FieldName="MoShort" Header="МО" />
-                <dxg:GridColumn FieldName="SmoShort" Header="CМО" />
-                <dxg:GridColumn FieldName="VidControlShort" Header="Вид контроля" />
+                <dxg:GridColumn FieldName="MoShort"
+                                Header="МО"
+                                Visible="False" />
+                <dxg:GridColumn FieldName="SmoShort"
+                                GroupIndex="1"
+                                Header="CМО" />
+                <dxg:GridColumn FieldName="VidControlShort"
+                                GroupIndex="0"
+                                Header="Вид контроля" />
                 <dxg:GridColumn FieldName="VidExpertiseShort" Header="Вид экспертизы" />
                 <dxg:GridColumn FieldName="DateExpertiseBegin" Header="Дата проведения с" />
                 <dxg:GridColumn FieldName="DateExpertiseEnd" Header="Дата проведения по" />
@@ -158,15 +164,17 @@
 
         </dxlc:LayoutControl>
       </Grid>
-      <Grid Grid.ZIndex="1000">
+      <!--<Grid Grid.ZIndex="1000">
         <controls:Flyout Header="Редактирование акта экспертизы"
                          IsOpen="{Binding IsAddPaymentOpen}"
                          Position="Right">
-          <!--<Grid Margin="10" HorizontalAlignment="Stretch">
+      -->
+      <!--<Grid Margin="10" HorizontalAlignment="Stretch">
             <views:AddPaymentView DataContext="{Binding AddPaymentModel}" />
           </Grid>-->
+      <!--
         </controls:Flyout>
-      </Grid>
+      </Grid>-->
 
 
 

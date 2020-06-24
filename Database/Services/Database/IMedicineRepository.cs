@@ -687,6 +687,7 @@ namespace Medical.DatabaseCore.Services.Database
 
         TransactionResult<IEnumerable<EventExtendedView>> GetEventExtendedView(Expression<Func<EventExtendedView, bool>> predicate = null);
 
+        TransactionResult<IEnumerable<SankShortView>> GetSankShortView(Expression<Func<SankShortView, bool>> predicate);
         void UpdateGuid(int accountId);
     }
 }

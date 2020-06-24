@@ -201,6 +201,9 @@ namespace Medical.AppLayer
 
             builder.RegisterType<EconomicJournalViewModel>().AsSelf();
             builder.RegisterType<PLinqEconomicJournalList>().AsSelf();
+
+            builder.RegisterType<PLinqSankList>().AsSelf();
+            
             #endregion
 
             #region Search

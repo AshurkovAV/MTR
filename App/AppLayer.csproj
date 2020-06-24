@@ -325,6 +325,7 @@
     <Compile Include="Linq\Log\PLinqMedicineLogBase.cs" />
     <Compile Include="Linq\Log\PLinqLogList.cs" />
     <Compile Include="Linq\PLinqActsList.cs" />
+    <Compile Include="Linq\PLinqSankList.cs" />
     <Compile Include="Linq\PLinqEconomicActExpertiseList.cs" />
     <Compile Include="Linq\PLinqZEventExtendedList.cs" />
     <Compile Include="Linq\PLinqEventExtendedList.cs" />

@@ -52,7 +52,7 @@ namespace Medical.AppLayer.Economic.ViewModels
 
         private FactTerritoryAccount _currentRow;
 
-        private object _eventListSource;
+        private object _sankListSource;
         private PLinqAccountList _accountListSource;
      
         private int? _selectedDirection;
@@ -128,7 +128,7 @@ namespace Medical.AppLayer.Economic.ViewModels
             predicate = predicate.And(p => _idAct != null && p.ActExpertiseId == _idAct);
             using (var scope = Di.I.BeginLifetimeScope())
             {
-                EventListSource =
+                SankListSource =
                     scope.Resolve<PLinqSankList>(new NamedParameter("predicate", predicate));
             }
         }
@@ -162,7 +162,7 @@ namespace Medical.AppLayer.Economic.ViewModels
             get
             {
                 return _refreshEventListCommand??
-                       (_refreshEventListCommand = new RelayCommand(RefreshEvent));
+                       (_refreshEventListCommand = new RelayCommand(RefreshSank));
             }
         }
         public ICommand EditAccountCommand => _editAccountCommand ??
@@ -174,7 +174,7 @@ namespace Medical.AppLayer.Economic.ViewModels
         public ICommand ViewAccountSrzCommand => _viewAccountSrzCommand ??
                                              (_viewAccountSrzCommand = new RelayCommand(ViewAccountSrz, CanViewAccountSrz));
         public ICommand ReloadCommand => _reloadCommand ??
-                                                     (_reloadCommand = new RelayCommand(RefreshAccount));
+                                                     (_reloadCommand = new RelayCommand(RefreshSank));
         public ICommand ViewExchangeCommand => _viewExchangeCommand ??
                                              (_viewExchangeCommand = new RelayCommand(ViewExchange, CanViewExchange));
         public ICommand DeleteAccountCommand => _deleteAccountCommand ??
@@ -262,24 +262,23 @@ namespace Medical.AppLayer.Economic.ViewModels
                 _addEqmaCommand.RaiseCanExecuteChanged();
                 _viewActCommand.RaiseCanExecuteChanged();
 
-                RefreshEventList();
+                RefreshSankList();
             }
         }
 
-        private void RefreshEventList()
+        private void RefreshSankList()
         {
             if (_currentRow != null)
             {
-                if (Constants.ZterritoryVersionNull.Contains(CurrentRow.Version))
+
+                Expression<Func<SankShortView, bool>> predicate = PredicateBuilder.True<SankShortView>();
+                predicate = predicate.And(p => _idAct != null && p.ActExpertiseId == _idAct);
+                using (var scope = Di.I.BeginLifetimeScope())  
                 {
-                    //Expression<Func<ZslEventShortView, bool>> predicate = PredicateBuilder.True<ZslEventShortView>();
-                    //predicate = predicate.And(p => p.AccountId == _currentRow.TerritoryAccountId);
-                    //using (var scope = Di.I.BeginLifetimeScope())
-                    //{
-                    //    EventListSource =
-                    //        scope.Resolve<PLinqZEventExtendedList>(new NamedParameter("predicate", predicate));
-                    //}
+                    SankListSource =
+                        scope.Resolve<PLinqSankList>(new NamedParameter("predicate", predicate));
                 }
+
             }
         }
 
@@ -327,14 +326,14 @@ namespace Medical.AppLayer.Economic.ViewModels
         }
 
 
-        public object EventListSource
+        public object SankListSource
         {
-            get { return _eventListSource; }
+            get { return _sankListSource; }
             set
             {
-                if (_eventListSource == value) return;
-                _eventListSource = value;
-                RaisePropertyChanged("EventListSource");
+                if (_sankListSource == value) return;
+                _sankListSource = value;
+                RaisePropertyChanged("SankListSource");
             }
         }
 
@@ -678,7 +677,7 @@ namespace Medical.AppLayer.Economic.ViewModels
             AccountListSource = Di.I.Resolve<PLinqAccountList>(new NamedParameter("predicate", predicate));
         }
 
-        private void RefreshAccount()
+        private void RefreshSank()
         {
             UpdateFilter();
         }
@@ -804,9 +803,9 @@ namespace Medical.AppLayer.Economic.ViewModels
             }
         }
 
-        private void RefreshEvent()
+        private void RefreshAccount()
         {
-            RefreshEventList();
+            RefreshSankList();
         }
 
         private bool CanOpenAccount()

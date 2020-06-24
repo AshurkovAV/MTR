@@ -33,7 +33,7 @@
 		"MedicalAccountView", "PatientShortView", "TerritoryAccountView", "EventExtendedView", "EventShortView",
 		"shareDoctor", "shareMedicalDepartment", "shareOperatingSchedule", "shareRate", "shareMedicalSubdivision", "shareMedicalOrganizationProfile",
 		"subExpertAcademicDegree", "subExpertCertificate", "subQualificationCategory",  "subAcademicDegree", "FactExpertCriterion_copy","EconomicPartner",
-		"Version",
+		"Version", 
 		"ZFactDiagnosisSecondary", 
 		"ZslFactMedicalEvent", "ZslEventShortView",
 		"GeneralEventShortView", "ZslEventView",

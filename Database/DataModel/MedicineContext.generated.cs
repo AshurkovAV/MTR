@@ -3215,19 +3215,21 @@ namespace DataModel
 	[TableName(Name="SankShortView")]
 	public partial class SankShortView : BaseEntity
 	{
-		[Nullable] public string    PName        { get; set; } // nvarchar(40)
-		[Nullable] public string    Surname      { get; set; } // nvarchar(40)
-		[Nullable] public string    Patronymic   { get; set; } // nvarchar(40)
-		[Nullable] public DateTime? Birthday     { get; set; } // datetime(3)
-		[Nullable] public string    uslok        { get; set; } // nvarchar(257)
-		[Nullable] public DateTime? EventBegin   { get; set; } // datetime(3)
-		[Nullable] public DateTime? EventEnd     { get; set; } // datetime(3)
-		[Nullable] public string    ds1          { get; set; } // nvarchar(266)
-		[Nullable] public string    p_cel        { get; set; } // nvarchar(259)
-		[Nullable] public decimal?  AcceptPrice  { get; set; } // money(19,4)
-		[Nullable] public decimal?  Price        { get; set; } // money(19,4)
-		[Nullable] public decimal?  RefusalPrice { get; set; } // money(19,4)
-		[Nullable] public string    osn          { get; set; } // nvarchar(301)
+		[Nullable] public string    PName            { get; set; } // nvarchar(40)
+		[Nullable] public string    Surname          { get; set; } // nvarchar(40)
+		[Nullable] public string    Patronymic       { get; set; } // nvarchar(40)
+		[Nullable] public DateTime? Birthday         { get; set; } // datetime(3)
+		[Nullable] public string    uslok            { get; set; } // nvarchar(257)
+		[Nullable] public DateTime? EventBegin       { get; set; } // datetime(3)
+		[Nullable] public DateTime? EventEnd         { get; set; } // datetime(3)
+		[Nullable] public string    ds1              { get; set; } // nvarchar(266)
+		[Nullable] public string    p_cel            { get; set; } // nvarchar(259)
+		[Nullable] public decimal?  AcceptPrice      { get; set; } // money(19,4)
+		[Nullable] public decimal?  Price            { get; set; } // money(19,4)
+		[Nullable] public decimal?  RefusalPrice     { get; set; } // money(19,4)
+		[Nullable] public string    osn              { get; set; } // nvarchar(301)
+		[Nullable] public int?      MedicalAccountId { get; set; } // int(10)
+		[Nullable] public int?      ActExpertiseId   { get; set; } // int(10)
 
 	}
 
@@ -4409,6 +4411,7 @@ namespace DataModel
 		[Nullable               ] public string    SlidGuid          { get; set; } // nvarchar(36)
 		[Nullable               ] public string    NumAct            { get; set; } // nvarchar(30)
 		[Nullable               ] public string    CodeExp           { get; set; } // nvarchar(8)
+		[Nullable               ] public int?      ActExpertiseId    { get; set; } // int(10)
 
 		// ZFactSank_FactPatient
 		[Association(ThisKey="PatientId", OtherKey="PatientId", CanBeNull=true)]
